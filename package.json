@@ -1,0 +1,33 @@
+{
+  "name": "z3-solver-jsrp",
+  "version": "1.0.2",
+  "description": "z3-solver fork used in js-randomness-predictor",
+  "main": "dist/build/node.js",
+  "types": "dist/build/node.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE.txt"
+  ],
+  "directories": {
+    "doc": "doc",
+    "example": "examples"
+  },
+  "scripts": {
+    "install:js": "cd src/api/js && npm install",
+    "build": "rm -rf dist && cd src/api/js && npm run build && cd ../../.. && node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewoestreich/z3.git"
+  },
+  "author": "Microsoft and contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matthewoestreich/z3/issues"
+  },
+  "homepage": "https://github.com/matthewoestreich/z3#readme",
+  "dependencies": {
+    "async-mutex": "^0.5.0"
+  }
+}

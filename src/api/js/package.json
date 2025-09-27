@@ -22,6 +22,7 @@
     "build/**/*.{js,d.ts,wasm}"
   ],
   "scripts": {
+    "build": "rimraf build && npm run build:ts && npm run build:wasm",
     "build:ts": "run-s -l build:ts:generate build:ts:tsc",
     "build:ts:tsc": "tsc --pretty --project tsconfig.build.json ",
     "build:ts:generate": "ts-node --transpileOnly scripts/make-ts-wrapper.ts src/low-level/wrapper.__GENERATED__.ts src/low-level/types.__GENERATED__.ts",

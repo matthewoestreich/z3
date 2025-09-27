@@ -1,3 +1,9 @@
+# z3-solver-jsrp
+
+THIS IS A MODIFIED FORK OF Z3. THIS FORK IS MEANT TO GET Z3 WORKING IN BUN AND DENO.
+
+---
+
 # Z3
 
 Z3 is a theorem prover from Microsoft Research. 
