@@ -1,6 +1,6 @@
 {
   "name": "z3-solver-jsrp",
-  "version": "4.15.3",
+  "version": "4.15.3-republish",
   "description": "z3-solver fork used in js-randomness-predictor",
   "main": "dist/build/node.js",
   "types": "dist/build/node.d.ts",
