@@ -14,8 +14,10 @@
     "example": "examples"
   },
   "scripts": {
+    "prepublishOnly": "npm run build",
     "install:js": "cd src/api/js && npm install",
-    "build": "rm -rf dist && cd src/api/js && npm run build && cd ../../.. && node build.js"
+    "build": "rm -rf dist && cd src/api/js && npm run build && node ../../../build.js",
+    "copy:build:to:dist": "node build.js"
   },
   "repository": {
     "type": "git",
