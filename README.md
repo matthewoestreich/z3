@@ -1,6 +1,6 @@
 # z3-solver-jsrp
 
-THIS IS A MODIFIED FORK OF Z3. THIS FORK IS MEANT TO GET Z3 WORKING IN BUN AND DENO.
+Custom fork of z3 specifically meant for use within `js-randomness-predictor`.
 
 ---
 
