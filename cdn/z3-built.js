@@ -1338,10 +1338,13 @@ async function createWasm() {
         // We can't use makeModuleReceiveWithVar here since we want to also
         // call URL.createObjectURL on the mainScriptUrlOrBlob.
         if (Module['mainScriptUrlOrBlob']) {
+          console.log("Module['mainScriptUrlOrBlob] is true", { "Module['mainScriptUrlOrBlob]": Module['mainScriptUrlOrBlob'] });
           pthreadMainJs = Module['mainScriptUrlOrBlob'];
           if (typeof pthreadMainJs != 'string') {
             pthreadMainJs = URL.createObjectURL(pthreadMainJs);
           }
+        } else {
+          console.log("Module['mainScriptUrlOrBlob] is false", { "Module['mainScriptUrlOrBlob]": Module['mainScriptUrlOrBlob'] });
         }
         worker = new Worker(pthreadMainJs, {
           // This is the way that we signal to the node worker that it is hosting
