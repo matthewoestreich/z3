@@ -2,13 +2,14 @@ import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
 import prettier from 'prettier';
-import { asyncFuncs } from './async-fns';
+import { asyncFuncsBrowser, asyncFuncsServer } from './async-fns';
 import { enums, Func, FuncParam, functions, primitiveTypes, types } from './parse-api';
 
-assert(process.argv.length === 4, `Usage: ${process.argv[0]} ${process.argv[1]} wrapperFilePath typesFilePath`);
+assert(process.argv.length === 5, `Usage: ${process.argv[0]} ${process.argv[1]} wrapperFilePath typesFilePath (server|browser)`);
 
 const wrapperFilePath = process.argv[2];
 const typesFilePath = process.argv[3];
+const asyncFuncsType = process.argv[4];
 
 async function makeTsWrapper() {
   const subtypes = {
@@ -103,6 +104,7 @@ async function makeTsWrapper() {
     }
     // console.error(fn.name);
 
+    const asyncFuncs = asyncFuncsType === "browser" ? asyncFuncsBrowser : asyncFuncsServer;
     let isAsync = asyncFuncs.includes(fn.name);
     let trivial =
       !['string', 'boolean', 'unsigned'].includes(fn.ret) &&

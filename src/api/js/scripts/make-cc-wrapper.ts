@@ -1,10 +1,9 @@
 // generates c wrappers with off-thread versions of specified functions
 
 import path from 'path';
-import { asyncFuncs } from './async-fns';
 import { functions } from './parse-api';
 
-export function makeCCWrapper() {
+export function makeCCWrapper(asyncFuncs: string[]) {
   let wrappers = [];
 
   for (let fnName of asyncFuncs) {
