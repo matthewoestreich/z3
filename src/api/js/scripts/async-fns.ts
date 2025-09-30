@@ -9,7 +9,7 @@ export const asyncFuncs = [
   // This method causes issues within Bun/Deno!         //
   // We don't need it for js-randomness-predictor.      //
   ////////////////////////////////////////////////////////
-  /*'Z3_solver_check_assumptions',*/
+  'Z3_solver_check_assumptions',
   'Z3_solver_cube',
   'Z3_solver_get_consequences',
   'Z3_tactic_apply',
