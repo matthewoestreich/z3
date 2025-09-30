@@ -1,4 +1,6 @@
 *~
+build-server
+build-browser
 build
 dist
 rebase.cmd

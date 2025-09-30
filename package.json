@@ -14,10 +14,14 @@
     "example": "examples"
   },
   "scripts": {
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build:server && npm run build:browser",
     "install:js": "cd src/api/js && npm install",
-    "build": "rm -rf dist && cd src/api/js && npm run build && node ../../../build.js",
-    "copy:build:to:dist": "node build.js"
+    "build:server": "rm -rf dist && npm run server:prebuild && npm --prefix ./src/api/js run build:server:src:api:js && npm run server:postbuild",
+    "build:browser": "npm run browser:prebuild && npm --prefix ./src/api/js run build:browser:src:api:js && npm run browser:postbuild",
+    "browser:prebuild": "node jsrp/prebuild.browser.js",
+    "browser:postbuild": "node jsrp/postbuild.browser.js",
+    "server:prebuild": "node jsrp/prebuild.server.js",
+    "server:postbuild": "node jsrp/postbuild.server.js"
   },
   "repository": {
     "type": "git",
