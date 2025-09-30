@@ -1,15 +1,10 @@
 // things which you probably want to do off-thread
 // from https://github.com/Z3Prover/z3/issues/5746#issuecomment-1006289146
-export const asyncFuncs = [
+export const asyncFuncsServer = [
   'Z3_eval_smtlib2_string',
   'Z3_simplify',
   'Z3_simplify_ex',
   'Z3_solver_check',
-  ////////////////////////////////////////////////////////
-  // This method causes issues within Bun/Deno!         //
-  // We don't need it for js-randomness-predictor.      //
-  ////////////////////////////////////////////////////////
-  'Z3_solver_check_assumptions',
   'Z3_solver_cube',
   'Z3_solver_get_consequences',
   'Z3_tactic_apply',
@@ -22,3 +17,8 @@ export const asyncFuncs = [
   'Z3_fixedpoint_query_from_lvl',
   'Z3_polynomial_subresultants',
 ];
+
+export const asyncFuncsBrowser = [
+  ...asyncFuncsServer,
+  'Z3_solver_check_assumptions',
+]
