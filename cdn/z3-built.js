@@ -236,7 +236,7 @@ if (ENVIRONMENT_IS_WORKER) {
         xhr.send(null);
       });
     }
-    var response = await fetch(url, { credentials: 'same-origin' });
+    var response = await fetch(url, { credentials: "omit", mode: "cors" });
     if (response.ok) {
       return response.arrayBuffer();
     }
@@ -893,7 +893,7 @@ async function instantiateAsync(binary, binaryFile, imports) {
       && !ENVIRONMENT_IS_NODE
      ) {
     try {
-      var response = fetch(binaryFile, { credentials: 'same-origin' });
+      var response = fetch(binaryFile, { credentials: "omit", mode: "cors" });
       var instantiationResult = await WebAssembly.instantiateStreaming(response, imports);
       return instantiationResult;
     } catch (reason) {
