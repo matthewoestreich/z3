@@ -1,7 +1,17 @@
 {
 	"headers": [
 		{
-			"source": "/(.*)\\.(wasm|js)",
+			"source": "/z3-built.wasm",
+			"headers": [
+				{ "key": "Cross-Origin-Embedder-Policy", "value": "require-corp" },
+				{ "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
+				{ "key": "Cross-Origin-Resource-Policy", "value": "cross-origin" },
+				{ "key": "Access-Control-Allow-Origin", "value": "*" },
+				{ "key": "Content-Type", "value": "application/wasm" }
+			]
+		},
+		{
+			"source": "/z3-built.js",
 			"headers": [
 				{ "key": "Cross-Origin-Resource-Policy", "value": "cross-origin" },
 				{ "key": "Cross-Origin-Embedder-Policy", "value": "require-corp" },
