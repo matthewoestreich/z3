@@ -918,11 +918,11 @@ var PThread = {
     // call URL.createObjectURL on the mainScriptUrlOrBlob.
     if (Module["mainScriptUrlOrBlob"]) {
       pthreadMainJs = Module["mainScriptUrlOrBlob"];
+      console.log({pthreadMainJs});
       if (typeof pthreadMainJs != "string") {
         pthreadMainJs = URL.createObjectURL(pthreadMainJs);
       }
     }
-    console.log({ pthreadMainJs });
     worker = new Worker(pthreadMainJs, {
       // This is the way that we signal to the node worker that it is hosting
       // a pthread.
@@ -931,6 +931,7 @@ var PThread = {
       // a pthread.
       "name": "em-pthread"
     });
+    console.log({ worker });
     PThread.unusedWorkers.push(worker);
   },
   getNewWorker() {
