@@ -70,8 +70,9 @@ try {
     type: "text/javascript"
   });
   let mainScriptUrlOrBlob = URL.createObjectURL(jsBlob);
+  console.log({mainScriptUrlOrBlob});
   // Step 3: Define the Module object with mainScriptUrlOrBlob
-  Module = {
+  var Module = {
     // Set the location of the WASM file for loading
     locateFile: (path, prefix) => {
       console.log({
@@ -112,9 +113,13 @@ try {
           });
         });
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log("calllPOC error", e);
+    }
   }
+
   console.log({ENVIRONMENT_IS_WORKER});
+
   callPOC();
 } catch (error) {
   console.error("An error occurred during Emscripten loading:", error);
