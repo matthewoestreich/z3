@@ -922,6 +922,7 @@ var PThread = {
         pthreadMainJs = URL.createObjectURL(pthreadMainJs);
       }
     }
+    console.log({ pthreadMainJs });
     worker = new Worker(pthreadMainJs, {
       // This is the way that we signal to the node worker that it is hosting
       // a pthread.
