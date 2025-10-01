@@ -1,40 +1,41 @@
-// This runs before the main Emscripten module
-var Module = Module || {};
+// this wrapper works with async-fns to provide promise-based off-thread versions of some functions
+// It's prepended directly by emscripten to the resulting z3-built.js
 
-Module.locateFile = function(path) {
-  if (path.endsWith('.wasm')) {
-    // Fetch the WASM from your CDN automatically
-    return 'https://z3-tawny.vercel.app/z3-built.wasm';
-  }
-  return path;
-};
+let threadTimeouts = [];
 
-// Wrap everything in a global IIFE
-(function() {
-  // Save the original factory exported by Emscripten
-  var originalInit = window.initZ3;
-
-  if (!originalInit) {
-    console.warn('initZ3 not found — make sure z3-built.js is included first');
+let capability = null;
+function resolve_async(val) {
+  // setTimeout is a workaround for https://github.com/emscripten-core/emscripten/issues/15900
+  if (capability == null) {
     return;
   }
+  let cap = capability;
+  capability = null;
 
-  // Auto-initialize module
-  window.Z3 = {
-    ready: originalInit().then(function(z3Module) {
-      // Optionally attach low-level and high-level APIs here
-      // If you already have initWrapper and createApi in your fork
-      if (window.initWrapper && window.createApi) {
-        return window.initWrapper(() => z3Module).then(function(lowLevel) {
-          var highLevel = window.createApi(lowLevel.Z3);
-          var fullAPI = Object.assign({}, lowLevel, highLevel);
-          window.Z3.module = fullAPI; // attach to global
-          return fullAPI;
-        });
-      }
-      // Otherwise just attach the raw module
-      window.Z3.module = z3Module;
-      return z3Module;
-    }),
-  };
-})();
+  setTimeout(() => {
+    cap.resolve(val);
+  }, 0);
+}
+
+function reject_async(val) {
+  if (capability == null) {
+    return;
+  }
+  let cap = capability;
+  capability = null;
+
+  setTimeout(() => {
+    cap.reject(val);
+  }, 0);
+}
+
+Module.async_call = function (f, ...args) {
+  if (capability !== null) {
+    throw new Error(`you can't execute multiple async functions at the same time; let the previous one finish first`);
+  }
+  let promise = new Promise((resolve, reject) => {
+    capability = { resolve, reject };
+  });
+  f(...args);
+  return promise;
+};
