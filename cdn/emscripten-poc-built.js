@@ -71,7 +71,7 @@ try {
   });
   let mainScriptUrlOrBlob = URL.createObjectURL(jsBlob);
   // Step 3: Define the Module object with mainScriptUrlOrBlob
-  var Module = {
+  Module = {
     // Set the location of the WASM file for loading
     locateFile: (path, prefix) => {
       console.log({
@@ -96,9 +96,9 @@ try {
     }
   };
 
-  //const script = document.createElement("script");
-  //script.src = mainScriptUrlOrBlob;
-  //document.body.appendChild(script);
+  const script = document.createElement("script");
+  script.src = mainScriptUrlOrBlob;
+  document.body.appendChild(script);
   
   function callPOC() {
     try {
