@@ -1,38 +1,38 @@
-(function (Fe, st) {
+(function (Ft, qt) {
   typeof exports == "object" && typeof module < "u"
-    ? (module.exports = st())
+    ? (module.exports = qt())
     : typeof define == "function" && define.amd
-      ? define(st)
-      : ((Fe = typeof globalThis < "u" ? globalThis : Fe || self), (Fe.JSRandomnessPredictor = st()));
+      ? define(qt)
+      : ((Ft = typeof globalThis < "u" ? globalThis : Ft || self), (Ft.JSRandomnessPredictor = qt()));
 })(this, function () {
   "use strict";
-  var Fe = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
-  function st(T) {
-    if (Object.prototype.hasOwnProperty.call(T, "__esModule")) return T;
-    var y = T.default;
-    if (typeof y == "function") {
-      var t = function b() {
-        var I = !1;
+  var Ft = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
+  function qt(g) {
+    if (Object.prototype.hasOwnProperty.call(g, "__esModule")) return g;
+    var l = g.default;
+    if (typeof l == "function") {
+      var t = function c() {
+        var P = !1;
         try {
-          I = this instanceof b;
+          P = this instanceof c;
         } catch {}
-        return I ? Reflect.construct(y, arguments, this.constructor) : y.apply(this, arguments);
+        return P ? Reflect.construct(l, arguments, this.constructor) : l.apply(this, arguments);
       };
-      t.prototype = y.prototype;
+      t.prototype = l.prototype;
     } else t = {};
     return (
       Object.defineProperty(t, "__esModule", { value: !0 }),
-      Object.keys(T).forEach(function (b) {
-        var I = Object.getOwnPropertyDescriptor(T, b);
+      Object.keys(g).forEach(function (c) {
+        var P = Object.getOwnPropertyDescriptor(g, c);
         Object.defineProperty(
           t,
-          b,
-          I.get
-            ? I
+          c,
+          P.get
+            ? P
             : {
                 enumerable: !0,
                 get: function () {
-                  return T[b];
+                  return g[c];
                 },
               },
         );
@@ -40,138 +40,138 @@
       t
     );
   }
-  var Mr = {},
-    St = {},
-    fn;
-  function Si() {
-    if (fn) return St;
-    ((fn = 1), (St.byteLength = P), (St.toByteArray = B), (St.fromByteArray = s_));
+  var Sr = {},
+    zt = {},
+    le;
+  function Dn() {
+    if (le) return zt;
+    ((le = 1), (zt.byteLength = b), (zt.toByteArray = S), (zt.fromByteArray = M));
     for (
-      var T = [],
-        y = [],
+      var g = [],
+        l = [],
         t = typeof Uint8Array < "u" ? Uint8Array : Array,
-        b = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
-        I = 0,
-        R = b.length;
-      I < R;
-      ++I
+        c = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
+        P = 0,
+        y = c.length;
+      P < y;
+      ++P
     )
-      ((T[I] = b[I]), (y[b.charCodeAt(I)] = I));
-    ((y[45] = 62), (y[95] = 63));
-    function x(M) {
-      var K = M.length;
-      if (K % 4 > 0) throw new Error("Invalid string. Length must be a multiple of 4");
-      var u = M.indexOf("=");
-      u === -1 && (u = K);
-      var c = u === K ? 0 : 4 - (u % 4);
-      return [u, c];
+      ((g[P] = c[P]), (l[c.charCodeAt(P)] = P));
+    ((l[45] = 62), (l[95] = 63));
+    function O(I) {
+      var N = I.length;
+      if (N % 4 > 0) throw new Error("Invalid string. Length must be a multiple of 4");
+      var _ = I.indexOf("=");
+      _ === -1 && (_ = N);
+      var n = _ === N ? 0 : 4 - (_ % 4);
+      return [_, n];
     }
-    function P(M) {
-      var K = x(M),
-        u = K[0],
-        c = K[1];
-      return ((u + c) * 3) / 4 - c;
+    function b(I) {
+      var N = O(I),
+        _ = N[0],
+        n = N[1];
+      return ((_ + n) * 3) / 4 - n;
     }
-    function _(M, K, u) {
-      return ((K + u) * 3) / 4 - u;
+    function a(I, N, _) {
+      return ((N + _) * 3) / 4 - _;
     }
-    function B(M) {
-      var K,
-        u = x(M),
-        c = u[0],
-        Z = u[1],
-        A = new t(_(M, c, Z)),
-        j = 0,
-        o_ = Z > 0 ? c - 4 : c,
-        r_;
-      for (r_ = 0; r_ < o_; r_ += 4)
-        ((K = (y[M.charCodeAt(r_)] << 18) | (y[M.charCodeAt(r_ + 1)] << 12) | (y[M.charCodeAt(r_ + 2)] << 6) | y[M.charCodeAt(r_ + 3)]),
-          (A[j++] = (K >> 16) & 255),
-          (A[j++] = (K >> 8) & 255),
-          (A[j++] = K & 255));
+    function S(I) {
+      var N,
+        _ = O(I),
+        n = _[0],
+        u = _[1],
+        A = new t(a(I, n, u)),
+        Z = 0,
+        F = u > 0 ? n - 4 : n,
+        B;
+      for (B = 0; B < F; B += 4)
+        ((N = (l[I.charCodeAt(B)] << 18) | (l[I.charCodeAt(B + 1)] << 12) | (l[I.charCodeAt(B + 2)] << 6) | l[I.charCodeAt(B + 3)]),
+          (A[Z++] = (N >> 16) & 255),
+          (A[Z++] = (N >> 8) & 255),
+          (A[Z++] = N & 255));
       return (
-        Z === 2 && ((K = (y[M.charCodeAt(r_)] << 2) | (y[M.charCodeAt(r_ + 1)] >> 4)), (A[j++] = K & 255)),
-        Z === 1 &&
-          ((K = (y[M.charCodeAt(r_)] << 10) | (y[M.charCodeAt(r_ + 1)] << 4) | (y[M.charCodeAt(r_ + 2)] >> 2)),
-          (A[j++] = (K >> 8) & 255),
-          (A[j++] = K & 255)),
+        u === 2 && ((N = (l[I.charCodeAt(B)] << 2) | (l[I.charCodeAt(B + 1)] >> 4)), (A[Z++] = N & 255)),
+        u === 1 &&
+          ((N = (l[I.charCodeAt(B)] << 10) | (l[I.charCodeAt(B + 1)] << 4) | (l[I.charCodeAt(B + 2)] >> 2)),
+          (A[Z++] = (N >> 8) & 255),
+          (A[Z++] = N & 255)),
         A
       );
     }
-    function a(M) {
-      return T[(M >> 18) & 63] + T[(M >> 12) & 63] + T[(M >> 6) & 63] + T[M & 63];
+    function r(I) {
+      return g[(I >> 18) & 63] + g[(I >> 12) & 63] + g[(I >> 6) & 63] + g[I & 63];
     }
-    function V(M, K, u) {
-      for (var c, Z = [], A = K; A < u; A += 3) ((c = ((M[A] << 16) & 16711680) + ((M[A + 1] << 8) & 65280) + (M[A + 2] & 255)), Z.push(a(c)));
-      return Z.join("");
+    function d(I, N, _) {
+      for (var n, u = [], A = N; A < _; A += 3) ((n = ((I[A] << 16) & 16711680) + ((I[A + 1] << 8) & 65280) + (I[A + 2] & 255)), u.push(r(n)));
+      return u.join("");
     }
-    function s_(M) {
-      for (var K, u = M.length, c = u % 3, Z = [], A = 16383, j = 0, o_ = u - c; j < o_; j += A) Z.push(V(M, j, j + A > o_ ? o_ : j + A));
+    function M(I) {
+      for (var N, _ = I.length, n = _ % 3, u = [], A = 16383, Z = 0, F = _ - n; Z < F; Z += A) u.push(d(I, Z, Z + A > F ? F : Z + A));
       return (
-        c === 1
-          ? ((K = M[u - 1]), Z.push(T[K >> 2] + T[(K << 4) & 63] + "=="))
-          : c === 2 && ((K = (M[u - 2] << 8) + M[u - 1]), Z.push(T[K >> 10] + T[(K >> 4) & 63] + T[(K << 2) & 63] + "=")),
-        Z.join("")
+        n === 1
+          ? ((N = I[_ - 1]), u.push(g[N >> 2] + g[(N << 4) & 63] + "=="))
+          : n === 2 && ((N = (I[_ - 2] << 8) + I[_ - 1]), u.push(g[N >> 10] + g[(N >> 4) & 63] + g[(N << 2) & 63] + "=")),
+        u.join("")
       );
     }
-    return St;
+    return zt;
   }
-  var er = {};
-  /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */ var pn;
-  function Ai() {
+  var nr = {};
+  /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */ var fe;
+  function kn() {
     return (
-      pn ||
-        ((pn = 1),
-        (er.read = function (T, y, t, b, I) {
-          var R,
-            x,
-            P = I * 8 - b - 1,
-            _ = (1 << P) - 1,
-            B = _ >> 1,
-            a = -7,
-            V = t ? I - 1 : 0,
-            s_ = t ? -1 : 1,
-            M = T[y + V];
-          for (V += s_, R = M & ((1 << -a) - 1), M >>= -a, a += P; a > 0; R = R * 256 + T[y + V], V += s_, a -= 8);
-          for (x = R & ((1 << -a) - 1), R >>= -a, a += b; a > 0; x = x * 256 + T[y + V], V += s_, a -= 8);
-          if (R === 0) R = 1 - B;
+      fe ||
+        ((fe = 1),
+        (nr.read = function (g, l, t, c, P) {
+          var y,
+            O,
+            b = P * 8 - c - 1,
+            a = (1 << b) - 1,
+            S = a >> 1,
+            r = -7,
+            d = t ? P - 1 : 0,
+            M = t ? -1 : 1,
+            I = g[l + d];
+          for (d += M, y = I & ((1 << -r) - 1), I >>= -r, r += b; r > 0; y = y * 256 + g[l + d], d += M, r -= 8);
+          for (O = y & ((1 << -r) - 1), y >>= -r, r += c; r > 0; O = O * 256 + g[l + d], d += M, r -= 8);
+          if (y === 0) y = 1 - S;
           else {
-            if (R === _) return x ? NaN : (M ? -1 : 1) * (1 / 0);
-            ((x = x + Math.pow(2, b)), (R = R - B));
+            if (y === a) return O ? NaN : (I ? -1 : 1) * (1 / 0);
+            ((O = O + Math.pow(2, c)), (y = y - S));
           }
-          return (M ? -1 : 1) * x * Math.pow(2, R - b);
+          return (I ? -1 : 1) * O * Math.pow(2, y - c);
         }),
-        (er.write = function (T, y, t, b, I, R) {
-          var x,
-            P,
-            _,
-            B = R * 8 - I - 1,
-            a = (1 << B) - 1,
-            V = a >> 1,
-            s_ = I === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0,
-            M = b ? 0 : R - 1,
-            K = b ? 1 : -1,
-            u = y < 0 || (y === 0 && 1 / y < 0) ? 1 : 0;
+        (nr.write = function (g, l, t, c, P, y) {
+          var O,
+            b,
+            a,
+            S = y * 8 - P - 1,
+            r = (1 << S) - 1,
+            d = r >> 1,
+            M = P === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0,
+            I = c ? 0 : y - 1,
+            N = c ? 1 : -1,
+            _ = l < 0 || (l === 0 && 1 / l < 0) ? 1 : 0;
           for (
-            y = Math.abs(y),
-              isNaN(y) || y === 1 / 0
-                ? ((P = isNaN(y) ? 1 : 0), (x = a))
-                : ((x = Math.floor(Math.log(y) / Math.LN2)),
-                  y * (_ = Math.pow(2, -x)) < 1 && (x--, (_ *= 2)),
-                  x + V >= 1 ? (y += s_ / _) : (y += s_ * Math.pow(2, 1 - V)),
-                  y * _ >= 2 && (x++, (_ /= 2)),
-                  x + V >= a
-                    ? ((P = 0), (x = a))
-                    : x + V >= 1
-                      ? ((P = (y * _ - 1) * Math.pow(2, I)), (x = x + V))
-                      : ((P = y * Math.pow(2, V - 1) * Math.pow(2, I)), (x = 0)));
-            I >= 8;
-            T[t + M] = P & 255, M += K, P /= 256, I -= 8
+            l = Math.abs(l),
+              isNaN(l) || l === 1 / 0
+                ? ((b = isNaN(l) ? 1 : 0), (O = r))
+                : ((O = Math.floor(Math.log(l) / Math.LN2)),
+                  l * (a = Math.pow(2, -O)) < 1 && (O--, (a *= 2)),
+                  O + d >= 1 ? (l += M / a) : (l += M * Math.pow(2, 1 - d)),
+                  l * a >= 2 && (O++, (a /= 2)),
+                  O + d >= r
+                    ? ((b = 0), (O = r))
+                    : O + d >= 1
+                      ? ((b = (l * a - 1) * Math.pow(2, P)), (O = O + d))
+                      : ((b = l * Math.pow(2, d - 1) * Math.pow(2, P)), (O = 0)));
+            P >= 8;
+            g[t + I] = b & 255, I += N, b /= 256, P -= 8
           );
-          for (x = (x << I) | P, B += I; B > 0; T[t + M] = x & 255, M += K, x /= 256, B -= 8);
-          T[t + M - K] |= u * 128;
+          for (O = (O << P) | b, S += P; S > 0; g[t + I] = O & 255, I += N, O /= 256, S -= 8);
+          g[t + I - N] |= _ * 128;
         })),
-      er
+      nr
     );
   }
   /*!
@@ -179,179 +179,179 @@
    *
    * @author   Feross Aboukhadijeh <https://feross.org>
    * @license  MIT
-   */ var Zn;
-  function Ri() {
+   */ var pe;
+  function Cn() {
     return (
-      Zn ||
-        ((Zn = 1),
-        (function (T) {
-          const y = Si(),
-            t = Ai(),
-            b = typeof Symbol == "function" && typeof Symbol.for == "function" ? Symbol.for("nodejs.util.inspect.custom") : null;
-          ((T.Buffer = P), (T.SlowBuffer = A), (T.INSPECT_MAX_BYTES = 50));
-          const I = 2147483647;
-          ((T.kMaxLength = I),
-            (P.TYPED_ARRAY_SUPPORT = R()),
-            !P.TYPED_ARRAY_SUPPORT &&
+      pe ||
+        ((pe = 1),
+        (function (g) {
+          const l = Dn(),
+            t = kn(),
+            c = typeof Symbol == "function" && typeof Symbol.for == "function" ? Symbol.for("nodejs.util.inspect.custom") : null;
+          ((g.Buffer = b), (g.SlowBuffer = A), (g.INSPECT_MAX_BYTES = 50));
+          const P = 2147483647;
+          ((g.kMaxLength = P),
+            (b.TYPED_ARRAY_SUPPORT = y()),
+            !b.TYPED_ARRAY_SUPPORT &&
               typeof console < "u" &&
               typeof console.error == "function" &&
               console.error(
                 "This browser lacks typed array (Uint8Array) support which is required by `buffer` v5.x. Use `buffer` v4.x if you require old browser support.",
               ));
-          function R() {
+          function y() {
             try {
-              const h = new Uint8Array(1),
-                l = {
+              const m = new Uint8Array(1),
+                o = {
                   foo: function () {
                     return 42;
                   },
                 };
-              return (Object.setPrototypeOf(l, Uint8Array.prototype), Object.setPrototypeOf(h, l), h.foo() === 42);
+              return (Object.setPrototypeOf(o, Uint8Array.prototype), Object.setPrototypeOf(m, o), m.foo() === 42);
             } catch {
               return !1;
             }
           }
-          (Object.defineProperty(P.prototype, "parent", {
+          (Object.defineProperty(b.prototype, "parent", {
             enumerable: !0,
             get: function () {
-              if (P.isBuffer(this)) return this.buffer;
+              if (b.isBuffer(this)) return this.buffer;
             },
           }),
-            Object.defineProperty(P.prototype, "offset", {
+            Object.defineProperty(b.prototype, "offset", {
               enumerable: !0,
               get: function () {
-                if (P.isBuffer(this)) return this.byteOffset;
+                if (b.isBuffer(this)) return this.byteOffset;
               },
             }));
-          function x(h) {
-            if (h > I) throw new RangeError('The value "' + h + '" is invalid for option "size"');
-            const l = new Uint8Array(h);
-            return (Object.setPrototypeOf(l, P.prototype), l);
+          function O(m) {
+            if (m > P) throw new RangeError('The value "' + m + '" is invalid for option "size"');
+            const o = new Uint8Array(m);
+            return (Object.setPrototypeOf(o, b.prototype), o);
           }
-          function P(h, l, f) {
-            if (typeof h == "number") {
-              if (typeof l == "string") throw new TypeError('The "string" argument must be of type string. Received type number');
-              return V(h);
+          function b(m, o, s) {
+            if (typeof m == "number") {
+              if (typeof o == "string") throw new TypeError('The "string" argument must be of type string. Received type number');
+              return d(m);
             }
-            return _(h, l, f);
+            return a(m, o, s);
           }
-          P.poolSize = 8192;
-          function _(h, l, f) {
-            if (typeof h == "string") return s_(h, l);
-            if (ArrayBuffer.isView(h)) return K(h);
-            if (h == null)
+          b.poolSize = 8192;
+          function a(m, o, s) {
+            if (typeof m == "string") return M(m, o);
+            if (ArrayBuffer.isView(m)) return N(m);
+            if (m == null)
               throw new TypeError(
-                "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof h,
+                "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof m,
               );
             if (
-              A_(h, ArrayBuffer) ||
-              (h && A_(h.buffer, ArrayBuffer)) ||
-              (typeof SharedArrayBuffer < "u" && (A_(h, SharedArrayBuffer) || (h && A_(h.buffer, SharedArrayBuffer))))
+              ut(m, ArrayBuffer) ||
+              (m && ut(m.buffer, ArrayBuffer)) ||
+              (typeof SharedArrayBuffer < "u" && (ut(m, SharedArrayBuffer) || (m && ut(m.buffer, SharedArrayBuffer))))
             )
-              return u(h, l, f);
-            if (typeof h == "number") throw new TypeError('The "value" argument must not be of type number. Received type number');
-            const E = h.valueOf && h.valueOf();
-            if (E != null && E !== h) return P.from(E, l, f);
-            const N = c(h);
-            if (N) return N;
-            if (typeof Symbol < "u" && Symbol.toPrimitive != null && typeof h[Symbol.toPrimitive] == "function")
-              return P.from(h[Symbol.toPrimitive]("string"), l, f);
+              return _(m, o, s);
+            if (typeof m == "number") throw new TypeError('The "value" argument must not be of type number. Received type number');
+            const p = m.valueOf && m.valueOf();
+            if (p != null && p !== m) return b.from(p, o, s);
+            const w = n(m);
+            if (w) return w;
+            if (typeof Symbol < "u" && Symbol.toPrimitive != null && typeof m[Symbol.toPrimitive] == "function")
+              return b.from(m[Symbol.toPrimitive]("string"), o, s);
             throw new TypeError(
-              "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof h,
+              "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof m,
             );
           }
-          ((P.from = function (h, l, f) {
-            return _(h, l, f);
+          ((b.from = function (m, o, s) {
+            return a(m, o, s);
           }),
-            Object.setPrototypeOf(P.prototype, Uint8Array.prototype),
-            Object.setPrototypeOf(P, Uint8Array));
-          function B(h) {
-            if (typeof h != "number") throw new TypeError('"size" argument must be of type number');
-            if (h < 0) throw new RangeError('The value "' + h + '" is invalid for option "size"');
+            Object.setPrototypeOf(b.prototype, Uint8Array.prototype),
+            Object.setPrototypeOf(b, Uint8Array));
+          function S(m) {
+            if (typeof m != "number") throw new TypeError('"size" argument must be of type number');
+            if (m < 0) throw new RangeError('The value "' + m + '" is invalid for option "size"');
           }
-          function a(h, l, f) {
-            return (B(h), h <= 0 ? x(h) : l !== void 0 ? (typeof f == "string" ? x(h).fill(l, f) : x(h).fill(l)) : x(h));
+          function r(m, o, s) {
+            return (S(m), m <= 0 ? O(m) : o !== void 0 ? (typeof s == "string" ? O(m).fill(o, s) : O(m).fill(o)) : O(m));
           }
-          P.alloc = function (h, l, f) {
-            return a(h, l, f);
+          b.alloc = function (m, o, s) {
+            return r(m, o, s);
           };
-          function V(h) {
-            return (B(h), x(h < 0 ? 0 : Z(h) | 0));
+          function d(m) {
+            return (S(m), O(m < 0 ? 0 : u(m) | 0));
           }
-          ((P.allocUnsafe = function (h) {
-            return V(h);
+          ((b.allocUnsafe = function (m) {
+            return d(m);
           }),
-            (P.allocUnsafeSlow = function (h) {
-              return V(h);
+            (b.allocUnsafeSlow = function (m) {
+              return d(m);
             }));
-          function s_(h, l) {
-            if (((typeof l != "string" || l === "") && (l = "utf8"), !P.isEncoding(l))) throw new TypeError("Unknown encoding: " + l);
-            const f = j(h, l) | 0;
-            let E = x(f);
-            const N = E.write(h, l);
-            return (N !== f && (E = E.slice(0, N)), E);
+          function M(m, o) {
+            if (((typeof o != "string" || o === "") && (o = "utf8"), !b.isEncoding(o))) throw new TypeError("Unknown encoding: " + o);
+            const s = Z(m, o) | 0;
+            let p = O(s);
+            const w = p.write(m, o);
+            return (w !== s && (p = p.slice(0, w)), p);
           }
-          function M(h) {
-            const l = h.length < 0 ? 0 : Z(h.length) | 0,
-              f = x(l);
-            for (let E = 0; E < l; E += 1) f[E] = h[E] & 255;
-            return f;
+          function I(m) {
+            const o = m.length < 0 ? 0 : u(m.length) | 0,
+              s = O(o);
+            for (let p = 0; p < o; p += 1) s[p] = m[p] & 255;
+            return s;
           }
-          function K(h) {
-            if (A_(h, Uint8Array)) {
-              const l = new Uint8Array(h);
-              return u(l.buffer, l.byteOffset, l.byteLength);
+          function N(m) {
+            if (ut(m, Uint8Array)) {
+              const o = new Uint8Array(m);
+              return _(o.buffer, o.byteOffset, o.byteLength);
             }
-            return M(h);
+            return I(m);
           }
-          function u(h, l, f) {
-            if (l < 0 || h.byteLength < l) throw new RangeError('"offset" is outside of buffer bounds');
-            if (h.byteLength < l + (f || 0)) throw new RangeError('"length" is outside of buffer bounds');
-            let E;
+          function _(m, o, s) {
+            if (o < 0 || m.byteLength < o) throw new RangeError('"offset" is outside of buffer bounds');
+            if (m.byteLength < o + (s || 0)) throw new RangeError('"length" is outside of buffer bounds');
+            let p;
             return (
-              l === void 0 && f === void 0 ? (E = new Uint8Array(h)) : f === void 0 ? (E = new Uint8Array(h, l)) : (E = new Uint8Array(h, l, f)),
-              Object.setPrototypeOf(E, P.prototype),
-              E
+              o === void 0 && s === void 0 ? (p = new Uint8Array(m)) : s === void 0 ? (p = new Uint8Array(m, o)) : (p = new Uint8Array(m, o, s)),
+              Object.setPrototypeOf(p, b.prototype),
+              p
             );
           }
-          function c(h) {
-            if (P.isBuffer(h)) {
-              const l = Z(h.length) | 0,
-                f = x(l);
-              return (f.length === 0 || h.copy(f, 0, 0, l), f);
+          function n(m) {
+            if (b.isBuffer(m)) {
+              const o = u(m.length) | 0,
+                s = O(o);
+              return (s.length === 0 || m.copy(s, 0, 0, o), s);
             }
-            if (h.length !== void 0) return typeof h.length != "number" || E_(h.length) ? x(0) : M(h);
-            if (h.type === "Buffer" && Array.isArray(h.data)) return M(h.data);
+            if (m.length !== void 0) return typeof m.length != "number" || Pt(m.length) ? O(0) : I(m);
+            if (m.type === "Buffer" && Array.isArray(m.data)) return I(m.data);
           }
-          function Z(h) {
-            if (h >= I) throw new RangeError("Attempt to allocate Buffer larger than maximum size: 0x" + I.toString(16) + " bytes");
-            return h | 0;
+          function u(m) {
+            if (m >= P) throw new RangeError("Attempt to allocate Buffer larger than maximum size: 0x" + P.toString(16) + " bytes");
+            return m | 0;
           }
-          function A(h) {
-            return (+h != h && (h = 0), P.alloc(+h));
+          function A(m) {
+            return (+m != m && (m = 0), b.alloc(+m));
           }
-          ((P.isBuffer = function (l) {
-            return l != null && l._isBuffer === !0 && l !== P.prototype;
+          ((b.isBuffer = function (o) {
+            return o != null && o._isBuffer === !0 && o !== b.prototype;
           }),
-            (P.compare = function (l, f) {
+            (b.compare = function (o, s) {
               if (
-                (A_(l, Uint8Array) && (l = P.from(l, l.offset, l.byteLength)),
-                A_(f, Uint8Array) && (f = P.from(f, f.offset, f.byteLength)),
-                !P.isBuffer(l) || !P.isBuffer(f))
+                (ut(o, Uint8Array) && (o = b.from(o, o.offset, o.byteLength)),
+                ut(s, Uint8Array) && (s = b.from(s, s.offset, s.byteLength)),
+                !b.isBuffer(o) || !b.isBuffer(s))
               )
                 throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
-              if (l === f) return 0;
-              let E = l.length,
-                N = f.length;
-              for (let L = 0, D = Math.min(E, N); L < D; ++L)
-                if (l[L] !== f[L]) {
-                  ((E = l[L]), (N = f[L]));
+              if (o === s) return 0;
+              let p = o.length,
+                w = s.length;
+              for (let R = 0, v = Math.min(p, w); R < v; ++R)
+                if (o[R] !== s[R]) {
+                  ((p = o[R]), (w = s[R]));
                   break;
                 }
-              return E < N ? -1 : N < E ? 1 : 0;
+              return p < w ? -1 : w < p ? 1 : 0;
             }),
-            (P.isEncoding = function (l) {
-              switch (String(l).toLowerCase()) {
+            (b.isEncoding = function (o) {
+              switch (String(o).toLowerCase()) {
                 case "hex":
                 case "utf8":
                 case "utf-8":
@@ -368,7585 +368,1463 @@
                   return !1;
               }
             }),
-            (P.concat = function (l, f) {
-              if (!Array.isArray(l)) throw new TypeError('"list" argument must be an Array of Buffers');
-              if (l.length === 0) return P.alloc(0);
-              let E;
-              if (f === void 0) for (f = 0, E = 0; E < l.length; ++E) f += l[E].length;
-              const N = P.allocUnsafe(f);
-              let L = 0;
-              for (E = 0; E < l.length; ++E) {
-                let D = l[E];
-                if (A_(D, Uint8Array))
-                  L + D.length > N.length ? (P.isBuffer(D) || (D = P.from(D)), D.copy(N, L)) : Uint8Array.prototype.set.call(N, D, L);
-                else if (P.isBuffer(D)) D.copy(N, L);
+            (b.concat = function (o, s) {
+              if (!Array.isArray(o)) throw new TypeError('"list" argument must be an Array of Buffers');
+              if (o.length === 0) return b.alloc(0);
+              let p;
+              if (s === void 0) for (s = 0, p = 0; p < o.length; ++p) s += o[p].length;
+              const w = b.allocUnsafe(s);
+              let R = 0;
+              for (p = 0; p < o.length; ++p) {
+                let v = o[p];
+                if (ut(v, Uint8Array))
+                  R + v.length > w.length ? (b.isBuffer(v) || (v = b.from(v)), v.copy(w, R)) : Uint8Array.prototype.set.call(w, v, R);
+                else if (b.isBuffer(v)) v.copy(w, R);
                 else throw new TypeError('"list" argument must be an Array of Buffers');
-                L += D.length;
+                R += v.length;
               }
-              return N;
+              return w;
             }));
-          function j(h, l) {
-            if (P.isBuffer(h)) return h.length;
-            if (ArrayBuffer.isView(h) || A_(h, ArrayBuffer)) return h.byteLength;
-            if (typeof h != "string")
-              throw new TypeError('The "string" argument must be one of type string, Buffer, or ArrayBuffer. Received type ' + typeof h);
-            const f = h.length,
-              E = arguments.length > 2 && arguments[2] === !0;
-            if (!E && f === 0) return 0;
-            let N = !1;
+          function Z(m, o) {
+            if (b.isBuffer(m)) return m.length;
+            if (ArrayBuffer.isView(m) || ut(m, ArrayBuffer)) return m.byteLength;
+            if (typeof m != "string")
+              throw new TypeError('The "string" argument must be one of type string, Buffer, or ArrayBuffer. Received type ' + typeof m);
+            const s = m.length,
+              p = arguments.length > 2 && arguments[2] === !0;
+            if (!p && s === 0) return 0;
+            let w = !1;
             for (;;)
-              switch (l) {
+              switch (o) {
                 case "ascii":
                 case "latin1":
                 case "binary":
-                  return f;
+                  return s;
                 case "utf8":
                 case "utf-8":
-                  return Ee(h).length;
+                  return Xt(m).length;
                 case "ucs2":
                 case "ucs-2":
                 case "utf16le":
                 case "utf-16le":
-                  return f * 2;
+                  return s * 2;
                 case "hex":
-                  return f >>> 1;
+                  return s >>> 1;
                 case "base64":
-                  return Qe(h).length;
+                  return gr(m).length;
                 default:
-                  if (N) return E ? -1 : Ee(h).length;
-                  ((l = ("" + l).toLowerCase()), (N = !0));
+                  if (w) return p ? -1 : Xt(m).length;
+                  ((o = ("" + o).toLowerCase()), (w = !0));
               }
           }
-          P.byteLength = j;
-          function o_(h, l, f) {
-            let E = !1;
+          b.byteLength = Z;
+          function F(m, o, s) {
+            let p = !1;
             if (
-              ((l === void 0 || l < 0) && (l = 0),
-              l > this.length || ((f === void 0 || f > this.length) && (f = this.length), f <= 0) || ((f >>>= 0), (l >>>= 0), f <= l))
+              ((o === void 0 || o < 0) && (o = 0),
+              o > this.length || ((s === void 0 || s > this.length) && (s = this.length), s <= 0) || ((s >>>= 0), (o >>>= 0), s <= o))
             )
               return "";
-            for (h || (h = "utf8"); ; )
-              switch (h) {
+            for (m || (m = "utf8"); ; )
+              switch (m) {
                 case "hex":
-                  return G_(this, l, f);
+                  return kt(this, o, s);
                 case "utf8":
                 case "utf-8":
-                  return ye(this, l, f);
+                  return Zt(this, o, s);
                 case "ascii":
-                  return c_(this, l, f);
+                  return pt(this, o, s);
                 case "latin1":
                 case "binary":
-                  return h_(this, l, f);
+                  return j(this, o, s);
                 case "base64":
-                  return y_(this, l, f);
+                  return Y(this, o, s);
                 case "ucs2":
                 case "ucs-2":
                 case "utf16le":
                 case "utf-16le":
-                  return ie(this, l, f);
+                  return pr(this, o, s);
                 default:
-                  if (E) throw new TypeError("Unknown encoding: " + h);
-                  ((h = (h + "").toLowerCase()), (E = !0));
+                  if (p) throw new TypeError("Unknown encoding: " + m);
+                  ((m = (m + "").toLowerCase()), (p = !0));
               }
           }
-          P.prototype._isBuffer = !0;
-          function r_(h, l, f) {
-            const E = h[l];
-            ((h[l] = h[f]), (h[f] = E));
+          b.prototype._isBuffer = !0;
+          function B(m, o, s) {
+            const p = m[o];
+            ((m[o] = m[s]), (m[s] = p));
           }
-          ((P.prototype.swap16 = function () {
-            const l = this.length;
-            if (l % 2 !== 0) throw new RangeError("Buffer size must be a multiple of 16-bits");
-            for (let f = 0; f < l; f += 2) r_(this, f, f + 1);
+          ((b.prototype.swap16 = function () {
+            const o = this.length;
+            if (o % 2 !== 0) throw new RangeError("Buffer size must be a multiple of 16-bits");
+            for (let s = 0; s < o; s += 2) B(this, s, s + 1);
             return this;
           }),
-            (P.prototype.swap32 = function () {
-              const l = this.length;
-              if (l % 4 !== 0) throw new RangeError("Buffer size must be a multiple of 32-bits");
-              for (let f = 0; f < l; f += 4) (r_(this, f, f + 3), r_(this, f + 1, f + 2));
+            (b.prototype.swap32 = function () {
+              const o = this.length;
+              if (o % 4 !== 0) throw new RangeError("Buffer size must be a multiple of 32-bits");
+              for (let s = 0; s < o; s += 4) (B(this, s, s + 3), B(this, s + 1, s + 2));
               return this;
             }),
-            (P.prototype.swap64 = function () {
-              const l = this.length;
-              if (l % 8 !== 0) throw new RangeError("Buffer size must be a multiple of 64-bits");
-              for (let f = 0; f < l; f += 8) (r_(this, f, f + 7), r_(this, f + 1, f + 6), r_(this, f + 2, f + 5), r_(this, f + 3, f + 4));
+            (b.prototype.swap64 = function () {
+              const o = this.length;
+              if (o % 8 !== 0) throw new RangeError("Buffer size must be a multiple of 64-bits");
+              for (let s = 0; s < o; s += 8) (B(this, s, s + 7), B(this, s + 1, s + 6), B(this, s + 2, s + 5), B(this, s + 3, s + 4));
               return this;
             }),
-            (P.prototype.toString = function () {
-              const l = this.length;
-              return l === 0 ? "" : arguments.length === 0 ? ye(this, 0, l) : o_.apply(this, arguments);
+            (b.prototype.toString = function () {
+              const o = this.length;
+              return o === 0 ? "" : arguments.length === 0 ? Zt(this, 0, o) : F.apply(this, arguments);
             }),
-            (P.prototype.toLocaleString = P.prototype.toString),
-            (P.prototype.equals = function (l) {
-              if (!P.isBuffer(l)) throw new TypeError("Argument must be a Buffer");
-              return this === l ? !0 : P.compare(this, l) === 0;
+            (b.prototype.toLocaleString = b.prototype.toString),
+            (b.prototype.equals = function (o) {
+              if (!b.isBuffer(o)) throw new TypeError("Argument must be a Buffer");
+              return this === o ? !0 : b.compare(this, o) === 0;
             }),
-            (P.prototype.inspect = function () {
-              let l = "";
-              const f = T.INSPECT_MAX_BYTES;
+            (b.prototype.inspect = function () {
+              let o = "";
+              const s = g.INSPECT_MAX_BYTES;
               return (
-                (l = this.toString("hex", 0, f)
+                (o = this.toString("hex", 0, s)
                   .replace(/(.{2})/g, "$1 ")
                   .trim()),
-                this.length > f && (l += " ... "),
-                "<Buffer " + l + ">"
+                this.length > s && (o += " ... "),
+                "<Buffer " + o + ">"
               );
             }),
-            b && (P.prototype[b] = P.prototype.inspect),
-            (P.prototype.compare = function (l, f, E, N, L) {
-              if ((A_(l, Uint8Array) && (l = P.from(l, l.offset, l.byteLength)), !P.isBuffer(l)))
-                throw new TypeError('The "target" argument must be one of type Buffer or Uint8Array. Received type ' + typeof l);
+            c && (b.prototype[c] = b.prototype.inspect),
+            (b.prototype.compare = function (o, s, p, w, R) {
+              if ((ut(o, Uint8Array) && (o = b.from(o, o.offset, o.byteLength)), !b.isBuffer(o)))
+                throw new TypeError('The "target" argument must be one of type Buffer or Uint8Array. Received type ' + typeof o);
               if (
-                (f === void 0 && (f = 0),
-                E === void 0 && (E = l ? l.length : 0),
-                N === void 0 && (N = 0),
-                L === void 0 && (L = this.length),
-                f < 0 || E > l.length || N < 0 || L > this.length)
+                (s === void 0 && (s = 0),
+                p === void 0 && (p = o ? o.length : 0),
+                w === void 0 && (w = 0),
+                R === void 0 && (R = this.length),
+                s < 0 || p > o.length || w < 0 || R > this.length)
               )
                 throw new RangeError("out of range index");
-              if (N >= L && f >= E) return 0;
-              if (N >= L) return -1;
-              if (f >= E) return 1;
-              if (((f >>>= 0), (E >>>= 0), (N >>>= 0), (L >>>= 0), this === l)) return 0;
-              let D = L - N,
-                l_ = E - f;
-              const k_ = Math.min(D, l_),
-                t_ = this.slice(N, L),
-                n = l.slice(f, E);
-              for (let Z_ = 0; Z_ < k_; ++Z_)
-                if (t_[Z_] !== n[Z_]) {
-                  ((D = t_[Z_]), (l_ = n[Z_]));
+              if (w >= R && s >= p) return 0;
+              if (w >= R) return -1;
+              if (s >= p) return 1;
+              if (((s >>>= 0), (p >>>= 0), (w >>>= 0), (R >>>= 0), this === o)) return 0;
+              let v = R - w,
+                k = p - s;
+              const $ = Math.min(v, k),
+                V = this.slice(w, R),
+                z = o.slice(s, p);
+              for (let q = 0; q < $; ++q)
+                if (V[q] !== z[q]) {
+                  ((v = V[q]), (k = z[q]));
                   break;
                 }
-              return D < l_ ? -1 : l_ < D ? 1 : 0;
+              return v < k ? -1 : k < v ? 1 : 0;
             }));
-          function x_(h, l, f, E, N) {
-            if (h.length === 0) return -1;
+          function K(m, o, s, p, w) {
+            if (m.length === 0) return -1;
             if (
-              (typeof f == "string" ? ((E = f), (f = 0)) : f > 2147483647 ? (f = 2147483647) : f < -2147483648 && (f = -2147483648),
-              (f = +f),
-              E_(f) && (f = N ? 0 : h.length - 1),
-              f < 0 && (f = h.length + f),
-              f >= h.length)
+              (typeof s == "string" ? ((p = s), (s = 0)) : s > 2147483647 ? (s = 2147483647) : s < -2147483648 && (s = -2147483648),
+              (s = +s),
+              Pt(s) && (s = w ? 0 : m.length - 1),
+              s < 0 && (s = m.length + s),
+              s >= m.length)
             ) {
-              if (N) return -1;
-              f = h.length - 1;
-            } else if (f < 0)
-              if (N) f = 0;
+              if (w) return -1;
+              s = m.length - 1;
+            } else if (s < 0)
+              if (w) s = 0;
               else return -1;
-            if ((typeof l == "string" && (l = P.from(l, E)), P.isBuffer(l))) return l.length === 0 ? -1 : S_(h, l, f, E, N);
-            if (typeof l == "number")
+            if ((typeof o == "string" && (o = b.from(o, p)), b.isBuffer(o))) return o.length === 0 ? -1 : rt(m, o, s, p, w);
+            if (typeof o == "number")
               return (
-                (l = l & 255),
+                (o = o & 255),
                 typeof Uint8Array.prototype.indexOf == "function"
-                  ? N
-                    ? Uint8Array.prototype.indexOf.call(h, l, f)
-                    : Uint8Array.prototype.lastIndexOf.call(h, l, f)
-                  : S_(h, [l], f, E, N)
+                  ? w
+                    ? Uint8Array.prototype.indexOf.call(m, o, s)
+                    : Uint8Array.prototype.lastIndexOf.call(m, o, s)
+                  : rt(m, [o], s, p, w)
               );
             throw new TypeError("val must be string, number or Buffer");
           }
-          function S_(h, l, f, E, N) {
-            let L = 1,
-              D = h.length,
-              l_ = l.length;
-            if (E !== void 0 && ((E = String(E).toLowerCase()), E === "ucs2" || E === "ucs-2" || E === "utf16le" || E === "utf-16le")) {
-              if (h.length < 2 || l.length < 2) return -1;
-              ((L = 2), (D /= 2), (l_ /= 2), (f /= 2));
+          function rt(m, o, s, p, w) {
+            let R = 1,
+              v = m.length,
+              k = o.length;
+            if (p !== void 0 && ((p = String(p).toLowerCase()), p === "ucs2" || p === "ucs-2" || p === "utf16le" || p === "utf-16le")) {
+              if (m.length < 2 || o.length < 2) return -1;
+              ((R = 2), (v /= 2), (k /= 2), (s /= 2));
             }
-            function k_(n, Z_) {
-              return L === 1 ? n[Z_] : n.readUInt16BE(Z_ * L);
+            function $(z, q) {
+              return R === 1 ? z[q] : z.readUInt16BE(q * R);
             }
-            let t_;
-            if (N) {
-              let n = -1;
-              for (t_ = f; t_ < D; t_++)
-                if (k_(h, t_) === k_(l, n === -1 ? 0 : t_ - n)) {
-                  if ((n === -1 && (n = t_), t_ - n + 1 === l_)) return n * L;
-                } else (n !== -1 && (t_ -= t_ - n), (n = -1));
+            let V;
+            if (w) {
+              let z = -1;
+              for (V = s; V < v; V++)
+                if ($(m, V) === $(o, z === -1 ? 0 : V - z)) {
+                  if ((z === -1 && (z = V), V - z + 1 === k)) return z * R;
+                } else (z !== -1 && (V -= V - z), (z = -1));
             } else
-              for (f + l_ > D && (f = D - l_), t_ = f; t_ >= 0; t_--) {
-                let n = !0;
-                for (let Z_ = 0; Z_ < l_; Z_++)
-                  if (k_(h, t_ + Z_) !== k_(l, Z_)) {
-                    n = !1;
+              for (s + k > v && (s = v - k), V = s; V >= 0; V--) {
+                let z = !0;
+                for (let q = 0; q < k; q++)
+                  if ($(m, V + q) !== $(o, q)) {
+                    z = !1;
                     break;
                   }
-                if (n) return t_;
+                if (z) return V;
               }
             return -1;
           }
-          ((P.prototype.includes = function (l, f, E) {
-            return this.indexOf(l, f, E) !== -1;
+          ((b.prototype.includes = function (o, s, p) {
+            return this.indexOf(o, s, p) !== -1;
           }),
-            (P.prototype.indexOf = function (l, f, E) {
-              return x_(this, l, f, E, !0);
+            (b.prototype.indexOf = function (o, s, p) {
+              return K(this, o, s, p, !0);
             }),
-            (P.prototype.lastIndexOf = function (l, f, E) {
-              return x_(this, l, f, E, !1);
+            (b.prototype.lastIndexOf = function (o, s, p) {
+              return K(this, o, s, p, !1);
             }));
-          function k(h, l, f, E) {
-            f = Number(f) || 0;
-            const N = h.length - f;
-            E ? ((E = Number(E)), E > N && (E = N)) : (E = N);
-            const L = l.length;
-            E > L / 2 && (E = L / 2);
-            let D;
-            for (D = 0; D < E; ++D) {
-              const l_ = parseInt(l.substr(D * 2, 2), 16);
-              if (E_(l_)) return D;
-              h[f + D] = l_;
+          function f(m, o, s, p) {
+            s = Number(s) || 0;
+            const w = m.length - s;
+            p ? ((p = Number(p)), p > w && (p = w)) : (p = w);
+            const R = o.length;
+            p > R / 2 && (p = R / 2);
+            let v;
+            for (v = 0; v < p; ++v) {
+              const k = parseInt(o.substr(v * 2, 2), 16);
+              if (Pt(k)) return v;
+              m[s + v] = k;
             }
-            return D;
+            return v;
           }
-          function G(h, l, f, E) {
-            return me(Ee(l, h.length - f), h, f, E);
+          function x(m, o, s, p) {
+            return Ct(Xt(o, m.length - s), m, s, p);
           }
-          function re(h, l, f, E) {
-            return me(mt(l), h, f, E);
+          function $t(m, o, s, p) {
+            return Ct(Fr(o), m, s, p);
           }
-          function ne(h, l, f, E) {
-            return me(Qe(l), h, f, E);
+          function Qt(m, o, s, p) {
+            return Ct(gr(o), m, s, p);
           }
-          function F(h, l, f, E) {
-            return me(ft(l, h.length - f), h, f, E);
+          function E(m, o, s, p) {
+            return Ct(Mr(o, m.length - s), m, s, p);
           }
-          ((P.prototype.write = function (l, f, E, N) {
-            if (f === void 0) ((N = "utf8"), (E = this.length), (f = 0));
-            else if (E === void 0 && typeof f == "string") ((N = f), (E = this.length), (f = 0));
-            else if (isFinite(f)) ((f = f >>> 0), isFinite(E) ? ((E = E >>> 0), N === void 0 && (N = "utf8")) : ((N = E), (E = void 0)));
+          ((b.prototype.write = function (o, s, p, w) {
+            if (s === void 0) ((w = "utf8"), (p = this.length), (s = 0));
+            else if (p === void 0 && typeof s == "string") ((w = s), (p = this.length), (s = 0));
+            else if (isFinite(s)) ((s = s >>> 0), isFinite(p) ? ((p = p >>> 0), w === void 0 && (w = "utf8")) : ((w = p), (p = void 0)));
             else throw new Error("Buffer.write(string, encoding, offset[, length]) is no longer supported");
-            const L = this.length - f;
-            if (((E === void 0 || E > L) && (E = L), (l.length > 0 && (E < 0 || f < 0)) || f > this.length))
+            const R = this.length - s;
+            if (((p === void 0 || p > R) && (p = R), (o.length > 0 && (p < 0 || s < 0)) || s > this.length))
               throw new RangeError("Attempt to write outside buffer bounds");
-            N || (N = "utf8");
-            let D = !1;
+            w || (w = "utf8");
+            let v = !1;
             for (;;)
-              switch (N) {
+              switch (w) {
                 case "hex":
-                  return k(this, l, f, E);
+                  return f(this, o, s, p);
                 case "utf8":
                 case "utf-8":
-                  return G(this, l, f, E);
+                  return x(this, o, s, p);
                 case "ascii":
                 case "latin1":
                 case "binary":
-                  return re(this, l, f, E);
+                  return $t(this, o, s, p);
                 case "base64":
-                  return ne(this, l, f, E);
+                  return Qt(this, o, s, p);
                 case "ucs2":
                 case "ucs-2":
                 case "utf16le":
                 case "utf-16le":
-                  return F(this, l, f, E);
+                  return E(this, o, s, p);
                 default:
-                  if (D) throw new TypeError("Unknown encoding: " + N);
-                  ((N = ("" + N).toLowerCase()), (D = !0));
+                  if (v) throw new TypeError("Unknown encoding: " + w);
+                  ((w = ("" + w).toLowerCase()), (v = !0));
               }
           }),
-            (P.prototype.toJSON = function () {
+            (b.prototype.toJSON = function () {
               return { type: "Buffer", data: Array.prototype.slice.call(this._arr || this, 0) };
             }));
-          function y_(h, l, f) {
-            return l === 0 && f === h.length ? y.fromByteArray(h) : y.fromByteArray(h.slice(l, f));
+          function Y(m, o, s) {
+            return o === 0 && s === m.length ? l.fromByteArray(m) : l.fromByteArray(m.slice(o, s));
           }
-          function ye(h, l, f) {
-            f = Math.min(h.length, f);
-            const E = [];
-            let N = l;
-            for (; N < f; ) {
-              const L = h[N];
-              let D = null,
-                l_ = L > 239 ? 4 : L > 223 ? 3 : L > 191 ? 2 : 1;
-              if (N + l_ <= f) {
-                let k_, t_, n, Z_;
-                switch (l_) {
+          function Zt(m, o, s) {
+            s = Math.min(m.length, s);
+            const p = [];
+            let w = o;
+            for (; w < s; ) {
+              const R = m[w];
+              let v = null,
+                k = R > 239 ? 4 : R > 223 ? 3 : R > 191 ? 2 : 1;
+              if (w + k <= s) {
+                let $, V, z, q;
+                switch (k) {
                   case 1:
-                    L < 128 && (D = L);
+                    R < 128 && (v = R);
                     break;
                   case 2:
-                    ((k_ = h[N + 1]), (k_ & 192) === 128 && ((Z_ = ((L & 31) << 6) | (k_ & 63)), Z_ > 127 && (D = Z_)));
+                    (($ = m[w + 1]), ($ & 192) === 128 && ((q = ((R & 31) << 6) | ($ & 63)), q > 127 && (v = q)));
                     break;
                   case 3:
-                    ((k_ = h[N + 1]),
-                      (t_ = h[N + 2]),
-                      (k_ & 192) === 128 &&
-                        (t_ & 192) === 128 &&
-                        ((Z_ = ((L & 15) << 12) | ((k_ & 63) << 6) | (t_ & 63)), Z_ > 2047 && (Z_ < 55296 || Z_ > 57343) && (D = Z_)));
+                    (($ = m[w + 1]),
+                      (V = m[w + 2]),
+                      ($ & 192) === 128 &&
+                        (V & 192) === 128 &&
+                        ((q = ((R & 15) << 12) | (($ & 63) << 6) | (V & 63)), q > 2047 && (q < 55296 || q > 57343) && (v = q)));
                     break;
                   case 4:
-                    ((k_ = h[N + 1]),
-                      (t_ = h[N + 2]),
-                      (n = h[N + 3]),
-                      (k_ & 192) === 128 &&
-                        (t_ & 192) === 128 &&
-                        (n & 192) === 128 &&
-                        ((Z_ = ((L & 15) << 18) | ((k_ & 63) << 12) | ((t_ & 63) << 6) | (n & 63)), Z_ > 65535 && Z_ < 1114112 && (D = Z_)));
+                    (($ = m[w + 1]),
+                      (V = m[w + 2]),
+                      (z = m[w + 3]),
+                      ($ & 192) === 128 &&
+                        (V & 192) === 128 &&
+                        (z & 192) === 128 &&
+                        ((q = ((R & 15) << 18) | (($ & 63) << 12) | ((V & 63) << 6) | (z & 63)), q > 65535 && q < 1114112 && (v = q)));
                 }
               }
-              (D === null ? ((D = 65533), (l_ = 1)) : D > 65535 && ((D -= 65536), E.push(((D >>> 10) & 1023) | 55296), (D = 56320 | (D & 1023))),
-                E.push(D),
-                (N += l_));
+              (v === null ? ((v = 65533), (k = 1)) : v > 65535 && ((v -= 65536), p.push(((v >>> 10) & 1023) | 55296), (v = 56320 | (v & 1023))),
+                p.push(v),
+                (w += k));
             }
-            return V_(E);
+            return jt(p);
           }
-          const Le = 4096;
-          function V_(h) {
-            const l = h.length;
-            if (l <= Le) return String.fromCharCode.apply(String, h);
-            let f = "",
-              E = 0;
-            for (; E < l; ) f += String.fromCharCode.apply(String, h.slice(E, (E += Le)));
-            return f;
+          const Yt = 4096;
+          function jt(m) {
+            const o = m.length;
+            if (o <= Yt) return String.fromCharCode.apply(String, m);
+            let s = "",
+              p = 0;
+            for (; p < o; ) s += String.fromCharCode.apply(String, m.slice(p, (p += Yt)));
+            return s;
           }
-          function c_(h, l, f) {
-            let E = "";
-            f = Math.min(h.length, f);
-            for (let N = l; N < f; ++N) E += String.fromCharCode(h[N] & 127);
-            return E;
+          function pt(m, o, s) {
+            let p = "";
+            s = Math.min(m.length, s);
+            for (let w = o; w < s; ++w) p += String.fromCharCode(m[w] & 127);
+            return p;
           }
-          function h_(h, l, f) {
-            let E = "";
-            f = Math.min(h.length, f);
-            for (let N = l; N < f; ++N) E += String.fromCharCode(h[N]);
-            return E;
+          function j(m, o, s) {
+            let p = "";
+            s = Math.min(m.length, s);
+            for (let w = o; w < s; ++w) p += String.fromCharCode(m[w]);
+            return p;
           }
-          function G_(h, l, f) {
-            const E = h.length;
-            ((!l || l < 0) && (l = 0), (!f || f < 0 || f > E) && (f = E));
-            let N = "";
-            for (let L = l; L < f; ++L) N += ae[h[L]];
-            return N;
+          function kt(m, o, s) {
+            const p = m.length;
+            ((!o || o < 0) && (o = 0), (!s || s < 0 || s > p) && (s = p));
+            let w = "";
+            for (let R = o; R < s; ++R) w += Dr[m[R]];
+            return w;
           }
-          function ie(h, l, f) {
-            const E = h.slice(l, f);
-            let N = "";
-            for (let L = 0; L < E.length - 1; L += 2) N += String.fromCharCode(E[L] + E[L + 1] * 256);
-            return N;
+          function pr(m, o, s) {
+            const p = m.slice(o, s);
+            let w = "";
+            for (let R = 0; R < p.length - 1; R += 2) w += String.fromCharCode(p[R] + p[R + 1] * 256);
+            return w;
           }
-          P.prototype.slice = function (l, f) {
-            const E = this.length;
-            ((l = ~~l),
-              (f = f === void 0 ? E : ~~f),
-              l < 0 ? ((l += E), l < 0 && (l = 0)) : l > E && (l = E),
-              f < 0 ? ((f += E), f < 0 && (f = 0)) : f > E && (f = E),
-              f < l && (f = l));
-            const N = this.subarray(l, f);
-            return (Object.setPrototypeOf(N, P.prototype), N);
+          b.prototype.slice = function (o, s) {
+            const p = this.length;
+            ((o = ~~o),
+              (s = s === void 0 ? p : ~~s),
+              o < 0 ? ((o += p), o < 0 && (o = 0)) : o > p && (o = p),
+              s < 0 ? ((s += p), s < 0 && (s = 0)) : s > p && (s = p),
+              s < o && (s = o));
+            const w = this.subarray(o, s);
+            return (Object.setPrototypeOf(w, b.prototype), w);
           };
-          function b_(h, l, f) {
-            if (h % 1 !== 0 || h < 0) throw new RangeError("offset is not uint");
-            if (h + l > f) throw new RangeError("Trying to access beyond buffer length");
+          function H(m, o, s) {
+            if (m % 1 !== 0 || m < 0) throw new RangeError("offset is not uint");
+            if (m + o > s) throw new RangeError("Trying to access beyond buffer length");
           }
-          ((P.prototype.readUintLE = P.prototype.readUIntLE =
-            function (l, f, E) {
-              ((l = l >>> 0), (f = f >>> 0), E || b_(l, f, this.length));
-              let N = this[l],
-                L = 1,
-                D = 0;
-              for (; ++D < f && (L *= 256); ) N += this[l + D] * L;
-              return N;
+          ((b.prototype.readUintLE = b.prototype.readUIntLE =
+            function (o, s, p) {
+              ((o = o >>> 0), (s = s >>> 0), p || H(o, s, this.length));
+              let w = this[o],
+                R = 1,
+                v = 0;
+              for (; ++v < s && (R *= 256); ) w += this[o + v] * R;
+              return w;
             }),
-            (P.prototype.readUintBE = P.prototype.readUIntBE =
-              function (l, f, E) {
-                ((l = l >>> 0), (f = f >>> 0), E || b_(l, f, this.length));
-                let N = this[l + --f],
-                  L = 1;
-                for (; f > 0 && (L *= 256); ) N += this[l + --f] * L;
-                return N;
+            (b.prototype.readUintBE = b.prototype.readUIntBE =
+              function (o, s, p) {
+                ((o = o >>> 0), (s = s >>> 0), p || H(o, s, this.length));
+                let w = this[o + --s],
+                  R = 1;
+                for (; s > 0 && (R *= 256); ) w += this[o + --s] * R;
+                return w;
               }),
-            (P.prototype.readUint8 = P.prototype.readUInt8 =
-              function (l, f) {
-                return ((l = l >>> 0), f || b_(l, 1, this.length), this[l]);
+            (b.prototype.readUint8 = b.prototype.readUInt8 =
+              function (o, s) {
+                return ((o = o >>> 0), s || H(o, 1, this.length), this[o]);
               }),
-            (P.prototype.readUint16LE = P.prototype.readUInt16LE =
-              function (l, f) {
-                return ((l = l >>> 0), f || b_(l, 2, this.length), this[l] | (this[l + 1] << 8));
+            (b.prototype.readUint16LE = b.prototype.readUInt16LE =
+              function (o, s) {
+                return ((o = o >>> 0), s || H(o, 2, this.length), this[o] | (this[o + 1] << 8));
               }),
-            (P.prototype.readUint16BE = P.prototype.readUInt16BE =
-              function (l, f) {
-                return ((l = l >>> 0), f || b_(l, 2, this.length), (this[l] << 8) | this[l + 1]);
+            (b.prototype.readUint16BE = b.prototype.readUInt16BE =
+              function (o, s) {
+                return ((o = o >>> 0), s || H(o, 2, this.length), (this[o] << 8) | this[o + 1]);
               }),
-            (P.prototype.readUint32LE = P.prototype.readUInt32LE =
-              function (l, f) {
-                return ((l = l >>> 0), f || b_(l, 4, this.length), (this[l] | (this[l + 1] << 8) | (this[l + 2] << 16)) + this[l + 3] * 16777216);
+            (b.prototype.readUint32LE = b.prototype.readUInt32LE =
+              function (o, s) {
+                return ((o = o >>> 0), s || H(o, 4, this.length), (this[o] | (this[o + 1] << 8) | (this[o + 2] << 16)) + this[o + 3] * 16777216);
               }),
-            (P.prototype.readUint32BE = P.prototype.readUInt32BE =
-              function (l, f) {
-                return ((l = l >>> 0), f || b_(l, 4, this.length), this[l] * 16777216 + ((this[l + 1] << 16) | (this[l + 2] << 8) | this[l + 3]));
+            (b.prototype.readUint32BE = b.prototype.readUInt32BE =
+              function (o, s) {
+                return ((o = o >>> 0), s || H(o, 4, this.length), this[o] * 16777216 + ((this[o + 1] << 16) | (this[o + 2] << 8) | this[o + 3]));
               }),
-            (P.prototype.readBigUInt64LE = N_(function (l) {
-              ((l = l >>> 0), W_(l, "offset"));
-              const f = this[l],
-                E = this[l + 7];
-              (f === void 0 || E === void 0) && le(l, this.length - 8);
-              const N = f + this[++l] * 2 ** 8 + this[++l] * 2 ** 16 + this[++l] * 2 ** 24,
-                L = this[++l] + this[++l] * 2 ** 8 + this[++l] * 2 ** 16 + E * 2 ** 24;
-              return BigInt(N) + (BigInt(L) << BigInt(32));
+            (b.prototype.readBigUInt64LE = at(function (o) {
+              ((o = o >>> 0), ft(o, "offset"));
+              const s = this[o],
+                p = this[o + 7];
+              (s === void 0 || p === void 0) && Nt(o, this.length - 8);
+              const w = s + this[++o] * 2 ** 8 + this[++o] * 2 ** 16 + this[++o] * 2 ** 24,
+                R = this[++o] + this[++o] * 2 ** 8 + this[++o] * 2 ** 16 + p * 2 ** 24;
+              return BigInt(w) + (BigInt(R) << BigInt(32));
             })),
-            (P.prototype.readBigUInt64BE = N_(function (l) {
-              ((l = l >>> 0), W_(l, "offset"));
-              const f = this[l],
-                E = this[l + 7];
-              (f === void 0 || E === void 0) && le(l, this.length - 8);
-              const N = f * 2 ** 24 + this[++l] * 2 ** 16 + this[++l] * 2 ** 8 + this[++l],
-                L = this[++l] * 2 ** 24 + this[++l] * 2 ** 16 + this[++l] * 2 ** 8 + E;
-              return (BigInt(N) << BigInt(32)) + BigInt(L);
+            (b.prototype.readBigUInt64BE = at(function (o) {
+              ((o = o >>> 0), ft(o, "offset"));
+              const s = this[o],
+                p = this[o + 7];
+              (s === void 0 || p === void 0) && Nt(o, this.length - 8);
+              const w = s * 2 ** 24 + this[++o] * 2 ** 16 + this[++o] * 2 ** 8 + this[++o],
+                R = this[++o] * 2 ** 24 + this[++o] * 2 ** 16 + this[++o] * 2 ** 8 + p;
+              return (BigInt(w) << BigInt(32)) + BigInt(R);
             })),
-            (P.prototype.readIntLE = function (l, f, E) {
-              ((l = l >>> 0), (f = f >>> 0), E || b_(l, f, this.length));
-              let N = this[l],
-                L = 1,
-                D = 0;
-              for (; ++D < f && (L *= 256); ) N += this[l + D] * L;
-              return ((L *= 128), N >= L && (N -= Math.pow(2, 8 * f)), N);
+            (b.prototype.readIntLE = function (o, s, p) {
+              ((o = o >>> 0), (s = s >>> 0), p || H(o, s, this.length));
+              let w = this[o],
+                R = 1,
+                v = 0;
+              for (; ++v < s && (R *= 256); ) w += this[o + v] * R;
+              return ((R *= 128), w >= R && (w -= Math.pow(2, 8 * s)), w);
             }),
-            (P.prototype.readIntBE = function (l, f, E) {
-              ((l = l >>> 0), (f = f >>> 0), E || b_(l, f, this.length));
-              let N = f,
-                L = 1,
-                D = this[l + --N];
-              for (; N > 0 && (L *= 256); ) D += this[l + --N] * L;
-              return ((L *= 128), D >= L && (D -= Math.pow(2, 8 * f)), D);
+            (b.prototype.readIntBE = function (o, s, p) {
+              ((o = o >>> 0), (s = s >>> 0), p || H(o, s, this.length));
+              let w = s,
+                R = 1,
+                v = this[o + --w];
+              for (; w > 0 && (R *= 256); ) v += this[o + --w] * R;
+              return ((R *= 128), v >= R && (v -= Math.pow(2, 8 * s)), v);
             }),
-            (P.prototype.readInt8 = function (l, f) {
-              return ((l = l >>> 0), f || b_(l, 1, this.length), this[l] & 128 ? (255 - this[l] + 1) * -1 : this[l]);
+            (b.prototype.readInt8 = function (o, s) {
+              return ((o = o >>> 0), s || H(o, 1, this.length), this[o] & 128 ? (255 - this[o] + 1) * -1 : this[o]);
             }),
-            (P.prototype.readInt16LE = function (l, f) {
-              ((l = l >>> 0), f || b_(l, 2, this.length));
-              const E = this[l] | (this[l + 1] << 8);
-              return E & 32768 ? E | 4294901760 : E;
+            (b.prototype.readInt16LE = function (o, s) {
+              ((o = o >>> 0), s || H(o, 2, this.length));
+              const p = this[o] | (this[o + 1] << 8);
+              return p & 32768 ? p | 4294901760 : p;
             }),
-            (P.prototype.readInt16BE = function (l, f) {
-              ((l = l >>> 0), f || b_(l, 2, this.length));
-              const E = this[l + 1] | (this[l] << 8);
-              return E & 32768 ? E | 4294901760 : E;
+            (b.prototype.readInt16BE = function (o, s) {
+              ((o = o >>> 0), s || H(o, 2, this.length));
+              const p = this[o + 1] | (this[o] << 8);
+              return p & 32768 ? p | 4294901760 : p;
             }),
-            (P.prototype.readInt32LE = function (l, f) {
-              return ((l = l >>> 0), f || b_(l, 4, this.length), this[l] | (this[l + 1] << 8) | (this[l + 2] << 16) | (this[l + 3] << 24));
+            (b.prototype.readInt32LE = function (o, s) {
+              return ((o = o >>> 0), s || H(o, 4, this.length), this[o] | (this[o + 1] << 8) | (this[o + 2] << 16) | (this[o + 3] << 24));
             }),
-            (P.prototype.readInt32BE = function (l, f) {
-              return ((l = l >>> 0), f || b_(l, 4, this.length), (this[l] << 24) | (this[l + 1] << 16) | (this[l + 2] << 8) | this[l + 3]);
+            (b.prototype.readInt32BE = function (o, s) {
+              return ((o = o >>> 0), s || H(o, 4, this.length), (this[o] << 24) | (this[o + 1] << 16) | (this[o + 2] << 8) | this[o + 3]);
             }),
-            (P.prototype.readBigInt64LE = N_(function (l) {
-              ((l = l >>> 0), W_(l, "offset"));
-              const f = this[l],
-                E = this[l + 7];
-              (f === void 0 || E === void 0) && le(l, this.length - 8);
-              const N = this[l + 4] + this[l + 5] * 2 ** 8 + this[l + 6] * 2 ** 16 + (E << 24);
-              return (BigInt(N) << BigInt(32)) + BigInt(f + this[++l] * 2 ** 8 + this[++l] * 2 ** 16 + this[++l] * 2 ** 24);
+            (b.prototype.readBigInt64LE = at(function (o) {
+              ((o = o >>> 0), ft(o, "offset"));
+              const s = this[o],
+                p = this[o + 7];
+              (s === void 0 || p === void 0) && Nt(o, this.length - 8);
+              const w = this[o + 4] + this[o + 5] * 2 ** 8 + this[o + 6] * 2 ** 16 + (p << 24);
+              return (BigInt(w) << BigInt(32)) + BigInt(s + this[++o] * 2 ** 8 + this[++o] * 2 ** 16 + this[++o] * 2 ** 24);
             })),
-            (P.prototype.readBigInt64BE = N_(function (l) {
-              ((l = l >>> 0), W_(l, "offset"));
-              const f = this[l],
-                E = this[l + 7];
-              (f === void 0 || E === void 0) && le(l, this.length - 8);
-              const N = (f << 24) + this[++l] * 2 ** 16 + this[++l] * 2 ** 8 + this[++l];
-              return (BigInt(N) << BigInt(32)) + BigInt(this[++l] * 2 ** 24 + this[++l] * 2 ** 16 + this[++l] * 2 ** 8 + E);
+            (b.prototype.readBigInt64BE = at(function (o) {
+              ((o = o >>> 0), ft(o, "offset"));
+              const s = this[o],
+                p = this[o + 7];
+              (s === void 0 || p === void 0) && Nt(o, this.length - 8);
+              const w = (s << 24) + this[++o] * 2 ** 16 + this[++o] * 2 ** 8 + this[++o];
+              return (BigInt(w) << BigInt(32)) + BigInt(this[++o] * 2 ** 24 + this[++o] * 2 ** 16 + this[++o] * 2 ** 8 + p);
             })),
-            (P.prototype.readFloatLE = function (l, f) {
-              return ((l = l >>> 0), f || b_(l, 4, this.length), t.read(this, l, !0, 23, 4));
+            (b.prototype.readFloatLE = function (o, s) {
+              return ((o = o >>> 0), s || H(o, 4, this.length), t.read(this, o, !0, 23, 4));
             }),
-            (P.prototype.readFloatBE = function (l, f) {
-              return ((l = l >>> 0), f || b_(l, 4, this.length), t.read(this, l, !1, 23, 4));
+            (b.prototype.readFloatBE = function (o, s) {
+              return ((o = o >>> 0), s || H(o, 4, this.length), t.read(this, o, !1, 23, 4));
             }),
-            (P.prototype.readDoubleLE = function (l, f) {
-              return ((l = l >>> 0), f || b_(l, 8, this.length), t.read(this, l, !0, 52, 8));
+            (b.prototype.readDoubleLE = function (o, s) {
+              return ((o = o >>> 0), s || H(o, 8, this.length), t.read(this, o, !0, 52, 8));
             }),
-            (P.prototype.readDoubleBE = function (l, f) {
-              return ((l = l >>> 0), f || b_(l, 8, this.length), t.read(this, l, !1, 52, 8));
+            (b.prototype.readDoubleBE = function (o, s) {
+              return ((o = o >>> 0), s || H(o, 8, this.length), t.read(this, o, !1, 52, 8));
             }));
-          function C(h, l, f, E, N, L) {
-            if (!P.isBuffer(h)) throw new TypeError('"buffer" argument must be a Buffer instance');
-            if (l > N || l < L) throw new RangeError('"value" argument is out of bounds');
-            if (f + E > h.length) throw new RangeError("Index out of range");
+          function tt(m, o, s, p, w, R) {
+            if (!b.isBuffer(m)) throw new TypeError('"buffer" argument must be a Buffer instance');
+            if (o > w || o < R) throw new RangeError('"value" argument is out of bounds');
+            if (s + p > m.length) throw new RangeError("Index out of range");
           }
-          ((P.prototype.writeUintLE = P.prototype.writeUIntLE =
-            function (l, f, E, N) {
-              if (((l = +l), (f = f >>> 0), (E = E >>> 0), !N)) {
-                const l_ = Math.pow(2, 8 * E) - 1;
-                C(this, l, f, E, l_, 0);
+          ((b.prototype.writeUintLE = b.prototype.writeUIntLE =
+            function (o, s, p, w) {
+              if (((o = +o), (s = s >>> 0), (p = p >>> 0), !w)) {
+                const k = Math.pow(2, 8 * p) - 1;
+                tt(this, o, s, p, k, 0);
               }
-              let L = 1,
-                D = 0;
-              for (this[f] = l & 255; ++D < E && (L *= 256); ) this[f + D] = (l / L) & 255;
-              return f + E;
+              let R = 1,
+                v = 0;
+              for (this[s] = o & 255; ++v < p && (R *= 256); ) this[s + v] = (o / R) & 255;
+              return s + p;
             }),
-            (P.prototype.writeUintBE = P.prototype.writeUIntBE =
-              function (l, f, E, N) {
-                if (((l = +l), (f = f >>> 0), (E = E >>> 0), !N)) {
-                  const l_ = Math.pow(2, 8 * E) - 1;
-                  C(this, l, f, E, l_, 0);
+            (b.prototype.writeUintBE = b.prototype.writeUIntBE =
+              function (o, s, p, w) {
+                if (((o = +o), (s = s >>> 0), (p = p >>> 0), !w)) {
+                  const k = Math.pow(2, 8 * p) - 1;
+                  tt(this, o, s, p, k, 0);
                 }
-                let L = E - 1,
-                  D = 1;
-                for (this[f + L] = l & 255; --L >= 0 && (D *= 256); ) this[f + L] = (l / D) & 255;
-                return f + E;
+                let R = p - 1,
+                  v = 1;
+                for (this[s + R] = o & 255; --R >= 0 && (v *= 256); ) this[s + R] = (o / v) & 255;
+                return s + p;
               }),
-            (P.prototype.writeUint8 = P.prototype.writeUInt8 =
-              function (l, f, E) {
-                return ((l = +l), (f = f >>> 0), E || C(this, l, f, 1, 255, 0), (this[f] = l & 255), f + 1);
+            (b.prototype.writeUint8 = b.prototype.writeUInt8 =
+              function (o, s, p) {
+                return ((o = +o), (s = s >>> 0), p || tt(this, o, s, 1, 255, 0), (this[s] = o & 255), s + 1);
               }),
-            (P.prototype.writeUint16LE = P.prototype.writeUInt16LE =
-              function (l, f, E) {
-                return ((l = +l), (f = f >>> 0), E || C(this, l, f, 2, 65535, 0), (this[f] = l & 255), (this[f + 1] = l >>> 8), f + 2);
+            (b.prototype.writeUint16LE = b.prototype.writeUInt16LE =
+              function (o, s, p) {
+                return ((o = +o), (s = s >>> 0), p || tt(this, o, s, 2, 65535, 0), (this[s] = o & 255), (this[s + 1] = o >>> 8), s + 2);
               }),
-            (P.prototype.writeUint16BE = P.prototype.writeUInt16BE =
-              function (l, f, E) {
-                return ((l = +l), (f = f >>> 0), E || C(this, l, f, 2, 65535, 0), (this[f] = l >>> 8), (this[f + 1] = l & 255), f + 2);
+            (b.prototype.writeUint16BE = b.prototype.writeUInt16BE =
+              function (o, s, p) {
+                return ((o = +o), (s = s >>> 0), p || tt(this, o, s, 2, 65535, 0), (this[s] = o >>> 8), (this[s + 1] = o & 255), s + 2);
               }),
-            (P.prototype.writeUint32LE = P.prototype.writeUInt32LE =
-              function (l, f, E) {
+            (b.prototype.writeUint32LE = b.prototype.writeUInt32LE =
+              function (o, s, p) {
                 return (
-                  (l = +l),
-                  (f = f >>> 0),
-                  E || C(this, l, f, 4, 4294967295, 0),
-                  (this[f + 3] = l >>> 24),
-                  (this[f + 2] = l >>> 16),
-                  (this[f + 1] = l >>> 8),
-                  (this[f] = l & 255),
-                  f + 4
+                  (o = +o),
+                  (s = s >>> 0),
+                  p || tt(this, o, s, 4, 4294967295, 0),
+                  (this[s + 3] = o >>> 24),
+                  (this[s + 2] = o >>> 16),
+                  (this[s + 1] = o >>> 8),
+                  (this[s] = o & 255),
+                  s + 4
                 );
               }),
-            (P.prototype.writeUint32BE = P.prototype.writeUInt32BE =
-              function (l, f, E) {
+            (b.prototype.writeUint32BE = b.prototype.writeUInt32BE =
+              function (o, s, p) {
                 return (
-                  (l = +l),
-                  (f = f >>> 0),
-                  E || C(this, l, f, 4, 4294967295, 0),
-                  (this[f] = l >>> 24),
-                  (this[f + 1] = l >>> 16),
-                  (this[f + 2] = l >>> 8),
-                  (this[f + 3] = l & 255),
-                  f + 4
+                  (o = +o),
+                  (s = s >>> 0),
+                  p || tt(this, o, s, 4, 4294967295, 0),
+                  (this[s] = o >>> 24),
+                  (this[s + 1] = o >>> 16),
+                  (this[s + 2] = o >>> 8),
+                  (this[s + 3] = o & 255),
+                  s + 4
                 );
               }));
-          function ce(h, l, f, E, N) {
-            U_(l, E, N, h, f, 7);
-            let L = Number(l & BigInt(4294967295));
-            ((h[f++] = L), (L = L >> 8), (h[f++] = L), (L = L >> 8), (h[f++] = L), (L = L >> 8), (h[f++] = L));
-            let D = Number((l >> BigInt(32)) & BigInt(4294967295));
-            return ((h[f++] = D), (D = D >> 8), (h[f++] = D), (D = D >> 8), (h[f++] = D), (D = D >> 8), (h[f++] = D), f);
+          function hr(m, o, s, p, w) {
+            it(o, p, w, m, s, 7);
+            let R = Number(o & BigInt(4294967295));
+            ((m[s++] = R), (R = R >> 8), (m[s++] = R), (R = R >> 8), (m[s++] = R), (R = R >> 8), (m[s++] = R));
+            let v = Number((o >> BigInt(32)) & BigInt(4294967295));
+            return ((m[s++] = v), (v = v >> 8), (m[s++] = v), (v = v >> 8), (m[s++] = v), (v = v >> 8), (m[s++] = v), s);
           }
-          function qe(h, l, f, E, N) {
-            U_(l, E, N, h, f, 7);
-            let L = Number(l & BigInt(4294967295));
-            ((h[f + 7] = L), (L = L >> 8), (h[f + 6] = L), (L = L >> 8), (h[f + 5] = L), (L = L >> 8), (h[f + 4] = L));
-            let D = Number((l >> BigInt(32)) & BigInt(4294967295));
-            return ((h[f + 3] = D), (D = D >> 8), (h[f + 2] = D), (D = D >> 8), (h[f + 1] = D), (D = D >> 8), (h[f] = D), f + 8);
+          function Ht(m, o, s, p, w) {
+            it(o, p, w, m, s, 7);
+            let R = Number(o & BigInt(4294967295));
+            ((m[s + 7] = R), (R = R >> 8), (m[s + 6] = R), (R = R >> 8), (m[s + 5] = R), (R = R >> 8), (m[s + 4] = R));
+            let v = Number((o >> BigInt(32)) & BigInt(4294967295));
+            return ((m[s + 3] = v), (v = v >> 8), (m[s + 2] = v), (v = v >> 8), (m[s + 1] = v), (v = v >> 8), (m[s] = v), s + 8);
           }
-          ((P.prototype.writeBigUInt64LE = N_(function (l, f = 0) {
-            return ce(this, l, f, BigInt(0), BigInt("0xffffffffffffffff"));
+          ((b.prototype.writeBigUInt64LE = at(function (o, s = 0) {
+            return hr(this, o, s, BigInt(0), BigInt("0xffffffffffffffff"));
           })),
-            (P.prototype.writeBigUInt64BE = N_(function (l, f = 0) {
-              return qe(this, l, f, BigInt(0), BigInt("0xffffffffffffffff"));
+            (b.prototype.writeBigUInt64BE = at(function (o, s = 0) {
+              return Ht(this, o, s, BigInt(0), BigInt("0xffffffffffffffff"));
             })),
-            (P.prototype.writeIntLE = function (l, f, E, N) {
-              if (((l = +l), (f = f >>> 0), !N)) {
-                const k_ = Math.pow(2, 8 * E - 1);
-                C(this, l, f, E, k_ - 1, -k_);
+            (b.prototype.writeIntLE = function (o, s, p, w) {
+              if (((o = +o), (s = s >>> 0), !w)) {
+                const $ = Math.pow(2, 8 * p - 1);
+                tt(this, o, s, p, $ - 1, -$);
               }
-              let L = 0,
-                D = 1,
-                l_ = 0;
-              for (this[f] = l & 255; ++L < E && (D *= 256); )
-                (l < 0 && l_ === 0 && this[f + L - 1] !== 0 && (l_ = 1), (this[f + L] = (((l / D) >> 0) - l_) & 255));
-              return f + E;
+              let R = 0,
+                v = 1,
+                k = 0;
+              for (this[s] = o & 255; ++R < p && (v *= 256); )
+                (o < 0 && k === 0 && this[s + R - 1] !== 0 && (k = 1), (this[s + R] = (((o / v) >> 0) - k) & 255));
+              return s + p;
             }),
-            (P.prototype.writeIntBE = function (l, f, E, N) {
-              if (((l = +l), (f = f >>> 0), !N)) {
-                const k_ = Math.pow(2, 8 * E - 1);
-                C(this, l, f, E, k_ - 1, -k_);
+            (b.prototype.writeIntBE = function (o, s, p, w) {
+              if (((o = +o), (s = s >>> 0), !w)) {
+                const $ = Math.pow(2, 8 * p - 1);
+                tt(this, o, s, p, $ - 1, -$);
               }
-              let L = E - 1,
-                D = 1,
-                l_ = 0;
-              for (this[f + L] = l & 255; --L >= 0 && (D *= 256); )
-                (l < 0 && l_ === 0 && this[f + L + 1] !== 0 && (l_ = 1), (this[f + L] = (((l / D) >> 0) - l_) & 255));
-              return f + E;
+              let R = p - 1,
+                v = 1,
+                k = 0;
+              for (this[s + R] = o & 255; --R >= 0 && (v *= 256); )
+                (o < 0 && k === 0 && this[s + R + 1] !== 0 && (k = 1), (this[s + R] = (((o / v) >> 0) - k) & 255));
+              return s + p;
             }),
-            (P.prototype.writeInt8 = function (l, f, E) {
-              return ((l = +l), (f = f >>> 0), E || C(this, l, f, 1, 127, -128), l < 0 && (l = 255 + l + 1), (this[f] = l & 255), f + 1);
+            (b.prototype.writeInt8 = function (o, s, p) {
+              return ((o = +o), (s = s >>> 0), p || tt(this, o, s, 1, 127, -128), o < 0 && (o = 255 + o + 1), (this[s] = o & 255), s + 1);
             }),
-            (P.prototype.writeInt16LE = function (l, f, E) {
-              return ((l = +l), (f = f >>> 0), E || C(this, l, f, 2, 32767, -32768), (this[f] = l & 255), (this[f + 1] = l >>> 8), f + 2);
+            (b.prototype.writeInt16LE = function (o, s, p) {
+              return ((o = +o), (s = s >>> 0), p || tt(this, o, s, 2, 32767, -32768), (this[s] = o & 255), (this[s + 1] = o >>> 8), s + 2);
             }),
-            (P.prototype.writeInt16BE = function (l, f, E) {
-              return ((l = +l), (f = f >>> 0), E || C(this, l, f, 2, 32767, -32768), (this[f] = l >>> 8), (this[f + 1] = l & 255), f + 2);
+            (b.prototype.writeInt16BE = function (o, s, p) {
+              return ((o = +o), (s = s >>> 0), p || tt(this, o, s, 2, 32767, -32768), (this[s] = o >>> 8), (this[s + 1] = o & 255), s + 2);
             }),
-            (P.prototype.writeInt32LE = function (l, f, E) {
+            (b.prototype.writeInt32LE = function (o, s, p) {
               return (
-                (l = +l),
-                (f = f >>> 0),
-                E || C(this, l, f, 4, 2147483647, -2147483648),
-                (this[f] = l & 255),
-                (this[f + 1] = l >>> 8),
-                (this[f + 2] = l >>> 16),
-                (this[f + 3] = l >>> 24),
-                f + 4
+                (o = +o),
+                (s = s >>> 0),
+                p || tt(this, o, s, 4, 2147483647, -2147483648),
+                (this[s] = o & 255),
+                (this[s + 1] = o >>> 8),
+                (this[s + 2] = o >>> 16),
+                (this[s + 3] = o >>> 24),
+                s + 4
               );
             }),
-            (P.prototype.writeInt32BE = function (l, f, E) {
+            (b.prototype.writeInt32BE = function (o, s, p) {
               return (
-                (l = +l),
-                (f = f >>> 0),
-                E || C(this, l, f, 4, 2147483647, -2147483648),
-                l < 0 && (l = 4294967295 + l + 1),
-                (this[f] = l >>> 24),
-                (this[f + 1] = l >>> 16),
-                (this[f + 2] = l >>> 8),
-                (this[f + 3] = l & 255),
-                f + 4
+                (o = +o),
+                (s = s >>> 0),
+                p || tt(this, o, s, 4, 2147483647, -2147483648),
+                o < 0 && (o = 4294967295 + o + 1),
+                (this[s] = o >>> 24),
+                (this[s + 1] = o >>> 16),
+                (this[s + 2] = o >>> 8),
+                (this[s + 3] = o & 255),
+                s + 4
               );
             }),
-            (P.prototype.writeBigInt64LE = N_(function (l, f = 0) {
-              return ce(this, l, f, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
+            (b.prototype.writeBigInt64LE = at(function (o, s = 0) {
+              return hr(this, o, s, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
             })),
-            (P.prototype.writeBigInt64BE = N_(function (l, f = 0) {
-              return qe(this, l, f, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
+            (b.prototype.writeBigInt64BE = at(function (o, s = 0) {
+              return Ht(this, o, s, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
             })));
-          function $_(h, l, f, E, N, L) {
-            if (f + E > h.length) throw new RangeError("Index out of range");
-            if (f < 0) throw new RangeError("Index out of range");
+          function xt(m, o, s, p, w, R) {
+            if (s + p > m.length) throw new RangeError("Index out of range");
+            if (s < 0) throw new RangeError("Index out of range");
           }
-          function $(h, l, f, E, N) {
-            return ((l = +l), (f = f >>> 0), N || $_(h, l, f, 4), t.write(h, l, f, E, 23, 4), f + 4);
+          function Ot(m, o, s, p, w) {
+            return ((o = +o), (s = s >>> 0), w || xt(m, o, s, 4), t.write(m, o, s, p, 23, 4), s + 4);
           }
-          ((P.prototype.writeFloatLE = function (l, f, E) {
-            return $(this, l, f, !0, E);
+          ((b.prototype.writeFloatLE = function (o, s, p) {
+            return Ot(this, o, s, !0, p);
           }),
-            (P.prototype.writeFloatBE = function (l, f, E) {
-              return $(this, l, f, !1, E);
+            (b.prototype.writeFloatBE = function (o, s, p) {
+              return Ot(this, o, s, !1, p);
             }));
-          function ke(h, l, f, E, N) {
-            return ((l = +l), (f = f >>> 0), N || $_(h, l, f, 8), t.write(h, l, f, E, 52, 8), f + 8);
+          function Wt(m, o, s, p, w) {
+            return ((o = +o), (s = s >>> 0), w || xt(m, o, s, 8), t.write(m, o, s, p, 52, 8), s + 8);
           }
-          ((P.prototype.writeDoubleLE = function (l, f, E) {
-            return ke(this, l, f, !0, E);
+          ((b.prototype.writeDoubleLE = function (o, s, p) {
+            return Wt(this, o, s, !0, p);
           }),
-            (P.prototype.writeDoubleBE = function (l, f, E) {
-              return ke(this, l, f, !1, E);
+            (b.prototype.writeDoubleBE = function (o, s, p) {
+              return Wt(this, o, s, !1, p);
             }),
-            (P.prototype.copy = function (l, f, E, N) {
-              if (!P.isBuffer(l)) throw new TypeError("argument should be a Buffer");
+            (b.prototype.copy = function (o, s, p, w) {
+              if (!b.isBuffer(o)) throw new TypeError("argument should be a Buffer");
               if (
-                (E || (E = 0),
-                !N && N !== 0 && (N = this.length),
-                f >= l.length && (f = l.length),
-                f || (f = 0),
-                N > 0 && N < E && (N = E),
-                N === E || l.length === 0 || this.length === 0)
+                (p || (p = 0),
+                !w && w !== 0 && (w = this.length),
+                s >= o.length && (s = o.length),
+                s || (s = 0),
+                w > 0 && w < p && (w = p),
+                w === p || o.length === 0 || this.length === 0)
               )
                 return 0;
-              if (f < 0) throw new RangeError("targetStart out of bounds");
-              if (E < 0 || E >= this.length) throw new RangeError("Index out of range");
-              if (N < 0) throw new RangeError("sourceEnd out of bounds");
-              (N > this.length && (N = this.length), l.length - f < N - E && (N = l.length - f + E));
-              const L = N - E;
+              if (s < 0) throw new RangeError("targetStart out of bounds");
+              if (p < 0 || p >= this.length) throw new RangeError("Index out of range");
+              if (w < 0) throw new RangeError("sourceEnd out of bounds");
+              (w > this.length && (w = this.length), o.length - s < w - p && (w = o.length - s + p));
+              const R = w - p;
               return (
-                this === l && typeof Uint8Array.prototype.copyWithin == "function"
-                  ? this.copyWithin(f, E, N)
-                  : Uint8Array.prototype.set.call(l, this.subarray(E, N), f),
-                L
+                this === o && typeof Uint8Array.prototype.copyWithin == "function"
+                  ? this.copyWithin(s, p, w)
+                  : Uint8Array.prototype.set.call(o, this.subarray(p, w), s),
+                R
               );
             }),
-            (P.prototype.fill = function (l, f, E, N) {
-              if (typeof l == "string") {
+            (b.prototype.fill = function (o, s, p, w) {
+              if (typeof o == "string") {
                 if (
-                  (typeof f == "string" ? ((N = f), (f = 0), (E = this.length)) : typeof E == "string" && ((N = E), (E = this.length)),
-                  N !== void 0 && typeof N != "string")
+                  (typeof s == "string" ? ((w = s), (s = 0), (p = this.length)) : typeof p == "string" && ((w = p), (p = this.length)),
+                  w !== void 0 && typeof w != "string")
                 )
                   throw new TypeError("encoding must be a string");
-                if (typeof N == "string" && !P.isEncoding(N)) throw new TypeError("Unknown encoding: " + N);
-                if (l.length === 1) {
-                  const D = l.charCodeAt(0);
-                  ((N === "utf8" && D < 128) || N === "latin1") && (l = D);
+                if (typeof w == "string" && !b.isEncoding(w)) throw new TypeError("Unknown encoding: " + w);
+                if (o.length === 1) {
+                  const v = o.charCodeAt(0);
+                  ((w === "utf8" && v < 128) || w === "latin1") && (o = v);
                 }
-              } else typeof l == "number" ? (l = l & 255) : typeof l == "boolean" && (l = Number(l));
-              if (f < 0 || this.length < f || this.length < E) throw new RangeError("Out of range index");
-              if (E <= f) return this;
-              ((f = f >>> 0), (E = E === void 0 ? this.length : E >>> 0), l || (l = 0));
-              let L;
-              if (typeof l == "number") for (L = f; L < E; ++L) this[L] = l;
+              } else typeof o == "number" ? (o = o & 255) : typeof o == "boolean" && (o = Number(o));
+              if (s < 0 || this.length < s || this.length < p) throw new RangeError("Out of range index");
+              if (p <= s) return this;
+              ((s = s >>> 0), (p = p === void 0 ? this.length : p >>> 0), o || (o = 0));
+              let R;
+              if (typeof o == "number") for (R = s; R < p; ++R) this[R] = o;
               else {
-                const D = P.isBuffer(l) ? l : P.from(l, N),
-                  l_ = D.length;
-                if (l_ === 0) throw new TypeError('The value "' + l + '" is invalid for argument "value"');
-                for (L = 0; L < E - f; ++L) this[L + f] = D[L % l_];
+                const v = b.isBuffer(o) ? o : b.from(o, w),
+                  k = v.length;
+                if (k === 0) throw new TypeError('The value "' + o + '" is invalid for argument "value"');
+                for (R = 0; R < p - s; ++R) this[R + s] = v[R % k];
               }
               return this;
             }));
-          const I_ = {};
-          function F_(h, l, f) {
-            I_[h] = class extends f {
+          const et = {};
+          function _t(m, o, s) {
+            et[m] = class extends s {
               constructor() {
                 (super(),
-                  Object.defineProperty(this, "message", { value: l.apply(this, arguments), writable: !0, configurable: !0 }),
-                  (this.name = `${this.name} [${h}]`),
+                  Object.defineProperty(this, "message", { value: o.apply(this, arguments), writable: !0, configurable: !0 }),
+                  (this.name = `${this.name} [${m}]`),
                   this.stack,
                   delete this.name);
               }
               get code() {
-                return h;
+                return m;
               }
-              set code(N) {
-                Object.defineProperty(this, "code", { configurable: !0, enumerable: !0, value: N, writable: !0 });
+              set code(w) {
+                Object.defineProperty(this, "code", { configurable: !0, enumerable: !0, value: w, writable: !0 });
               }
               toString() {
-                return `${this.name} [${h}]: ${this.message}`;
+                return `${this.name} [${m}]: ${this.message}`;
               }
             };
           }
-          (F_(
+          (_t(
             "ERR_BUFFER_OUT_OF_BOUNDS",
-            function (h) {
-              return h ? `${h} is outside of buffer bounds` : "Attempt to access memory outside buffer bounds";
+            function (m) {
+              return m ? `${m} is outside of buffer bounds` : "Attempt to access memory outside buffer bounds";
             },
             RangeError,
           ),
-            F_(
+            _t(
               "ERR_INVALID_ARG_TYPE",
-              function (h, l) {
-                return `The "${h}" argument must be of type number. Received type ${typeof l}`;
+              function (m, o) {
+                return `The "${m}" argument must be of type number. Received type ${typeof o}`;
               },
               TypeError,
             ),
-            F_(
+            _t(
               "ERR_OUT_OF_RANGE",
-              function (h, l, f) {
-                let E = `The value of "${h}" is out of range.`,
-                  N = f;
+              function (m, o, s) {
+                let p = `The value of "${m}" is out of range.`,
+                  w = s;
                 return (
-                  Number.isInteger(f) && Math.abs(f) > 2 ** 32
-                    ? (N = i(String(f)))
-                    : typeof f == "bigint" &&
-                      ((N = String(f)), (f > BigInt(2) ** BigInt(32) || f < -(BigInt(2) ** BigInt(32))) && (N = i(N)), (N += "n")),
-                  (E += ` It must be ${l}. Received ${N}`),
-                  E
+                  Number.isInteger(s) && Math.abs(s) > 2 ** 32
+                    ? (w = X(String(s)))
+                    : typeof s == "bigint" &&
+                      ((w = String(s)), (s > BigInt(2) ** BigInt(32) || s < -(BigInt(2) ** BigInt(32))) && (w = X(w)), (w += "n")),
+                  (p += ` It must be ${o}. Received ${w}`),
+                  p
                 );
               },
               RangeError,
             ));
-          function i(h) {
-            let l = "",
-              f = h.length;
-            const E = h[0] === "-" ? 1 : 0;
-            for (; f >= E + 4; f -= 3) l = `_${h.slice(f - 3, f)}${l}`;
-            return `${h.slice(0, f)}${l}`;
+          function X(m) {
+            let o = "",
+              s = m.length;
+            const p = m[0] === "-" ? 1 : 0;
+            for (; s >= p + 4; s -= 3) o = `_${m.slice(s - 3, s)}${o}`;
+            return `${m.slice(0, s)}${o}`;
           }
-          function lt(h, l, f) {
-            (W_(l, "offset"), (h[l] === void 0 || h[l + f] === void 0) && le(l, h.length - (f + 1)));
+          function br(m, o, s) {
+            (ft(o, "offset"), (m[o] === void 0 || m[o + s] === void 0) && Nt(o, m.length - (s + 1)));
           }
-          function U_(h, l, f, E, N, L) {
-            if (h > f || h < l) {
-              const D = typeof l == "bigint" ? "n" : "";
-              let l_;
+          function it(m, o, s, p, w, R) {
+            if (m > s || m < o) {
+              const v = typeof o == "bigint" ? "n" : "";
+              let k;
               throw (
-                l === 0 || l === BigInt(0)
-                  ? (l_ = `>= 0${D} and < 2${D} ** ${(L + 1) * 8}${D}`)
-                  : (l_ = `>= -(2${D} ** ${(L + 1) * 8 - 1}${D}) and < 2 ** ${(L + 1) * 8 - 1}${D}`),
-                new I_.ERR_OUT_OF_RANGE("value", l_, h)
+                o === 0 || o === BigInt(0)
+                  ? (k = `>= 0${v} and < 2${v} ** ${(R + 1) * 8}${v}`)
+                  : (k = `>= -(2${v} ** ${(R + 1) * 8 - 1}${v}) and < 2 ** ${(R + 1) * 8 - 1}${v}`),
+                new et.ERR_OUT_OF_RANGE("value", k, m)
               );
             }
-            lt(E, N, L);
+            br(p, w, R);
           }
-          function W_(h, l) {
-            if (typeof h != "number") throw new I_.ERR_INVALID_ARG_TYPE(l, "number", h);
+          function ft(m, o) {
+            if (typeof m != "number") throw new et.ERR_INVALID_ARG_TYPE(o, "number", m);
           }
-          function le(h, l, f) {
-            throw Math.floor(h) !== h
-              ? (W_(h, f), new I_.ERR_OUT_OF_RANGE("offset", "an integer", h))
-              : l < 0
-                ? new I_.ERR_BUFFER_OUT_OF_BOUNDS()
-                : new I_.ERR_OUT_OF_RANGE("offset", `>= 0 and <= ${l}`, h);
+          function Nt(m, o, s) {
+            throw Math.floor(m) !== m
+              ? (ft(m, s), new et.ERR_OUT_OF_RANGE("offset", "an integer", m))
+              : o < 0
+                ? new et.ERR_BUFFER_OUT_OF_BOUNDS()
+                : new et.ERR_OUT_OF_RANGE("offset", `>= 0 and <= ${o}`, m);
           }
-          const It = /[^+/0-9A-Za-z-_]/g;
-          function Ye(h) {
-            if (((h = h.split("=")[0]), (h = h.trim().replace(It, "")), h.length < 2)) return "";
-            for (; h.length % 4 !== 0; ) h = h + "=";
-            return h;
+          const Lr = /[^+/0-9A-Za-z-_]/g;
+          function Ur(m) {
+            if (((m = m.split("=")[0]), (m = m.trim().replace(Lr, "")), m.length < 2)) return "";
+            for (; m.length % 4 !== 0; ) m = m + "=";
+            return m;
           }
-          function Ee(h, l) {
-            l = l || 1 / 0;
-            let f;
-            const E = h.length;
-            let N = null;
-            const L = [];
-            for (let D = 0; D < E; ++D) {
-              if (((f = h.charCodeAt(D)), f > 55295 && f < 57344)) {
-                if (!N) {
-                  if (f > 56319) {
-                    (l -= 3) > -1 && L.push(239, 191, 189);
+          function Xt(m, o) {
+            o = o || 1 / 0;
+            let s;
+            const p = m.length;
+            let w = null;
+            const R = [];
+            for (let v = 0; v < p; ++v) {
+              if (((s = m.charCodeAt(v)), s > 55295 && s < 57344)) {
+                if (!w) {
+                  if (s > 56319) {
+                    (o -= 3) > -1 && R.push(239, 191, 189);
                     continue;
-                  } else if (D + 1 === E) {
-                    (l -= 3) > -1 && L.push(239, 191, 189);
+                  } else if (v + 1 === p) {
+                    (o -= 3) > -1 && R.push(239, 191, 189);
                     continue;
                   }
-                  N = f;
+                  w = s;
                   continue;
                 }
-                if (f < 56320) {
-                  ((l -= 3) > -1 && L.push(239, 191, 189), (N = f));
+                if (s < 56320) {
+                  ((o -= 3) > -1 && R.push(239, 191, 189), (w = s));
                   continue;
                 }
-                f = (((N - 55296) << 10) | (f - 56320)) + 65536;
-              } else N && (l -= 3) > -1 && L.push(239, 191, 189);
-              if (((N = null), f < 128)) {
-                if ((l -= 1) < 0) break;
-                L.push(f);
-              } else if (f < 2048) {
-                if ((l -= 2) < 0) break;
-                L.push((f >> 6) | 192, (f & 63) | 128);
-              } else if (f < 65536) {
-                if ((l -= 3) < 0) break;
-                L.push((f >> 12) | 224, ((f >> 6) & 63) | 128, (f & 63) | 128);
-              } else if (f < 1114112) {
-                if ((l -= 4) < 0) break;
-                L.push((f >> 18) | 240, ((f >> 12) & 63) | 128, ((f >> 6) & 63) | 128, (f & 63) | 128);
+                s = (((w - 55296) << 10) | (s - 56320)) + 65536;
+              } else w && (o -= 3) > -1 && R.push(239, 191, 189);
+              if (((w = null), s < 128)) {
+                if ((o -= 1) < 0) break;
+                R.push(s);
+              } else if (s < 2048) {
+                if ((o -= 2) < 0) break;
+                R.push((s >> 6) | 192, (s & 63) | 128);
+              } else if (s < 65536) {
+                if ((o -= 3) < 0) break;
+                R.push((s >> 12) | 224, ((s >> 6) & 63) | 128, (s & 63) | 128);
+              } else if (s < 1114112) {
+                if ((o -= 4) < 0) break;
+                R.push((s >> 18) | 240, ((s >> 12) & 63) | 128, ((s >> 6) & 63) | 128, (s & 63) | 128);
               } else throw new Error("Invalid code point");
             }
-            return L;
+            return R;
           }
-          function mt(h) {
-            const l = [];
-            for (let f = 0; f < h.length; ++f) l.push(h.charCodeAt(f) & 255);
-            return l;
+          function Fr(m) {
+            const o = [];
+            for (let s = 0; s < m.length; ++s) o.push(m.charCodeAt(s) & 255);
+            return o;
           }
-          function ft(h, l) {
-            let f, E, N;
-            const L = [];
-            for (let D = 0; D < h.length && !((l -= 2) < 0); ++D) ((f = h.charCodeAt(D)), (E = f >> 8), (N = f % 256), L.push(N), L.push(E));
-            return L;
+          function Mr(m, o) {
+            let s, p, w;
+            const R = [];
+            for (let v = 0; v < m.length && !((o -= 2) < 0); ++v) ((s = m.charCodeAt(v)), (p = s >> 8), (w = s % 256), R.push(w), R.push(p));
+            return R;
           }
-          function Qe(h) {
-            return y.toByteArray(Ye(h));
+          function gr(m) {
+            return l.toByteArray(Ur(m));
           }
-          function me(h, l, f, E) {
-            let N;
-            for (N = 0; N < E && !(N + f >= l.length || N >= h.length); ++N) l[N + f] = h[N];
-            return N;
+          function Ct(m, o, s, p) {
+            let w;
+            for (w = 0; w < p && !(w + s >= o.length || w >= m.length); ++w) o[w + s] = m[w];
+            return w;
           }
-          function A_(h, l) {
-            return h instanceof l || (h != null && h.constructor != null && h.constructor.name != null && h.constructor.name === l.name);
+          function ut(m, o) {
+            return m instanceof o || (m != null && m.constructor != null && m.constructor.name != null && m.constructor.name === o.name);
           }
-          function E_(h) {
-            return h !== h;
+          function Pt(m) {
+            return m !== m;
           }
-          const ae = (function () {
-            const h = "0123456789abcdef",
-              l = new Array(256);
-            for (let f = 0; f < 16; ++f) {
-              const E = f * 16;
-              for (let N = 0; N < 16; ++N) l[E + N] = h[f] + h[N];
+          const Dr = (function () {
+            const m = "0123456789abcdef",
+              o = new Array(256);
+            for (let s = 0; s < 16; ++s) {
+              const p = s * 16;
+              for (let w = 0; w < 16; ++w) o[p + w] = m[s] + m[w];
             }
-            return l;
+            return o;
           })();
-          function N_(h) {
-            return typeof BigInt > "u" ? P_ : h;
+          function at(m) {
+            return typeof BigInt > "u" ? kr : m;
           }
-          function P_() {
+          function kr() {
             throw new Error("BigInt not supported");
           }
-        })(Mr)),
-      Mr
+        })(Sr)),
+      Sr
     );
   }
-  var Ii = Ri(),
-    Ge = {},
-    Br = { exports: {} };
-  const Ne = st(Object.freeze(Object.defineProperty({ __proto__: null, default: {} }, Symbol.toStringTag, { value: "Module" })));
-  var gn;
-  function Fi() {
-    return (
-      gn ||
-        ((gn = 1),
-        (function (T, y) {
-          var t = (() => {
-            var R = typeof document < "u" ? document.currentScript?.src : void 0;
-            return async function (x = {}) {
-              var P,
-                _ = x,
-                B = typeof window == "object",
-                a = typeof WorkerGlobalScope < "u",
-                V = typeof process == "object" && process.versions?.node && process.type != "renderer",
-                s_ = !B && !V && !a,
-                M = a && self.name?.startsWith("em-pthread");
-              if (
-                (M && (C(!globalThis.moduleLoaded, "module should only be loaded once on each pthread worker"), (globalThis.moduleLoaded = !0)), V)
-              ) {
-                var K = Ne;
-                ((Fe.Worker = K.Worker), (a = !K.isMainThread), (M = a && K.workerData == "em-pthread"));
-              }
-              let u = [],
-                c = null;
-              function Z(e) {
-                if (c == null) return;
-                let r = c;
-                ((c = null),
-                  setTimeout(() => {
-                    r.resolve(e);
-                  }, 0));
-              }
-              function A(e) {
-                if (c == null) return;
-                let r = c;
-                ((c = null),
-                  setTimeout(() => {
-                    r.reject(e);
-                  }, 0));
-              }
-              _.async_call = function (e, ...r) {
-                if (c !== null) throw new Error("you can't execute multiple async functions at the same time; let the previous one finish first");
-                let s = new Promise((p, g) => {
-                  c = { resolve: p, reject: g };
-                });
-                return (e(...r), s);
-              };
-              var j = "./this.program",
-                o_ = (e, r) => {
-                  throw r;
-                };
-              typeof __filename < "u" ? (R = __filename) : a && (R = self.location.href);
-              var r_ = "";
-              function x_(e) {
-                return _.locateFile ? _.locateFile(e, r_) : r_ + e;
-              }
-              var S_, k;
-              if (V) {
-                if (!(typeof process == "object" && process.versions?.node && process.type != "renderer"))
-                  throw new Error(
-                    "not compiled for this environment (did you build to HTML and try to run it not on the web, or set ENVIRONMENT to something - like node - and run it someplace else - like on the web?)",
-                  );
-                var G = process.versions.node,
-                  re = G.split(".").slice(0, 3);
-                if (((re = re[0] * 1e4 + re[1] * 100 + re[2].split("-")[0] * 1), re < 160400))
-                  throw new Error("This emscripten-generated code requires node v16.04.4.0 (detected v" + G + ")");
-                var ne = Ne;
-                ((r_ = __dirname + "/"),
-                  (k = (r) => {
-                    r = ce(r) ? new URL(r) : r;
-                    var s = ne.readFileSync(r);
-                    return (C(Buffer.isBuffer(s)), s);
-                  }),
-                  (S_ = async (r, s = !0) => {
-                    r = ce(r) ? new URL(r) : r;
-                    var p = ne.readFileSync(r, s ? void 0 : "utf8");
-                    return (C(s ? Buffer.isBuffer(p) : typeof p == "string"), p);
-                  }),
-                  process.argv.length > 1 && (j = process.argv[1].replace(/\\/g, "/")),
-                  process.argv.slice(2),
-                  (o_ = (r, s) => {
-                    throw ((process.exitCode = r), s);
-                  }));
-              } else if (s_) {
-                if (
-                  (typeof process == "object" && process.versions?.node && process.type != "renderer") ||
-                  typeof window == "object" ||
-                  typeof WorkerGlobalScope < "u"
-                )
-                  throw new Error(
-                    "not compiled for this environment (did you build to HTML and try to run it not on the web, or set ENVIRONMENT to something - like node - and run it someplace else - like on the web?)",
-                  );
-              } else if (B || a) {
-                try {
-                  r_ = new URL(".", R).href;
-                } catch {}
-                if (!(typeof window == "object" || typeof WorkerGlobalScope < "u"))
-                  throw new Error(
-                    "not compiled for this environment (did you build to HTML and try to run it not on the web, or set ENVIRONMENT to something - like node - and run it someplace else - like on the web?)",
-                  );
-                V ||
-                  (a &&
-                    (k = (e) => {
-                      var r = new XMLHttpRequest();
-                      return (r.open("GET", e, !1), (r.responseType = "arraybuffer"), r.send(null), new Uint8Array(r.response));
-                    }),
-                  (S_ = async (e) => {
-                    if (ce(e))
-                      return new Promise((s, p) => {
-                        var g = new XMLHttpRequest();
-                        (g.open("GET", e, !0),
-                          (g.responseType = "arraybuffer"),
-                          (g.onload = () => {
-                            if (g.status == 200 || (g.status == 0 && g.response)) {
-                              s(g.response);
-                              return;
-                            }
-                            p(g.status);
-                          }),
-                          (g.onerror = p),
-                          g.send(null));
-                      });
-                    var r = await fetch(e, { credentials: "same-origin" });
-                    if (r.ok) return r.arrayBuffer();
-                    throw new Error(r.status + " : " + r.url);
-                  }));
-              } else throw new Error("environment detection error");
-              var F = console.log.bind(console),
-                y_ = console.error.bind(console);
-              if (V) {
-                var ye = Ne,
-                  Le = (e) => (typeof e == "object" ? ye.inspect(e) : e);
-                ((F = (...e) =>
-                  ne.writeSync(
-                    1,
-                    e.map(Le).join(" ") +
-                      `
-`,
-                  )),
-                  (y_ = (...e) =>
-                    ne.writeSync(
-                      2,
-                      e.map(Le).join(" ") +
-                        `
-`,
-                    )));
-              }
-              var V_ = F,
-                c_ = y_;
-              (C(B || a || V, "Pthreads do not work in this environment yet (need Web Workers, or an alternative to them)"),
-                C(!s_, "shell environment detected but not enabled at build time.  Add `shell` to `-sENVIRONMENT` to enable."));
-              var h_;
-              typeof WebAssembly != "object" && c_("no native wasm support detected");
-              var G_,
-                ie = !1,
-                b_;
-              function C(e, r) {
-                e || t_("Assertion failed" + (r ? ": " + r : ""));
-              }
-              var ce = (e) => e.startsWith("file://");
-              function qe() {
-                var e = on();
-                (C((e & 3) == 0), e == 0 && (e += 4), (h[e >> 2] = 34821223), (h[(e + 4) >> 2] = 2310721022), (h[0] = 1668509029));
-              }
-              function $_() {
-                if (!ie) {
-                  var e = on();
-                  e == 0 && (e += 4);
-                  var r = h[e >> 2],
-                    s = h[(e + 4) >> 2];
-                  ((r != 34821223 || s != 2310721022) &&
-                    t_(
-                      `Stack overflow! Stack cookie has been overwritten at ${Oe(e)}, expected hex dwords 0x89BACDFE and 0x2135467, but received ${Oe(s)} ${Oe(r)}`,
-                    ),
-                    h[0] != 1668509029 && t_("Runtime error: The application has corrupted its heap memory area (address zero)!"));
-                }
-              }
-              class $ extends Error {}
-              class ke extends $ {
-                constructor(r) {
-                  (super(r), (this.excPtr = r));
-                  const s = pi(r);
-                  ((this.name = s[0]), (this.message = s[1]));
-                }
-              }
-              function I_(...e) {
-                if (V) {
-                  var r = Ne,
-                    s = Ne,
-                    p = (g) => (typeof g == "object" ? s.inspect(g) : g);
-                  r.writeSync(
-                    2,
-                    e.map(p).join(" ") +
-                      `
-`,
-                  );
-                } else console.warn(...e);
-              }
-              (() => {
-                var e = new Int16Array(1),
-                  r = new Int8Array(e.buffer);
-                ((e[0] = 25459),
-                  (r[0] !== 115 || r[1] !== 99) &&
-                    t_("Runtime error: expected the system to be little-endian! (Run with -sSUPPORT_BIG_ENDIAN to bypass)"));
-              })();
-              function F_(e) {
-                Object.getOwnPropertyDescriptor(_, e) ||
-                  Object.defineProperty(_, e, {
-                    configurable: !0,
-                    set() {
-                      t_(
-                        `Attempt to set \`Module.${e}\` after it has already been processed.  This can happen, for example, when code is injected via '--post-js' rather than '--pre-js'`,
-                      );
-                    },
-                  });
-              }
-              function i(e) {
-                return () => C(!1, `call to '${e}' via reference taken before Wasm module initialization`);
-              }
-              function lt(e) {
-                Object.getOwnPropertyDescriptor(_, e) && t_(`\`Module.${e}\` was supplied but \`${e}\` not included in INCOMING_MODULE_JS_API`);
-              }
-              function U_(e) {
-                return (
-                  e === "FS_createPath" ||
-                  e === "FS_createDataFile" ||
-                  e === "FS_createPreloadedFile" ||
-                  e === "FS_preloadFile" ||
-                  e === "FS_unlink" ||
-                  e === "addRunDependency" ||
-                  e === "FS_createLazyFile" ||
-                  e === "FS_createDevice" ||
-                  e === "removeRunDependency"
-                );
-              }
-              function W_(e) {
-                le(e);
-              }
-              function le(e) {
-                M ||
-                  Object.getOwnPropertyDescriptor(_, e) ||
-                  Object.defineProperty(_, e, {
-                    configurable: !0,
-                    get() {
-                      var r = `'${e}' was not exported. add it to EXPORTED_RUNTIME_METHODS (see the Emscripten FAQ)`;
-                      (U_(e) && (r += ". Alternatively, forcing filesystem support (-sFORCE_FILESYSTEM) can export this for you"), t_(r));
-                    },
-                  });
-              }
-              function It() {
-                function e() {
-                  var s = 0;
-                  return (E && typeof Tt < "u" && (s = Tt()), `w:${ft},t:${Oe(s)}:`);
-                }
-                var r = I_;
-                I_ = (...s) => r(e(), ...s);
-              }
-              It();
-              var Ye, Ee;
-              if (V && M) {
-                var mt = K.parentPort;
-                (mt.on("message", (e) => Fe.onmessage?.({ data: e })),
-                  Object.assign(globalThis, { self: Fe, postMessage: (e) => mt.postMessage(e) }),
-                  process.on("uncaughtException", (e) => {
-                    (postMessage({ cmd: "uncaughtException", error: e }), process.exit(1));
-                  }));
-              }
-              var ft = 0,
-                Qe;
-              if (M) {
-                let e = function (r) {
-                  try {
-                    var s = r.data,
-                      p = s.cmd;
-                    if (p === "load") {
-                      ft = s.workerID;
-                      let g = [];
-                      ((self.onmessage = (v) => g.push(v)),
-                        (Qe = () => {
-                          postMessage({ cmd: "loaded" });
-                          for (let v of g) e(v);
-                          self.onmessage = e;
-                        }));
-                      for (const v of s.handlers)
-                        (!_[v] || _[v].proxy) &&
-                          ((_[v] = (...O) => {
-                            postMessage({ cmd: "callHandler", handler: v, args: O });
-                          }),
-                          v == "print" && (V_ = _[v]),
-                          v == "printErr" && (c_ = _[v]));
-                      ((A_ = s.wasmMemory), N(), (G_ = s.wasmModule), pr(), qr());
-                    } else if (p === "run") {
-                      (C(s.pthread_ptr), qt(s.pthread_ptr), an(s.pthread_ptr, 0, 0, 1, 0, 0), p_.threadInitTLS(), Yt(s.pthread_ptr), me || (me = !0));
-                      try {
-                        Hr(s.start_routine, s.arg);
-                      } catch (g) {
-                        if (g != "unwind") throw g;
-                      }
-                    } else
-                      s.target === "setimmediate" || (p === "checkMailbox" ? me && nt() : p && (c_(`worker: received unknown command ${p}`), c_(s)));
-                  } catch (g) {
-                    throw (c_(`worker: onmessage() captured an uncaught exception: ${g}`), g?.stack && c_(g.stack), Zi(), g);
-                  }
-                };
-                var me = !1;
-                ((self.onunhandledrejection = (r) => {
-                  throw r.reason || r;
-                }),
-                  (self.onmessage = e));
-              }
-              var A_,
-                E_,
-                ae,
-                N_,
-                P_,
-                h,
-                l,
-                f,
-                E = !1;
-              function N() {
-                var e = A_.buffer;
-                ((E_ = new Int8Array(e)),
-                  (N_ = new Int16Array(e)),
-                  (ae = new Uint8Array(e)),
-                  (P_ = new Int32Array(e)),
-                  (_.HEAPU32 = h = new Uint32Array(e)),
-                  (l = new Float64Array(e)),
-                  (f = new BigInt64Array(e)),
-                  new BigUint64Array(e));
-              }
-              function L() {
-                if (!M) {
-                  if (_.wasmMemory) A_ = _.wasmMemory;
-                  else {
-                    var e = _.INITIAL_MEMORY || 2147483648;
-                    (C(e >= 20971520, "INITIAL_MEMORY should be larger than STACK_SIZE, was " + e + "! (STACK_SIZE=20971520)"),
-                      (A_ = new WebAssembly.Memory({ initial: e / 65536, maximum: e / 65536, shared: !0 })));
-                  }
-                  N();
-                }
-              }
-              C(
-                typeof Int32Array < "u" && typeof Float64Array < "u" && Int32Array.prototype.subarray != null && Int32Array.prototype.set != null,
-                "JS engine does not provide full typed array support",
-              );
-              function D() {
-                if ((C(!M), _.preRun)) for (typeof _.preRun == "function" && (_.preRun = [_.preRun]); _.preRun.length; ) we(_.preRun.shift());
-                (F_("preRun"), C_(q_));
-              }
-              function l_() {
-                if ((C(!E), (E = !0), M)) return Qe();
-                ($_(), !_.noFSInit && !d.initialized && d.init(), Ve.__wasm_call_ctors(), (d.ignorePermissions = !1));
-              }
-              function k_() {
-                if (($_(), !M)) {
-                  if (_.postRun) for (typeof _.postRun == "function" && (_.postRun = [_.postRun]); _.postRun.length; ) Lt(_.postRun.shift());
-                  (F_("postRun"), C_(Zt));
-                }
-              }
-              function t_(e) {
-                (_.onAbort?.(e), (e = "Aborted(" + e + ")"), c_(e), (ie = !0));
-                var r = new WebAssembly.RuntimeError(e);
-                throw (Ee?.(r), r);
-              }
-              function n(e, r) {
-                return (...s) => {
-                  C(E, `native function \`${e}\` called before runtime initialization`);
-                  var p = Ve[e];
-                  return (
-                    C(p, `exported native function \`${e}\` not found`),
-                    C(s.length <= r, `native function \`${e}\` called with ${s.length} args but expects ${r}`),
-                    p(...s)
-                  );
-                };
-              }
-              var Z_;
-              function mr() {
-                return x_("z3-built.wasm");
-              }
-              function Gr(e) {
-                if (e == Z_ && h_) return new Uint8Array(h_);
-                if (k) return k(e);
-                throw "both async and sync fetching of the wasm failed";
-              }
-              async function $r(e) {
-                if (!h_)
-                  try {
-                    var r = await S_(e);
-                    return new Uint8Array(r);
-                  } catch {}
-                return Gr(e);
-              }
-              async function R_(e, r) {
-                try {
-                  var s = await $r(e),
-                    p = await WebAssembly.instantiate(s, r);
-                  return p;
-                } catch (g) {
-                  (c_(`failed to asynchronously prepare wasm: ${g}`),
-                    ce(e) &&
-                      c_(
-                        `warning: Loading from a file URI (${e}) is not supported in most browsers. See https://emscripten.org/docs/getting_started/FAQ.html#how-do-i-run-a-local-webserver-for-testing-why-does-my-program-stall-in-downloading-or-preparing`,
-                      ),
-                    t_(g));
-                }
-              }
-              async function Wr(e, r, s) {
-                if (!e && !ce(r) && !V)
-                  try {
-                    var p = fetch(r, { credentials: "same-origin" }),
-                      g = await WebAssembly.instantiateStreaming(p, s);
-                    return g;
-                  } catch (v) {
-                    (c_(`wasm streaming compile failed: ${v}`), c_("falling back to ArrayBuffer instantiation"));
-                  }
-                return R_(r, s);
-              }
-              function fr() {
-                return (pa(), { env: mn, wasi_snapshot_preview1: mn });
-              }
-              async function pr() {
-                function e(S, q) {
-                  return (
-                    (Ve = S.exports),
-                    Yr(Ve._emscripten_tls_init),
-                    (gt = Ve.__indirect_function_table),
-                    C(gt, "table not found in wasm exports"),
-                    (G_ = q),
-                    fa(Ve),
-                    Ve
-                  );
-                }
-                var r = _;
-                function s(S) {
-                  return (
-                    C(_ === r, "the Module object should not be replaced during async compilation - perhaps the order of HTML elements is wrong?"),
-                    (r = null),
-                    e(S.instance, S.module)
-                  );
-                }
-                var p = fr();
-                if (_.instantiateWasm)
-                  return new Promise((S, q) => {
-                    try {
-                      _.instantiateWasm(p, (z, Y) => {
-                        S(e(z, Y));
-                      });
-                    } catch (z) {
-                      (c_(`Module.instantiateWasm callback failed with error: ${z}`), q(z));
-                    }
-                  });
-                if (M) {
-                  C(G_, "wasmModule should have been received via postMessage");
-                  var g = new WebAssembly.Instance(G_, fr());
-                  return e(g, G_);
-                }
-                Z_ ??= mr();
-                var v = await Wr(h_, Z_, p),
-                  O = s(v);
-                return O;
-              }
-              class Zr {
-                name = "ExitStatus";
-                constructor(r) {
-                  ((this.message = `Program terminated with exit(${r})`), (this.status = r));
-                }
-              }
-              var gr = (e) => {
-                  (e.terminate(),
-                    (e.onmessage = (r) => {
-                      var s = r.data.cmd;
-                      c_(`received "${s}" command from terminated worker: ${e.workerID}`);
-                    }));
-                },
-                D_ = (e) => {
-                  (C(!M, "Internal Error! cleanupThread() can only ever be called from main application thread!"),
-                    C(e, "Internal Error! Null pthread_ptr in cleanupThread!"));
-                  var r = p_.pthreads[e];
-                  (C(r), p_.returnWorkerToPool(r));
-                },
-                C_ = (e) => {
-                  for (; e.length > 0; ) e.shift()(_);
-                },
-                q_ = [],
-                we = (e) => q_.push(e),
-                Me = (e) => {
-                  (C(!M, "Internal Error! spawnThread() can only ever be called from main application thread!"),
-                    C(e.pthread_ptr, "Internal error, no pthread ptr!"));
-                  var r = p_.getNewWorker();
-                  if (!r) return 6;
-                  (C(!r.pthread_ptr, "Internal error!"),
-                    p_.runningWorkers.push(r),
-                    (p_.pthreads[e.pthread_ptr] = r),
-                    (r.pthread_ptr = e.pthread_ptr));
-                  var s = { cmd: "run", start_routine: e.startRoutine, arg: e.arg, pthread_ptr: e.pthread_ptr };
-                  return (V && r.unref(), r.postMessage(s, e.transferList), 0);
-                },
-                Xe = 0,
-                pt = () => Mt || Xe > 0,
-                W = () => un(),
-                H = (e) => Ei(e),
-                Be = (e) => wi(e),
-                z_ = (e, r, s, ...p) => {
-                  for (var g = p.length * 2, v = W(), O = Be(g * 8), S = O >> 3, q = 0; q < p.length; q++) {
-                    var z = p[q];
-                    typeof z == "bigint" ? ((f[S + 2 * q] = 1n), (f[S + 2 * q + 1] = z)) : ((f[S + 2 * q] = 0n), (l[S + 2 * q + 1] = z));
-                  }
-                  var Y = gi(e, r, g, O, s);
-                  return (H(v), Y);
-                };
-              function Ft(e) {
-                if (M) return z_(0, 0, 1, e);
-                ((b_ = e), pt() || (p_.terminateAllThreads(), _.onExit?.(e), (ie = !0)), o_(e, new Zr(e)));
-              }
-              function dr(e) {
-                if (M) return z_(1, 0, 0, e);
-                Ke(e);
-              }
-              var Nt = (e, r) => {
-                  if (((b_ = e), So(), M)) throw (C(!r), dr(e), "unwind");
-                  if (pt() && !r) {
-                    var s = `program exited (with status: ${e}), but keepRuntimeAlive() is set (counter=${Xe}) due to an async operation, so halting execution but not exiting the runtime or preventing further async execution (you can use emscripten_force_exit, if you want to force a true shutdown)`;
-                    (Ee?.(s), c_(s));
-                  }
-                  Ft(e);
-                },
-                Ke = Nt,
-                Oe = (e) => (C(typeof e == "number"), (e >>>= 0), "0x" + e.toString(16).padStart(8, "0")),
-                p_ = {
-                  unusedWorkers: [],
-                  runningWorkers: [],
-                  tlsInitFunctions: [],
-                  pthreads: {},
-                  nextWorkerID: 1,
-                  init() {
-                    M || p_.initMainThread();
-                  },
-                  initMainThread() {},
-                  terminateAllThreads: () => {
-                    C(!M, "Internal Error! terminateAllThreads() can only ever be called from main application thread!");
-                    for (var e of p_.runningWorkers) gr(e);
-                    for (var e of p_.unusedWorkers) gr(e);
-                    ((p_.unusedWorkers = []), (p_.runningWorkers = []), (p_.pthreads = {}));
-                  },
-                  returnWorkerToPool: (e) => {
-                    var r = e.pthread_ptr;
-                    (delete p_.pthreads[r],
-                      p_.unusedWorkers.push(e),
-                      p_.runningWorkers.splice(p_.runningWorkers.indexOf(e), 1),
-                      (e.pthread_ptr = 0),
-                      di(r));
-                  },
-                  threadInitTLS() {
-                    p_.tlsInitFunctions.forEach((e) => e());
-                  },
-                  loadWasmModuleToWorker: (e) =>
-                    new Promise((r) => {
-                      ((e.onmessage = (v) => {
-                        var O = v.data,
-                          S = O.cmd;
-                        if (O.targetThread && O.targetThread != Tt()) {
-                          var q = p_.pthreads[O.targetThread];
-                          q
-                            ? q.postMessage(O, O.transferList)
-                            : c_(
-                                `Internal error! Worker sent a message "${S}" to target pthread ${O.targetThread}, but that thread no longer exists!`,
-                              );
-                          return;
-                        }
-                        S === "checkMailbox"
-                          ? nt()
-                          : S === "spawnThread"
-                            ? Me(O)
-                            : S === "cleanupThread"
-                              ? Ht(() => D_(O.thread))
-                              : S === "loaded"
-                                ? ((e.loaded = !0), r(e))
-                                : O.target === "setimmediate"
-                                  ? e.postMessage(O)
-                                  : S === "uncaughtException"
-                                    ? e.onerror(O.error)
-                                    : S === "callHandler"
-                                      ? _[O.handler](...O.args)
-                                      : S && c_(`worker sent an unknown command ${S}`);
-                      }),
-                        (e.onerror = (v) => {
-                          var O = "worker sent an error!";
-                          throw (
-                            e.pthread_ptr && (O = `Pthread ${Oe(e.pthread_ptr)} sent an error!`),
-                            c_(`${O} ${v.filename}:${v.lineno}: ${v.message}`),
-                            v
-                          );
-                        }),
-                        V && (e.on("message", (v) => e.onmessage({ data: v })), e.on("error", (v) => e.onerror(v))),
-                        C(A_ instanceof WebAssembly.Memory, "WebAssembly memory should have been loaded by now!"),
-                        C(G_ instanceof WebAssembly.Module, "WebAssembly Module should have been loaded by now!"));
-                      var s = [],
-                        p = ["onExit", "onAbort", "print", "printErr"];
-                      for (var g of p) _.propertyIsEnumerable(g) && s.push(g);
-                      e.postMessage({ cmd: "load", handlers: s, wasmMemory: A_, wasmModule: G_, workerID: e.workerID });
-                    }),
-                  allocateUnusedWorker() {
-                    var e,
-                      r = R;
-                    (_.mainScriptUrlOrBlob && ((r = _.mainScriptUrlOrBlob), typeof r != "string" && (r = URL.createObjectURL(r))),
-                      (e = new Worker(r, { workerData: "em-pthread", name: "em-pthread-" + p_.nextWorkerID })),
-                      (e.workerID = p_.nextWorkerID++),
-                      p_.unusedWorkers.push(e));
-                  },
-                  getNewWorker() {
-                    return (
-                      p_.unusedWorkers.length == 0 && (p_.allocateUnusedWorker(), p_.loadWasmModuleToWorker(p_.unusedWorkers[0])),
-                      p_.unusedWorkers.pop()
-                    );
-                  },
-                },
-                Zt = [],
-                Lt = (e) => Zt.push(e);
-              function qt(e) {
-                var r = h[(e + 52) >> 2],
-                  s = h[(e + 56) >> 2],
-                  p = r - s;
-                (C(r != 0), C(p != 0), C(r > p, "stackHigh must be higher then stackLow"), ki(r, p), H(r), qe());
-              }
-              var hr = [],
-                gt,
-                Q = (e) => {
-                  var r = hr[e];
-                  return (r || (hr[e] = r = gt.get(e)), C(gt.get(e) == r, "JavaScript-side Wasm function table mirror is out of date!"), r);
-                },
-                Hr = (e, r) => {
-                  ((Xe = 0), (Mt = 0));
-                  var s = Q(e)(r);
-                  $_();
-                  function p(g) {
-                    if (pt()) {
-                      b_ = g;
-                      return;
-                    }
-                    sn(g);
-                  }
-                  p(s);
-                },
-                Mt = !0,
-                Yr = (e) => p_.tlsInitFunctions.push(e),
-                oe = (e) => {
-                  ((oe.shown ||= {}), oe.shown[e] || ((oe.shown[e] = 1), V && (e = "warning: " + e), c_(e)));
-                },
-                br = typeof TextDecoder < "u" ? new TextDecoder() : void 0,
-                Qr = (e, r, s, p) => {
-                  var g = r + s;
-                  if (p) return g;
-                  for (; e[r] && !(r >= g); ) ++r;
-                  return r;
-                },
-                Ue = (e, r = 0, s, p) => {
-                  var g = Qr(e, r, s, p);
-                  if (g - r > 16 && e.buffer && br) return br.decode(e.buffer instanceof ArrayBuffer ? e.subarray(r, g) : e.slice(r, g));
-                  for (var v = ""; r < g; ) {
-                    var O = e[r++];
-                    if (!(O & 128)) {
-                      v += String.fromCharCode(O);
-                      continue;
-                    }
-                    var S = e[r++] & 63;
-                    if ((O & 224) == 192) {
-                      v += String.fromCharCode(((O & 31) << 6) | S);
-                      continue;
-                    }
-                    var q = e[r++] & 63;
-                    if (
-                      ((O & 240) == 224
-                        ? (O = ((O & 15) << 12) | (S << 6) | q)
-                        : ((O & 248) != 240 &&
-                            oe(
-                              "Invalid UTF-8 leading byte " + Oe(O) + " encountered when deserializing a UTF-8 string in wasm memory to a JS string!",
-                            ),
-                          (O = ((O & 7) << 18) | (S << 12) | (q << 6) | (e[r++] & 63))),
-                      O < 65536)
-                    )
-                      v += String.fromCharCode(O);
-                    else {
-                      var z = O - 65536;
-                      v += String.fromCharCode(55296 | (z >> 10), 56320 | (z & 1023));
-                    }
-                  }
-                  return v;
-                },
-                v_ = (e, r, s) => (C(typeof e == "number", `UTF8ToString expects a number (got ${typeof e})`), e ? Ue(ae, e, r, s) : ""),
-                Xr = (e, r, s, p) => t_(`Assertion failed: ${v_(e)}, at: ` + [r ? v_(r) : "unknown filename", s, p ? v_(p) : "unknown function"]),
-                Je = [],
-                dt = 0,
-                vr = (e) => {
-                  var r = new ht(e);
-                  return (r.get_caught() || (r.set_caught(!0), dt--), r.set_rethrown(!1), Je.push(r), ln(e), Ti(e));
-                },
-                X_ = 0,
-                yr = () => {
-                  (X(0, 0), C(Je.length > 0));
-                  var e = Je.pop();
-                  (cn(e.excPtr), (X_ = 0));
-                };
-              class ht {
-                constructor(r) {
-                  ((this.excPtr = r), (this.ptr = r - 24));
-                }
-                set_type(r) {
-                  h[(this.ptr + 4) >> 2] = r;
-                }
-                get_type() {
-                  return h[(this.ptr + 4) >> 2];
-                }
-                set_destructor(r) {
-                  h[(this.ptr + 8) >> 2] = r;
-                }
-                get_destructor() {
-                  return h[(this.ptr + 8) >> 2];
-                }
-                set_caught(r) {
-                  ((r = r ? 1 : 0), (E_[this.ptr + 12] = r));
-                }
-                get_caught() {
-                  return E_[this.ptr + 12] != 0;
-                }
-                set_rethrown(r) {
-                  ((r = r ? 1 : 0), (E_[this.ptr + 13] = r));
-                }
-                get_rethrown() {
-                  return E_[this.ptr + 13] != 0;
-                }
-                init(r, s) {
-                  (this.set_adjusted_ptr(0), this.set_type(r), this.set_destructor(s));
-                }
-                set_adjusted_ptr(r) {
-                  h[(this.ptr + 16) >> 2] = r;
-                }
-                get_adjusted_ptr() {
-                  return h[(this.ptr + 16) >> 2];
-                }
-              }
-              var _t = (e) => vi(e),
-                De = (e) => {
-                  var r = X_?.excPtr;
-                  if (!r) return (_t(0), 0);
-                  var s = new ht(r);
-                  s.set_adjusted_ptr(r);
-                  var p = s.get_type();
-                  if (!p) return (_t(0), r);
-                  for (var g of e) {
-                    if (g === 0 || g === p) break;
-                    var v = s.ptr + 16;
-                    if (Pi(g, p, v)) return (_t(g), r);
-                  }
-                  return (_t(p), r);
-                },
-                kr = () => De([]),
-                Er = (e) => De([e]),
-                wr = (e, r) => De([e, r]),
-                Or = (e, r, s, p, g) => De([e, r, s, p, g]),
-                Pr = (e, r, s, p, g, v) => De([e, r, s, p, g, v]),
-                Tr = () => {
-                  var e = Je.pop();
-                  e || t_("no exception to throw");
-                  var r = e.excPtr;
-                  throw (e.get_rethrown() || (Je.push(e), e.set_rethrown(!0), e.set_caught(!1), dt++), (X_ = new ke(r)), X_);
-                },
-                xr = (e, r, s) => {
-                  var p = new ht(e);
-                  throw (p.init(r, s), (X_ = new ke(e)), dt++, X_);
-                },
-                Sr = () => dt;
-              function bt(e, r, s, p) {
-                return M ? z_(2, 0, 1, e, r, s, p) : Ut(e, r, s, p);
-              }
-              var Bt = () => typeof SharedArrayBuffer < "u",
-                Ut = (e, r, s, p) => {
-                  if (!Bt()) return (I_("pthread_create: environment does not support SharedArrayBuffer, pthreads are not available"), 6);
-                  var g = [],
-                    v = 0;
-                  if (M && (g.length === 0 || v)) return bt(e, r, s, p);
-                  var O = { startRoutine: s, pthread_ptr: e, arg: p, transferList: g };
-                  return M ? ((O.cmd = "spawnThread"), postMessage(O, g), 0) : Me(O);
-                },
-                Ar = (e) => {
-                  throw (X_ || (X_ = new ke(e)), X_);
-                },
-                et = () => {
-                  C(T_.varargs != null);
-                  var e = P_[+T_.varargs >> 2];
-                  return ((T_.varargs += 4), e);
-                },
-                Pe = et,
-                g_ = {
-                  isAbs: (e) => e.charAt(0) === "/",
-                  splitPath: (e) => {
-                    var r = /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
-                    return r.exec(e).slice(1);
-                  },
-                  normalizeArray: (e, r) => {
-                    for (var s = 0, p = e.length - 1; p >= 0; p--) {
-                      var g = e[p];
-                      g === "." ? e.splice(p, 1) : g === ".." ? (e.splice(p, 1), s++) : s && (e.splice(p, 1), s--);
-                    }
-                    if (r) for (; s; s--) e.unshift("..");
-                    return e;
-                  },
-                  normalize: (e) => {
-                    var r = g_.isAbs(e),
-                      s = e.slice(-1) === "/";
-                    return (
-                      (e = g_
-                        .normalizeArray(
-                          e.split("/").filter((p) => !!p),
-                          !r,
-                        )
-                        .join("/")),
-                      !e && !r && (e = "."),
-                      e && s && (e += "/"),
-                      (r ? "/" : "") + e
-                    );
-                  },
-                  dirname: (e) => {
-                    var r = g_.splitPath(e),
-                      s = r[0],
-                      p = r[1];
-                    return !s && !p ? "." : (p && (p = p.slice(0, -1)), s + p);
-                  },
-                  basename: (e) => e && e.match(/([^\/]+|\/)\/*$/)[1],
-                  join: (...e) => g_.normalize(e.join("/")),
-                  join2: (e, r) => g_.normalize(e + "/" + r),
-                },
-                Rr = () => {
-                  if (V) {
-                    var e = Ne;
-                    return (r) => e.randomFillSync(r);
-                  }
-                  return (r) => r.set(crypto.getRandomValues(new Uint8Array(r.byteLength)));
-                },
-                Dt = (e) => {
-                  (Dt = Rr())(e);
-                },
-                fe = {
-                  resolve: (...e) => {
-                    for (var r = "", s = !1, p = e.length - 1; p >= -1 && !s; p--) {
-                      var g = p >= 0 ? e[p] : d.cwd();
-                      if (typeof g != "string") throw new TypeError("Arguments to path.resolve must be strings");
-                      if (!g) return "";
-                      ((r = g + "/" + r), (s = g_.isAbs(g)));
-                    }
-                    return (
-                      (r = g_
-                        .normalizeArray(
-                          r.split("/").filter((v) => !!v),
-                          !s,
-                        )
-                        .join("/")),
-                      (s ? "/" : "") + r || "."
-                    );
-                  },
-                  relative: (e, r) => {
-                    ((e = fe.resolve(e).slice(1)), (r = fe.resolve(r).slice(1)));
-                    function s(z) {
-                      for (var Y = 0; Y < z.length && z[Y] === ""; Y++);
-                      for (var n_ = z.length - 1; n_ >= 0 && z[n_] === ""; n_--);
-                      return Y > n_ ? [] : z.slice(Y, n_ - Y + 1);
-                    }
-                    for (var p = s(e.split("/")), g = s(r.split("/")), v = Math.min(p.length, g.length), O = v, S = 0; S < v; S++)
-                      if (p[S] !== g[S]) {
-                        O = S;
-                        break;
-                      }
-                    for (var q = [], S = O; S < p.length; S++) q.push("..");
-                    return ((q = q.concat(g.slice(O))), q.join("/"));
-                  },
-                },
-                Ct = [],
-                Ce = (e) => {
-                  for (var r = 0, s = 0; s < e.length; ++s) {
-                    var p = e.charCodeAt(s);
-                    p <= 127 ? r++ : p <= 2047 ? (r += 2) : p >= 55296 && p <= 57343 ? ((r += 4), ++s) : (r += 3);
-                  }
-                  return r;
-                },
-                zt = (e, r, s, p) => {
-                  if ((C(typeof e == "string", `stringToUTF8Array expects a string (got ${typeof e})`), !(p > 0))) return 0;
-                  for (var g = s, v = s + p - 1, O = 0; O < e.length; ++O) {
-                    var S = e.codePointAt(O);
-                    if (S <= 127) {
-                      if (s >= v) break;
-                      r[s++] = S;
-                    } else if (S <= 2047) {
-                      if (s + 1 >= v) break;
-                      ((r[s++] = 192 | (S >> 6)), (r[s++] = 128 | (S & 63)));
-                    } else if (S <= 65535) {
-                      if (s + 2 >= v) break;
-                      ((r[s++] = 224 | (S >> 12)), (r[s++] = 128 | ((S >> 6) & 63)), (r[s++] = 128 | (S & 63)));
-                    } else {
-                      if (s + 3 >= v) break;
-                      (S > 1114111 &&
-                        oe(
-                          "Invalid Unicode code point " +
-                            Oe(S) +
-                            " encountered when serializing a JS string to a UTF-8 string in wasm memory! (Valid unicode code points should be in range 0-0x10FFFF).",
-                        ),
-                        (r[s++] = 240 | (S >> 18)),
-                        (r[s++] = 128 | ((S >> 12) & 63)),
-                        (r[s++] = 128 | ((S >> 6) & 63)),
-                        (r[s++] = 128 | (S & 63)),
-                        O++);
-                    }
-                  }
-                  return ((r[s] = 0), s - g);
-                },
-                Te = (e, r, s) => {
-                  var p = s > 0 ? s : Ce(e) + 1,
-                    g = new Array(p),
-                    v = zt(e, g, 0, g.length);
-                  return (r && (g.length = v), g);
-                },
-                Kr = () => {
-                  if (!Ct.length) {
-                    var e = null;
-                    if (V) {
-                      var r = 256,
-                        s = Buffer.alloc(r),
-                        p = 0,
-                        g = process.stdin.fd;
-                      try {
-                        p = ne.readSync(g, s, 0, r);
-                      } catch (v) {
-                        if (v.toString().includes("EOF")) p = 0;
-                        else throw v;
-                      }
-                      p > 0 && (e = s.slice(0, p).toString("utf-8"));
-                    } else
-                      typeof window < "u" &&
-                        typeof window.prompt == "function" &&
-                        ((e = window.prompt("Input: ")),
-                        e !== null &&
-                          (e += `
-`));
-                    if (!e) return null;
-                    Ct = Te(e, !0);
-                  }
-                  return Ct.shift();
-                },
-                pe = {
-                  ttys: [],
-                  init() {},
-                  shutdown() {},
-                  register(e, r) {
-                    ((pe.ttys[e] = { input: [], output: [], ops: r }), d.registerDevice(e, pe.stream_ops));
-                  },
-                  stream_ops: {
-                    open(e) {
-                      var r = pe.ttys[e.node.rdev];
-                      if (!r) throw new d.ErrnoError(43);
-                      ((e.tty = r), (e.seekable = !1));
-                    },
-                    close(e) {
-                      e.tty.ops.fsync(e.tty);
-                    },
-                    fsync(e) {
-                      e.tty.ops.fsync(e.tty);
-                    },
-                    read(e, r, s, p, g) {
-                      if (!e.tty || !e.tty.ops.get_char) throw new d.ErrnoError(60);
-                      for (var v = 0, O = 0; O < p; O++) {
-                        var S;
-                        try {
-                          S = e.tty.ops.get_char(e.tty);
-                        } catch {
-                          throw new d.ErrnoError(29);
-                        }
-                        if (S === void 0 && v === 0) throw new d.ErrnoError(6);
-                        if (S == null) break;
-                        (v++, (r[s + O] = S));
-                      }
-                      return (v && (e.node.atime = Date.now()), v);
-                    },
-                    write(e, r, s, p, g) {
-                      if (!e.tty || !e.tty.ops.put_char) throw new d.ErrnoError(60);
-                      try {
-                        for (var v = 0; v < p; v++) e.tty.ops.put_char(e.tty, r[s + v]);
-                      } catch {
-                        throw new d.ErrnoError(29);
-                      }
-                      return (p && (e.node.mtime = e.node.ctime = Date.now()), v);
-                    },
-                  },
-                  default_tty_ops: {
-                    get_char(e) {
-                      return Kr();
-                    },
-                    put_char(e, r) {
-                      r === null || r === 10 ? (V_(Ue(e.output)), (e.output = [])) : r != 0 && e.output.push(r);
-                    },
-                    fsync(e) {
-                      e.output?.length > 0 && (V_(Ue(e.output)), (e.output = []));
-                    },
-                    ioctl_tcgets(e) {
-                      return {
-                        c_iflag: 25856,
-                        c_oflag: 5,
-                        c_cflag: 191,
-                        c_lflag: 35387,
-                        c_cc: [3, 28, 127, 21, 4, 0, 1, 0, 17, 19, 26, 0, 18, 15, 23, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                      };
-                    },
-                    ioctl_tcsets(e, r, s) {
-                      return 0;
-                    },
-                    ioctl_tiocgwinsz(e) {
-                      return [24, 80];
-                    },
-                  },
-                  default_tty1_ops: {
-                    put_char(e, r) {
-                      r === null || r === 10 ? (c_(Ue(e.output)), (e.output = [])) : r != 0 && e.output.push(r);
-                    },
-                    fsync(e) {
-                      e.output?.length > 0 && (c_(Ue(e.output)), (e.output = []));
-                    },
-                  },
-                },
-                tt = (e) => {
-                  t_("internal error: mmapAlloc called but `emscripten_builtin_memalign` native symbol not exported");
-                },
-                m_ = {
-                  ops_table: null,
-                  mount(e) {
-                    return m_.createNode(null, "/", 16895, 0);
-                  },
-                  createNode(e, r, s, p) {
-                    if (d.isBlkdev(s) || d.isFIFO(s)) throw new d.ErrnoError(63);
-                    m_.ops_table ||= {
-                      dir: {
-                        node: {
-                          getattr: m_.node_ops.getattr,
-                          setattr: m_.node_ops.setattr,
-                          lookup: m_.node_ops.lookup,
-                          mknod: m_.node_ops.mknod,
-                          rename: m_.node_ops.rename,
-                          unlink: m_.node_ops.unlink,
-                          rmdir: m_.node_ops.rmdir,
-                          readdir: m_.node_ops.readdir,
-                          symlink: m_.node_ops.symlink,
-                        },
-                        stream: { llseek: m_.stream_ops.llseek },
-                      },
-                      file: {
-                        node: { getattr: m_.node_ops.getattr, setattr: m_.node_ops.setattr },
-                        stream: {
-                          llseek: m_.stream_ops.llseek,
-                          read: m_.stream_ops.read,
-                          write: m_.stream_ops.write,
-                          mmap: m_.stream_ops.mmap,
-                          msync: m_.stream_ops.msync,
-                        },
-                      },
-                      link: { node: { getattr: m_.node_ops.getattr, setattr: m_.node_ops.setattr, readlink: m_.node_ops.readlink }, stream: {} },
-                      chrdev: { node: { getattr: m_.node_ops.getattr, setattr: m_.node_ops.setattr }, stream: d.chrdev_stream_ops },
-                    };
-                    var g = d.createNode(e, r, s, p);
-                    return (
-                      d.isDir(g.mode)
-                        ? ((g.node_ops = m_.ops_table.dir.node), (g.stream_ops = m_.ops_table.dir.stream), (g.contents = {}))
-                        : d.isFile(g.mode)
-                          ? ((g.node_ops = m_.ops_table.file.node), (g.stream_ops = m_.ops_table.file.stream), (g.usedBytes = 0), (g.contents = null))
-                          : d.isLink(g.mode)
-                            ? ((g.node_ops = m_.ops_table.link.node), (g.stream_ops = m_.ops_table.link.stream))
-                            : d.isChrdev(g.mode) && ((g.node_ops = m_.ops_table.chrdev.node), (g.stream_ops = m_.ops_table.chrdev.stream)),
-                      (g.atime = g.mtime = g.ctime = Date.now()),
-                      e && ((e.contents[r] = g), (e.atime = e.mtime = e.ctime = g.atime)),
-                      g
-                    );
-                  },
-                  getFileDataAsTypedArray(e) {
-                    return e.contents ? (e.contents.subarray ? e.contents.subarray(0, e.usedBytes) : new Uint8Array(e.contents)) : new Uint8Array(0);
-                  },
-                  expandFileStorage(e, r) {
-                    var s = e.contents ? e.contents.length : 0;
-                    if (!(s >= r)) {
-                      var p = 1024 * 1024;
-                      ((r = Math.max(r, (s * (s < p ? 2 : 1.125)) >>> 0)), s != 0 && (r = Math.max(r, 256)));
-                      var g = e.contents;
-                      ((e.contents = new Uint8Array(r)), e.usedBytes > 0 && e.contents.set(g.subarray(0, e.usedBytes), 0));
-                    }
-                  },
-                  resizeFileStorage(e, r) {
-                    if (e.usedBytes != r)
-                      if (r == 0) ((e.contents = null), (e.usedBytes = 0));
-                      else {
-                        var s = e.contents;
-                        ((e.contents = new Uint8Array(r)), s && e.contents.set(s.subarray(0, Math.min(r, e.usedBytes))), (e.usedBytes = r));
-                      }
-                  },
-                  node_ops: {
-                    getattr(e) {
-                      var r = {};
-                      return (
-                        (r.dev = d.isChrdev(e.mode) ? e.id : 1),
-                        (r.ino = e.id),
-                        (r.mode = e.mode),
-                        (r.nlink = 1),
-                        (r.uid = 0),
-                        (r.gid = 0),
-                        (r.rdev = e.rdev),
-                        d.isDir(e.mode)
-                          ? (r.size = 4096)
-                          : d.isFile(e.mode)
-                            ? (r.size = e.usedBytes)
-                            : d.isLink(e.mode)
-                              ? (r.size = e.link.length)
-                              : (r.size = 0),
-                        (r.atime = new Date(e.atime)),
-                        (r.mtime = new Date(e.mtime)),
-                        (r.ctime = new Date(e.ctime)),
-                        (r.blksize = 4096),
-                        (r.blocks = Math.ceil(r.size / r.blksize)),
-                        r
-                      );
-                    },
-                    setattr(e, r) {
-                      for (const s of ["mode", "atime", "mtime", "ctime"]) r[s] != null && (e[s] = r[s]);
-                      r.size !== void 0 && m_.resizeFileStorage(e, r.size);
-                    },
-                    lookup(e, r) {
-                      throw new d.ErrnoError(44);
-                    },
-                    mknod(e, r, s, p) {
-                      return m_.createNode(e, r, s, p);
-                    },
-                    rename(e, r, s) {
-                      var p;
-                      try {
-                        p = d.lookupNode(r, s);
-                      } catch {}
-                      if (p) {
-                        if (d.isDir(e.mode)) for (var g in p.contents) throw new d.ErrnoError(55);
-                        d.hashRemoveNode(p);
-                      }
-                      (delete e.parent.contents[e.name],
-                        (r.contents[s] = e),
-                        (e.name = s),
-                        (r.ctime = r.mtime = e.parent.ctime = e.parent.mtime = Date.now()));
-                    },
-                    unlink(e, r) {
-                      (delete e.contents[r], (e.ctime = e.mtime = Date.now()));
-                    },
-                    rmdir(e, r) {
-                      var s = d.lookupNode(e, r);
-                      for (var p in s.contents) throw new d.ErrnoError(55);
-                      (delete e.contents[r], (e.ctime = e.mtime = Date.now()));
-                    },
-                    readdir(e) {
-                      return [".", "..", ...Object.keys(e.contents)];
-                    },
-                    symlink(e, r, s) {
-                      var p = m_.createNode(e, r, 41471, 0);
-                      return ((p.link = s), p);
-                    },
-                    readlink(e) {
-                      if (!d.isLink(e.mode)) throw new d.ErrnoError(28);
-                      return e.link;
-                    },
-                  },
-                  stream_ops: {
-                    read(e, r, s, p, g) {
-                      var v = e.node.contents;
-                      if (g >= e.node.usedBytes) return 0;
-                      var O = Math.min(e.node.usedBytes - g, p);
-                      if ((C(O >= 0), O > 8 && v.subarray)) r.set(v.subarray(g, g + O), s);
-                      else for (var S = 0; S < O; S++) r[s + S] = v[g + S];
-                      return O;
-                    },
-                    write(e, r, s, p, g, v) {
-                      if ((C(!(r instanceof ArrayBuffer)), !p)) return 0;
-                      var O = e.node;
-                      if (((O.mtime = O.ctime = Date.now()), r.subarray && (!O.contents || O.contents.subarray))) {
-                        if (v)
-                          return (
-                            C(g === 0, "canOwn must imply no weird position inside the file"),
-                            (O.contents = r.subarray(s, s + p)),
-                            (O.usedBytes = p),
-                            p
-                          );
-                        if (O.usedBytes === 0 && g === 0) return ((O.contents = r.slice(s, s + p)), (O.usedBytes = p), p);
-                        if (g + p <= O.usedBytes) return (O.contents.set(r.subarray(s, s + p), g), p);
-                      }
-                      if ((m_.expandFileStorage(O, g + p), O.contents.subarray && r.subarray)) O.contents.set(r.subarray(s, s + p), g);
-                      else for (var S = 0; S < p; S++) O.contents[g + S] = r[s + S];
-                      return ((O.usedBytes = Math.max(O.usedBytes, g + p)), p);
-                    },
-                    llseek(e, r, s) {
-                      var p = r;
-                      if ((s === 1 ? (p += e.position) : s === 2 && d.isFile(e.node.mode) && (p += e.node.usedBytes), p < 0))
-                        throw new d.ErrnoError(28);
-                      return p;
-                    },
-                    mmap(e, r, s, p, g) {
-                      if (!d.isFile(e.node.mode)) throw new d.ErrnoError(43);
-                      var v,
-                        O,
-                        S = e.node.contents;
-                      if (!(g & 2) && S && S.buffer === E_.buffer) ((O = !1), (v = S.byteOffset));
-                      else {
-                        if (((O = !0), (v = tt()), !v)) throw new d.ErrnoError(48);
-                        S &&
-                          ((s > 0 || s + r < S.length) && (S.subarray ? (S = S.subarray(s, s + r)) : (S = Array.prototype.slice.call(S, s, s + r))),
-                          E_.set(S, v));
-                      }
-                      return { ptr: v, allocated: O };
-                    },
-                    msync(e, r, s, p, g) {
-                      return (m_.stream_ops.write(e, r, 0, p, s, !1), 0);
-                    },
-                  },
-                },
-                jt = (e) => {
-                  var r = { r: 0, "r+": 2, w: 577, "w+": 578, a: 1089, "a+": 1090 },
-                    s = r[e];
-                  if (typeof s > "u") throw new Error(`Unknown file open mode: ${e}`);
-                  return s;
-                },
-                H_ = (e, r) => {
-                  var s = 0;
-                  return (e && (s |= 365), r && (s |= 146), s);
-                },
-                j_ = (e) => v_(hi(e)),
-                Y_ = {
-                  EPERM: 63,
-                  ENOENT: 44,
-                  ESRCH: 71,
-                  EINTR: 27,
-                  EIO: 29,
-                  ENXIO: 60,
-                  E2BIG: 1,
-                  ENOEXEC: 45,
-                  EBADF: 8,
-                  ECHILD: 12,
-                  EAGAIN: 6,
-                  EWOULDBLOCK: 6,
-                  ENOMEM: 48,
-                  EACCES: 2,
-                  EFAULT: 21,
-                  ENOTBLK: 105,
-                  EBUSY: 10,
-                  EEXIST: 20,
-                  EXDEV: 75,
-                  ENODEV: 43,
-                  ENOTDIR: 54,
-                  EISDIR: 31,
-                  EINVAL: 28,
-                  ENFILE: 41,
-                  EMFILE: 33,
-                  ENOTTY: 59,
-                  ETXTBSY: 74,
-                  EFBIG: 22,
-                  ENOSPC: 51,
-                  ESPIPE: 70,
-                  EROFS: 69,
-                  EMLINK: 34,
-                  EPIPE: 64,
-                  EDOM: 18,
-                  ERANGE: 68,
-                  ENOMSG: 49,
-                  EIDRM: 24,
-                  ECHRNG: 106,
-                  EL2NSYNC: 156,
-                  EL3HLT: 107,
-                  EL3RST: 108,
-                  ELNRNG: 109,
-                  EUNATCH: 110,
-                  ENOCSI: 111,
-                  EL2HLT: 112,
-                  EDEADLK: 16,
-                  ENOLCK: 46,
-                  EBADE: 113,
-                  EBADR: 114,
-                  EXFULL: 115,
-                  ENOANO: 104,
-                  EBADRQC: 103,
-                  EBADSLT: 102,
-                  EDEADLOCK: 16,
-                  EBFONT: 101,
-                  ENOSTR: 100,
-                  ENODATA: 116,
-                  ETIME: 117,
-                  ENOSR: 118,
-                  ENONET: 119,
-                  ENOPKG: 120,
-                  EREMOTE: 121,
-                  ENOLINK: 47,
-                  EADV: 122,
-                  ESRMNT: 123,
-                  ECOMM: 124,
-                  EPROTO: 65,
-                  EMULTIHOP: 36,
-                  EDOTDOT: 125,
-                  EBADMSG: 9,
-                  ENOTUNIQ: 126,
-                  EBADFD: 127,
-                  EREMCHG: 128,
-                  ELIBACC: 129,
-                  ELIBBAD: 130,
-                  ELIBSCN: 131,
-                  ELIBMAX: 132,
-                  ELIBEXEC: 133,
-                  ENOSYS: 52,
-                  ENOTEMPTY: 55,
-                  ENAMETOOLONG: 37,
-                  ELOOP: 32,
-                  EOPNOTSUPP: 138,
-                  EPFNOSUPPORT: 139,
-                  ECONNRESET: 15,
-                  ENOBUFS: 42,
-                  EAFNOSUPPORT: 5,
-                  EPROTOTYPE: 67,
-                  ENOTSOCK: 57,
-                  ENOPROTOOPT: 50,
-                  ESHUTDOWN: 140,
-                  ECONNREFUSED: 14,
-                  EADDRINUSE: 3,
-                  ECONNABORTED: 13,
-                  ENETUNREACH: 40,
-                  ENETDOWN: 38,
-                  ETIMEDOUT: 73,
-                  EHOSTDOWN: 142,
-                  EHOSTUNREACH: 23,
-                  EINPROGRESS: 26,
-                  EALREADY: 7,
-                  EDESTADDRREQ: 17,
-                  EMSGSIZE: 35,
-                  EPROTONOSUPPORT: 66,
-                  ESOCKTNOSUPPORT: 137,
-                  EADDRNOTAVAIL: 4,
-                  ENETRESET: 39,
-                  EISCONN: 30,
-                  ENOTCONN: 53,
-                  ETOOMANYREFS: 141,
-                  EUSERS: 136,
-                  EDQUOT: 19,
-                  ESTALE: 72,
-                  ENOTSUP: 138,
-                  ENOMEDIUM: 148,
-                  EILSEQ: 25,
-                  EOVERFLOW: 61,
-                  ECANCELED: 11,
-                  ENOTRECOVERABLE: 56,
-                  EOWNERDEAD: 62,
-                  ESTRPIPE: 135,
-                },
-                Jr = async (e) => {
-                  var r = await S_(e);
-                  return (C(r, `Loading data file "${e}" failed (no arrayBuffer).`), new Uint8Array(r));
-                },
-                Ir = (...e) => d.createDataFile(...e),
-                u_ = (e) => {
-                  for (var r = e; ; ) {
-                    if (!J_[e]) return e;
-                    e = r + Math.random();
-                  }
-                },
-                K_ = 0,
-                xe = null,
-                J_ = {},
-                _e = null,
-                Vt = (e) => {
-                  if (
-                    (K_--,
-                    _.monitorRunDependencies?.(K_),
-                    C(e, "removeRunDependency requires an ID"),
-                    C(J_[e]),
-                    delete J_[e],
-                    K_ == 0 && (_e !== null && (clearInterval(_e), (_e = null)), xe))
-                  ) {
-                    var r = xe;
-                    ((xe = null), r());
-                  }
-                },
-                Gt = (e) => {
-                  (K_++,
-                    _.monitorRunDependencies?.(K_),
-                    C(e, "addRunDependency requires an ID"),
-                    C(!J_[e]),
-                    (J_[e] = 1),
-                    _e === null &&
-                      typeof setInterval < "u" &&
-                      ((_e = setInterval(() => {
-                        if (ie) {
-                          (clearInterval(_e), (_e = null));
-                          return;
-                        }
-                        var r = !1;
-                        for (var s in J_) (r || ((r = !0), c_("still waiting on run dependencies:")), c_(`dependency: ${s}`));
-                        r && c_("(end of list)");
-                      }, 1e4)),
-                      _e.unref?.()));
-                },
-                vt = [],
-                Fr = async (e, r) => {
-                  typeof Browser < "u" && Browser.init();
-                  for (var s of vt)
-                    if (s.canHandle(r))
-                      return (
-                        C(s.handle.constructor.name === "AsyncFunction", "Filesystem plugin handlers must be async functions (See #24914)"),
-                        s.handle(e, r)
-                      );
-                  return e;
-                },
-                yt = async (e, r, s, p, g, v, O, S) => {
-                  var q = r ? fe.resolve(g_.join2(e, r)) : e,
-                    z = u_(`cp ${q}`);
-                  Gt(z);
-                  try {
-                    var Y = s;
-                    (typeof s == "string" && (Y = await Jr(s)), (Y = await Fr(Y, q)), S?.(), v || Ir(e, r, Y, p, g, O));
-                  } finally {
-                    Vt(z);
-                  }
-                },
-                $t = (e, r, s, p, g, v, O, S, q, z) => {
-                  yt(e, r, s, p, g, S, q, z).then(v).catch(O);
-                },
-                d = {
-                  root: null,
-                  mounts: [],
-                  devices: {},
-                  streams: [],
-                  nextInode: 1,
-                  nameTable: null,
-                  currentPath: "/",
-                  initialized: !1,
-                  ignorePermissions: !0,
-                  filesystems: null,
-                  syncFSRequests: 0,
-                  readFiles: {},
-                  ErrnoError: class extends Error {
-                    name = "ErrnoError";
-                    constructor(e) {
-                      (super(E ? j_(e) : ""), (this.errno = e));
-                      for (var r in Y_)
-                        if (Y_[r] === e) {
-                          this.code = r;
-                          break;
-                        }
-                    }
-                  },
-                  FSStream: class {
-                    shared = {};
-                    get object() {
-                      return this.node;
-                    }
-                    set object(e) {
-                      this.node = e;
-                    }
-                    get isRead() {
-                      return (this.flags & 2097155) !== 1;
-                    }
-                    get isWrite() {
-                      return (this.flags & 2097155) !== 0;
-                    }
-                    get isAppend() {
-                      return this.flags & 1024;
-                    }
-                    get flags() {
-                      return this.shared.flags;
-                    }
-                    set flags(e) {
-                      this.shared.flags = e;
-                    }
-                    get position() {
-                      return this.shared.position;
-                    }
-                    set position(e) {
-                      this.shared.position = e;
-                    }
-                  },
-                  FSNode: class {
-                    node_ops = {};
-                    stream_ops = {};
-                    readMode = 365;
-                    writeMode = 146;
-                    mounted = null;
-                    constructor(e, r, s, p) {
-                      (e || (e = this),
-                        (this.parent = e),
-                        (this.mount = e.mount),
-                        (this.id = d.nextInode++),
-                        (this.name = r),
-                        (this.mode = s),
-                        (this.rdev = p),
-                        (this.atime = this.mtime = this.ctime = Date.now()));
-                    }
-                    get read() {
-                      return (this.mode & this.readMode) === this.readMode;
-                    }
-                    set read(e) {
-                      e ? (this.mode |= this.readMode) : (this.mode &= ~this.readMode);
-                    }
-                    get write() {
-                      return (this.mode & this.writeMode) === this.writeMode;
-                    }
-                    set write(e) {
-                      e ? (this.mode |= this.writeMode) : (this.mode &= ~this.writeMode);
-                    }
-                    get isFolder() {
-                      return d.isDir(this.mode);
-                    }
-                    get isDevice() {
-                      return d.isChrdev(this.mode);
-                    }
-                  },
-                  lookupPath(e, r = {}) {
-                    if (!e) throw new d.ErrnoError(44);
-                    ((r.follow_mount ??= !0), g_.isAbs(e) || (e = d.cwd() + "/" + e));
-                    _: for (var s = 0; s < 40; s++) {
-                      for (var p = e.split("/").filter((z) => !!z), g = d.root, v = "/", O = 0; O < p.length; O++) {
-                        var S = O === p.length - 1;
-                        if (S && r.parent) break;
-                        if (p[O] !== ".") {
-                          if (p[O] === "..") {
-                            if (((v = g_.dirname(v)), d.isRoot(g))) {
-                              ((e = v + "/" + p.slice(O + 1).join("/")), s--);
-                              continue _;
-                            } else g = g.parent;
-                            continue;
-                          }
-                          v = g_.join2(v, p[O]);
-                          try {
-                            g = d.lookupNode(g, p[O]);
-                          } catch (z) {
-                            if (z?.errno === 44 && S && r.noent_okay) return { path: v };
-                            throw z;
-                          }
-                          if ((d.isMountpoint(g) && (!S || r.follow_mount) && (g = g.mounted.root), d.isLink(g.mode) && (!S || r.follow))) {
-                            if (!g.node_ops.readlink) throw new d.ErrnoError(52);
-                            var q = g.node_ops.readlink(g);
-                            (g_.isAbs(q) || (q = g_.dirname(v) + "/" + q), (e = q + "/" + p.slice(O + 1).join("/")));
-                            continue _;
-                          }
-                        }
-                      }
-                      return { path: v, node: g };
-                    }
-                    throw new d.ErrnoError(32);
-                  },
-                  getPath(e) {
-                    for (var r; ; ) {
-                      if (d.isRoot(e)) {
-                        var s = e.mount.mountpoint;
-                        return r ? (s[s.length - 1] !== "/" ? `${s}/${r}` : s + r) : s;
-                      }
-                      ((r = r ? `${e.name}/${r}` : e.name), (e = e.parent));
-                    }
-                  },
-                  hashName(e, r) {
-                    for (var s = 0, p = 0; p < r.length; p++) s = ((s << 5) - s + r.charCodeAt(p)) | 0;
-                    return ((e + s) >>> 0) % d.nameTable.length;
-                  },
-                  hashAddNode(e) {
-                    var r = d.hashName(e.parent.id, e.name);
-                    ((e.name_next = d.nameTable[r]), (d.nameTable[r] = e));
-                  },
-                  hashRemoveNode(e) {
-                    var r = d.hashName(e.parent.id, e.name);
-                    if (d.nameTable[r] === e) d.nameTable[r] = e.name_next;
-                    else
-                      for (var s = d.nameTable[r]; s; ) {
-                        if (s.name_next === e) {
-                          s.name_next = e.name_next;
-                          break;
-                        }
-                        s = s.name_next;
-                      }
-                  },
-                  lookupNode(e, r) {
-                    var s = d.mayLookup(e);
-                    if (s) throw new d.ErrnoError(s);
-                    for (var p = d.hashName(e.id, r), g = d.nameTable[p]; g; g = g.name_next) {
-                      var v = g.name;
-                      if (g.parent.id === e.id && v === r) return g;
-                    }
-                    return d.lookup(e, r);
-                  },
-                  createNode(e, r, s, p) {
-                    C(typeof e == "object");
-                    var g = new d.FSNode(e, r, s, p);
-                    return (d.hashAddNode(g), g);
-                  },
-                  destroyNode(e) {
-                    d.hashRemoveNode(e);
-                  },
-                  isRoot(e) {
-                    return e === e.parent;
-                  },
-                  isMountpoint(e) {
-                    return !!e.mounted;
-                  },
-                  isFile(e) {
-                    return (e & 61440) === 32768;
-                  },
-                  isDir(e) {
-                    return (e & 61440) === 16384;
-                  },
-                  isLink(e) {
-                    return (e & 61440) === 40960;
-                  },
-                  isChrdev(e) {
-                    return (e & 61440) === 8192;
-                  },
-                  isBlkdev(e) {
-                    return (e & 61440) === 24576;
-                  },
-                  isFIFO(e) {
-                    return (e & 61440) === 4096;
-                  },
-                  isSocket(e) {
-                    return (e & 49152) === 49152;
-                  },
-                  flagsToPermissionString(e) {
-                    var r = ["r", "w", "rw"][e & 3];
-                    return (e & 512 && (r += "w"), r);
-                  },
-                  nodePermissions(e, r) {
-                    return d.ignorePermissions
-                      ? 0
-                      : (r.includes("r") && !(e.mode & 292)) || (r.includes("w") && !(e.mode & 146)) || (r.includes("x") && !(e.mode & 73))
-                        ? 2
-                        : 0;
-                  },
-                  mayLookup(e) {
-                    if (!d.isDir(e.mode)) return 54;
-                    var r = d.nodePermissions(e, "x");
-                    return r || (e.node_ops.lookup ? 0 : 2);
-                  },
-                  mayCreate(e, r) {
-                    if (!d.isDir(e.mode)) return 54;
-                    try {
-                      var s = d.lookupNode(e, r);
-                      return 20;
-                    } catch {}
-                    return d.nodePermissions(e, "wx");
-                  },
-                  mayDelete(e, r, s) {
-                    var p;
-                    try {
-                      p = d.lookupNode(e, r);
-                    } catch (v) {
-                      return v.errno;
-                    }
-                    var g = d.nodePermissions(e, "wx");
-                    if (g) return g;
-                    if (s) {
-                      if (!d.isDir(p.mode)) return 54;
-                      if (d.isRoot(p) || d.getPath(p) === d.cwd()) return 10;
-                    } else if (d.isDir(p.mode)) return 31;
-                    return 0;
-                  },
-                  mayOpen(e, r) {
-                    return e
-                      ? d.isLink(e.mode)
-                        ? 32
-                        : d.isDir(e.mode) && (d.flagsToPermissionString(r) !== "r" || r & 576)
-                          ? 31
-                          : d.nodePermissions(e, d.flagsToPermissionString(r))
-                      : 44;
-                  },
-                  checkOpExists(e, r) {
-                    if (!e) throw new d.ErrnoError(r);
-                    return e;
-                  },
-                  MAX_OPEN_FDS: 4096,
-                  nextfd() {
-                    for (var e = 0; e <= d.MAX_OPEN_FDS; e++) if (!d.streams[e]) return e;
-                    throw new d.ErrnoError(33);
-                  },
-                  getStreamChecked(e) {
-                    var r = d.getStream(e);
-                    if (!r) throw new d.ErrnoError(8);
-                    return r;
-                  },
-                  getStream: (e) => d.streams[e],
-                  createStream(e, r = -1) {
-                    return (C(r >= -1), (e = Object.assign(new d.FSStream(), e)), r == -1 && (r = d.nextfd()), (e.fd = r), (d.streams[r] = e), e);
-                  },
-                  closeStream(e) {
-                    d.streams[e] = null;
-                  },
-                  dupStream(e, r = -1) {
-                    var s = d.createStream(e, r);
-                    return (s.stream_ops?.dup?.(s), s);
-                  },
-                  doSetAttr(e, r, s) {
-                    var p = e?.stream_ops.setattr,
-                      g = p ? e : r;
-                    ((p ??= r.node_ops.setattr), d.checkOpExists(p, 63), p(g, s));
-                  },
-                  chrdev_stream_ops: {
-                    open(e) {
-                      var r = d.getDevice(e.node.rdev);
-                      ((e.stream_ops = r.stream_ops), e.stream_ops.open?.(e));
-                    },
-                    llseek() {
-                      throw new d.ErrnoError(70);
-                    },
-                  },
-                  major: (e) => e >> 8,
-                  minor: (e) => e & 255,
-                  makedev: (e, r) => (e << 8) | r,
-                  registerDevice(e, r) {
-                    d.devices[e] = { stream_ops: r };
-                  },
-                  getDevice: (e) => d.devices[e],
-                  getMounts(e) {
-                    for (var r = [], s = [e]; s.length; ) {
-                      var p = s.pop();
-                      (r.push(p), s.push(...p.mounts));
-                    }
-                    return r;
-                  },
-                  syncfs(e, r) {
-                    (typeof e == "function" && ((r = e), (e = !1)),
-                      d.syncFSRequests++,
-                      d.syncFSRequests > 1 &&
-                        c_(`warning: ${d.syncFSRequests} FS.syncfs operations in flight at once, probably just doing extra work`));
-                    var s = d.getMounts(d.root.mount),
-                      p = 0;
-                    function g(O) {
-                      return (C(d.syncFSRequests > 0), d.syncFSRequests--, r(O));
-                    }
-                    function v(O) {
-                      if (O) return v.errored ? void 0 : ((v.errored = !0), g(O));
-                      ++p >= s.length && g(null);
-                    }
-                    s.forEach((O) => {
-                      if (!O.type.syncfs) return v(null);
-                      O.type.syncfs(O, e, v);
-                    });
-                  },
-                  mount(e, r, s) {
-                    if (typeof e == "string") throw e;
-                    var p = s === "/",
-                      g = !s,
-                      v;
-                    if (p && d.root) throw new d.ErrnoError(10);
-                    if (!p && !g) {
-                      var O = d.lookupPath(s, { follow_mount: !1 });
-                      if (((s = O.path), (v = O.node), d.isMountpoint(v))) throw new d.ErrnoError(10);
-                      if (!d.isDir(v.mode)) throw new d.ErrnoError(54);
-                    }
-                    var S = { type: e, opts: r, mountpoint: s, mounts: [] },
-                      q = e.mount(S);
-                    return ((q.mount = S), (S.root = q), p ? (d.root = q) : v && ((v.mounted = S), v.mount && v.mount.mounts.push(S)), q);
-                  },
-                  unmount(e) {
-                    var r = d.lookupPath(e, { follow_mount: !1 });
-                    if (!d.isMountpoint(r.node)) throw new d.ErrnoError(28);
-                    var s = r.node,
-                      p = s.mounted,
-                      g = d.getMounts(p);
-                    (Object.keys(d.nameTable).forEach((O) => {
-                      for (var S = d.nameTable[O]; S; ) {
-                        var q = S.name_next;
-                        (g.includes(S.mount) && d.destroyNode(S), (S = q));
-                      }
-                    }),
-                      (s.mounted = null));
-                    var v = s.mount.mounts.indexOf(p);
-                    (C(v !== -1), s.mount.mounts.splice(v, 1));
-                  },
-                  lookup(e, r) {
-                    return e.node_ops.lookup(e, r);
-                  },
-                  mknod(e, r, s) {
-                    var p = d.lookupPath(e, { parent: !0 }),
-                      g = p.node,
-                      v = g_.basename(e);
-                    if (!v) throw new d.ErrnoError(28);
-                    if (v === "." || v === "..") throw new d.ErrnoError(20);
-                    var O = d.mayCreate(g, v);
-                    if (O) throw new d.ErrnoError(O);
-                    if (!g.node_ops.mknod) throw new d.ErrnoError(63);
-                    return g.node_ops.mknod(g, v, r, s);
-                  },
-                  statfs(e) {
-                    return d.statfsNode(d.lookupPath(e, { follow: !0 }).node);
-                  },
-                  statfsStream(e) {
-                    return d.statfsNode(e.node);
-                  },
-                  statfsNode(e) {
-                    var r = {
-                      bsize: 4096,
-                      frsize: 4096,
-                      blocks: 1e6,
-                      bfree: 5e5,
-                      bavail: 5e5,
-                      files: d.nextInode,
-                      ffree: d.nextInode - 1,
-                      fsid: 42,
-                      flags: 2,
-                      namelen: 255,
-                    };
-                    return (e.node_ops.statfs && Object.assign(r, e.node_ops.statfs(e.mount.opts.root)), r);
-                  },
-                  create(e, r = 438) {
-                    return ((r &= 4095), (r |= 32768), d.mknod(e, r, 0));
-                  },
-                  mkdir(e, r = 511) {
-                    return ((r &= 1023), (r |= 16384), d.mknod(e, r, 0));
-                  },
-                  mkdirTree(e, r) {
-                    var s = e.split("/"),
-                      p = "";
-                    for (var g of s)
-                      if (g) {
-                        ((p || g_.isAbs(e)) && (p += "/"), (p += g));
-                        try {
-                          d.mkdir(p, r);
-                        } catch (v) {
-                          if (v.errno != 20) throw v;
-                        }
-                      }
-                  },
-                  mkdev(e, r, s) {
-                    return (typeof s > "u" && ((s = r), (r = 438)), (r |= 8192), d.mknod(e, r, s));
-                  },
-                  symlink(e, r) {
-                    if (!fe.resolve(e)) throw new d.ErrnoError(44);
-                    var s = d.lookupPath(r, { parent: !0 }),
-                      p = s.node;
-                    if (!p) throw new d.ErrnoError(44);
-                    var g = g_.basename(r),
-                      v = d.mayCreate(p, g);
-                    if (v) throw new d.ErrnoError(v);
-                    if (!p.node_ops.symlink) throw new d.ErrnoError(63);
-                    return p.node_ops.symlink(p, g, e);
-                  },
-                  rename(e, r) {
-                    var s = g_.dirname(e),
-                      p = g_.dirname(r),
-                      g = g_.basename(e),
-                      v = g_.basename(r),
-                      O,
-                      S,
-                      q;
-                    if (((O = d.lookupPath(e, { parent: !0 })), (S = O.node), (O = d.lookupPath(r, { parent: !0 })), (q = O.node), !S || !q))
-                      throw new d.ErrnoError(44);
-                    if (S.mount !== q.mount) throw new d.ErrnoError(75);
-                    var z = d.lookupNode(S, g),
-                      Y = fe.relative(e, p);
-                    if (Y.charAt(0) !== ".") throw new d.ErrnoError(28);
-                    if (((Y = fe.relative(r, s)), Y.charAt(0) !== ".")) throw new d.ErrnoError(55);
-                    var n_;
-                    try {
-                      n_ = d.lookupNode(q, v);
-                    } catch {}
-                    if (z !== n_) {
-                      var __ = d.isDir(z.mode),
-                        J = d.mayDelete(S, g, __);
-                      if (J) throw new d.ErrnoError(J);
-                      if (((J = n_ ? d.mayDelete(q, v, __) : d.mayCreate(q, v)), J)) throw new d.ErrnoError(J);
-                      if (!S.node_ops.rename) throw new d.ErrnoError(63);
-                      if (d.isMountpoint(z) || (n_ && d.isMountpoint(n_))) throw new d.ErrnoError(10);
-                      if (q !== S && ((J = d.nodePermissions(S, "w")), J)) throw new d.ErrnoError(J);
-                      d.hashRemoveNode(z);
-                      try {
-                        (S.node_ops.rename(z, q, v), (z.parent = q));
-                      } catch (e_) {
-                        throw e_;
-                      } finally {
-                        d.hashAddNode(z);
-                      }
-                    }
-                  },
-                  rmdir(e) {
-                    var r = d.lookupPath(e, { parent: !0 }),
-                      s = r.node,
-                      p = g_.basename(e),
-                      g = d.lookupNode(s, p),
-                      v = d.mayDelete(s, p, !0);
-                    if (v) throw new d.ErrnoError(v);
-                    if (!s.node_ops.rmdir) throw new d.ErrnoError(63);
-                    if (d.isMountpoint(g)) throw new d.ErrnoError(10);
-                    (s.node_ops.rmdir(s, p), d.destroyNode(g));
-                  },
-                  readdir(e) {
-                    var r = d.lookupPath(e, { follow: !0 }),
-                      s = r.node,
-                      p = d.checkOpExists(s.node_ops.readdir, 54);
-                    return p(s);
-                  },
-                  unlink(e) {
-                    var r = d.lookupPath(e, { parent: !0 }),
-                      s = r.node;
-                    if (!s) throw new d.ErrnoError(44);
-                    var p = g_.basename(e),
-                      g = d.lookupNode(s, p),
-                      v = d.mayDelete(s, p, !1);
-                    if (v) throw new d.ErrnoError(v);
-                    if (!s.node_ops.unlink) throw new d.ErrnoError(63);
-                    if (d.isMountpoint(g)) throw new d.ErrnoError(10);
-                    (s.node_ops.unlink(s, p), d.destroyNode(g));
-                  },
-                  readlink(e) {
-                    var r = d.lookupPath(e),
-                      s = r.node;
-                    if (!s) throw new d.ErrnoError(44);
-                    if (!s.node_ops.readlink) throw new d.ErrnoError(28);
-                    return s.node_ops.readlink(s);
-                  },
-                  stat(e, r) {
-                    var s = d.lookupPath(e, { follow: !r }),
-                      p = s.node,
-                      g = d.checkOpExists(p.node_ops.getattr, 63);
-                    return g(p);
-                  },
-                  fstat(e) {
-                    var r = d.getStreamChecked(e),
-                      s = r.node,
-                      p = r.stream_ops.getattr,
-                      g = p ? r : s;
-                    return ((p ??= s.node_ops.getattr), d.checkOpExists(p, 63), p(g));
-                  },
-                  lstat(e) {
-                    return d.stat(e, !0);
-                  },
-                  doChmod(e, r, s, p) {
-                    d.doSetAttr(e, r, { mode: (s & 4095) | (r.mode & -4096), ctime: Date.now(), dontFollow: p });
-                  },
-                  chmod(e, r, s) {
-                    var p;
-                    if (typeof e == "string") {
-                      var g = d.lookupPath(e, { follow: !s });
-                      p = g.node;
-                    } else p = e;
-                    d.doChmod(null, p, r, s);
-                  },
-                  lchmod(e, r) {
-                    d.chmod(e, r, !0);
-                  },
-                  fchmod(e, r) {
-                    var s = d.getStreamChecked(e);
-                    d.doChmod(s, s.node, r, !1);
-                  },
-                  doChown(e, r, s) {
-                    d.doSetAttr(e, r, { timestamp: Date.now(), dontFollow: s });
-                  },
-                  chown(e, r, s, p) {
-                    var g;
-                    if (typeof e == "string") {
-                      var v = d.lookupPath(e, { follow: !p });
-                      g = v.node;
-                    } else g = e;
-                    d.doChown(null, g, p);
-                  },
-                  lchown(e, r, s) {
-                    d.chown(e, r, s, !0);
-                  },
-                  fchown(e, r, s) {
-                    var p = d.getStreamChecked(e);
-                    d.doChown(p, p.node, !1);
-                  },
-                  doTruncate(e, r, s) {
-                    if (d.isDir(r.mode)) throw new d.ErrnoError(31);
-                    if (!d.isFile(r.mode)) throw new d.ErrnoError(28);
-                    var p = d.nodePermissions(r, "w");
-                    if (p) throw new d.ErrnoError(p);
-                    d.doSetAttr(e, r, { size: s, timestamp: Date.now() });
-                  },
-                  truncate(e, r) {
-                    if (r < 0) throw new d.ErrnoError(28);
-                    var s;
-                    if (typeof e == "string") {
-                      var p = d.lookupPath(e, { follow: !0 });
-                      s = p.node;
-                    } else s = e;
-                    d.doTruncate(null, s, r);
-                  },
-                  ftruncate(e, r) {
-                    var s = d.getStreamChecked(e);
-                    if (r < 0 || (s.flags & 2097155) === 0) throw new d.ErrnoError(28);
-                    d.doTruncate(s, s.node, r);
-                  },
-                  utime(e, r, s) {
-                    var p = d.lookupPath(e, { follow: !0 }),
-                      g = p.node,
-                      v = d.checkOpExists(g.node_ops.setattr, 63);
-                    v(g, { atime: r, mtime: s });
-                  },
-                  open(e, r, s = 438) {
-                    if (e === "") throw new d.ErrnoError(44);
-                    ((r = typeof r == "string" ? jt(r) : r), r & 64 ? (s = (s & 4095) | 32768) : (s = 0));
-                    var p, g;
-                    if (typeof e == "object") p = e;
-                    else {
-                      g = e.endsWith("/");
-                      var v = d.lookupPath(e, { follow: !(r & 131072), noent_okay: !0 });
-                      ((p = v.node), (e = v.path));
-                    }
-                    var O = !1;
-                    if (r & 64)
-                      if (p) {
-                        if (r & 128) throw new d.ErrnoError(20);
-                      } else {
-                        if (g) throw new d.ErrnoError(31);
-                        ((p = d.mknod(e, s | 511, 0)), (O = !0));
-                      }
-                    if (!p) throw new d.ErrnoError(44);
-                    if ((d.isChrdev(p.mode) && (r &= -513), r & 65536 && !d.isDir(p.mode))) throw new d.ErrnoError(54);
-                    if (!O) {
-                      var S = d.mayOpen(p, r);
-                      if (S) throw new d.ErrnoError(S);
-                    }
-                    (r & 512 && !O && d.truncate(p, 0), (r &= -131713));
-                    var q = d.createStream({
-                      node: p,
-                      path: d.getPath(p),
-                      flags: r,
-                      seekable: !0,
-                      position: 0,
-                      stream_ops: p.stream_ops,
-                      ungotten: [],
-                      error: !1,
-                    });
-                    return (
-                      q.stream_ops.open && q.stream_ops.open(q),
-                      O && d.chmod(p, s & 511),
-                      _.logReadFiles && !(r & 1) && (e in d.readFiles || (d.readFiles[e] = 1)),
-                      q
-                    );
-                  },
-                  close(e) {
-                    if (d.isClosed(e)) throw new d.ErrnoError(8);
-                    e.getdents && (e.getdents = null);
-                    try {
-                      e.stream_ops.close && e.stream_ops.close(e);
-                    } catch (r) {
-                      throw r;
-                    } finally {
-                      d.closeStream(e.fd);
-                    }
-                    e.fd = null;
-                  },
-                  isClosed(e) {
-                    return e.fd === null;
-                  },
-                  llseek(e, r, s) {
-                    if (d.isClosed(e)) throw new d.ErrnoError(8);
-                    if (!e.seekable || !e.stream_ops.llseek) throw new d.ErrnoError(70);
-                    if (s != 0 && s != 1 && s != 2) throw new d.ErrnoError(28);
-                    return ((e.position = e.stream_ops.llseek(e, r, s)), (e.ungotten = []), e.position);
-                  },
-                  read(e, r, s, p, g) {
-                    if ((C(s >= 0), p < 0 || g < 0)) throw new d.ErrnoError(28);
-                    if (d.isClosed(e)) throw new d.ErrnoError(8);
-                    if ((e.flags & 2097155) === 1) throw new d.ErrnoError(8);
-                    if (d.isDir(e.node.mode)) throw new d.ErrnoError(31);
-                    if (!e.stream_ops.read) throw new d.ErrnoError(28);
-                    var v = typeof g < "u";
-                    if (!v) g = e.position;
-                    else if (!e.seekable) throw new d.ErrnoError(70);
-                    var O = e.stream_ops.read(e, r, s, p, g);
-                    return (v || (e.position += O), O);
-                  },
-                  write(e, r, s, p, g, v) {
-                    if ((C(s >= 0), p < 0 || g < 0)) throw new d.ErrnoError(28);
-                    if (d.isClosed(e)) throw new d.ErrnoError(8);
-                    if ((e.flags & 2097155) === 0) throw new d.ErrnoError(8);
-                    if (d.isDir(e.node.mode)) throw new d.ErrnoError(31);
-                    if (!e.stream_ops.write) throw new d.ErrnoError(28);
-                    e.seekable && e.flags & 1024 && d.llseek(e, 0, 2);
-                    var O = typeof g < "u";
-                    if (!O) g = e.position;
-                    else if (!e.seekable) throw new d.ErrnoError(70);
-                    var S = e.stream_ops.write(e, r, s, p, g, v);
-                    return (O || (e.position += S), S);
-                  },
-                  mmap(e, r, s, p, g) {
-                    if ((p & 2) !== 0 && (g & 2) === 0 && (e.flags & 2097155) !== 2) throw new d.ErrnoError(2);
-                    if ((e.flags & 2097155) === 1) throw new d.ErrnoError(2);
-                    if (!e.stream_ops.mmap) throw new d.ErrnoError(43);
-                    if (!r) throw new d.ErrnoError(28);
-                    return e.stream_ops.mmap(e, r, s, p, g);
-                  },
-                  msync(e, r, s, p, g) {
-                    return (C(s >= 0), e.stream_ops.msync ? e.stream_ops.msync(e, r, s, p, g) : 0);
-                  },
-                  ioctl(e, r, s) {
-                    if (!e.stream_ops.ioctl) throw new d.ErrnoError(59);
-                    return e.stream_ops.ioctl(e, r, s);
-                  },
-                  readFile(e, r = {}) {
-                    ((r.flags = r.flags || 0),
-                      (r.encoding = r.encoding || "binary"),
-                      r.encoding !== "utf8" && r.encoding !== "binary" && t_(`Invalid encoding type "${r.encoding}"`));
-                    var s = d.open(e, r.flags),
-                      p = d.stat(e),
-                      g = p.size,
-                      v = new Uint8Array(g);
-                    return (d.read(s, v, 0, g, 0), r.encoding === "utf8" && (v = Ue(v)), d.close(s), v);
-                  },
-                  writeFile(e, r, s = {}) {
-                    s.flags = s.flags || 577;
-                    var p = d.open(e, s.flags, s.mode);
-                    (typeof r == "string" && (r = new Uint8Array(Te(r, !0))),
-                      ArrayBuffer.isView(r) ? d.write(p, r, 0, r.byteLength, void 0, s.canOwn) : t_("Unsupported data type"),
-                      d.close(p));
-                  },
-                  cwd: () => d.currentPath,
-                  chdir(e) {
-                    var r = d.lookupPath(e, { follow: !0 });
-                    if (r.node === null) throw new d.ErrnoError(44);
-                    if (!d.isDir(r.node.mode)) throw new d.ErrnoError(54);
-                    var s = d.nodePermissions(r.node, "x");
-                    if (s) throw new d.ErrnoError(s);
-                    d.currentPath = r.path;
-                  },
-                  createDefaultDirectories() {
-                    (d.mkdir("/tmp"), d.mkdir("/home"), d.mkdir("/home/web_user"));
-                  },
-                  createDefaultDevices() {
-                    (d.mkdir("/dev"),
-                      d.registerDevice(d.makedev(1, 3), { read: () => 0, write: (p, g, v, O, S) => O, llseek: () => 0 }),
-                      d.mkdev("/dev/null", d.makedev(1, 3)),
-                      pe.register(d.makedev(5, 0), pe.default_tty_ops),
-                      pe.register(d.makedev(6, 0), pe.default_tty1_ops),
-                      d.mkdev("/dev/tty", d.makedev(5, 0)),
-                      d.mkdev("/dev/tty1", d.makedev(6, 0)));
-                    var e = new Uint8Array(1024),
-                      r = 0,
-                      s = () => (r === 0 && (Dt(e), (r = e.byteLength)), e[--r]);
-                    (d.createDevice("/dev", "random", s), d.createDevice("/dev", "urandom", s), d.mkdir("/dev/shm"), d.mkdir("/dev/shm/tmp"));
-                  },
-                  createSpecialDirectories() {
-                    d.mkdir("/proc");
-                    var e = d.mkdir("/proc/self");
-                    (d.mkdir("/proc/self/fd"),
-                      d.mount(
-                        {
-                          mount() {
-                            var r = d.createNode(e, "fd", 16895, 73);
-                            return (
-                              (r.stream_ops = { llseek: m_.stream_ops.llseek }),
-                              (r.node_ops = {
-                                lookup(s, p) {
-                                  var g = +p,
-                                    v = d.getStreamChecked(g),
-                                    O = { parent: null, mount: { mountpoint: "fake" }, node_ops: { readlink: () => v.path }, id: g + 1 };
-                                  return ((O.parent = O), O);
-                                },
-                                readdir() {
-                                  return Array.from(d.streams.entries())
-                                    .filter(([s, p]) => p)
-                                    .map(([s, p]) => s.toString());
-                                },
-                              }),
-                              r
-                            );
-                          },
-                        },
-                        {},
-                        "/proc/self/fd",
-                      ));
-                  },
-                  createStandardStreams(e, r, s) {
-                    (e ? d.createDevice("/dev", "stdin", e) : d.symlink("/dev/tty", "/dev/stdin"),
-                      r ? d.createDevice("/dev", "stdout", null, r) : d.symlink("/dev/tty", "/dev/stdout"),
-                      s ? d.createDevice("/dev", "stderr", null, s) : d.symlink("/dev/tty1", "/dev/stderr"));
-                    var p = d.open("/dev/stdin", 0),
-                      g = d.open("/dev/stdout", 1),
-                      v = d.open("/dev/stderr", 1);
-                    (C(p.fd === 0, `invalid handle for stdin (${p.fd})`),
-                      C(g.fd === 1, `invalid handle for stdout (${g.fd})`),
-                      C(v.fd === 2, `invalid handle for stderr (${v.fd})`));
-                  },
-                  staticInit() {
-                    ((d.nameTable = new Array(4096)),
-                      d.mount(m_, {}, "/"),
-                      d.createDefaultDirectories(),
-                      d.createDefaultDevices(),
-                      d.createSpecialDirectories(),
-                      (d.filesystems = { MEMFS: m_ }));
-                  },
-                  init(e, r, s) {
-                    (C(
-                      !d.initialized,
-                      "FS.init was previously called. If you want to initialize later with custom parameters, remove any earlier calls (note that one is automatically added to the generated code)",
-                    ),
-                      (d.initialized = !0),
-                      (e ??= _.stdin),
-                      (r ??= _.stdout),
-                      (s ??= _.stderr),
-                      d.createStandardStreams(e, r, s));
-                  },
-                  quit() {
-                    ((d.initialized = !1), nn(0));
-                    for (var e of d.streams) e && d.close(e);
-                  },
-                  findObject(e, r) {
-                    var s = d.analyzePath(e, r);
-                    return s.exists ? s.object : null;
-                  },
-                  analyzePath(e, r) {
-                    try {
-                      var s = d.lookupPath(e, { follow: !r });
-                      e = s.path;
-                    } catch {}
-                    var p = {
-                      isRoot: !1,
-                      exists: !1,
-                      error: 0,
-                      name: null,
-                      path: null,
-                      object: null,
-                      parentExists: !1,
-                      parentPath: null,
-                      parentObject: null,
-                    };
-                    try {
-                      var s = d.lookupPath(e, { parent: !0 });
-                      ((p.parentExists = !0),
-                        (p.parentPath = s.path),
-                        (p.parentObject = s.node),
-                        (p.name = g_.basename(e)),
-                        (s = d.lookupPath(e, { follow: !r })),
-                        (p.exists = !0),
-                        (p.path = s.path),
-                        (p.object = s.node),
-                        (p.name = s.node.name),
-                        (p.isRoot = s.path === "/"));
-                    } catch (g) {
-                      p.error = g.errno;
-                    }
-                    return p;
-                  },
-                  createPath(e, r, s, p) {
-                    e = typeof e == "string" ? e : d.getPath(e);
-                    for (var g = r.split("/").reverse(); g.length; ) {
-                      var v = g.pop();
-                      if (v) {
-                        var O = g_.join2(e, v);
-                        try {
-                          d.mkdir(O);
-                        } catch (S) {
-                          if (S.errno != 20) throw S;
-                        }
-                        e = O;
-                      }
-                    }
-                    return O;
-                  },
-                  createFile(e, r, s, p, g) {
-                    var v = g_.join2(typeof e == "string" ? e : d.getPath(e), r),
-                      O = H_(p, g);
-                    return d.create(v, O);
-                  },
-                  createDataFile(e, r, s, p, g, v) {
-                    var O = r;
-                    e && ((e = typeof e == "string" ? e : d.getPath(e)), (O = r ? g_.join2(e, r) : e));
-                    var S = H_(p, g),
-                      q = d.create(O, S);
-                    if (s) {
-                      if (typeof s == "string") {
-                        for (var z = new Array(s.length), Y = 0, n_ = s.length; Y < n_; ++Y) z[Y] = s.charCodeAt(Y);
-                        s = z;
-                      }
-                      d.chmod(q, S | 146);
-                      var __ = d.open(q, 577);
-                      (d.write(__, s, 0, s.length, 0, v), d.close(__), d.chmod(q, S));
-                    }
-                  },
-                  createDevice(e, r, s, p) {
-                    var g = g_.join2(typeof e == "string" ? e : d.getPath(e), r),
-                      v = H_(!!s, !!p);
-                    d.createDevice.major ??= 64;
-                    var O = d.makedev(d.createDevice.major++, 0);
-                    return (
-                      d.registerDevice(O, {
-                        open(S) {
-                          S.seekable = !1;
-                        },
-                        close(S) {
-                          p?.buffer?.length && p(10);
-                        },
-                        read(S, q, z, Y, n_) {
-                          for (var __ = 0, J = 0; J < Y; J++) {
-                            var e_;
-                            try {
-                              e_ = s();
-                            } catch {
-                              throw new d.ErrnoError(29);
-                            }
-                            if (e_ === void 0 && __ === 0) throw new d.ErrnoError(6);
-                            if (e_ == null) break;
-                            (__++, (q[z + J] = e_));
-                          }
-                          return (__ && (S.node.atime = Date.now()), __);
-                        },
-                        write(S, q, z, Y, n_) {
-                          for (var __ = 0; __ < Y; __++)
-                            try {
-                              p(q[z + __]);
-                            } catch {
-                              throw new d.ErrnoError(29);
-                            }
-                          return (Y && (S.node.mtime = S.node.ctime = Date.now()), __);
-                        },
-                      }),
-                      d.mkdev(g, v, O)
-                    );
-                  },
-                  forceLoadFile(e) {
-                    if (e.isDevice || e.isFolder || e.link || e.contents) return !0;
-                    if (typeof XMLHttpRequest < "u")
-                      t_(
-                        "Lazy loading should have been performed (contents set) in createLazyFile, but it was not. Lazy loading only works in web workers. Use --embed-file or --preload-file in emcc on the main thread.",
-                      );
-                    else
-                      try {
-                        e.contents = k(e.url);
-                      } catch {
-                        throw new d.ErrnoError(29);
-                      }
-                  },
-                  createLazyFile(e, r, s, p, g) {
-                    class v {
-                      lengthKnown = !1;
-                      chunks = [];
-                      get(J) {
-                        if (!(J > this.length - 1 || J < 0)) {
-                          var e_ = J % this.chunkSize,
-                            d_ = (J / this.chunkSize) | 0;
-                          return this.getter(d_)[e_];
-                        }
-                      }
-                      setDataGetter(J) {
-                        this.getter = J;
-                      }
-                      cacheLength() {
-                        var J = new XMLHttpRequest();
-                        (J.open("HEAD", s, !1),
-                          J.send(null),
-                          (J.status >= 200 && J.status < 300) || J.status === 304 || t_("Couldn't load " + s + ". Status: " + J.status));
-                        var e_ = Number(J.getResponseHeader("Content-length")),
-                          d_,
-                          Q_ = (d_ = J.getResponseHeader("Accept-Ranges")) && d_ === "bytes",
-                          B_ = (d_ = J.getResponseHeader("Content-Encoding")) && d_ === "gzip",
-                          ee = 1024 * 1024;
-                        Q_ || (ee = e_);
-                        var ue = (he, xt) => {
-                            (he > xt && t_("invalid range (" + he + ", " + xt + ") or no bytes requested!"),
-                              xt > e_ - 1 && t_("only " + e_ + " bytes available! programmer error!"));
-                            var L_ = new XMLHttpRequest();
-                            return (
-                              L_.open("GET", s, !1),
-                              e_ !== ee && L_.setRequestHeader("Range", "bytes=" + he + "-" + xt),
-                              (L_.responseType = "arraybuffer"),
-                              L_.overrideMimeType && L_.overrideMimeType("text/plain; charset=x-user-defined"),
-                              L_.send(null),
-                              (L_.status >= 200 && L_.status < 300) || L_.status === 304 || t_("Couldn't load " + s + ". Status: " + L_.status),
-                              L_.response !== void 0 ? new Uint8Array(L_.response || []) : Te(L_.responseText || "", !0)
-                            );
-                          },
-                          _r = this;
-                        (_r.setDataGetter((he) => {
-                          var xt = he * ee,
-                            L_ = (he + 1) * ee - 1;
-                          return (
-                            (L_ = Math.min(L_, e_ - 1)),
-                            typeof _r.chunks[he] > "u" && (_r.chunks[he] = ue(xt, L_)),
-                            typeof _r.chunks[he] > "u" && t_("doXHR failed!"),
-                            _r.chunks[he]
-                          );
-                        }),
-                          (B_ || !e_) &&
-                            ((ee = e_ = 1),
-                            (e_ = this.getter(0).length),
-                            (ee = e_),
-                            V_("LazyFiles on gzip forces download of the whole file when length is accessed")),
-                          (this._length = e_),
-                          (this._chunkSize = ee),
-                          (this.lengthKnown = !0));
-                      }
-                      get length() {
-                        return (this.lengthKnown || this.cacheLength(), this._length);
-                      }
-                      get chunkSize() {
-                        return (this.lengthKnown || this.cacheLength(), this._chunkSize);
-                      }
-                    }
-                    if (typeof XMLHttpRequest < "u") {
-                      a || t_("Cannot do synchronous binary XHRs outside webworkers in modern browsers. Use --embed-file or --preload-file in emcc");
-                      var O = new v(),
-                        S = { isDevice: !1, contents: O };
-                    } else var S = { isDevice: !1, url: s };
-                    var q = d.createFile(e, r, S, p, g);
-                    (S.contents ? (q.contents = S.contents) : S.url && ((q.contents = null), (q.url = S.url)),
-                      Object.defineProperties(q, {
-                        usedBytes: {
-                          get: function () {
-                            return this.contents.length;
-                          },
-                        },
-                      }));
-                    var z = {},
-                      Y = Object.keys(q.stream_ops);
-                    Y.forEach((__) => {
-                      var J = q.stream_ops[__];
-                      z[__] = (...e_) => (d.forceLoadFile(q), J(...e_));
-                    });
-                    function n_(__, J, e_, d_, Q_) {
-                      var B_ = __.node.contents;
-                      if (Q_ >= B_.length) return 0;
-                      var ee = Math.min(B_.length - Q_, d_);
-                      if ((C(ee >= 0), B_.slice)) for (var ue = 0; ue < ee; ue++) J[e_ + ue] = B_[Q_ + ue];
-                      else for (var ue = 0; ue < ee; ue++) J[e_ + ue] = B_.get(Q_ + ue);
-                      return ee;
-                    }
-                    return (
-                      (z.read = (__, J, e_, d_, Q_) => (d.forceLoadFile(q), n_(__, J, e_, d_, Q_))),
-                      (z.mmap = (__, J, e_, d_, Q_) => {
-                        d.forceLoadFile(q);
-                        var B_ = tt();
-                        if (!B_) throw new d.ErrnoError(48);
-                        return (n_(__, E_, B_, J, e_), { ptr: B_, allocated: !0 });
-                      }),
-                      (q.stream_ops = z),
-                      q
-                    );
-                  },
-                  absolutePath() {
-                    t_("FS.absolutePath has been removed; use PATH_FS.resolve instead");
-                  },
-                  createFolder() {
-                    t_("FS.createFolder has been removed; use FS.mkdir instead");
-                  },
-                  createLink() {
-                    t_("FS.createLink has been removed; use FS.symlink instead");
-                  },
-                  joinPath() {
-                    t_("FS.joinPath has been removed; use PATH.join instead");
-                  },
-                  mmapAlloc() {
-                    t_("FS.mmapAlloc has been replaced by the top level function mmapAlloc");
-                  },
-                  standardizePath() {
-                    t_("FS.standardizePath has been removed; use PATH.normalize instead");
-                  },
-                },
-                T_ = {
-                  DEFAULT_POLLMASK: 5,
-                  calculateAt(e, r, s) {
-                    if (g_.isAbs(r)) return r;
-                    var p;
-                    if (e === -100) p = d.cwd();
-                    else {
-                      var g = T_.getStreamFromFD(e);
-                      p = g.path;
-                    }
-                    if (r.length == 0) {
-                      if (!s) throw new d.ErrnoError(44);
-                      return p;
-                    }
-                    return p + "/" + r;
-                  },
-                  writeStat(e, r) {
-                    ((h[e >> 2] = r.dev),
-                      (h[(e + 4) >> 2] = r.mode),
-                      (h[(e + 8) >> 2] = r.nlink),
-                      (h[(e + 12) >> 2] = r.uid),
-                      (h[(e + 16) >> 2] = r.gid),
-                      (h[(e + 20) >> 2] = r.rdev),
-                      (f[(e + 24) >> 3] = BigInt(r.size)),
-                      (P_[(e + 32) >> 2] = 4096),
-                      (P_[(e + 36) >> 2] = r.blocks));
-                    var s = r.atime.getTime(),
-                      p = r.mtime.getTime(),
-                      g = r.ctime.getTime();
-                    return (
-                      (f[(e + 40) >> 3] = BigInt(Math.floor(s / 1e3))),
-                      (h[(e + 48) >> 2] = (s % 1e3) * 1e3 * 1e3),
-                      (f[(e + 56) >> 3] = BigInt(Math.floor(p / 1e3))),
-                      (h[(e + 64) >> 2] = (p % 1e3) * 1e3 * 1e3),
-                      (f[(e + 72) >> 3] = BigInt(Math.floor(g / 1e3))),
-                      (h[(e + 80) >> 2] = (g % 1e3) * 1e3 * 1e3),
-                      (f[(e + 88) >> 3] = BigInt(r.ino)),
-                      0
-                    );
-                  },
-                  writeStatFs(e, r) {
-                    ((h[(e + 4) >> 2] = r.bsize),
-                      (h[(e + 60) >> 2] = r.bsize),
-                      (f[(e + 8) >> 3] = BigInt(r.blocks)),
-                      (f[(e + 16) >> 3] = BigInt(r.bfree)),
-                      (f[(e + 24) >> 3] = BigInt(r.bavail)),
-                      (f[(e + 32) >> 3] = BigInt(r.files)),
-                      (f[(e + 40) >> 3] = BigInt(r.ffree)),
-                      (h[(e + 48) >> 2] = r.fsid),
-                      (h[(e + 64) >> 2] = r.flags),
-                      (h[(e + 56) >> 2] = r.namelen));
-                  },
-                  doMsync(e, r, s, p, g) {
-                    if (!d.isFile(r.node.mode)) throw new d.ErrnoError(43);
-                    if (p & 2) return 0;
-                    var v = ae.slice(e, e + s);
-                    d.msync(r, v, g, s, p);
-                  },
-                  getStreamFromFD(e) {
-                    var r = d.getStreamChecked(e);
-                    return r;
-                  },
-                  varargs: void 0,
-                  getStr(e) {
-                    var r = v_(e);
-                    return r;
-                  },
-                };
-              function kt(e, r, s) {
-                if (M) return z_(3, 0, 1, e, r, s);
-                T_.varargs = s;
-                try {
-                  var p = T_.getStreamFromFD(e);
-                  switch (r) {
-                    case 0: {
-                      var g = et();
-                      if (g < 0) return -28;
-                      for (; d.streams[g]; ) g++;
-                      var v;
-                      return ((v = d.dupStream(p, g)), v.fd);
-                    }
-                    case 1:
-                    case 2:
-                      return 0;
-                    case 3:
-                      return p.flags;
-                    case 4: {
-                      var g = et();
-                      return ((p.flags |= g), 0);
-                    }
-                    case 12: {
-                      var g = Pe(),
-                        O = 0;
-                      return ((N_[(g + O) >> 1] = 2), 0);
-                    }
-                    case 13:
-                    case 14:
-                      return 0;
-                  }
-                  return -28;
-                } catch (S) {
-                  if (typeof d > "u" || S.name !== "ErrnoError") throw S;
-                  return -S.errno;
-                }
-              }
-              function Et(e, r, s) {
-                if (M) return z_(4, 0, 1, e, r, s);
-                T_.varargs = s;
-                try {
-                  var p = T_.getStreamFromFD(e);
-                  switch (r) {
-                    case 21509:
-                      return p.tty ? 0 : -59;
-                    case 21505: {
-                      if (!p.tty) return -59;
-                      if (p.tty.ops.ioctl_tcgets) {
-                        var g = p.tty.ops.ioctl_tcgets(p),
-                          v = Pe();
-                        ((P_[v >> 2] = g.c_iflag || 0),
-                          (P_[(v + 4) >> 2] = g.c_oflag || 0),
-                          (P_[(v + 8) >> 2] = g.c_cflag || 0),
-                          (P_[(v + 12) >> 2] = g.c_lflag || 0));
-                        for (var O = 0; O < 32; O++) E_[v + O + 17] = g.c_cc[O] || 0;
-                        return 0;
-                      }
-                      return 0;
-                    }
-                    case 21510:
-                    case 21511:
-                    case 21512:
-                      return p.tty ? 0 : -59;
-                    case 21506:
-                    case 21507:
-                    case 21508: {
-                      if (!p.tty) return -59;
-                      if (p.tty.ops.ioctl_tcsets) {
-                        for (
-                          var v = Pe(), S = P_[v >> 2], q = P_[(v + 4) >> 2], z = P_[(v + 8) >> 2], Y = P_[(v + 12) >> 2], n_ = [], O = 0;
-                          O < 32;
-                          O++
-                        )
-                          n_.push(E_[v + O + 17]);
-                        return p.tty.ops.ioctl_tcsets(p.tty, r, { c_iflag: S, c_oflag: q, c_cflag: z, c_lflag: Y, c_cc: n_ });
-                      }
-                      return 0;
-                    }
-                    case 21519: {
-                      if (!p.tty) return -59;
-                      var v = Pe();
-                      return ((P_[v >> 2] = 0), 0);
-                    }
-                    case 21520:
-                      return p.tty ? -28 : -59;
-                    case 21537:
-                    case 21531: {
-                      var v = Pe();
-                      return d.ioctl(p, r, v);
-                    }
-                    case 21523: {
-                      if (!p.tty) return -59;
-                      if (p.tty.ops.ioctl_tiocgwinsz) {
-                        var __ = p.tty.ops.ioctl_tiocgwinsz(p.tty),
-                          v = Pe();
-                        ((N_[v >> 1] = __[0]), (N_[(v + 2) >> 1] = __[1]));
-                      }
-                      return 0;
-                    }
-                    case 21524:
-                      return p.tty ? 0 : -59;
-                    case 21515:
-                      return p.tty ? 0 : -59;
-                    default:
-                      return -28;
-                  }
-                } catch (J) {
-                  if (typeof d > "u" || J.name !== "ErrnoError") throw J;
-                  return -J.errno;
-                }
-              }
-              function f_(e, r, s, p) {
-                if (M) return z_(5, 0, 1, e, r, s, p);
-                T_.varargs = p;
-                try {
-                  ((r = T_.getStr(r)), (r = T_.calculateAt(e, r)));
-                  var g = p ? et() : 0;
-                  return d.open(r, s, g).fd;
-                } catch (v) {
-                  if (typeof d > "u" || v.name !== "ErrnoError") throw v;
-                  return -v.errno;
-                }
-              }
-              var Wt = () => t_("native code called abort()"),
-                wt = (e) => {
-                  (an(e, !a, 1, !B, 20971520, !1), p_.threadInitTLS());
-                },
-                rt = (e) => {
-                  if (e instanceof Zr || e == "unwind") return b_;
-                  ($_(),
-                    e instanceof WebAssembly.RuntimeError &&
-                      un() <= 0 &&
-                      c_("Stack overflow detected.  You can try increasing -sSTACK_SIZE (currently set to 20971520)"),
-                    o_(1, e));
-                },
-                se = () => {
-                  if (!pt())
-                    try {
-                      if (M) {
-                        Tt() && sn(b_);
-                        return;
-                      }
-                      Ke(b_);
-                    } catch (e) {
-                      rt(e);
-                    }
-                },
-                Ht = (e) => {
-                  if (ie) {
-                    c_("user callback triggered after runtime exited or application aborted.  Ignoring.");
-                    return;
-                  }
-                  try {
-                    (e(), se());
-                  } catch (r) {
-                    rt(r);
-                  }
-                },
-                Yt = (e) => {
-                  if (typeof Atomics.waitAsync == "function") {
-                    var r = Atomics.waitAsync(P_, e >> 2, e);
-                    (C(r.async), r.value.then(nt));
-                    var s = e + 128;
-                    Atomics.store(P_, s >> 2, 1);
-                  }
-                },
-                nt = () =>
-                  Ht(() => {
-                    var e = Tt();
-                    e && (Yt(e), bi());
-                  }),
-                Qt = (e, r) => {
-                  if (e == r) setTimeout(nt);
-                  else if (M) postMessage({ targetThread: e, cmd: "checkMailbox" });
-                  else {
-                    var s = p_.pthreads[e];
-                    if (!s) {
-                      c_(`Cannot send message to thread with ID ${e}, unknown thread ID!`);
-                      return;
-                    }
-                    s.postMessage({ cmd: "checkMailbox" });
-                  }
-                },
-                ze = [],
-                Nr = (e, r, s, p, g) => {
-                  ((p /= 2), (ze.length = p));
-                  for (var v = g >> 3, O = 0; O < p; O++) f[v + 2 * O] ? (ze[O] = f[v + 2 * O + 1]) : (ze[O] = l[v + 2 * O + 1]);
-                  var S = r ? Jt[r] : la[e];
-                  (C(!(e && r)),
-                    C(S.length == p, "Call args mismatch in _emscripten_receive_on_main_thread_js"),
-                    (p_.currentProxiedOperationCallerThread = s));
-                  var q = S(...ze);
-                  return ((p_.currentProxiedOperationCallerThread = 0), C(typeof q != "bigint"), q);
-                },
-                Ze = (e) => {
-                  M ? postMessage({ cmd: "cleanupThread", thread: e }) : D_(e);
-                },
-                _n = (e) => {
-                  V && p_.pthreads[e].ref();
-                },
-                je = (e, r, s) => (
-                  C(
-                    typeof s == "number",
-                    "stringToUTF8(str, outPtr, maxBytesToWrite) is missing the third parameter that specifies the length of the output buffer!",
-                  ),
-                  zt(e, ae, r, s)
-                ),
-                en = (e, r, s, p) => {
-                  var g = new Date().getFullYear(),
-                    v = new Date(g, 0, 1),
-                    O = new Date(g, 6, 1),
-                    S = v.getTimezoneOffset(),
-                    q = O.getTimezoneOffset(),
-                    z = Math.max(S, q);
-                  ((h[e >> 2] = z * 60), (P_[r >> 2] = +(S != q)));
-                  var Y = (J) => {
-                      var e_ = J >= 0 ? "-" : "+",
-                        d_ = Math.abs(J),
-                        Q_ = String(Math.floor(d_ / 60)).padStart(2, "0"),
-                        B_ = String(d_ % 60).padStart(2, "0");
-                      return `UTC${e_}${Q_}${B_}`;
-                    },
-                    n_ = Y(S),
-                    __ = Y(q);
-                  (C(n_),
-                    C(__),
-                    C(Ce(n_) <= 16, `timezone name truncated to fit in TZNAME_MAX (${n_})`),
-                    C(Ce(__) <= 16, `timezone name truncated to fit in TZNAME_MAX (${__})`),
-                    q < S ? (je(n_, s, 17), je(__, p, 17)) : (je(n_, p, 17), je(__, s, 17)));
-                },
-                w_ = () => performance.timeOrigin + performance.now(),
-                m = () => Date.now(),
-                o = (e) => e >= 0 && e <= 3,
-                w = 9007199254740992,
-                U = -9007199254740992,
-                i_ = (e) => (e < U || e > w ? NaN : Number(e));
-              function a_(e, r, s) {
-                if (!o(e)) return 28;
-                var p;
-                e === 0 ? (p = m()) : (p = w_());
-                var g = Math.round(p * 1e3 * 1e3);
-                return ((f[s >> 3] = BigInt(g)), 0);
-              }
-              var Se = [],
-                it = (e, r) => {
-                  (C(Array.isArray(Se)), C(r % 16 == 0), (Se.length = 0));
-                  for (var s; (s = ae[e++]); ) {
-                    var p = String.fromCharCode(s),
-                      g = ["d", "f", "i", "p"];
-                    (g.push("j"),
-                      C(
-                        g.includes(p),
-                        `Invalid character ${s}("${p}") in readEmAsmArgs! Use only [${g}], and do not specify "v" for void return argument.`,
-                      ));
-                    var v = s != 105;
-                    ((v &= s != 112),
-                      (r += v && r % 8 ? 4 : 0),
-                      Se.push(s == 112 ? h[r >> 2] : s == 106 ? f[r >> 3] : s == 105 ? P_[r >> 2] : l[r >> 3]),
-                      (r += v ? 8 : 4));
-                  }
-                  return Se;
-                },
-                ge = (e, r, s, p) => {
-                  var g = it(r, s);
-                  return M
-                    ? z_(0, e, p, ...g)
-                    : (C(
-                        Jt.hasOwnProperty(e),
-                        `No EM_ASM constant found at address ${e}.  The loaded WebAssembly file is likely out of sync with the generated JavaScript.`,
-                      ),
-                      Jt[e](...g));
-                },
-                M_ = (e, r, s) => ge(e, r, s, 0),
-                Xt = (e, r, s) => {
-                  var p = it(r, s);
-                  return (
-                    C(
-                      Jt.hasOwnProperty(e),
-                      `No EM_ASM constant found at address ${e}.  The loaded WebAssembly file is likely out of sync with the generated JavaScript.`,
-                    ),
-                    Jt[e](...p)
-                  );
-                },
-                de = (e, r, s) => Xt(e, r, s),
-                Ae = () => {
-                  V ||
-                    a ||
-                    oe(
-                      "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
-                    );
-                },
-                Ot = () => {
-                  Xe += 1;
-                },
-                Re = () => {
-                  throw (Ot(), "unwind");
-                },
-                Ie = () => ae.length,
-                at = () => Ie(),
-                ot = () => (V ? Ne.cpus().length : navigator.hardwareConcurrency),
-                Pt = (e) => {
-                  t_(
-                    `Cannot enlarge memory arrays to size ${e} bytes (OOM). Either (1) compile with -sINITIAL_MEMORY=X with X higher than the current value ${E_.length}, (2) compile with -sALLOW_MEMORY_GROWTH which allows increasing the size at runtime, or (3) if you want malloc to return NULL (0) instead of this abort, compile with -sABORTING_MALLOC=0`,
-                  );
-                },
-                Lr = (e) => {
-                  (ae.length, (e >>>= 0), Pt(e));
-                },
-                tn = {},
-                Ki = () => j || "./this.program",
-                Kt = () => {
-                  if (!Kt.strings) {
-                    var e = ((typeof navigator == "object" && navigator.language) || "C").replace("-", "_") + ".UTF-8",
-                      r = { USER: "web_user", LOGNAME: "web_user", PATH: "/", PWD: "/", HOME: "/home/web_user", LANG: e, _: Ki() };
-                    for (var s in tn) tn[s] === void 0 ? delete r[s] : (r[s] = tn[s]);
-                    var p = [];
-                    for (var s in r) p.push(`${s}=${r[s]}`);
-                    Kt.strings = p;
-                  }
-                  return Kt.strings;
-                };
-              function si(e, r) {
-                if (M) return z_(6, 0, 1, e, r);
-                var s = 0,
-                  p = 0;
-                for (var g of Kt()) {
-                  var v = r + s;
-                  ((h[(e + p) >> 2] = v), (s += je(g, v, 1 / 0) + 1), (p += 4));
-                }
-                return 0;
-              }
-              function ui(e, r) {
-                if (M) return z_(7, 0, 1, e, r);
-                var s = Kt();
-                h[e >> 2] = s.length;
-                var p = 0;
-                for (var g of s) p += Ce(g) + 1;
-                return ((h[r >> 2] = p), 0);
-              }
-              function ci(e) {
-                if (M) return z_(8, 0, 1, e);
-                try {
-                  var r = T_.getStreamFromFD(e);
-                  return (d.close(r), 0);
-                } catch (s) {
-                  if (typeof d > "u" || s.name !== "ErrnoError") throw s;
-                  return s.errno;
-                }
-              }
-              var Ji = (e, r, s, p) => {
-                for (var g = 0, v = 0; v < s; v++) {
-                  var O = h[r >> 2],
-                    S = h[(r + 4) >> 2];
-                  r += 8;
-                  var q = d.read(e, E_, O, S, p);
-                  if (q < 0) return -1;
-                  if (((g += q), q < S)) break;
-                }
-                return g;
-              };
-              function li(e, r, s, p) {
-                if (M) return z_(9, 0, 1, e, r, s, p);
-                try {
-                  var g = T_.getStreamFromFD(e),
-                    v = Ji(g, r, s);
-                  return ((h[p >> 2] = v), 0);
-                } catch (O) {
-                  if (typeof d > "u" || O.name !== "ErrnoError") throw O;
-                  return O.errno;
-                }
-              }
-              function mi(e, r, s, p) {
-                if (M) return z_(10, 0, 1, e, r, s, p);
-                r = i_(r);
-                try {
-                  if (isNaN(r)) return 61;
-                  var g = T_.getStreamFromFD(e);
-                  return (d.llseek(g, r, s), (f[p >> 3] = BigInt(g.position)), g.getdents && r === 0 && s === 0 && (g.getdents = null), 0);
-                } catch (v) {
-                  if (typeof d > "u" || v.name !== "ErrnoError") throw v;
-                  return v.errno;
-                }
-              }
-              var _a = (e, r, s, p) => {
-                for (var g = 0, v = 0; v < s; v++) {
-                  var O = h[r >> 2],
-                    S = h[(r + 4) >> 2];
-                  r += 8;
-                  var q = d.write(e, E_, O, S, p);
-                  if (q < 0) return -1;
-                  if (((g += q), q < S)) break;
-                }
-                return g;
-              };
-              function fi(e, r, s, p) {
-                if (M) return z_(11, 0, 1, e, r, s, p);
-                try {
-                  var g = T_.getStreamFromFD(e),
-                    v = _a(g, r, s);
-                  return ((h[p >> 2] = v), 0);
-                } catch (O) {
-                  if (typeof d > "u" || O.name !== "ErrnoError") throw O;
-                  return O.errno;
-                }
-              }
-              var ea = (e) => e,
-                ta = (e) => {
-                  var r = _["_" + e];
-                  return (C(r, "Cannot call unknown function " + e + ", make sure it is exported"), r);
-                },
-                ra = (e, r) => {
-                  (C(e.length >= 0, "writeArrayToMemory array must have a length (should be an array or typed array)"), E_.set(e, r));
-                },
-                na = (e) => {
-                  var r = Ce(e) + 1,
-                    s = Be(r);
-                  return (je(e, s, r), s);
-                },
-                ia = (e, r, s, p, g) => {
-                  var v = {
-                    string: (e_) => {
-                      var d_ = 0;
-                      return (e_ != null && e_ !== 0 && (d_ = na(e_)), d_);
-                    },
-                    array: (e_) => {
-                      var d_ = Be(e_.length);
-                      return (ra(e_, d_), d_);
-                    },
-                  };
-                  function O(e_) {
-                    return r === "string" ? v_(e_) : r === "boolean" ? !!e_ : e_;
-                  }
-                  var S = ta(e),
-                    q = [],
-                    z = 0;
-                  if ((C(r !== "array", 'Return type should not be "array".'), p))
-                    for (var Y = 0; Y < p.length; Y++) {
-                      var n_ = v[s[Y]];
-                      n_ ? (z === 0 && (z = W()), (q[Y] = n_(p[Y]))) : (q[Y] = p[Y]);
-                    }
-                  var __ = S(...q);
-                  function J(e_) {
-                    return (z !== 0 && H(z), O(e_));
-                  }
-                  return ((__ = J(__)), __);
-                },
-                aa = (e) => ln(e),
-                oa = (e) => cn(e),
-                sa = (e) => {
-                  var r = W(),
-                    s = Be(4),
-                    p = Be(4);
-                  Oi(e, s, p);
-                  var g = h[s >> 2],
-                    v = h[p >> 2],
-                    O = v_(g);
-                  rn(g);
-                  var S;
-                  return (v && ((S = v_(v)), rn(v)), H(r), [O, S]);
-                },
-                pi = (e) => sa(e);
-              (p_.init(), (d.createPreloadedFile = $t), (d.preloadFile = yt), d.staticInit());
-              {
-                if (
-                  (L(),
-                  _.noExitRuntime && (Mt = _.noExitRuntime),
-                  _.preloadPlugins && (vt = _.preloadPlugins),
-                  _.print && (V_ = _.print),
-                  _.printErr && (c_ = _.printErr),
-                  _.wasmBinary && (h_ = _.wasmBinary),
-                  ma(),
-                  _.arguments && _.arguments,
-                  _.thisProgram && (j = _.thisProgram),
-                  C(typeof _.memoryInitializerPrefixURL > "u", "Module.memoryInitializerPrefixURL option was removed, use Module.locateFile instead"),
-                  C(typeof _.pthreadMainPrefixURL > "u", "Module.pthreadMainPrefixURL option was removed, use Module.locateFile instead"),
-                  C(typeof _.cdInitializerPrefixURL > "u", "Module.cdInitializerPrefixURL option was removed, use Module.locateFile instead"),
-                  C(typeof _.filePackagePrefixURL > "u", "Module.filePackagePrefixURL option was removed, use Module.locateFile instead"),
-                  C(typeof _.read > "u", "Module.read option was removed"),
-                  C(typeof _.readAsync > "u", "Module.readAsync option was removed (modify readAsync in JS)"),
-                  C(typeof _.readBinary > "u", "Module.readBinary option was removed (modify readBinary in JS)"),
-                  C(typeof _.setWindowTitle > "u", "Module.setWindowTitle option was removed (modify emscripten_set_window_title in JS)"),
-                  C(typeof _.TOTAL_MEMORY > "u", "Module.TOTAL_MEMORY has been renamed Module.INITIAL_MEMORY"),
-                  C(
-                    typeof _.ENVIRONMENT > "u",
-                    "Module.ENVIRONMENT has been deprecated. To force the environment, use the ENVIRONMENT compile-time option (for example, -sENVIRONMENT=web or -sENVIRONMENT=node)",
-                  ),
-                  C(typeof _.STACK_SIZE > "u", "STACK_SIZE can no longer be set at runtime.  Use -sSTACK_SIZE at link time"),
-                  _.preInit)
-                )
-                  for (typeof _.preInit == "function" && (_.preInit = [_.preInit]); _.preInit.length > 0; ) _.preInit.shift()();
-                F_("preInit");
-              }
-              ((_.ccall = ia), (_.UTF8ToString = v_), (_.intArrayFromString = Te), (_.FS = d), (_.PThread = p_));
-              var ua = [
-                "writeI53ToI64",
-                "writeI53ToI64Clamped",
-                "writeI53ToI64Signaling",
-                "writeI53ToU64Clamped",
-                "writeI53ToU64Signaling",
-                "readI53FromI64",
-                "readI53FromU64",
-                "convertI32PairToI53",
-                "convertI32PairToI53Checked",
-                "convertU32PairToI53",
-                "getTempRet0",
-                "zeroMemory",
-                "growMemory",
-                "withStackSave",
-                "inetPton4",
-                "inetNtop4",
-                "inetPton6",
-                "inetNtop6",
-                "readSockaddr",
-                "writeSockaddr",
-                "jstoi_q",
-                "autoResumeAudioContext",
-                "getDynCaller",
-                "dynCall",
-                "runtimeKeepalivePop",
-                "asmjsMangle",
-                "alignMemory",
-                "HandleAllocator",
-                "getNativeTypeSize",
-                "addOnInit",
-                "addOnPostCtor",
-                "addOnPreMain",
-                "addOnExit",
-                "STACK_SIZE",
-                "STACK_ALIGN",
-                "POINTER_SIZE",
-                "ASSERTIONS",
-                "cwrap",
-                "convertJsFunctionToWasm",
-                "getEmptyTableSlot",
-                "updateTableMap",
-                "getFunctionAddress",
-                "addFunction",
-                "removeFunction",
-                "intArrayToString",
-                "AsciiToString",
-                "stringToAscii",
-                "UTF16ToString",
-                "stringToUTF16",
-                "lengthBytesUTF16",
-                "UTF32ToString",
-                "stringToUTF32",
-                "lengthBytesUTF32",
-                "stringToNewUTF8",
-                "registerKeyEventCallback",
-                "maybeCStringToJsString",
-                "findEventTarget",
-                "getBoundingClientRect",
-                "fillMouseEventData",
-                "registerMouseEventCallback",
-                "registerWheelEventCallback",
-                "registerUiEventCallback",
-                "registerFocusEventCallback",
-                "fillDeviceOrientationEventData",
-                "registerDeviceOrientationEventCallback",
-                "fillDeviceMotionEventData",
-                "registerDeviceMotionEventCallback",
-                "screenOrientation",
-                "fillOrientationChangeEventData",
-                "registerOrientationChangeEventCallback",
-                "fillFullscreenChangeEventData",
-                "registerFullscreenChangeEventCallback",
-                "JSEvents_requestFullscreen",
-                "JSEvents_resizeCanvasForFullscreen",
-                "registerRestoreOldStyle",
-                "hideEverythingExceptGivenElement",
-                "restoreHiddenElements",
-                "setLetterbox",
-                "softFullscreenResizeWebGLRenderTarget",
-                "doRequestFullscreen",
-                "fillPointerlockChangeEventData",
-                "registerPointerlockChangeEventCallback",
-                "registerPointerlockErrorEventCallback",
-                "requestPointerLock",
-                "fillVisibilityChangeEventData",
-                "registerVisibilityChangeEventCallback",
-                "registerTouchEventCallback",
-                "fillGamepadEventData",
-                "registerGamepadEventCallback",
-                "registerBeforeUnloadEventCallback",
-                "fillBatteryEventData",
-                "registerBatteryEventCallback",
-                "setCanvasElementSizeCallingThread",
-                "setCanvasElementSizeMainThread",
-                "setCanvasElementSize",
-                "getCanvasSizeCallingThread",
-                "getCanvasSizeMainThread",
-                "getCanvasElementSize",
-                "jsStackTrace",
-                "getCallstack",
-                "convertPCtoSourceLocation",
-                "wasiRightsToMuslOFlags",
-                "wasiOFlagsToMuslOFlags",
-                "safeSetTimeout",
-                "setImmediateWrapped",
-                "safeRequestAnimationFrame",
-                "clearImmediateWrapped",
-                "registerPostMainLoop",
-                "registerPreMainLoop",
-                "getPromise",
-                "makePromise",
-                "idsToPromises",
-                "makePromiseCallback",
-                "Browser_asyncPrepareDataCounter",
-                "isLeapYear",
-                "ydayFromDate",
-                "arraySum",
-                "addDays",
-                "getSocketFromFD",
-                "getSocketAddress",
-                "FS_mkdirTree",
-                "_setNetworkCallback",
-                "heapObjectForWebGLType",
-                "toTypedArrayIndex",
-                "webgl_enable_ANGLE_instanced_arrays",
-                "webgl_enable_OES_vertex_array_object",
-                "webgl_enable_WEBGL_draw_buffers",
-                "webgl_enable_WEBGL_multi_draw",
-                "webgl_enable_EXT_polygon_offset_clamp",
-                "webgl_enable_EXT_clip_control",
-                "webgl_enable_WEBGL_polygon_mode",
-                "emscriptenWebGLGet",
-                "computeUnpackAlignedImageSize",
-                "colorChannelsInGlTextureFormat",
-                "emscriptenWebGLGetTexPixelData",
-                "emscriptenWebGLGetUniform",
-                "webglGetUniformLocation",
-                "webglPrepareUniformLocationsBeforeFirstUse",
-                "webglGetLeftBracePos",
-                "emscriptenWebGLGetVertexAttrib",
-                "__glGetActiveAttribOrUniform",
-                "writeGLArray",
-                "emscripten_webgl_destroy_context_before_on_calling_thread",
-                "registerWebGlEventCallback",
-                "runAndAbortIfError",
-                "ALLOC_NORMAL",
-                "ALLOC_STACK",
-                "allocate",
-                "writeStringToMemory",
-                "writeAsciiToMemory",
-                "demangle",
-                "stackTrace",
-              ];
-              ua.forEach(W_);
-              var ca = [
-                "run",
-                "out",
-                "err",
-                "callMain",
-                "abort",
-                "wasmMemory",
-                "wasmExports",
-                "HEAPF32",
-                "HEAPF64",
-                "HEAP8",
-                "HEAPU8",
-                "HEAP16",
-                "HEAPU16",
-                "HEAP32",
-                "HEAP64",
-                "HEAPU64",
-                "writeStackCookie",
-                "checkStackCookie",
-                "INT53_MAX",
-                "INT53_MIN",
-                "bigintToI53Checked",
-                "stackSave",
-                "stackRestore",
-                "stackAlloc",
-                "setTempRet0",
-                "ptrToString",
-                "exitJS",
-                "getHeapMax",
-                "abortOnCannotGrowMemory",
-                "ENV",
-                "ERRNO_CODES",
-                "strError",
-                "DNS",
-                "Protocols",
-                "Sockets",
-                "timers",
-                "warnOnce",
-                "readEmAsmArgsArray",
-                "readEmAsmArgs",
-                "runEmAsmFunction",
-                "runMainThreadEmAsm",
-                "getExecutableName",
-                "handleException",
-                "keepRuntimeAlive",
-                "runtimeKeepalivePush",
-                "callUserCallback",
-                "maybeExit",
-                "asyncLoad",
-                "mmapAlloc",
-                "wasmTable",
-                "getUniqueRunDependency",
-                "noExitRuntime",
-                "addRunDependency",
-                "removeRunDependency",
-                "addOnPreRun",
-                "addOnPostRun",
-                "freeTableIndexes",
-                "functionsInTableMap",
-                "setValue",
-                "getValue",
-                "PATH",
-                "PATH_FS",
-                "UTF8Decoder",
-                "UTF8ArrayToString",
-                "stringToUTF8Array",
-                "stringToUTF8",
-                "lengthBytesUTF8",
-                "UTF16Decoder",
-                "stringToUTF8OnStack",
-                "writeArrayToMemory",
-                "JSEvents",
-                "specialHTMLTargets",
-                "findCanvasEventTarget",
-                "currentFullscreenStrategy",
-                "restoreOldWindowedStyle",
-                "UNWIND_CACHE",
-                "ExitStatus",
-                "getEnvStrings",
-                "checkWasiClock",
-                "doReadv",
-                "doWritev",
-                "initRandomFill",
-                "randomFill",
-                "emSetImmediate",
-                "emClearImmediate_deps",
-                "emClearImmediate",
-                "promiseMap",
-                "uncaughtExceptionCount",
-                "exceptionLast",
-                "exceptionCaught",
-                "ExceptionInfo",
-                "findMatchingCatch",
-                "getExceptionMessageCommon",
-                "Browser",
-                "requestFullscreen",
-                "requestFullScreen",
-                "setCanvasSize",
-                "getUserMedia",
-                "createContext",
-                "getPreloadedImageData__data",
-                "wget",
-                "MONTH_DAYS_REGULAR",
-                "MONTH_DAYS_LEAP",
-                "MONTH_DAYS_REGULAR_CUMULATIVE",
-                "MONTH_DAYS_LEAP_CUMULATIVE",
-                "SYSCALLS",
-                "preloadPlugins",
-                "FS_createPreloadedFile",
-                "FS_preloadFile",
-                "FS_modeStringToFlags",
-                "FS_getMode",
-                "FS_stdin_getChar_buffer",
-                "FS_stdin_getChar",
-                "FS_unlink",
-                "FS_createPath",
-                "FS_createDevice",
-                "FS_readFile",
-                "FS_root",
-                "FS_mounts",
-                "FS_devices",
-                "FS_streams",
-                "FS_nextInode",
-                "FS_nameTable",
-                "FS_currentPath",
-                "FS_initialized",
-                "FS_ignorePermissions",
-                "FS_filesystems",
-                "FS_syncFSRequests",
-                "FS_readFiles",
-                "FS_lookupPath",
-                "FS_getPath",
-                "FS_hashName",
-                "FS_hashAddNode",
-                "FS_hashRemoveNode",
-                "FS_lookupNode",
-                "FS_createNode",
-                "FS_destroyNode",
-                "FS_isRoot",
-                "FS_isMountpoint",
-                "FS_isFile",
-                "FS_isDir",
-                "FS_isLink",
-                "FS_isChrdev",
-                "FS_isBlkdev",
-                "FS_isFIFO",
-                "FS_isSocket",
-                "FS_flagsToPermissionString",
-                "FS_nodePermissions",
-                "FS_mayLookup",
-                "FS_mayCreate",
-                "FS_mayDelete",
-                "FS_mayOpen",
-                "FS_checkOpExists",
-                "FS_nextfd",
-                "FS_getStreamChecked",
-                "FS_getStream",
-                "FS_createStream",
-                "FS_closeStream",
-                "FS_dupStream",
-                "FS_doSetAttr",
-                "FS_chrdev_stream_ops",
-                "FS_major",
-                "FS_minor",
-                "FS_makedev",
-                "FS_registerDevice",
-                "FS_getDevice",
-                "FS_getMounts",
-                "FS_syncfs",
-                "FS_mount",
-                "FS_unmount",
-                "FS_lookup",
-                "FS_mknod",
-                "FS_statfs",
-                "FS_statfsStream",
-                "FS_statfsNode",
-                "FS_create",
-                "FS_mkdir",
-                "FS_mkdev",
-                "FS_symlink",
-                "FS_rename",
-                "FS_rmdir",
-                "FS_readdir",
-                "FS_readlink",
-                "FS_stat",
-                "FS_fstat",
-                "FS_lstat",
-                "FS_doChmod",
-                "FS_chmod",
-                "FS_lchmod",
-                "FS_fchmod",
-                "FS_doChown",
-                "FS_chown",
-                "FS_lchown",
-                "FS_fchown",
-                "FS_doTruncate",
-                "FS_truncate",
-                "FS_ftruncate",
-                "FS_utime",
-                "FS_open",
-                "FS_close",
-                "FS_isClosed",
-                "FS_llseek",
-                "FS_read",
-                "FS_write",
-                "FS_mmap",
-                "FS_msync",
-                "FS_ioctl",
-                "FS_writeFile",
-                "FS_cwd",
-                "FS_chdir",
-                "FS_createDefaultDirectories",
-                "FS_createDefaultDevices",
-                "FS_createSpecialDirectories",
-                "FS_createStandardStreams",
-                "FS_staticInit",
-                "FS_init",
-                "FS_quit",
-                "FS_findObject",
-                "FS_analyzePath",
-                "FS_createFile",
-                "FS_createDataFile",
-                "FS_forceLoadFile",
-                "FS_createLazyFile",
-                "FS_absolutePath",
-                "FS_createFolder",
-                "FS_createLink",
-                "FS_joinPath",
-                "FS_mmapAlloc",
-                "FS_standardizePath",
-                "MEMFS",
-                "TTY",
-                "PIPEFS",
-                "SOCKFS",
-                "tempFixedLengthArray",
-                "miniTempWebGLFloatBuffers",
-                "miniTempWebGLIntBuffers",
-                "GL",
-                "AL",
-                "GLUT",
-                "EGL",
-                "GLEW",
-                "IDBStore",
-                "SDL",
-                "SDL_gfx",
-                "allocateUTF8",
-                "allocateUTF8OnStack",
-                "print",
-                "printErr",
-                "jstoi_s",
-                "terminateWorker",
-                "cleanupThread",
-                "registerTLSInit",
-                "spawnThread",
-                "exitOnMainThread",
-                "proxyToMainThread",
-                "proxiedJSCallArgs",
-                "invokeEntryPoint",
-                "checkMailbox",
-              ];
-              (ca.forEach(le), (_.incrementExceptionRefcount = aa), (_.decrementExceptionRefcount = oa), (_.getExceptionMessage = pi));
-              var la = [Ft, dr, bt, kt, Et, f_, si, ui, ci, li, mi, fi];
-              function ma() {
-                lt("fetchSettings");
-              }
-              var Jt = {
-                21446100: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21446155: (e) => {
-                  Z(v_(e));
-                },
-                21446192: () => {
-                  A(new Error("failed with unknown exception"));
-                },
-                21446254: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21446301: () => {
-                  clearTimeout(u.shift());
-                },
-                21446343: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21446398: (e) => {
-                  Z(e);
-                },
-                21446421: () => {
-                  A("failed with unknown exception");
-                },
-                21446472: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21446519: () => {
-                  clearTimeout(u.shift());
-                },
-                21446561: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21446616: (e) => {
-                  Z(e);
-                },
-                21446639: () => {
-                  A("failed with unknown exception");
-                },
-                21446690: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21446737: () => {
-                  clearTimeout(u.shift());
-                },
-                21446779: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21446834: (e) => {
-                  Z(e);
-                },
-                21446857: () => {
-                  A("failed with unknown exception");
-                },
-                21446908: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21446955: () => {
-                  clearTimeout(u.shift());
-                },
-                21446997: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21447052: (e) => {
-                  Z(e);
-                },
-                21447075: () => {
-                  A("failed with unknown exception");
-                },
-                21447126: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21447173: () => {
-                  clearTimeout(u.shift());
-                },
-                21447215: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21447270: (e) => {
-                  Z(e);
-                },
-                21447293: () => {
-                  A("failed with unknown exception");
-                },
-                21447344: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21447391: () => {
-                  clearTimeout(u.shift());
-                },
-                21447433: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21447488: (e) => {
-                  Z(e);
-                },
-                21447511: () => {
-                  A("failed with unknown exception");
-                },
-                21447562: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21447609: () => {
-                  clearTimeout(u.shift());
-                },
-                21447651: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21447706: (e) => {
-                  Z(e);
-                },
-                21447729: () => {
-                  A("failed with unknown exception");
-                },
-                21447780: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21447827: () => {
-                  clearTimeout(u.shift());
-                },
-                21447869: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21447924: (e) => {
-                  Z(e);
-                },
-                21447947: () => {
-                  A("failed with unknown exception");
-                },
-                21447998: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21448045: () => {
-                  clearTimeout(u.shift());
-                },
-                21448087: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21448142: (e) => {
-                  Z(e);
-                },
-                21448165: () => {
-                  A("failed with unknown exception");
-                },
-                21448216: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21448263: () => {
-                  clearTimeout(u.shift());
-                },
-                21448305: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21448360: (e) => {
-                  Z(e);
-                },
-                21448383: () => {
-                  A("failed with unknown exception");
-                },
-                21448434: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21448481: () => {
-                  clearTimeout(u.shift());
-                },
-                21448523: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21448578: (e) => {
-                  Z(e);
-                },
-                21448601: () => {
-                  A("failed with unknown exception");
-                },
-                21448652: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21448699: () => {
-                  clearTimeout(u.shift());
-                },
-                21448741: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21448796: (e) => {
-                  Z(e);
-                },
-                21448819: () => {
-                  A("failed with unknown exception");
-                },
-                21448870: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21448917: () => {
-                  clearTimeout(u.shift());
-                },
-                21448959: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21449014: (e) => {
-                  Z(e);
-                },
-                21449037: () => {
-                  A("failed with unknown exception");
-                },
-                21449088: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21449135: () => {
-                  clearTimeout(u.shift());
-                },
-                21449177: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21449232: (e) => {
-                  Z(e);
-                },
-                21449255: () => {
-                  A("failed with unknown exception");
-                },
-                21449306: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21449353: () => {
-                  clearTimeout(u.shift());
-                },
-                21449395: () => {
-                  u.push(setTimeout(() => {}, 6e5));
-                },
-                21449450: (e) => {
-                  Z(e);
-                },
-                21449473: () => {
-                  A("failed with unknown exception");
-                },
-                21449524: (e) => {
-                  A(new Error(v_(e)));
-                },
-                21449571: () => {
-                  clearTimeout(u.shift());
-                },
-              };
-              ((_._Z3_get_error_msg = i("_Z3_get_error_msg")),
-                (_._set_throwy_error_handler = i("_set_throwy_error_handler")),
-                (_._set_noop_error_handler = i("_set_noop_error_handler")),
-                (_._async_Z3_eval_smtlib2_string = i("_async_Z3_eval_smtlib2_string")),
-                (_._async_Z3_simplify = i("_async_Z3_simplify")),
-                (_._async_Z3_simplify_ex = i("_async_Z3_simplify_ex")),
-                (_._async_Z3_solver_check = i("_async_Z3_solver_check")),
-                (_._async_Z3_solver_cube = i("_async_Z3_solver_cube")),
-                (_._async_Z3_solver_get_consequences = i("_async_Z3_solver_get_consequences")),
-                (_._async_Z3_tactic_apply = i("_async_Z3_tactic_apply")),
-                (_._async_Z3_tactic_apply_ex = i("_async_Z3_tactic_apply_ex")),
-                (_._async_Z3_optimize_check = i("_async_Z3_optimize_check")),
-                (_._async_Z3_algebraic_roots = i("_async_Z3_algebraic_roots")),
-                (_._async_Z3_algebraic_eval = i("_async_Z3_algebraic_eval")),
-                (_._async_Z3_fixedpoint_query = i("_async_Z3_fixedpoint_query")),
-                (_._async_Z3_fixedpoint_query_relations = i("_async_Z3_fixedpoint_query_relations")),
-                (_._async_Z3_fixedpoint_query_from_lvl = i("_async_Z3_fixedpoint_query_from_lvl")),
-                (_._async_Z3_polynomial_subresultants = i("_async_Z3_polynomial_subresultants")),
-                (_._async_Z3_solver_check_assumptions = i("_async_Z3_solver_check_assumptions")),
-                (_._Z3_eval_smtlib2_string = i("_Z3_eval_smtlib2_string")),
-                (_._Z3_simplify = i("_Z3_simplify")),
-                (_._Z3_simplify_ex = i("_Z3_simplify_ex")),
-                (_._Z3_solver_check = i("_Z3_solver_check")),
-                (_._Z3_solver_cube = i("_Z3_solver_cube")),
-                (_._Z3_solver_get_consequences = i("_Z3_solver_get_consequences")),
-                (_._Z3_tactic_apply = i("_Z3_tactic_apply")),
-                (_._Z3_tactic_apply_ex = i("_Z3_tactic_apply_ex")),
-                (_._Z3_optimize_check = i("_Z3_optimize_check")),
-                (_._Z3_algebraic_roots = i("_Z3_algebraic_roots")),
-                (_._Z3_algebraic_eval = i("_Z3_algebraic_eval")),
-                (_._Z3_fixedpoint_query = i("_Z3_fixedpoint_query")),
-                (_._Z3_fixedpoint_query_relations = i("_Z3_fixedpoint_query_relations")),
-                (_._Z3_fixedpoint_query_from_lvl = i("_Z3_fixedpoint_query_from_lvl")),
-                (_._Z3_polynomial_subresultants = i("_Z3_polynomial_subresultants")),
-                (_._Z3_solver_check_assumptions = i("_Z3_solver_check_assumptions")),
-                (_._Z3_mk_array_sort = i("_Z3_mk_array_sort")),
-                (_._Z3_mk_array_sort_n = i("_Z3_mk_array_sort_n")),
-                (_._Z3_mk_select = i("_Z3_mk_select")),
-                (_._Z3_mk_select_n = i("_Z3_mk_select_n")),
-                (_._Z3_mk_store = i("_Z3_mk_store")),
-                (_._Z3_mk_store_n = i("_Z3_mk_store_n")),
-                (_._Z3_mk_map = i("_Z3_mk_map")),
-                (_._Z3_mk_const_array = i("_Z3_mk_const_array")),
-                (_._Z3_mk_array_default = i("_Z3_mk_array_default")),
-                (_._Z3_mk_set_sort = i("_Z3_mk_set_sort")),
-                (_._Z3_mk_empty_set = i("_Z3_mk_empty_set")),
-                (_._Z3_mk_full_set = i("_Z3_mk_full_set")),
-                (_._Z3_mk_set_union = i("_Z3_mk_set_union")),
-                (_._Z3_mk_set_intersect = i("_Z3_mk_set_intersect")),
-                (_._Z3_mk_set_difference = i("_Z3_mk_set_difference")),
-                (_._Z3_mk_set_complement = i("_Z3_mk_set_complement")),
-                (_._Z3_mk_set_subset = i("_Z3_mk_set_subset")),
-                (_._Z3_mk_array_ext = i("_Z3_mk_array_ext")),
-                (_._Z3_mk_set_has_size = i("_Z3_mk_set_has_size")),
-                (_._Z3_mk_as_array = i("_Z3_mk_as_array")),
-                (_._Z3_mk_set_member = i("_Z3_mk_set_member")),
-                (_._Z3_mk_set_add = i("_Z3_mk_set_add")),
-                (_._Z3_mk_set_del = i("_Z3_mk_set_del")),
-                (_._Z3_get_array_arity = i("_Z3_get_array_arity")),
-                (_._Z3_get_array_sort_domain = i("_Z3_get_array_sort_domain")),
-                (_._Z3_get_array_sort_domain_n = i("_Z3_get_array_sort_domain_n")),
-                (_._Z3_get_array_sort_range = i("_Z3_get_array_sort_range")),
-                (_._Z3_mk_fpa_rounding_mode_sort = i("_Z3_mk_fpa_rounding_mode_sort")),
-                (_._Z3_mk_fpa_round_nearest_ties_to_even = i("_Z3_mk_fpa_round_nearest_ties_to_even")),
-                (_._Z3_mk_fpa_rne = i("_Z3_mk_fpa_rne")),
-                (_._Z3_mk_fpa_round_nearest_ties_to_away = i("_Z3_mk_fpa_round_nearest_ties_to_away")),
-                (_._Z3_mk_fpa_rna = i("_Z3_mk_fpa_rna")),
-                (_._Z3_mk_fpa_round_toward_positive = i("_Z3_mk_fpa_round_toward_positive")),
-                (_._Z3_mk_fpa_rtp = i("_Z3_mk_fpa_rtp")),
-                (_._Z3_mk_fpa_round_toward_negative = i("_Z3_mk_fpa_round_toward_negative")),
-                (_._Z3_mk_fpa_rtn = i("_Z3_mk_fpa_rtn")),
-                (_._Z3_mk_fpa_round_toward_zero = i("_Z3_mk_fpa_round_toward_zero")),
-                (_._Z3_mk_fpa_rtz = i("_Z3_mk_fpa_rtz")),
-                (_._Z3_mk_fpa_sort = i("_Z3_mk_fpa_sort")),
-                (_._Z3_mk_fpa_sort_half = i("_Z3_mk_fpa_sort_half")),
-                (_._Z3_mk_fpa_sort_16 = i("_Z3_mk_fpa_sort_16")),
-                (_._Z3_mk_fpa_sort_single = i("_Z3_mk_fpa_sort_single")),
-                (_._Z3_mk_fpa_sort_32 = i("_Z3_mk_fpa_sort_32")),
-                (_._Z3_mk_fpa_sort_double = i("_Z3_mk_fpa_sort_double")),
-                (_._Z3_mk_fpa_sort_64 = i("_Z3_mk_fpa_sort_64")),
-                (_._Z3_mk_fpa_sort_quadruple = i("_Z3_mk_fpa_sort_quadruple")),
-                (_._Z3_mk_fpa_sort_128 = i("_Z3_mk_fpa_sort_128")),
-                (_._Z3_mk_fpa_nan = i("_Z3_mk_fpa_nan")),
-                (_._Z3_mk_fpa_inf = i("_Z3_mk_fpa_inf")),
-                (_._Z3_mk_fpa_zero = i("_Z3_mk_fpa_zero")),
-                (_._Z3_mk_fpa_fp = i("_Z3_mk_fpa_fp")),
-                (_._Z3_mk_fpa_numeral_float = i("_Z3_mk_fpa_numeral_float")),
-                (_._Z3_mk_fpa_numeral_double = i("_Z3_mk_fpa_numeral_double")),
-                (_._Z3_mk_fpa_numeral_int = i("_Z3_mk_fpa_numeral_int")),
-                (_._Z3_mk_fpa_numeral_int_uint = i("_Z3_mk_fpa_numeral_int_uint")),
-                (_._Z3_mk_fpa_numeral_int64_uint64 = i("_Z3_mk_fpa_numeral_int64_uint64")),
-                (_._Z3_mk_fpa_abs = i("_Z3_mk_fpa_abs")),
-                (_._Z3_mk_fpa_neg = i("_Z3_mk_fpa_neg")),
-                (_._Z3_mk_fpa_add = i("_Z3_mk_fpa_add")),
-                (_._Z3_mk_fpa_sub = i("_Z3_mk_fpa_sub")),
-                (_._Z3_mk_fpa_mul = i("_Z3_mk_fpa_mul")),
-                (_._Z3_mk_fpa_div = i("_Z3_mk_fpa_div")),
-                (_._Z3_mk_fpa_fma = i("_Z3_mk_fpa_fma")),
-                (_._Z3_mk_fpa_sqrt = i("_Z3_mk_fpa_sqrt")),
-                (_._Z3_mk_fpa_rem = i("_Z3_mk_fpa_rem")),
-                (_._Z3_mk_fpa_round_to_integral = i("_Z3_mk_fpa_round_to_integral")),
-                (_._Z3_mk_fpa_min = i("_Z3_mk_fpa_min")),
-                (_._Z3_mk_fpa_max = i("_Z3_mk_fpa_max")),
-                (_._Z3_mk_fpa_leq = i("_Z3_mk_fpa_leq")),
-                (_._Z3_mk_fpa_lt = i("_Z3_mk_fpa_lt")),
-                (_._Z3_mk_fpa_geq = i("_Z3_mk_fpa_geq")),
-                (_._Z3_mk_fpa_gt = i("_Z3_mk_fpa_gt")),
-                (_._Z3_mk_fpa_eq = i("_Z3_mk_fpa_eq")),
-                (_._Z3_mk_fpa_is_normal = i("_Z3_mk_fpa_is_normal")),
-                (_._Z3_mk_fpa_is_subnormal = i("_Z3_mk_fpa_is_subnormal")),
-                (_._Z3_mk_fpa_is_zero = i("_Z3_mk_fpa_is_zero")),
-                (_._Z3_mk_fpa_is_infinite = i("_Z3_mk_fpa_is_infinite")),
-                (_._Z3_mk_fpa_is_nan = i("_Z3_mk_fpa_is_nan")),
-                (_._Z3_mk_fpa_is_negative = i("_Z3_mk_fpa_is_negative")),
-                (_._Z3_mk_fpa_is_positive = i("_Z3_mk_fpa_is_positive")),
-                (_._Z3_mk_fpa_to_fp_bv = i("_Z3_mk_fpa_to_fp_bv")),
-                (_._Z3_mk_fpa_to_fp_float = i("_Z3_mk_fpa_to_fp_float")),
-                (_._Z3_mk_fpa_to_fp_real = i("_Z3_mk_fpa_to_fp_real")),
-                (_._Z3_mk_fpa_to_fp_signed = i("_Z3_mk_fpa_to_fp_signed")),
-                (_._Z3_mk_fpa_to_fp_unsigned = i("_Z3_mk_fpa_to_fp_unsigned")),
-                (_._Z3_mk_fpa_to_ubv = i("_Z3_mk_fpa_to_ubv")),
-                (_._Z3_mk_fpa_to_sbv = i("_Z3_mk_fpa_to_sbv")),
-                (_._Z3_mk_fpa_to_real = i("_Z3_mk_fpa_to_real")),
-                (_._Z3_fpa_get_ebits = i("_Z3_fpa_get_ebits")),
-                (_._Z3_fpa_get_sbits = i("_Z3_fpa_get_sbits")),
-                (_._Z3_fpa_get_numeral_sign = i("_Z3_fpa_get_numeral_sign")),
-                (_._Z3_fpa_get_numeral_sign_bv = i("_Z3_fpa_get_numeral_sign_bv")),
-                (_._Z3_fpa_get_numeral_significand_bv = i("_Z3_fpa_get_numeral_significand_bv")),
-                (_._Z3_fpa_get_numeral_significand_string = i("_Z3_fpa_get_numeral_significand_string")),
-                (_._Z3_fpa_get_numeral_significand_uint64 = i("_Z3_fpa_get_numeral_significand_uint64")),
-                (_._Z3_fpa_get_numeral_exponent_string = i("_Z3_fpa_get_numeral_exponent_string")),
-                (_._Z3_fpa_get_numeral_exponent_int64 = i("_Z3_fpa_get_numeral_exponent_int64")),
-                (_._Z3_fpa_get_numeral_exponent_bv = i("_Z3_fpa_get_numeral_exponent_bv")),
-                (_._Z3_mk_fpa_to_ieee_bv = i("_Z3_mk_fpa_to_ieee_bv")),
-                (_._Z3_mk_fpa_to_fp_int_real = i("_Z3_mk_fpa_to_fp_int_real")),
-                (_._Z3_fpa_is_numeral_nan = i("_Z3_fpa_is_numeral_nan")),
-                (_._Z3_fpa_is_numeral_inf = i("_Z3_fpa_is_numeral_inf")),
-                (_._Z3_fpa_is_numeral_zero = i("_Z3_fpa_is_numeral_zero")),
-                (_._Z3_fpa_is_numeral_normal = i("_Z3_fpa_is_numeral_normal")),
-                (_._Z3_fpa_is_numeral_subnormal = i("_Z3_fpa_is_numeral_subnormal")),
-                (_._Z3_fpa_is_numeral_positive = i("_Z3_fpa_is_numeral_positive")),
-                (_._Z3_fpa_is_numeral_negative = i("_Z3_fpa_is_numeral_negative")),
-                (_._Z3_mk_int_sort = i("_Z3_mk_int_sort")),
-                (_._Z3_mk_real_sort = i("_Z3_mk_real_sort")),
-                (_._Z3_mk_real_int64 = i("_Z3_mk_real_int64")),
-                (_._Z3_mk_real = i("_Z3_mk_real")),
-                (_._Z3_mk_add = i("_Z3_mk_add")),
-                (_._Z3_mk_mul = i("_Z3_mk_mul")),
-                (_._Z3_mk_power = i("_Z3_mk_power")),
-                (_._Z3_mk_mod = i("_Z3_mk_mod")),
-                (_._Z3_mk_rem = i("_Z3_mk_rem")),
-                (_._Z3_mk_div = i("_Z3_mk_div")),
-                (_._Z3_mk_lt = i("_Z3_mk_lt")),
-                (_._Z3_mk_gt = i("_Z3_mk_gt")),
-                (_._Z3_mk_le = i("_Z3_mk_le")),
-                (_._Z3_mk_ge = i("_Z3_mk_ge")),
-                (_._Z3_mk_divides = i("_Z3_mk_divides")),
-                (_._Z3_mk_abs = i("_Z3_mk_abs")),
-                (_._Z3_mk_int2real = i("_Z3_mk_int2real")),
-                (_._Z3_mk_real2int = i("_Z3_mk_real2int")),
-                (_._Z3_mk_is_int = i("_Z3_mk_is_int")),
-                (_._Z3_mk_sub = i("_Z3_mk_sub")),
-                (_._Z3_mk_unary_minus = i("_Z3_mk_unary_minus")),
-                (_._Z3_is_algebraic_number = i("_Z3_is_algebraic_number")),
-                (_._Z3_get_algebraic_number_lower = i("_Z3_get_algebraic_number_lower")),
-                (_._Z3_get_algebraic_number_upper = i("_Z3_get_algebraic_number_upper")),
-                (_._Z3_get_numerator = i("_Z3_get_numerator")),
-                (_._Z3_get_denominator = i("_Z3_get_denominator")),
-                (_._Z3_mk_tuple_sort = i("_Z3_mk_tuple_sort")),
-                (_._Z3_mk_enumeration_sort = i("_Z3_mk_enumeration_sort")),
-                (_._Z3_mk_list_sort = i("_Z3_mk_list_sort")),
-                (_._Z3_mk_constructor = i("_Z3_mk_constructor")),
-                (_._Z3_constructor_num_fields = i("_Z3_constructor_num_fields")),
-                (_._Z3_query_constructor = i("_Z3_query_constructor")),
-                (_._Z3_del_constructor = i("_Z3_del_constructor")),
-                (_._Z3_mk_datatype = i("_Z3_mk_datatype")),
-                (_._Z3_mk_constructor_list = i("_Z3_mk_constructor_list")),
-                (_._Z3_del_constructor_list = i("_Z3_del_constructor_list")),
-                (_._Z3_mk_datatype_sort = i("_Z3_mk_datatype_sort")),
-                (_._Z3_mk_datatypes = i("_Z3_mk_datatypes")),
-                (_._Z3_is_recursive_datatype_sort = i("_Z3_is_recursive_datatype_sort")),
-                (_._Z3_get_datatype_sort_num_constructors = i("_Z3_get_datatype_sort_num_constructors")),
-                (_._Z3_get_datatype_sort_constructor = i("_Z3_get_datatype_sort_constructor")),
-                (_._Z3_get_datatype_sort_recognizer = i("_Z3_get_datatype_sort_recognizer")),
-                (_._Z3_get_datatype_sort_constructor_accessor = i("_Z3_get_datatype_sort_constructor_accessor")),
-                (_._Z3_get_tuple_sort_mk_decl = i("_Z3_get_tuple_sort_mk_decl")),
-                (_._Z3_get_tuple_sort_num_fields = i("_Z3_get_tuple_sort_num_fields")),
-                (_._Z3_get_tuple_sort_field_decl = i("_Z3_get_tuple_sort_field_decl")),
-                (_._Z3_datatype_update_field = i("_Z3_datatype_update_field")),
-                (_._Z3_mk_model = i("_Z3_mk_model")),
-                (_._Z3_model_inc_ref = i("_Z3_model_inc_ref")),
-                (_._Z3_model_dec_ref = i("_Z3_model_dec_ref")),
-                (_._Z3_model_get_const_interp = i("_Z3_model_get_const_interp")),
-                (_._Z3_model_has_interp = i("_Z3_model_has_interp")),
-                (_._Z3_model_get_func_interp = i("_Z3_model_get_func_interp")),
-                (_._Z3_model_get_num_consts = i("_Z3_model_get_num_consts")),
-                (_._Z3_model_get_const_decl = i("_Z3_model_get_const_decl")),
-                (_._Z3_model_get_num_funcs = i("_Z3_model_get_num_funcs")),
-                (_._Z3_model_get_func_decl = i("_Z3_model_get_func_decl")),
-                (_._Z3_model_eval = i("_Z3_model_eval")),
-                (_._Z3_model_get_num_sorts = i("_Z3_model_get_num_sorts")),
-                (_._Z3_model_get_sort = i("_Z3_model_get_sort")),
-                (_._Z3_model_get_sort_universe = i("_Z3_model_get_sort_universe")),
-                (_._Z3_model_translate = i("_Z3_model_translate")),
-                (_._Z3_is_as_array = i("_Z3_is_as_array")),
-                (_._Z3_get_as_array_func_decl = i("_Z3_get_as_array_func_decl")),
-                (_._Z3_add_func_interp = i("_Z3_add_func_interp")),
-                (_._Z3_add_const_interp = i("_Z3_add_const_interp")),
-                (_._Z3_func_interp_inc_ref = i("_Z3_func_interp_inc_ref")),
-                (_._Z3_func_interp_dec_ref = i("_Z3_func_interp_dec_ref")),
-                (_._Z3_func_interp_get_num_entries = i("_Z3_func_interp_get_num_entries")),
-                (_._Z3_func_interp_get_entry = i("_Z3_func_interp_get_entry")),
-                (_._Z3_func_interp_get_else = i("_Z3_func_interp_get_else")),
-                (_._Z3_func_interp_set_else = i("_Z3_func_interp_set_else")),
-                (_._Z3_func_interp_get_arity = i("_Z3_func_interp_get_arity")),
-                (_._Z3_func_interp_add_entry = i("_Z3_func_interp_add_entry")),
-                (_._Z3_func_entry_inc_ref = i("_Z3_func_entry_inc_ref")),
-                (_._Z3_func_entry_dec_ref = i("_Z3_func_entry_dec_ref")),
-                (_._Z3_func_entry_get_value = i("_Z3_func_entry_get_value")),
-                (_._Z3_func_entry_get_num_args = i("_Z3_func_entry_get_num_args")),
-                (_._Z3_func_entry_get_arg = i("_Z3_func_entry_get_arg")),
-                (_._Z3_model_to_string = i("_Z3_model_to_string")),
-                (_._Z3_mk_ast_map = i("_Z3_mk_ast_map")),
-                (_._Z3_ast_map_inc_ref = i("_Z3_ast_map_inc_ref")),
-                (_._Z3_ast_map_dec_ref = i("_Z3_ast_map_dec_ref")),
-                (_._Z3_ast_map_contains = i("_Z3_ast_map_contains")),
-                (_._Z3_ast_map_find = i("_Z3_ast_map_find")),
-                (_._Z3_ast_map_insert = i("_Z3_ast_map_insert")),
-                (_._Z3_ast_map_reset = i("_Z3_ast_map_reset")),
-                (_._Z3_ast_map_erase = i("_Z3_ast_map_erase")),
-                (_._Z3_ast_map_size = i("_Z3_ast_map_size")),
-                (_._Z3_ast_map_keys = i("_Z3_ast_map_keys")),
-                (_._Z3_ast_map_to_string = i("_Z3_ast_map_to_string")),
-                (_._Z3_get_relation_arity = i("_Z3_get_relation_arity")),
-                (_._Z3_get_relation_column = i("_Z3_get_relation_column")),
-                (_._Z3_mk_finite_domain_sort = i("_Z3_mk_finite_domain_sort")),
-                (_._Z3_get_finite_domain_sort_size = i("_Z3_get_finite_domain_sort_size")),
-                (_._Z3_mk_fixedpoint = i("_Z3_mk_fixedpoint")),
-                (_._Z3_fixedpoint_inc_ref = i("_Z3_fixedpoint_inc_ref")),
-                (_._Z3_fixedpoint_dec_ref = i("_Z3_fixedpoint_dec_ref")),
-                (_._Z3_fixedpoint_assert = i("_Z3_fixedpoint_assert")),
-                (_._Z3_fixedpoint_add_rule = i("_Z3_fixedpoint_add_rule")),
-                (_._Z3_fixedpoint_add_fact = i("_Z3_fixedpoint_add_fact")),
-                (_._Z3_get_sort_kind = i("_Z3_get_sort_kind")),
-                (_._Z3_fixedpoint_get_answer = i("_Z3_fixedpoint_get_answer")),
-                (_._Z3_fixedpoint_get_reason_unknown = i("_Z3_fixedpoint_get_reason_unknown")),
-                (_._Z3_fixedpoint_to_string = i("_Z3_fixedpoint_to_string")),
-                (_._Z3_fixedpoint_from_string = i("_Z3_fixedpoint_from_string")),
-                (_._Z3_fixedpoint_from_file = i("_Z3_fixedpoint_from_file")),
-                (_._Z3_fixedpoint_get_statistics = i("_Z3_fixedpoint_get_statistics")),
-                (_._Z3_fixedpoint_register_relation = i("_Z3_fixedpoint_register_relation")),
-                (_._Z3_fixedpoint_set_predicate_representation = i("_Z3_fixedpoint_set_predicate_representation")),
-                (_._Z3_fixedpoint_get_rules = i("_Z3_fixedpoint_get_rules")),
-                (_._Z3_fixedpoint_get_assertions = i("_Z3_fixedpoint_get_assertions")),
-                (_._Z3_fixedpoint_update_rule = i("_Z3_fixedpoint_update_rule")),
-                (_._Z3_fixedpoint_get_num_levels = i("_Z3_fixedpoint_get_num_levels")),
-                (_._Z3_fixedpoint_get_cover_delta = i("_Z3_fixedpoint_get_cover_delta")),
-                (_._Z3_fixedpoint_add_cover = i("_Z3_fixedpoint_add_cover")),
-                (_._Z3_fixedpoint_get_help = i("_Z3_fixedpoint_get_help")),
-                (_._Z3_fixedpoint_get_param_descrs = i("_Z3_fixedpoint_get_param_descrs")),
-                (_._Z3_fixedpoint_set_params = i("_Z3_fixedpoint_set_params")),
-                (_._Z3_fixedpoint_get_ground_sat_answer = i("_Z3_fixedpoint_get_ground_sat_answer")),
-                (_._Z3_fixedpoint_get_rules_along_trace = i("_Z3_fixedpoint_get_rules_along_trace")),
-                (_._Z3_fixedpoint_get_rule_names_along_trace = i("_Z3_fixedpoint_get_rule_names_along_trace")),
-                (_._Z3_fixedpoint_add_invariant = i("_Z3_fixedpoint_add_invariant")),
-                (_._Z3_fixedpoint_get_reachable = i("_Z3_fixedpoint_get_reachable")),
-                (_._Z3_mk_ast_vector = i("_Z3_mk_ast_vector")),
-                (_._Z3_ast_vector_inc_ref = i("_Z3_ast_vector_inc_ref")),
-                (_._Z3_ast_vector_dec_ref = i("_Z3_ast_vector_dec_ref")),
-                (_._Z3_ast_vector_size = i("_Z3_ast_vector_size")),
-                (_._Z3_ast_vector_get = i("_Z3_ast_vector_get")),
-                (_._Z3_ast_vector_set = i("_Z3_ast_vector_set")),
-                (_._Z3_ast_vector_resize = i("_Z3_ast_vector_resize")),
-                (_._Z3_ast_vector_push = i("_Z3_ast_vector_push")),
-                (_._Z3_ast_vector_translate = i("_Z3_ast_vector_translate")),
-                (_._Z3_ast_vector_to_string = i("_Z3_ast_vector_to_string")),
-                (_._Z3_mk_optimize = i("_Z3_mk_optimize")),
-                (_._Z3_optimize_inc_ref = i("_Z3_optimize_inc_ref")),
-                (_._Z3_optimize_dec_ref = i("_Z3_optimize_dec_ref")),
-                (_._Z3_optimize_assert = i("_Z3_optimize_assert")),
-                (_._Z3_optimize_assert_and_track = i("_Z3_optimize_assert_and_track")),
-                (_._Z3_optimize_assert_soft = i("_Z3_optimize_assert_soft")),
-                (_._Z3_optimize_maximize = i("_Z3_optimize_maximize")),
-                (_._Z3_optimize_minimize = i("_Z3_optimize_minimize")),
-                (_._Z3_optimize_push = i("_Z3_optimize_push")),
-                (_._Z3_optimize_pop = i("_Z3_optimize_pop")),
-                (_._Z3_optimize_get_unsat_core = i("_Z3_optimize_get_unsat_core")),
-                (_._Z3_optimize_get_reason_unknown = i("_Z3_optimize_get_reason_unknown")),
-                (_._Z3_optimize_get_model = i("_Z3_optimize_get_model")),
-                (_._Z3_optimize_set_params = i("_Z3_optimize_set_params")),
-                (_._Z3_optimize_get_param_descrs = i("_Z3_optimize_get_param_descrs")),
-                (_._Z3_optimize_get_lower = i("_Z3_optimize_get_lower")),
-                (_._Z3_optimize_get_upper = i("_Z3_optimize_get_upper")),
-                (_._Z3_optimize_get_lower_as_vector = i("_Z3_optimize_get_lower_as_vector")),
-                (_._Z3_optimize_get_upper_as_vector = i("_Z3_optimize_get_upper_as_vector")),
-                (_._Z3_optimize_to_string = i("_Z3_optimize_to_string")),
-                (_._Z3_optimize_get_help = i("_Z3_optimize_get_help")),
-                (_._Z3_optimize_get_statistics = i("_Z3_optimize_get_statistics")),
-                (_._Z3_optimize_from_string = i("_Z3_optimize_from_string")),
-                (_._Z3_optimize_from_file = i("_Z3_optimize_from_file")),
-                (_._Z3_optimize_get_assertions = i("_Z3_optimize_get_assertions")),
-                (_._Z3_optimize_get_objectives = i("_Z3_optimize_get_objectives")),
-                (_._Z3_optimize_set_initial_value = i("_Z3_optimize_set_initial_value")),
-                (_._Z3_mk_linear_order = i("_Z3_mk_linear_order")),
-                (_._Z3_mk_partial_order = i("_Z3_mk_partial_order")),
-                (_._Z3_mk_piecewise_linear_order = i("_Z3_mk_piecewise_linear_order")),
-                (_._Z3_mk_tree_order = i("_Z3_mk_tree_order")),
-                (_._Z3_mk_transitive_closure = i("_Z3_mk_transitive_closure")),
-                (_._Z3_algebraic_is_value = i("_Z3_algebraic_is_value")),
-                (_._Z3_algebraic_is_pos = i("_Z3_algebraic_is_pos")),
-                (_._Z3_algebraic_sign = i("_Z3_algebraic_sign")),
-                (_._Z3_algebraic_is_neg = i("_Z3_algebraic_is_neg")),
-                (_._Z3_algebraic_is_zero = i("_Z3_algebraic_is_zero")),
-                (_._Z3_algebraic_add = i("_Z3_algebraic_add")),
-                (_._Z3_algebraic_sub = i("_Z3_algebraic_sub")),
-                (_._Z3_algebraic_mul = i("_Z3_algebraic_mul")),
-                (_._Z3_algebraic_div = i("_Z3_algebraic_div")),
-                (_._Z3_algebraic_root = i("_Z3_algebraic_root")),
-                (_._Z3_algebraic_power = i("_Z3_algebraic_power")),
-                (_._Z3_algebraic_lt = i("_Z3_algebraic_lt")),
-                (_._Z3_algebraic_gt = i("_Z3_algebraic_gt")),
-                (_._Z3_algebraic_le = i("_Z3_algebraic_le")),
-                (_._Z3_algebraic_ge = i("_Z3_algebraic_ge")),
-                (_._Z3_algebraic_eq = i("_Z3_algebraic_eq")),
-                (_._Z3_algebraic_neq = i("_Z3_algebraic_neq")),
-                (_._Z3_algebraic_get_poly = i("_Z3_algebraic_get_poly")),
-                (_._Z3_algebraic_get_i = i("_Z3_algebraic_get_i")),
-                (_._Z3_mk_tactic = i("_Z3_mk_tactic")),
-                (_._Z3_tactic_inc_ref = i("_Z3_tactic_inc_ref")),
-                (_._Z3_tactic_dec_ref = i("_Z3_tactic_dec_ref")),
-                (_._Z3_mk_probe = i("_Z3_mk_probe")),
-                (_._Z3_probe_inc_ref = i("_Z3_probe_inc_ref")),
-                (_._Z3_probe_dec_ref = i("_Z3_probe_dec_ref")),
-                (_._Z3_tactic_and_then = i("_Z3_tactic_and_then")),
-                (_._Z3_tactic_or_else = i("_Z3_tactic_or_else")),
-                (_._Z3_tactic_par_or = i("_Z3_tactic_par_or")),
-                (_._Z3_tactic_par_and_then = i("_Z3_tactic_par_and_then")),
-                (_._Z3_tactic_try_for = i("_Z3_tactic_try_for")),
-                (_._Z3_tactic_when = i("_Z3_tactic_when")),
-                (_._Z3_tactic_cond = i("_Z3_tactic_cond")),
-                (_._Z3_tactic_repeat = i("_Z3_tactic_repeat")),
-                (_._Z3_tactic_skip = i("_Z3_tactic_skip")),
-                (_._Z3_tactic_fail = i("_Z3_tactic_fail")),
-                (_._Z3_tactic_fail_if = i("_Z3_tactic_fail_if")),
-                (_._Z3_tactic_fail_if_not_decided = i("_Z3_tactic_fail_if_not_decided")),
-                (_._Z3_tactic_using_params = i("_Z3_tactic_using_params")),
-                (_._Z3_probe_const = i("_Z3_probe_const")),
-                (_._Z3_probe_lt = i("_Z3_probe_lt")),
-                (_._Z3_probe_gt = i("_Z3_probe_gt")),
-                (_._Z3_probe_le = i("_Z3_probe_le")),
-                (_._Z3_probe_ge = i("_Z3_probe_ge")),
-                (_._Z3_probe_eq = i("_Z3_probe_eq")),
-                (_._Z3_probe_and = i("_Z3_probe_and")),
-                (_._Z3_probe_or = i("_Z3_probe_or")),
-                (_._Z3_probe_not = i("_Z3_probe_not")),
-                (_._Z3_get_num_tactics = i("_Z3_get_num_tactics")),
-                (_._Z3_get_tactic_name = i("_Z3_get_tactic_name")),
-                (_._Z3_get_num_probes = i("_Z3_get_num_probes")),
-                (_._Z3_get_probe_name = i("_Z3_get_probe_name")),
-                (_._Z3_tactic_get_help = i("_Z3_tactic_get_help")),
-                (_._Z3_tactic_get_param_descrs = i("_Z3_tactic_get_param_descrs")),
-                (_._Z3_tactic_get_descr = i("_Z3_tactic_get_descr")),
-                (_._Z3_probe_get_descr = i("_Z3_probe_get_descr")),
-                (_._Z3_probe_apply = i("_Z3_probe_apply")),
-                (_._Z3_apply_result_inc_ref = i("_Z3_apply_result_inc_ref")),
-                (_._Z3_apply_result_dec_ref = i("_Z3_apply_result_dec_ref")),
-                (_._Z3_apply_result_to_string = i("_Z3_apply_result_to_string")),
-                (_._Z3_apply_result_get_num_subgoals = i("_Z3_apply_result_get_num_subgoals")),
-                (_._Z3_apply_result_get_subgoal = i("_Z3_apply_result_get_subgoal")),
-                (_._Z3_mk_simplifier = i("_Z3_mk_simplifier")),
-                (_._Z3_simplifier_inc_ref = i("_Z3_simplifier_inc_ref")),
-                (_._Z3_simplifier_dec_ref = i("_Z3_simplifier_dec_ref")),
-                (_._Z3_get_num_simplifiers = i("_Z3_get_num_simplifiers")),
-                (_._Z3_get_simplifier_name = i("_Z3_get_simplifier_name")),
-                (_._Z3_simplifier_and_then = i("_Z3_simplifier_and_then")),
-                (_._Z3_simplifier_using_params = i("_Z3_simplifier_using_params")),
-                (_._Z3_simplifier_get_help = i("_Z3_simplifier_get_help")),
-                (_._Z3_simplifier_get_param_descrs = i("_Z3_simplifier_get_param_descrs")),
-                (_._Z3_simplifier_get_descr = i("_Z3_simplifier_get_descr")),
-                (_._Z3_mk_int_symbol = i("_Z3_mk_int_symbol")),
-                (_._Z3_mk_string_symbol = i("_Z3_mk_string_symbol")),
-                (_._Z3_is_eq_sort = i("_Z3_is_eq_sort")),
-                (_._Z3_mk_uninterpreted_sort = i("_Z3_mk_uninterpreted_sort")),
-                (_._Z3_mk_type_variable = i("_Z3_mk_type_variable")),
-                (_._Z3_is_eq_ast = i("_Z3_is_eq_ast")),
-                (_._Z3_is_eq_func_decl = i("_Z3_is_eq_func_decl")),
-                (_._Z3_mk_func_decl = i("_Z3_mk_func_decl")),
-                (_._Z3_mk_rec_func_decl = i("_Z3_mk_rec_func_decl")),
-                (_._Z3_add_rec_def = i("_Z3_add_rec_def")),
-                (_._Z3_mk_app = i("_Z3_mk_app")),
-                (_._Z3_mk_const = i("_Z3_mk_const")),
-                (_._Z3_mk_fresh_func_decl = i("_Z3_mk_fresh_func_decl")),
-                (_._Z3_mk_fresh_const = i("_Z3_mk_fresh_const")),
-                (_._Z3_mk_true = i("_Z3_mk_true")),
-                (_._Z3_mk_false = i("_Z3_mk_false")),
-                (_._Z3_mk_not = i("_Z3_mk_not")),
-                (_._Z3_mk_eq = i("_Z3_mk_eq")),
-                (_._Z3_mk_distinct = i("_Z3_mk_distinct")),
-                (_._Z3_mk_iff = i("_Z3_mk_iff")),
-                (_._Z3_mk_implies = i("_Z3_mk_implies")),
-                (_._Z3_mk_xor = i("_Z3_mk_xor")),
-                (_._Z3_mk_and = i("_Z3_mk_and")),
-                (_._Z3_mk_or = i("_Z3_mk_or")),
-                (_._Z3_mk_ite = i("_Z3_mk_ite")),
-                (_._Z3_mk_bool_sort = i("_Z3_mk_bool_sort")),
-                (_._Z3_app_to_ast = i("_Z3_app_to_ast")),
-                (_._Z3_sort_to_ast = i("_Z3_sort_to_ast")),
-                (_._Z3_func_decl_to_ast = i("_Z3_func_decl_to_ast")),
-                (_._Z3_get_ast_id = i("_Z3_get_ast_id")),
-                (_._Z3_get_func_decl_id = i("_Z3_get_func_decl_id")),
-                (_._Z3_get_sort_id = i("_Z3_get_sort_id")),
-                (_._Z3_is_well_sorted = i("_Z3_is_well_sorted")),
-                (_._Z3_get_symbol_kind = i("_Z3_get_symbol_kind")),
-                (_._Z3_get_symbol_int = i("_Z3_get_symbol_int")),
-                (_._Z3_get_symbol_string = i("_Z3_get_symbol_string")),
-                (_._Z3_get_ast_kind = i("_Z3_get_ast_kind")),
-                (_._Z3_get_ast_hash = i("_Z3_get_ast_hash")),
-                (_._Z3_is_app = i("_Z3_is_app")),
-                (_._Z3_to_app = i("_Z3_to_app")),
-                (_._Z3_is_ground = i("_Z3_is_ground")),
-                (_._Z3_get_depth = i("_Z3_get_depth")),
-                (_._Z3_to_func_decl = i("_Z3_to_func_decl")),
-                (_._Z3_get_app_decl = i("_Z3_get_app_decl")),
-                (_._Z3_get_app_num_args = i("_Z3_get_app_num_args")),
-                (_._Z3_get_app_arg = i("_Z3_get_app_arg")),
-                (_._Z3_get_decl_name = i("_Z3_get_decl_name")),
-                (_._Z3_get_decl_num_parameters = i("_Z3_get_decl_num_parameters")),
-                (_._Z3_get_decl_parameter_kind = i("_Z3_get_decl_parameter_kind")),
-                (_._Z3_get_decl_int_parameter = i("_Z3_get_decl_int_parameter")),
-                (_._Z3_get_decl_double_parameter = i("_Z3_get_decl_double_parameter")),
-                (_._Z3_get_decl_symbol_parameter = i("_Z3_get_decl_symbol_parameter")),
-                (_._Z3_get_decl_sort_parameter = i("_Z3_get_decl_sort_parameter")),
-                (_._Z3_get_decl_ast_parameter = i("_Z3_get_decl_ast_parameter")),
-                (_._Z3_get_decl_func_decl_parameter = i("_Z3_get_decl_func_decl_parameter")),
-                (_._Z3_get_decl_rational_parameter = i("_Z3_get_decl_rational_parameter")),
-                (_._Z3_get_sort_name = i("_Z3_get_sort_name")),
-                (_._Z3_get_sort = i("_Z3_get_sort")),
-                (_._Z3_get_arity = i("_Z3_get_arity")),
-                (_._Z3_get_domain_size = i("_Z3_get_domain_size")),
-                (_._Z3_get_domain = i("_Z3_get_domain")),
-                (_._Z3_get_range = i("_Z3_get_range")),
-                (_._Z3_get_bool_value = i("_Z3_get_bool_value")),
-                (_._Z3_simplify_get_help = i("_Z3_simplify_get_help")),
-                (_._Z3_simplify_get_param_descrs = i("_Z3_simplify_get_param_descrs")),
-                (_._Z3_update_term = i("_Z3_update_term")),
-                (_._Z3_substitute = i("_Z3_substitute")),
-                (_._Z3_substitute_funs = i("_Z3_substitute_funs")),
-                (_._Z3_substitute_vars = i("_Z3_substitute_vars")),
-                (_._Z3_ast_to_string = i("_Z3_ast_to_string")),
-                (_._Z3_sort_to_string = i("_Z3_sort_to_string")),
-                (_._Z3_func_decl_to_string = i("_Z3_func_decl_to_string")),
-                (_._Z3_benchmark_to_smtlib_string = i("_Z3_benchmark_to_smtlib_string")),
-                (_._Z3_get_decl_kind = i("_Z3_get_decl_kind")),
-                (_._Z3_get_index_value = i("_Z3_get_index_value")),
-                (_._Z3_translate = i("_Z3_translate")),
-                (_._Z3_mk_context = i("_Z3_mk_context")),
-                (_._Z3_mk_context_rc = i("_Z3_mk_context_rc")),
-                (_._Z3_del_context = i("_Z3_del_context")),
-                (_._Z3_interrupt = i("_Z3_interrupt")),
-                (_._Z3_enable_concurrent_dec_ref = i("_Z3_enable_concurrent_dec_ref")),
-                (_._Z3_toggle_warning_messages = i("_Z3_toggle_warning_messages")),
-                (_._Z3_inc_ref = i("_Z3_inc_ref")),
-                (_._Z3_dec_ref = i("_Z3_dec_ref")),
-                (_._Z3_get_version = i("_Z3_get_version")),
-                (_._Z3_get_full_version = i("_Z3_get_full_version")),
-                (_._Z3_enable_trace = i("_Z3_enable_trace")),
-                (_._Z3_disable_trace = i("_Z3_disable_trace")),
-                (_._Z3_reset_memory = i("_Z3_reset_memory")),
-                (_._Z3_finalize_memory = i("_Z3_finalize_memory")),
-                (_._Z3_get_error_code = i("_Z3_get_error_code")),
-                (_._Z3_set_error = i("_Z3_set_error")),
-                (_._Z3_set_ast_print_mode = i("_Z3_set_ast_print_mode")),
-                (_._Z3_qe_model_project = i("_Z3_qe_model_project")),
-                (_._Z3_qe_model_project_skolem = i("_Z3_qe_model_project_skolem")),
-                (_._Z3_qe_model_project_with_witness = i("_Z3_qe_model_project_with_witness")),
-                (_._Z3_model_extrapolate = i("_Z3_model_extrapolate")),
-                (_._Z3_qe_lite = i("_Z3_qe_lite")),
-                (_._Z3_open_log = i("_Z3_open_log")),
-                (_._Z3_append_log = i("_Z3_append_log")),
-                (_._Z3_close_log = i("_Z3_close_log")),
-                (_._Z3_mk_atmost = i("_Z3_mk_atmost")),
-                (_._Z3_mk_atleast = i("_Z3_mk_atleast")),
-                (_._Z3_mk_pble = i("_Z3_mk_pble")),
-                (_._Z3_mk_pbge = i("_Z3_mk_pbge")),
-                (_._Z3_mk_pbeq = i("_Z3_mk_pbeq")),
-                (_._Z3_mk_goal = i("_Z3_mk_goal")),
-                (_._Z3_goal_inc_ref = i("_Z3_goal_inc_ref")),
-                (_._Z3_goal_dec_ref = i("_Z3_goal_dec_ref")),
-                (_._Z3_goal_precision = i("_Z3_goal_precision")),
-                (_._Z3_goal_assert = i("_Z3_goal_assert")),
-                (_._Z3_goal_inconsistent = i("_Z3_goal_inconsistent")),
-                (_._Z3_goal_depth = i("_Z3_goal_depth")),
-                (_._Z3_goal_reset = i("_Z3_goal_reset")),
-                (_._Z3_goal_size = i("_Z3_goal_size")),
-                (_._Z3_goal_formula = i("_Z3_goal_formula")),
-                (_._Z3_goal_num_exprs = i("_Z3_goal_num_exprs")),
-                (_._Z3_goal_is_decided_sat = i("_Z3_goal_is_decided_sat")),
-                (_._Z3_goal_is_decided_unsat = i("_Z3_goal_is_decided_unsat")),
-                (_._Z3_goal_convert_model = i("_Z3_goal_convert_model")),
-                (_._Z3_goal_translate = i("_Z3_goal_translate")),
-                (_._Z3_goal_to_string = i("_Z3_goal_to_string")),
-                (_._Z3_goal_to_dimacs_string = i("_Z3_goal_to_dimacs_string")),
-                (_._Z3_rcf_del = i("_Z3_rcf_del")),
-                (_._Z3_rcf_mk_rational = i("_Z3_rcf_mk_rational")),
-                (_._Z3_rcf_mk_small_int = i("_Z3_rcf_mk_small_int")),
-                (_._Z3_rcf_mk_pi = i("_Z3_rcf_mk_pi")),
-                (_._Z3_rcf_mk_e = i("_Z3_rcf_mk_e")),
-                (_._Z3_rcf_mk_infinitesimal = i("_Z3_rcf_mk_infinitesimal")),
-                (_._Z3_rcf_mk_roots = i("_Z3_rcf_mk_roots")),
-                (_._Z3_rcf_add = i("_Z3_rcf_add")),
-                (_._Z3_rcf_sub = i("_Z3_rcf_sub")),
-                (_._Z3_rcf_mul = i("_Z3_rcf_mul")),
-                (_._Z3_rcf_div = i("_Z3_rcf_div")),
-                (_._Z3_rcf_neg = i("_Z3_rcf_neg")),
-                (_._Z3_rcf_inv = i("_Z3_rcf_inv")),
-                (_._Z3_rcf_power = i("_Z3_rcf_power")),
-                (_._Z3_rcf_lt = i("_Z3_rcf_lt")),
-                (_._Z3_rcf_gt = i("_Z3_rcf_gt")),
-                (_._Z3_rcf_le = i("_Z3_rcf_le")),
-                (_._Z3_rcf_ge = i("_Z3_rcf_ge")),
-                (_._Z3_rcf_eq = i("_Z3_rcf_eq")),
-                (_._Z3_rcf_neq = i("_Z3_rcf_neq")),
-                (_._Z3_rcf_num_to_string = i("_Z3_rcf_num_to_string")),
-                (_._Z3_rcf_num_to_decimal_string = i("_Z3_rcf_num_to_decimal_string")),
-                (_._Z3_rcf_get_numerator_denominator = i("_Z3_rcf_get_numerator_denominator")),
-                (_._Z3_rcf_is_rational = i("_Z3_rcf_is_rational")),
-                (_._Z3_rcf_is_algebraic = i("_Z3_rcf_is_algebraic")),
-                (_._Z3_rcf_is_infinitesimal = i("_Z3_rcf_is_infinitesimal")),
-                (_._Z3_rcf_is_transcendental = i("_Z3_rcf_is_transcendental")),
-                (_._Z3_rcf_extension_index = i("_Z3_rcf_extension_index")),
-                (_._Z3_rcf_transcendental_name = i("_Z3_rcf_transcendental_name")),
-                (_._Z3_rcf_infinitesimal_name = i("_Z3_rcf_infinitesimal_name")),
-                (_._Z3_rcf_num_coefficients = i("_Z3_rcf_num_coefficients")),
-                (_._Z3_rcf_coefficient = i("_Z3_rcf_coefficient")),
-                (_._Z3_rcf_interval = i("_Z3_rcf_interval")),
-                (_._Z3_rcf_num_sign_conditions = i("_Z3_rcf_num_sign_conditions")),
-                (_._Z3_rcf_sign_condition_sign = i("_Z3_rcf_sign_condition_sign")),
-                (_._Z3_rcf_num_sign_condition_coefficients = i("_Z3_rcf_num_sign_condition_coefficients")),
-                (_._Z3_rcf_sign_condition_coefficient = i("_Z3_rcf_sign_condition_coefficient")),
-                (_._Z3_mk_seq_sort = i("_Z3_mk_seq_sort")),
-                (_._Z3_mk_re_sort = i("_Z3_mk_re_sort")),
-                (_._Z3_mk_string = i("_Z3_mk_string")),
-                (_._Z3_mk_lstring = i("_Z3_mk_lstring")),
-                (_._Z3_mk_u32string = i("_Z3_mk_u32string")),
-                (_._Z3_mk_char = i("_Z3_mk_char")),
-                (_._Z3_mk_string_sort = i("_Z3_mk_string_sort")),
-                (_._Z3_mk_char_sort = i("_Z3_mk_char_sort")),
-                (_._Z3_is_seq_sort = i("_Z3_is_seq_sort")),
-                (_._Z3_is_re_sort = i("_Z3_is_re_sort")),
-                (_._Z3_get_seq_sort_basis = i("_Z3_get_seq_sort_basis")),
-                (_._Z3_get_re_sort_basis = i("_Z3_get_re_sort_basis")),
-                (_._Z3_is_char_sort = i("_Z3_is_char_sort")),
-                (_._Z3_is_string_sort = i("_Z3_is_string_sort")),
-                (_._Z3_is_string = i("_Z3_is_string")),
-                (_._Z3_get_string = i("_Z3_get_string")),
-                (_._Z3_get_lstring = i("_Z3_get_lstring")),
-                (_._Z3_get_string_length = i("_Z3_get_string_length")),
-                (_._Z3_get_string_contents = i("_Z3_get_string_contents")),
-                (_._Z3_mk_seq_empty = i("_Z3_mk_seq_empty")),
-                (_._Z3_mk_seq_unit = i("_Z3_mk_seq_unit")),
-                (_._Z3_mk_seq_concat = i("_Z3_mk_seq_concat")),
-                (_._Z3_mk_seq_prefix = i("_Z3_mk_seq_prefix")),
-                (_._Z3_mk_seq_suffix = i("_Z3_mk_seq_suffix")),
-                (_._Z3_mk_seq_contains = i("_Z3_mk_seq_contains")),
-                (_._Z3_mk_str_lt = i("_Z3_mk_str_lt")),
-                (_._Z3_mk_str_le = i("_Z3_mk_str_le")),
-                (_._Z3_mk_string_to_code = i("_Z3_mk_string_to_code")),
-                (_._Z3_mk_string_from_code = i("_Z3_mk_string_from_code")),
-                (_._Z3_mk_seq_extract = i("_Z3_mk_seq_extract")),
-                (_._Z3_mk_seq_replace = i("_Z3_mk_seq_replace")),
-                (_._Z3_mk_seq_at = i("_Z3_mk_seq_at")),
-                (_._Z3_mk_seq_nth = i("_Z3_mk_seq_nth")),
-                (_._Z3_mk_seq_length = i("_Z3_mk_seq_length")),
-                (_._Z3_mk_seq_index = i("_Z3_mk_seq_index")),
-                (_._Z3_mk_seq_last_index = i("_Z3_mk_seq_last_index")),
-                (_._Z3_mk_seq_to_re = i("_Z3_mk_seq_to_re")),
-                (_._Z3_mk_seq_in_re = i("_Z3_mk_seq_in_re")),
-                (_._Z3_mk_int_to_str = i("_Z3_mk_int_to_str")),
-                (_._Z3_mk_str_to_int = i("_Z3_mk_str_to_int")),
-                (_._Z3_mk_ubv_to_str = i("_Z3_mk_ubv_to_str")),
-                (_._Z3_mk_sbv_to_str = i("_Z3_mk_sbv_to_str")),
-                (_._Z3_mk_re_loop = i("_Z3_mk_re_loop")),
-                (_._Z3_mk_re_power = i("_Z3_mk_re_power")),
-                (_._Z3_mk_re_plus = i("_Z3_mk_re_plus")),
-                (_._Z3_mk_re_star = i("_Z3_mk_re_star")),
-                (_._Z3_mk_re_option = i("_Z3_mk_re_option")),
-                (_._Z3_mk_re_complement = i("_Z3_mk_re_complement")),
-                (_._Z3_mk_re_diff = i("_Z3_mk_re_diff")),
-                (_._Z3_mk_re_union = i("_Z3_mk_re_union")),
-                (_._Z3_mk_re_intersect = i("_Z3_mk_re_intersect")),
-                (_._Z3_mk_re_concat = i("_Z3_mk_re_concat")),
-                (_._Z3_mk_re_range = i("_Z3_mk_re_range")),
-                (_._Z3_mk_re_allchar = i("_Z3_mk_re_allchar")),
-                (_._Z3_mk_re_empty = i("_Z3_mk_re_empty")),
-                (_._Z3_mk_re_full = i("_Z3_mk_re_full")),
-                (_._Z3_mk_char_le = i("_Z3_mk_char_le")),
-                (_._Z3_mk_char_to_int = i("_Z3_mk_char_to_int")),
-                (_._Z3_mk_char_to_bv = i("_Z3_mk_char_to_bv")),
-                (_._Z3_mk_char_from_bv = i("_Z3_mk_char_from_bv")),
-                (_._Z3_mk_char_is_digit = i("_Z3_mk_char_is_digit")),
-                (_._Z3_mk_seq_map = i("_Z3_mk_seq_map")),
-                (_._Z3_mk_seq_mapi = i("_Z3_mk_seq_mapi")),
-                (_._Z3_mk_seq_foldl = i("_Z3_mk_seq_foldl")),
-                (_._Z3_mk_seq_foldli = i("_Z3_mk_seq_foldli")),
-                (_._Z3_mk_bv_sort = i("_Z3_mk_bv_sort")),
-                (_._Z3_mk_bvnot = i("_Z3_mk_bvnot")),
-                (_._Z3_mk_bvredand = i("_Z3_mk_bvredand")),
-                (_._Z3_mk_bvredor = i("_Z3_mk_bvredor")),
-                (_._Z3_mk_bvand = i("_Z3_mk_bvand")),
-                (_._Z3_mk_bvor = i("_Z3_mk_bvor")),
-                (_._Z3_mk_bvxor = i("_Z3_mk_bvxor")),
-                (_._Z3_mk_bvnand = i("_Z3_mk_bvnand")),
-                (_._Z3_mk_bvnor = i("_Z3_mk_bvnor")),
-                (_._Z3_mk_bvxnor = i("_Z3_mk_bvxnor")),
-                (_._Z3_mk_bvadd = i("_Z3_mk_bvadd")),
-                (_._Z3_mk_bvmul = i("_Z3_mk_bvmul")),
-                (_._Z3_mk_bvudiv = i("_Z3_mk_bvudiv")),
-                (_._Z3_mk_bvsdiv = i("_Z3_mk_bvsdiv")),
-                (_._Z3_mk_bvurem = i("_Z3_mk_bvurem")),
-                (_._Z3_mk_bvsrem = i("_Z3_mk_bvsrem")),
-                (_._Z3_mk_bvsmod = i("_Z3_mk_bvsmod")),
-                (_._Z3_mk_bvule = i("_Z3_mk_bvule")),
-                (_._Z3_mk_bvsle = i("_Z3_mk_bvsle")),
-                (_._Z3_mk_bvuge = i("_Z3_mk_bvuge")),
-                (_._Z3_mk_bvsge = i("_Z3_mk_bvsge")),
-                (_._Z3_mk_bvult = i("_Z3_mk_bvult")),
-                (_._Z3_mk_bvslt = i("_Z3_mk_bvslt")),
-                (_._Z3_mk_bvugt = i("_Z3_mk_bvugt")),
-                (_._Z3_mk_bvsgt = i("_Z3_mk_bvsgt")),
-                (_._Z3_mk_concat = i("_Z3_mk_concat")),
-                (_._Z3_mk_bvshl = i("_Z3_mk_bvshl")),
-                (_._Z3_mk_bvlshr = i("_Z3_mk_bvlshr")),
-                (_._Z3_mk_bvashr = i("_Z3_mk_bvashr")),
-                (_._Z3_mk_ext_rotate_left = i("_Z3_mk_ext_rotate_left")),
-                (_._Z3_mk_ext_rotate_right = i("_Z3_mk_ext_rotate_right")),
-                (_._Z3_mk_extract = i("_Z3_mk_extract")),
-                (_._Z3_mk_sign_ext = i("_Z3_mk_sign_ext")),
-                (_._Z3_mk_zero_ext = i("_Z3_mk_zero_ext")),
-                (_._Z3_mk_repeat = i("_Z3_mk_repeat")),
-                (_._Z3_mk_bit2bool = i("_Z3_mk_bit2bool")),
-                (_._Z3_mk_rotate_left = i("_Z3_mk_rotate_left")),
-                (_._Z3_mk_rotate_right = i("_Z3_mk_rotate_right")),
-                (_._Z3_mk_int2bv = i("_Z3_mk_int2bv")),
-                (_._Z3_mk_bv2int = i("_Z3_mk_bv2int")),
-                (_._Z3_get_bv_sort_size = i("_Z3_get_bv_sort_size")),
-                (_._Z3_mk_bvadd_no_overflow = i("_Z3_mk_bvadd_no_overflow")),
-                (_._Z3_mk_bvadd_no_underflow = i("_Z3_mk_bvadd_no_underflow")),
-                (_._Z3_mk_bvsub_no_overflow = i("_Z3_mk_bvsub_no_overflow")),
-                (_._Z3_mk_bvneg = i("_Z3_mk_bvneg")),
-                (_._Z3_mk_bvsub_no_underflow = i("_Z3_mk_bvsub_no_underflow")),
-                (_._Z3_mk_bvmul_no_overflow = i("_Z3_mk_bvmul_no_overflow")),
-                (_._Z3_mk_bvmul_no_underflow = i("_Z3_mk_bvmul_no_underflow")),
-                (_._Z3_mk_bvneg_no_overflow = i("_Z3_mk_bvneg_no_overflow")),
-                (_._Z3_mk_bvsdiv_no_overflow = i("_Z3_mk_bvsdiv_no_overflow")),
-                (_._Z3_mk_bvsub = i("_Z3_mk_bvsub")),
-                (_._Z3_stats_to_string = i("_Z3_stats_to_string")),
-                (_._Z3_stats_inc_ref = i("_Z3_stats_inc_ref")),
-                (_._Z3_stats_dec_ref = i("_Z3_stats_dec_ref")),
-                (_._Z3_stats_size = i("_Z3_stats_size")),
-                (_._Z3_stats_get_key = i("_Z3_stats_get_key")),
-                (_._Z3_stats_is_uint = i("_Z3_stats_is_uint")),
-                (_._Z3_stats_is_double = i("_Z3_stats_is_double")),
-                (_._Z3_stats_get_uint_value = i("_Z3_stats_get_uint_value")),
-                (_._Z3_stats_get_double_value = i("_Z3_stats_get_double_value")),
-                (_._Z3_get_estimated_alloc_size = i("_Z3_get_estimated_alloc_size")),
-                (_._Z3_global_param_set = i("_Z3_global_param_set")),
-                (_._Z3_global_param_reset_all = i("_Z3_global_param_reset_all")),
-                (_._Z3_global_param_get = i("_Z3_global_param_get")),
-                (_._Z3_get_global_param_descrs = i("_Z3_get_global_param_descrs")),
-                (_._Z3_mk_config = i("_Z3_mk_config")),
-                (_._Z3_del_config = i("_Z3_del_config")),
-                (_._Z3_set_param_value = i("_Z3_set_param_value")),
-                (_._Z3_update_param_value = i("_Z3_update_param_value")),
-                (_._Z3_mk_simple_solver = i("_Z3_mk_simple_solver")),
-                (_._Z3_mk_solver = i("_Z3_mk_solver")),
-                (_._Z3_mk_solver_for_logic = i("_Z3_mk_solver_for_logic")),
-                (_._Z3_mk_solver_from_tactic = i("_Z3_mk_solver_from_tactic")),
-                (_._Z3_solver_add_simplifier = i("_Z3_solver_add_simplifier")),
-                (_._Z3_solver_translate = i("_Z3_solver_translate")),
-                (_._Z3_solver_import_model_converter = i("_Z3_solver_import_model_converter")),
-                (_._Z3_solver_from_string = i("_Z3_solver_from_string")),
-                (_._Z3_solver_from_file = i("_Z3_solver_from_file")),
-                (_._Z3_solver_get_help = i("_Z3_solver_get_help")),
-                (_._Z3_solver_get_param_descrs = i("_Z3_solver_get_param_descrs")),
-                (_._Z3_solver_set_params = i("_Z3_solver_set_params")),
-                (_._Z3_solver_inc_ref = i("_Z3_solver_inc_ref")),
-                (_._Z3_solver_dec_ref = i("_Z3_solver_dec_ref")),
-                (_._Z3_solver_push = i("_Z3_solver_push")),
-                (_._Z3_solver_interrupt = i("_Z3_solver_interrupt")),
-                (_._Z3_solver_pop = i("_Z3_solver_pop")),
-                (_._Z3_solver_reset = i("_Z3_solver_reset")),
-                (_._Z3_solver_get_num_scopes = i("_Z3_solver_get_num_scopes")),
-                (_._Z3_solver_assert = i("_Z3_solver_assert")),
-                (_._Z3_solver_assert_and_track = i("_Z3_solver_assert_and_track")),
-                (_._Z3_solver_get_assertions = i("_Z3_solver_get_assertions")),
-                (_._Z3_solver_get_units = i("_Z3_solver_get_units")),
-                (_._Z3_solver_get_non_units = i("_Z3_solver_get_non_units")),
-                (_._Z3_solver_get_levels = i("_Z3_solver_get_levels")),
-                (_._Z3_solver_get_trail = i("_Z3_solver_get_trail")));
-              var Tt = i("_pthread_self");
-              ((_._Z3_solver_get_model = i("_Z3_solver_get_model")),
-                (_._Z3_solver_get_proof = i("_Z3_solver_get_proof")),
-                (_._Z3_solver_get_unsat_core = i("_Z3_solver_get_unsat_core")),
-                (_._Z3_solver_get_reason_unknown = i("_Z3_solver_get_reason_unknown")),
-                (_._Z3_solver_get_statistics = i("_Z3_solver_get_statistics")),
-                (_._Z3_solver_to_string = i("_Z3_solver_to_string")),
-                (_._Z3_solver_to_dimacs_string = i("_Z3_solver_to_dimacs_string")),
-                (_._Z3_get_implied_equalities = i("_Z3_get_implied_equalities")),
-                (_._Z3_solver_congruence_root = i("_Z3_solver_congruence_root")),
-                (_._Z3_solver_congruence_next = i("_Z3_solver_congruence_next")),
-                (_._Z3_solver_congruence_explain = i("_Z3_solver_congruence_explain")),
-                (_._Z3_solver_solve_for = i("_Z3_solver_solve_for")),
-                (_._Z3_solver_register_on_clause = i("_Z3_solver_register_on_clause")),
-                (_._Z3_solver_propagate_init = i("_Z3_solver_propagate_init")),
-                (_._Z3_solver_propagate_fixed = i("_Z3_solver_propagate_fixed")),
-                (_._Z3_solver_propagate_final = i("_Z3_solver_propagate_final")),
-                (_._Z3_solver_propagate_eq = i("_Z3_solver_propagate_eq")),
-                (_._Z3_solver_propagate_diseq = i("_Z3_solver_propagate_diseq")),
-                (_._Z3_solver_propagate_register = i("_Z3_solver_propagate_register")),
-                (_._Z3_solver_propagate_register_cb = i("_Z3_solver_propagate_register_cb")),
-                (_._Z3_solver_propagate_consequence = i("_Z3_solver_propagate_consequence")),
-                (_._Z3_solver_propagate_created = i("_Z3_solver_propagate_created")),
-                (_._Z3_solver_propagate_decide = i("_Z3_solver_propagate_decide")),
-                (_._Z3_solver_propagate_on_binding = i("_Z3_solver_propagate_on_binding")),
-                (_._Z3_solver_next_split = i("_Z3_solver_next_split")),
-                (_._Z3_solver_propagate_declare = i("_Z3_solver_propagate_declare")),
-                (_._Z3_solver_set_initial_value = i("_Z3_solver_set_initial_value")),
-                (_._Z3_mk_quantifier = i("_Z3_mk_quantifier")),
-                (_._Z3_mk_quantifier_ex = i("_Z3_mk_quantifier_ex")),
-                (_._Z3_mk_forall = i("_Z3_mk_forall")),
-                (_._Z3_mk_exists = i("_Z3_mk_exists")),
-                (_._Z3_mk_lambda = i("_Z3_mk_lambda")),
-                (_._Z3_mk_lambda_const = i("_Z3_mk_lambda_const")),
-                (_._Z3_mk_quantifier_const_ex = i("_Z3_mk_quantifier_const_ex")),
-                (_._Z3_mk_quantifier_const = i("_Z3_mk_quantifier_const")),
-                (_._Z3_mk_forall_const = i("_Z3_mk_forall_const")),
-                (_._Z3_mk_exists_const = i("_Z3_mk_exists_const")),
-                (_._Z3_mk_pattern = i("_Z3_mk_pattern")),
-                (_._Z3_mk_bound = i("_Z3_mk_bound")),
-                (_._Z3_is_quantifier_forall = i("_Z3_is_quantifier_forall")),
-                (_._Z3_is_quantifier_exists = i("_Z3_is_quantifier_exists")),
-                (_._Z3_is_lambda = i("_Z3_is_lambda")),
-                (_._Z3_get_quantifier_weight = i("_Z3_get_quantifier_weight")),
-                (_._Z3_get_quantifier_skolem_id = i("_Z3_get_quantifier_skolem_id")),
-                (_._Z3_get_quantifier_id = i("_Z3_get_quantifier_id")),
-                (_._Z3_get_quantifier_num_patterns = i("_Z3_get_quantifier_num_patterns")),
-                (_._Z3_get_quantifier_pattern_ast = i("_Z3_get_quantifier_pattern_ast")),
-                (_._Z3_get_quantifier_num_no_patterns = i("_Z3_get_quantifier_num_no_patterns")),
-                (_._Z3_get_quantifier_no_pattern_ast = i("_Z3_get_quantifier_no_pattern_ast")),
-                (_._Z3_get_quantifier_bound_name = i("_Z3_get_quantifier_bound_name")),
-                (_._Z3_get_quantifier_bound_sort = i("_Z3_get_quantifier_bound_sort")),
-                (_._Z3_get_quantifier_body = i("_Z3_get_quantifier_body")),
-                (_._Z3_get_quantifier_num_bound = i("_Z3_get_quantifier_num_bound")),
-                (_._Z3_get_pattern_num_terms = i("_Z3_get_pattern_num_terms")),
-                (_._Z3_get_pattern = i("_Z3_get_pattern")),
-                (_._Z3_pattern_to_ast = i("_Z3_pattern_to_ast")),
-                (_._Z3_pattern_to_string = i("_Z3_pattern_to_string")),
-                (_._Z3_mk_params = i("_Z3_mk_params")),
-                (_._Z3_params_inc_ref = i("_Z3_params_inc_ref")),
-                (_._Z3_params_dec_ref = i("_Z3_params_dec_ref")),
-                (_._Z3_params_set_bool = i("_Z3_params_set_bool")),
-                (_._Z3_params_set_uint = i("_Z3_params_set_uint")),
-                (_._Z3_params_set_double = i("_Z3_params_set_double")),
-                (_._Z3_params_set_symbol = i("_Z3_params_set_symbol")),
-                (_._Z3_params_to_string = i("_Z3_params_to_string")),
-                (_._Z3_params_validate = i("_Z3_params_validate")),
-                (_._Z3_param_descrs_inc_ref = i("_Z3_param_descrs_inc_ref")),
-                (_._Z3_param_descrs_dec_ref = i("_Z3_param_descrs_dec_ref")),
-                (_._Z3_param_descrs_get_kind = i("_Z3_param_descrs_get_kind")),
-                (_._Z3_param_descrs_size = i("_Z3_param_descrs_size")),
-                (_._Z3_param_descrs_get_name = i("_Z3_param_descrs_get_name")),
-                (_._Z3_param_descrs_get_documentation = i("_Z3_param_descrs_get_documentation")),
-                (_._Z3_param_descrs_to_string = i("_Z3_param_descrs_to_string")),
-                (_._Z3_mk_numeral = i("_Z3_mk_numeral")),
-                (_._Z3_mk_int = i("_Z3_mk_int")),
-                (_._Z3_mk_unsigned_int = i("_Z3_mk_unsigned_int")),
-                (_._Z3_mk_int64 = i("_Z3_mk_int64")),
-                (_._Z3_mk_unsigned_int64 = i("_Z3_mk_unsigned_int64")),
-                (_._Z3_is_numeral_ast = i("_Z3_is_numeral_ast")),
-                (_._Z3_get_numeral_binary_string = i("_Z3_get_numeral_binary_string")),
-                (_._Z3_get_numeral_string = i("_Z3_get_numeral_string")),
-                (_._Z3_get_numeral_double = i("_Z3_get_numeral_double")),
-                (_._Z3_get_numeral_decimal_string = i("_Z3_get_numeral_decimal_string")),
-                (_._Z3_get_numeral_small = i("_Z3_get_numeral_small")),
-                (_._Z3_get_numeral_int = i("_Z3_get_numeral_int")),
-                (_._Z3_get_numeral_int64 = i("_Z3_get_numeral_int64")),
-                (_._Z3_get_numeral_uint = i("_Z3_get_numeral_uint")),
-                (_._Z3_get_numeral_uint64 = i("_Z3_get_numeral_uint64")),
-                (_._Z3_get_numeral_rational_int64 = i("_Z3_get_numeral_rational_int64")),
-                (_._Z3_mk_bv_numeral = i("_Z3_mk_bv_numeral")),
-                (_._Z3_mk_parser_context = i("_Z3_mk_parser_context")),
-                (_._Z3_parser_context_inc_ref = i("_Z3_parser_context_inc_ref")),
-                (_._Z3_parser_context_dec_ref = i("_Z3_parser_context_dec_ref")),
-                (_._Z3_parser_context_add_sort = i("_Z3_parser_context_add_sort")),
-                (_._Z3_parser_context_add_decl = i("_Z3_parser_context_add_decl")),
-                (_._Z3_parser_context_from_string = i("_Z3_parser_context_from_string")),
-                (_._Z3_parse_smtlib2_string = i("_Z3_parse_smtlib2_string")),
-                (_._Z3_parse_smtlib2_file = i("_Z3_parse_smtlib2_file")));
-              var rn = (_._free = i("_free"));
-              _._malloc = i("_malloc");
-              var nn = i("_fflush"),
-                an = i("__emscripten_thread_init"),
-                Zi = i("__emscripten_thread_crashed"),
-                on = i("_emscripten_stack_get_end"),
-                gi = i("__emscripten_run_js_on_main_thread"),
-                di = i("__emscripten_thread_free_data"),
-                sn = i("__emscripten_thread_exit"),
-                hi = i("_strerror"),
-                bi = i("__emscripten_check_mailbox"),
-                X = i("_setThrew"),
-                vi = i("__emscripten_tempret_set"),
-                yi = i("_emscripten_stack_init"),
-                ki = i("_emscripten_stack_set_limits"),
-                Ei = i("__emscripten_stack_restore"),
-                wi = i("__emscripten_stack_alloc"),
-                un = i("_emscripten_stack_get_current"),
-                cn = i("___cxa_decrement_exception_refcount"),
-                ln = i("___cxa_increment_exception_refcount"),
-                Oi = i("___get_exception_message"),
-                Pi = i("___cxa_can_catch"),
-                Ti = i("___cxa_get_exception_ptr");
-              function fa(e) {
-                ((_._Z3_get_error_msg = n("Z3_get_error_msg", 2)),
-                  (_._set_throwy_error_handler = n("set_throwy_error_handler", 1)),
-                  (_._set_noop_error_handler = n("set_noop_error_handler", 1)),
-                  (_._async_Z3_eval_smtlib2_string = n("async_Z3_eval_smtlib2_string", 2)),
-                  (_._async_Z3_simplify = n("async_Z3_simplify", 2)),
-                  (_._async_Z3_simplify_ex = n("async_Z3_simplify_ex", 3)),
-                  (_._async_Z3_solver_check = n("async_Z3_solver_check", 2)),
-                  (_._async_Z3_solver_cube = n("async_Z3_solver_cube", 4)),
-                  (_._async_Z3_solver_get_consequences = n("async_Z3_solver_get_consequences", 5)),
-                  (_._async_Z3_tactic_apply = n("async_Z3_tactic_apply", 3)),
-                  (_._async_Z3_tactic_apply_ex = n("async_Z3_tactic_apply_ex", 4)),
-                  (_._async_Z3_optimize_check = n("async_Z3_optimize_check", 4)),
-                  (_._async_Z3_algebraic_roots = n("async_Z3_algebraic_roots", 4)),
-                  (_._async_Z3_algebraic_eval = n("async_Z3_algebraic_eval", 4)),
-                  (_._async_Z3_fixedpoint_query = n("async_Z3_fixedpoint_query", 3)),
-                  (_._async_Z3_fixedpoint_query_relations = n("async_Z3_fixedpoint_query_relations", 4)),
-                  (_._async_Z3_fixedpoint_query_from_lvl = n("async_Z3_fixedpoint_query_from_lvl", 4)),
-                  (_._async_Z3_polynomial_subresultants = n("async_Z3_polynomial_subresultants", 4)),
-                  (_._async_Z3_solver_check_assumptions = n("async_Z3_solver_check_assumptions", 4)),
-                  (_._Z3_eval_smtlib2_string = n("Z3_eval_smtlib2_string", 2)),
-                  (_._Z3_simplify = n("Z3_simplify", 2)),
-                  (_._Z3_simplify_ex = n("Z3_simplify_ex", 3)),
-                  (_._Z3_solver_check = n("Z3_solver_check", 2)),
-                  (_._Z3_solver_cube = n("Z3_solver_cube", 4)),
-                  (_._Z3_solver_get_consequences = n("Z3_solver_get_consequences", 5)),
-                  (_._Z3_tactic_apply = n("Z3_tactic_apply", 3)),
-                  (_._Z3_tactic_apply_ex = n("Z3_tactic_apply_ex", 4)),
-                  (_._Z3_optimize_check = n("Z3_optimize_check", 4)),
-                  (_._Z3_algebraic_roots = n("Z3_algebraic_roots", 4)),
-                  (_._Z3_algebraic_eval = n("Z3_algebraic_eval", 4)),
-                  (_._Z3_fixedpoint_query = n("Z3_fixedpoint_query", 3)),
-                  (_._Z3_fixedpoint_query_relations = n("Z3_fixedpoint_query_relations", 4)),
-                  (_._Z3_fixedpoint_query_from_lvl = n("Z3_fixedpoint_query_from_lvl", 4)),
-                  (_._Z3_polynomial_subresultants = n("Z3_polynomial_subresultants", 4)),
-                  (_._Z3_solver_check_assumptions = n("Z3_solver_check_assumptions", 4)),
-                  (_._Z3_mk_array_sort = n("Z3_mk_array_sort", 3)),
-                  (_._Z3_mk_array_sort_n = n("Z3_mk_array_sort_n", 4)),
-                  (_._Z3_mk_select = n("Z3_mk_select", 3)),
-                  (_._Z3_mk_select_n = n("Z3_mk_select_n", 4)),
-                  (_._Z3_mk_store = n("Z3_mk_store", 4)),
-                  (_._Z3_mk_store_n = n("Z3_mk_store_n", 5)),
-                  (_._Z3_mk_map = n("Z3_mk_map", 4)),
-                  (_._Z3_mk_const_array = n("Z3_mk_const_array", 3)),
-                  (_._Z3_mk_array_default = n("Z3_mk_array_default", 2)),
-                  (_._Z3_mk_set_sort = n("Z3_mk_set_sort", 2)),
-                  (_._Z3_mk_empty_set = n("Z3_mk_empty_set", 2)),
-                  (_._Z3_mk_full_set = n("Z3_mk_full_set", 2)),
-                  (_._Z3_mk_set_union = n("Z3_mk_set_union", 3)),
-                  (_._Z3_mk_set_intersect = n("Z3_mk_set_intersect", 3)),
-                  (_._Z3_mk_set_difference = n("Z3_mk_set_difference", 3)),
-                  (_._Z3_mk_set_complement = n("Z3_mk_set_complement", 2)),
-                  (_._Z3_mk_set_subset = n("Z3_mk_set_subset", 3)),
-                  (_._Z3_mk_array_ext = n("Z3_mk_array_ext", 3)),
-                  (_._Z3_mk_set_has_size = n("Z3_mk_set_has_size", 3)),
-                  (_._Z3_mk_as_array = n("Z3_mk_as_array", 2)),
-                  (_._Z3_mk_set_member = n("Z3_mk_set_member", 3)),
-                  (_._Z3_mk_set_add = n("Z3_mk_set_add", 3)),
-                  (_._Z3_mk_set_del = n("Z3_mk_set_del", 3)),
-                  (_._Z3_get_array_arity = n("Z3_get_array_arity", 2)),
-                  (_._Z3_get_array_sort_domain = n("Z3_get_array_sort_domain", 2)),
-                  (_._Z3_get_array_sort_domain_n = n("Z3_get_array_sort_domain_n", 3)),
-                  (_._Z3_get_array_sort_range = n("Z3_get_array_sort_range", 2)),
-                  (_._Z3_mk_fpa_rounding_mode_sort = n("Z3_mk_fpa_rounding_mode_sort", 1)),
-                  (_._Z3_mk_fpa_round_nearest_ties_to_even = n("Z3_mk_fpa_round_nearest_ties_to_even", 1)),
-                  (_._Z3_mk_fpa_rne = n("Z3_mk_fpa_rne", 1)),
-                  (_._Z3_mk_fpa_round_nearest_ties_to_away = n("Z3_mk_fpa_round_nearest_ties_to_away", 1)),
-                  (_._Z3_mk_fpa_rna = n("Z3_mk_fpa_rna", 1)),
-                  (_._Z3_mk_fpa_round_toward_positive = n("Z3_mk_fpa_round_toward_positive", 1)),
-                  (_._Z3_mk_fpa_rtp = n("Z3_mk_fpa_rtp", 1)),
-                  (_._Z3_mk_fpa_round_toward_negative = n("Z3_mk_fpa_round_toward_negative", 1)),
-                  (_._Z3_mk_fpa_rtn = n("Z3_mk_fpa_rtn", 1)),
-                  (_._Z3_mk_fpa_round_toward_zero = n("Z3_mk_fpa_round_toward_zero", 1)),
-                  (_._Z3_mk_fpa_rtz = n("Z3_mk_fpa_rtz", 1)),
-                  (_._Z3_mk_fpa_sort = n("Z3_mk_fpa_sort", 3)),
-                  (_._Z3_mk_fpa_sort_half = n("Z3_mk_fpa_sort_half", 1)),
-                  (_._Z3_mk_fpa_sort_16 = n("Z3_mk_fpa_sort_16", 1)),
-                  (_._Z3_mk_fpa_sort_single = n("Z3_mk_fpa_sort_single", 1)),
-                  (_._Z3_mk_fpa_sort_32 = n("Z3_mk_fpa_sort_32", 1)),
-                  (_._Z3_mk_fpa_sort_double = n("Z3_mk_fpa_sort_double", 1)),
-                  (_._Z3_mk_fpa_sort_64 = n("Z3_mk_fpa_sort_64", 1)),
-                  (_._Z3_mk_fpa_sort_quadruple = n("Z3_mk_fpa_sort_quadruple", 1)),
-                  (_._Z3_mk_fpa_sort_128 = n("Z3_mk_fpa_sort_128", 1)),
-                  (_._Z3_mk_fpa_nan = n("Z3_mk_fpa_nan", 2)),
-                  (_._Z3_mk_fpa_inf = n("Z3_mk_fpa_inf", 3)),
-                  (_._Z3_mk_fpa_zero = n("Z3_mk_fpa_zero", 3)),
-                  (_._Z3_mk_fpa_fp = n("Z3_mk_fpa_fp", 4)),
-                  (_._Z3_mk_fpa_numeral_float = n("Z3_mk_fpa_numeral_float", 3)),
-                  (_._Z3_mk_fpa_numeral_double = n("Z3_mk_fpa_numeral_double", 3)),
-                  (_._Z3_mk_fpa_numeral_int = n("Z3_mk_fpa_numeral_int", 3)),
-                  (_._Z3_mk_fpa_numeral_int_uint = n("Z3_mk_fpa_numeral_int_uint", 5)),
-                  (_._Z3_mk_fpa_numeral_int64_uint64 = n("Z3_mk_fpa_numeral_int64_uint64", 5)),
-                  (_._Z3_mk_fpa_abs = n("Z3_mk_fpa_abs", 2)),
-                  (_._Z3_mk_fpa_neg = n("Z3_mk_fpa_neg", 2)),
-                  (_._Z3_mk_fpa_add = n("Z3_mk_fpa_add", 4)),
-                  (_._Z3_mk_fpa_sub = n("Z3_mk_fpa_sub", 4)),
-                  (_._Z3_mk_fpa_mul = n("Z3_mk_fpa_mul", 4)),
-                  (_._Z3_mk_fpa_div = n("Z3_mk_fpa_div", 4)),
-                  (_._Z3_mk_fpa_fma = n("Z3_mk_fpa_fma", 5)),
-                  (_._Z3_mk_fpa_sqrt = n("Z3_mk_fpa_sqrt", 3)),
-                  (_._Z3_mk_fpa_rem = n("Z3_mk_fpa_rem", 3)),
-                  (_._Z3_mk_fpa_round_to_integral = n("Z3_mk_fpa_round_to_integral", 3)),
-                  (_._Z3_mk_fpa_min = n("Z3_mk_fpa_min", 3)),
-                  (_._Z3_mk_fpa_max = n("Z3_mk_fpa_max", 3)),
-                  (_._Z3_mk_fpa_leq = n("Z3_mk_fpa_leq", 3)),
-                  (_._Z3_mk_fpa_lt = n("Z3_mk_fpa_lt", 3)),
-                  (_._Z3_mk_fpa_geq = n("Z3_mk_fpa_geq", 3)),
-                  (_._Z3_mk_fpa_gt = n("Z3_mk_fpa_gt", 3)),
-                  (_._Z3_mk_fpa_eq = n("Z3_mk_fpa_eq", 3)),
-                  (_._Z3_mk_fpa_is_normal = n("Z3_mk_fpa_is_normal", 2)),
-                  (_._Z3_mk_fpa_is_subnormal = n("Z3_mk_fpa_is_subnormal", 2)),
-                  (_._Z3_mk_fpa_is_zero = n("Z3_mk_fpa_is_zero", 2)),
-                  (_._Z3_mk_fpa_is_infinite = n("Z3_mk_fpa_is_infinite", 2)),
-                  (_._Z3_mk_fpa_is_nan = n("Z3_mk_fpa_is_nan", 2)),
-                  (_._Z3_mk_fpa_is_negative = n("Z3_mk_fpa_is_negative", 2)),
-                  (_._Z3_mk_fpa_is_positive = n("Z3_mk_fpa_is_positive", 2)),
-                  (_._Z3_mk_fpa_to_fp_bv = n("Z3_mk_fpa_to_fp_bv", 3)),
-                  (_._Z3_mk_fpa_to_fp_float = n("Z3_mk_fpa_to_fp_float", 4)),
-                  (_._Z3_mk_fpa_to_fp_real = n("Z3_mk_fpa_to_fp_real", 4)),
-                  (_._Z3_mk_fpa_to_fp_signed = n("Z3_mk_fpa_to_fp_signed", 4)),
-                  (_._Z3_mk_fpa_to_fp_unsigned = n("Z3_mk_fpa_to_fp_unsigned", 4)),
-                  (_._Z3_mk_fpa_to_ubv = n("Z3_mk_fpa_to_ubv", 4)),
-                  (_._Z3_mk_fpa_to_sbv = n("Z3_mk_fpa_to_sbv", 4)),
-                  (_._Z3_mk_fpa_to_real = n("Z3_mk_fpa_to_real", 2)),
-                  (_._Z3_fpa_get_ebits = n("Z3_fpa_get_ebits", 2)),
-                  (_._Z3_fpa_get_sbits = n("Z3_fpa_get_sbits", 2)),
-                  (_._Z3_fpa_get_numeral_sign = n("Z3_fpa_get_numeral_sign", 3)),
-                  (_._Z3_fpa_get_numeral_sign_bv = n("Z3_fpa_get_numeral_sign_bv", 2)),
-                  (_._Z3_fpa_get_numeral_significand_bv = n("Z3_fpa_get_numeral_significand_bv", 2)),
-                  (_._Z3_fpa_get_numeral_significand_string = n("Z3_fpa_get_numeral_significand_string", 2)),
-                  (_._Z3_fpa_get_numeral_significand_uint64 = n("Z3_fpa_get_numeral_significand_uint64", 3)),
-                  (_._Z3_fpa_get_numeral_exponent_string = n("Z3_fpa_get_numeral_exponent_string", 3)),
-                  (_._Z3_fpa_get_numeral_exponent_int64 = n("Z3_fpa_get_numeral_exponent_int64", 4)),
-                  (_._Z3_fpa_get_numeral_exponent_bv = n("Z3_fpa_get_numeral_exponent_bv", 3)),
-                  (_._Z3_mk_fpa_to_ieee_bv = n("Z3_mk_fpa_to_ieee_bv", 2)),
-                  (_._Z3_mk_fpa_to_fp_int_real = n("Z3_mk_fpa_to_fp_int_real", 5)),
-                  (_._Z3_fpa_is_numeral_nan = n("Z3_fpa_is_numeral_nan", 2)),
-                  (_._Z3_fpa_is_numeral_inf = n("Z3_fpa_is_numeral_inf", 2)),
-                  (_._Z3_fpa_is_numeral_zero = n("Z3_fpa_is_numeral_zero", 2)),
-                  (_._Z3_fpa_is_numeral_normal = n("Z3_fpa_is_numeral_normal", 2)),
-                  (_._Z3_fpa_is_numeral_subnormal = n("Z3_fpa_is_numeral_subnormal", 2)),
-                  (_._Z3_fpa_is_numeral_positive = n("Z3_fpa_is_numeral_positive", 2)),
-                  (_._Z3_fpa_is_numeral_negative = n("Z3_fpa_is_numeral_negative", 2)),
-                  (_._Z3_mk_int_sort = n("Z3_mk_int_sort", 1)),
-                  (_._Z3_mk_real_sort = n("Z3_mk_real_sort", 1)),
-                  (_._Z3_mk_real_int64 = n("Z3_mk_real_int64", 3)),
-                  (_._Z3_mk_real = n("Z3_mk_real", 3)),
-                  (_._Z3_mk_add = n("Z3_mk_add", 3)),
-                  (_._Z3_mk_mul = n("Z3_mk_mul", 3)),
-                  (_._Z3_mk_power = n("Z3_mk_power", 3)),
-                  (_._Z3_mk_mod = n("Z3_mk_mod", 3)),
-                  (_._Z3_mk_rem = n("Z3_mk_rem", 3)),
-                  (_._Z3_mk_div = n("Z3_mk_div", 3)),
-                  (_._Z3_mk_lt = n("Z3_mk_lt", 3)),
-                  (_._Z3_mk_gt = n("Z3_mk_gt", 3)),
-                  (_._Z3_mk_le = n("Z3_mk_le", 3)),
-                  (_._Z3_mk_ge = n("Z3_mk_ge", 3)),
-                  (_._Z3_mk_divides = n("Z3_mk_divides", 3)),
-                  (_._Z3_mk_abs = n("Z3_mk_abs", 2)),
-                  (_._Z3_mk_int2real = n("Z3_mk_int2real", 2)),
-                  (_._Z3_mk_real2int = n("Z3_mk_real2int", 2)),
-                  (_._Z3_mk_is_int = n("Z3_mk_is_int", 2)),
-                  (_._Z3_mk_sub = n("Z3_mk_sub", 3)),
-                  (_._Z3_mk_unary_minus = n("Z3_mk_unary_minus", 2)),
-                  (_._Z3_is_algebraic_number = n("Z3_is_algebraic_number", 2)),
-                  (_._Z3_get_algebraic_number_lower = n("Z3_get_algebraic_number_lower", 3)),
-                  (_._Z3_get_algebraic_number_upper = n("Z3_get_algebraic_number_upper", 3)),
-                  (_._Z3_get_numerator = n("Z3_get_numerator", 2)),
-                  (_._Z3_get_denominator = n("Z3_get_denominator", 2)),
-                  (_._Z3_mk_tuple_sort = n("Z3_mk_tuple_sort", 7)),
-                  (_._Z3_mk_enumeration_sort = n("Z3_mk_enumeration_sort", 6)),
-                  (_._Z3_mk_list_sort = n("Z3_mk_list_sort", 9)),
-                  (_._Z3_mk_constructor = n("Z3_mk_constructor", 7)),
-                  (_._Z3_constructor_num_fields = n("Z3_constructor_num_fields", 2)),
-                  (_._Z3_query_constructor = n("Z3_query_constructor", 6)),
-                  (_._Z3_del_constructor = n("Z3_del_constructor", 2)),
-                  (_._Z3_mk_datatype = n("Z3_mk_datatype", 4)),
-                  (_._Z3_mk_constructor_list = n("Z3_mk_constructor_list", 3)),
-                  (_._Z3_del_constructor_list = n("Z3_del_constructor_list", 2)),
-                  (_._Z3_mk_datatype_sort = n("Z3_mk_datatype_sort", 2)),
-                  (_._Z3_mk_datatypes = n("Z3_mk_datatypes", 5)),
-                  (_._Z3_is_recursive_datatype_sort = n("Z3_is_recursive_datatype_sort", 2)),
-                  (_._Z3_get_datatype_sort_num_constructors = n("Z3_get_datatype_sort_num_constructors", 2)),
-                  (_._Z3_get_datatype_sort_constructor = n("Z3_get_datatype_sort_constructor", 3)),
-                  (_._Z3_get_datatype_sort_recognizer = n("Z3_get_datatype_sort_recognizer", 3)),
-                  (_._Z3_get_datatype_sort_constructor_accessor = n("Z3_get_datatype_sort_constructor_accessor", 4)),
-                  (_._Z3_get_tuple_sort_mk_decl = n("Z3_get_tuple_sort_mk_decl", 2)),
-                  (_._Z3_get_tuple_sort_num_fields = n("Z3_get_tuple_sort_num_fields", 2)),
-                  (_._Z3_get_tuple_sort_field_decl = n("Z3_get_tuple_sort_field_decl", 3)),
-                  (_._Z3_datatype_update_field = n("Z3_datatype_update_field", 4)),
-                  (_._Z3_mk_model = n("Z3_mk_model", 1)),
-                  (_._Z3_model_inc_ref = n("Z3_model_inc_ref", 2)),
-                  (_._Z3_model_dec_ref = n("Z3_model_dec_ref", 2)),
-                  (_._Z3_model_get_const_interp = n("Z3_model_get_const_interp", 3)),
-                  (_._Z3_model_has_interp = n("Z3_model_has_interp", 3)),
-                  (_._Z3_model_get_func_interp = n("Z3_model_get_func_interp", 3)),
-                  (_._Z3_model_get_num_consts = n("Z3_model_get_num_consts", 2)),
-                  (_._Z3_model_get_const_decl = n("Z3_model_get_const_decl", 3)),
-                  (_._Z3_model_get_num_funcs = n("Z3_model_get_num_funcs", 2)),
-                  (_._Z3_model_get_func_decl = n("Z3_model_get_func_decl", 3)),
-                  (_._Z3_model_eval = n("Z3_model_eval", 5)),
-                  (_._Z3_model_get_num_sorts = n("Z3_model_get_num_sorts", 2)),
-                  (_._Z3_model_get_sort = n("Z3_model_get_sort", 3)),
-                  (_._Z3_model_get_sort_universe = n("Z3_model_get_sort_universe", 3)),
-                  (_._Z3_model_translate = n("Z3_model_translate", 3)),
-                  (_._Z3_is_as_array = n("Z3_is_as_array", 2)),
-                  (_._Z3_get_as_array_func_decl = n("Z3_get_as_array_func_decl", 2)),
-                  (_._Z3_add_func_interp = n("Z3_add_func_interp", 4)),
-                  (_._Z3_add_const_interp = n("Z3_add_const_interp", 4)),
-                  (_._Z3_func_interp_inc_ref = n("Z3_func_interp_inc_ref", 2)),
-                  (_._Z3_func_interp_dec_ref = n("Z3_func_interp_dec_ref", 2)),
-                  (_._Z3_func_interp_get_num_entries = n("Z3_func_interp_get_num_entries", 2)),
-                  (_._Z3_func_interp_get_entry = n("Z3_func_interp_get_entry", 3)),
-                  (_._Z3_func_interp_get_else = n("Z3_func_interp_get_else", 2)),
-                  (_._Z3_func_interp_set_else = n("Z3_func_interp_set_else", 3)),
-                  (_._Z3_func_interp_get_arity = n("Z3_func_interp_get_arity", 2)),
-                  (_._Z3_func_interp_add_entry = n("Z3_func_interp_add_entry", 4)),
-                  (_._Z3_func_entry_inc_ref = n("Z3_func_entry_inc_ref", 2)),
-                  (_._Z3_func_entry_dec_ref = n("Z3_func_entry_dec_ref", 2)),
-                  (_._Z3_func_entry_get_value = n("Z3_func_entry_get_value", 2)),
-                  (_._Z3_func_entry_get_num_args = n("Z3_func_entry_get_num_args", 2)),
-                  (_._Z3_func_entry_get_arg = n("Z3_func_entry_get_arg", 3)),
-                  (_._Z3_model_to_string = n("Z3_model_to_string", 2)),
-                  (_._Z3_mk_ast_map = n("Z3_mk_ast_map", 1)),
-                  (_._Z3_ast_map_inc_ref = n("Z3_ast_map_inc_ref", 2)),
-                  (_._Z3_ast_map_dec_ref = n("Z3_ast_map_dec_ref", 2)),
-                  (_._Z3_ast_map_contains = n("Z3_ast_map_contains", 3)),
-                  (_._Z3_ast_map_find = n("Z3_ast_map_find", 3)),
-                  (_._Z3_ast_map_insert = n("Z3_ast_map_insert", 4)),
-                  (_._Z3_ast_map_reset = n("Z3_ast_map_reset", 2)),
-                  (_._Z3_ast_map_erase = n("Z3_ast_map_erase", 3)),
-                  (_._Z3_ast_map_size = n("Z3_ast_map_size", 2)),
-                  (_._Z3_ast_map_keys = n("Z3_ast_map_keys", 2)),
-                  (_._Z3_ast_map_to_string = n("Z3_ast_map_to_string", 2)),
-                  (_._Z3_get_relation_arity = n("Z3_get_relation_arity", 2)),
-                  (_._Z3_get_relation_column = n("Z3_get_relation_column", 3)),
-                  (_._Z3_mk_finite_domain_sort = n("Z3_mk_finite_domain_sort", 3)),
-                  (_._Z3_get_finite_domain_sort_size = n("Z3_get_finite_domain_sort_size", 3)),
-                  (_._Z3_mk_fixedpoint = n("Z3_mk_fixedpoint", 1)),
-                  (_._Z3_fixedpoint_inc_ref = n("Z3_fixedpoint_inc_ref", 2)),
-                  (_._Z3_fixedpoint_dec_ref = n("Z3_fixedpoint_dec_ref", 2)),
-                  (_._Z3_fixedpoint_assert = n("Z3_fixedpoint_assert", 3)),
-                  (_._Z3_fixedpoint_add_rule = n("Z3_fixedpoint_add_rule", 4)),
-                  (_._Z3_fixedpoint_add_fact = n("Z3_fixedpoint_add_fact", 5)),
-                  (_._Z3_get_sort_kind = n("Z3_get_sort_kind", 2)),
-                  (_._Z3_fixedpoint_get_answer = n("Z3_fixedpoint_get_answer", 2)),
-                  (_._Z3_fixedpoint_get_reason_unknown = n("Z3_fixedpoint_get_reason_unknown", 2)),
-                  (_._Z3_fixedpoint_to_string = n("Z3_fixedpoint_to_string", 4)),
-                  (_._Z3_fixedpoint_from_string = n("Z3_fixedpoint_from_string", 3)),
-                  (_._Z3_fixedpoint_from_file = n("Z3_fixedpoint_from_file", 3)),
-                  (_._Z3_fixedpoint_get_statistics = n("Z3_fixedpoint_get_statistics", 2)),
-                  (_._Z3_fixedpoint_register_relation = n("Z3_fixedpoint_register_relation", 3)),
-                  (_._Z3_fixedpoint_set_predicate_representation = n("Z3_fixedpoint_set_predicate_representation", 5)),
-                  (_._Z3_fixedpoint_get_rules = n("Z3_fixedpoint_get_rules", 2)),
-                  (_._Z3_fixedpoint_get_assertions = n("Z3_fixedpoint_get_assertions", 2)),
-                  (_._Z3_fixedpoint_update_rule = n("Z3_fixedpoint_update_rule", 4)),
-                  (_._Z3_fixedpoint_get_num_levels = n("Z3_fixedpoint_get_num_levels", 3)),
-                  (_._Z3_fixedpoint_get_cover_delta = n("Z3_fixedpoint_get_cover_delta", 4)),
-                  (_._Z3_fixedpoint_add_cover = n("Z3_fixedpoint_add_cover", 5)),
-                  (_._Z3_fixedpoint_get_help = n("Z3_fixedpoint_get_help", 2)),
-                  (_._Z3_fixedpoint_get_param_descrs = n("Z3_fixedpoint_get_param_descrs", 2)),
-                  (_._Z3_fixedpoint_set_params = n("Z3_fixedpoint_set_params", 3)),
-                  (_._Z3_fixedpoint_get_ground_sat_answer = n("Z3_fixedpoint_get_ground_sat_answer", 2)),
-                  (_._Z3_fixedpoint_get_rules_along_trace = n("Z3_fixedpoint_get_rules_along_trace", 2)),
-                  (_._Z3_fixedpoint_get_rule_names_along_trace = n("Z3_fixedpoint_get_rule_names_along_trace", 2)),
-                  (_._Z3_fixedpoint_add_invariant = n("Z3_fixedpoint_add_invariant", 4)),
-                  (_._Z3_fixedpoint_get_reachable = n("Z3_fixedpoint_get_reachable", 3)),
-                  (_._Z3_mk_ast_vector = n("Z3_mk_ast_vector", 1)),
-                  (_._Z3_ast_vector_inc_ref = n("Z3_ast_vector_inc_ref", 2)),
-                  (_._Z3_ast_vector_dec_ref = n("Z3_ast_vector_dec_ref", 2)),
-                  (_._Z3_ast_vector_size = n("Z3_ast_vector_size", 2)),
-                  (_._Z3_ast_vector_get = n("Z3_ast_vector_get", 3)),
-                  (_._Z3_ast_vector_set = n("Z3_ast_vector_set", 4)),
-                  (_._Z3_ast_vector_resize = n("Z3_ast_vector_resize", 3)),
-                  (_._Z3_ast_vector_push = n("Z3_ast_vector_push", 3)),
-                  (_._Z3_ast_vector_translate = n("Z3_ast_vector_translate", 3)),
-                  (_._Z3_ast_vector_to_string = n("Z3_ast_vector_to_string", 2)),
-                  (_._Z3_mk_optimize = n("Z3_mk_optimize", 1)),
-                  (_._Z3_optimize_inc_ref = n("Z3_optimize_inc_ref", 2)),
-                  (_._Z3_optimize_dec_ref = n("Z3_optimize_dec_ref", 2)),
-                  (_._Z3_optimize_assert = n("Z3_optimize_assert", 3)),
-                  (_._Z3_optimize_assert_and_track = n("Z3_optimize_assert_and_track", 4)),
-                  (_._Z3_optimize_assert_soft = n("Z3_optimize_assert_soft", 5)),
-                  (_._Z3_optimize_maximize = n("Z3_optimize_maximize", 3)),
-                  (_._Z3_optimize_minimize = n("Z3_optimize_minimize", 3)),
-                  (_._Z3_optimize_push = n("Z3_optimize_push", 2)),
-                  (_._Z3_optimize_pop = n("Z3_optimize_pop", 2)),
-                  (_._Z3_optimize_get_unsat_core = n("Z3_optimize_get_unsat_core", 2)),
-                  (_._Z3_optimize_get_reason_unknown = n("Z3_optimize_get_reason_unknown", 2)),
-                  (_._Z3_optimize_get_model = n("Z3_optimize_get_model", 2)),
-                  (_._Z3_optimize_set_params = n("Z3_optimize_set_params", 3)),
-                  (_._Z3_optimize_get_param_descrs = n("Z3_optimize_get_param_descrs", 2)),
-                  (_._Z3_optimize_get_lower = n("Z3_optimize_get_lower", 3)),
-                  (_._Z3_optimize_get_upper = n("Z3_optimize_get_upper", 3)),
-                  (_._Z3_optimize_get_lower_as_vector = n("Z3_optimize_get_lower_as_vector", 3)),
-                  (_._Z3_optimize_get_upper_as_vector = n("Z3_optimize_get_upper_as_vector", 3)),
-                  (_._Z3_optimize_to_string = n("Z3_optimize_to_string", 2)),
-                  (_._Z3_optimize_get_help = n("Z3_optimize_get_help", 2)),
-                  (_._Z3_optimize_get_statistics = n("Z3_optimize_get_statistics", 2)),
-                  (_._Z3_optimize_from_string = n("Z3_optimize_from_string", 3)),
-                  (_._Z3_optimize_from_file = n("Z3_optimize_from_file", 3)),
-                  (_._Z3_optimize_get_assertions = n("Z3_optimize_get_assertions", 2)),
-                  (_._Z3_optimize_get_objectives = n("Z3_optimize_get_objectives", 2)),
-                  (_._Z3_optimize_set_initial_value = n("Z3_optimize_set_initial_value", 4)),
-                  (_._Z3_mk_linear_order = n("Z3_mk_linear_order", 3)),
-                  (_._Z3_mk_partial_order = n("Z3_mk_partial_order", 3)),
-                  (_._Z3_mk_piecewise_linear_order = n("Z3_mk_piecewise_linear_order", 3)),
-                  (_._Z3_mk_tree_order = n("Z3_mk_tree_order", 3)),
-                  (_._Z3_mk_transitive_closure = n("Z3_mk_transitive_closure", 2)),
-                  (_._Z3_algebraic_is_value = n("Z3_algebraic_is_value", 2)),
-                  (_._Z3_algebraic_is_pos = n("Z3_algebraic_is_pos", 2)),
-                  (_._Z3_algebraic_sign = n("Z3_algebraic_sign", 2)),
-                  (_._Z3_algebraic_is_neg = n("Z3_algebraic_is_neg", 2)),
-                  (_._Z3_algebraic_is_zero = n("Z3_algebraic_is_zero", 2)),
-                  (_._Z3_algebraic_add = n("Z3_algebraic_add", 3)),
-                  (_._Z3_algebraic_sub = n("Z3_algebraic_sub", 3)),
-                  (_._Z3_algebraic_mul = n("Z3_algebraic_mul", 3)),
-                  (_._Z3_algebraic_div = n("Z3_algebraic_div", 3)),
-                  (_._Z3_algebraic_root = n("Z3_algebraic_root", 3)),
-                  (_._Z3_algebraic_power = n("Z3_algebraic_power", 3)),
-                  (_._Z3_algebraic_lt = n("Z3_algebraic_lt", 3)),
-                  (_._Z3_algebraic_gt = n("Z3_algebraic_gt", 3)),
-                  (_._Z3_algebraic_le = n("Z3_algebraic_le", 3)),
-                  (_._Z3_algebraic_ge = n("Z3_algebraic_ge", 3)),
-                  (_._Z3_algebraic_eq = n("Z3_algebraic_eq", 3)),
-                  (_._Z3_algebraic_neq = n("Z3_algebraic_neq", 3)),
-                  (_._Z3_algebraic_get_poly = n("Z3_algebraic_get_poly", 2)),
-                  (_._Z3_algebraic_get_i = n("Z3_algebraic_get_i", 2)),
-                  (_._Z3_mk_tactic = n("Z3_mk_tactic", 2)),
-                  (_._Z3_tactic_inc_ref = n("Z3_tactic_inc_ref", 2)),
-                  (_._Z3_tactic_dec_ref = n("Z3_tactic_dec_ref", 2)),
-                  (_._Z3_mk_probe = n("Z3_mk_probe", 2)),
-                  (_._Z3_probe_inc_ref = n("Z3_probe_inc_ref", 2)),
-                  (_._Z3_probe_dec_ref = n("Z3_probe_dec_ref", 2)),
-                  (_._Z3_tactic_and_then = n("Z3_tactic_and_then", 3)),
-                  (_._Z3_tactic_or_else = n("Z3_tactic_or_else", 3)),
-                  (_._Z3_tactic_par_or = n("Z3_tactic_par_or", 3)),
-                  (_._Z3_tactic_par_and_then = n("Z3_tactic_par_and_then", 3)),
-                  (_._Z3_tactic_try_for = n("Z3_tactic_try_for", 3)),
-                  (_._Z3_tactic_when = n("Z3_tactic_when", 3)),
-                  (_._Z3_tactic_cond = n("Z3_tactic_cond", 4)),
-                  (_._Z3_tactic_repeat = n("Z3_tactic_repeat", 3)),
-                  (_._Z3_tactic_skip = n("Z3_tactic_skip", 1)),
-                  (_._Z3_tactic_fail = n("Z3_tactic_fail", 1)),
-                  (_._Z3_tactic_fail_if = n("Z3_tactic_fail_if", 2)),
-                  (_._Z3_tactic_fail_if_not_decided = n("Z3_tactic_fail_if_not_decided", 1)),
-                  (_._Z3_tactic_using_params = n("Z3_tactic_using_params", 3)),
-                  (_._Z3_probe_const = n("Z3_probe_const", 2)),
-                  (_._Z3_probe_lt = n("Z3_probe_lt", 3)),
-                  (_._Z3_probe_gt = n("Z3_probe_gt", 3)),
-                  (_._Z3_probe_le = n("Z3_probe_le", 3)),
-                  (_._Z3_probe_ge = n("Z3_probe_ge", 3)),
-                  (_._Z3_probe_eq = n("Z3_probe_eq", 3)),
-                  (_._Z3_probe_and = n("Z3_probe_and", 3)),
-                  (_._Z3_probe_or = n("Z3_probe_or", 3)),
-                  (_._Z3_probe_not = n("Z3_probe_not", 2)),
-                  (_._Z3_get_num_tactics = n("Z3_get_num_tactics", 1)),
-                  (_._Z3_get_tactic_name = n("Z3_get_tactic_name", 2)),
-                  (_._Z3_get_num_probes = n("Z3_get_num_probes", 1)),
-                  (_._Z3_get_probe_name = n("Z3_get_probe_name", 2)),
-                  (_._Z3_tactic_get_help = n("Z3_tactic_get_help", 2)),
-                  (_._Z3_tactic_get_param_descrs = n("Z3_tactic_get_param_descrs", 2)),
-                  (_._Z3_tactic_get_descr = n("Z3_tactic_get_descr", 2)),
-                  (_._Z3_probe_get_descr = n("Z3_probe_get_descr", 2)),
-                  (_._Z3_probe_apply = n("Z3_probe_apply", 3)),
-                  (_._Z3_apply_result_inc_ref = n("Z3_apply_result_inc_ref", 2)),
-                  (_._Z3_apply_result_dec_ref = n("Z3_apply_result_dec_ref", 2)),
-                  (_._Z3_apply_result_to_string = n("Z3_apply_result_to_string", 2)),
-                  (_._Z3_apply_result_get_num_subgoals = n("Z3_apply_result_get_num_subgoals", 2)),
-                  (_._Z3_apply_result_get_subgoal = n("Z3_apply_result_get_subgoal", 3)),
-                  (_._Z3_mk_simplifier = n("Z3_mk_simplifier", 2)),
-                  (_._Z3_simplifier_inc_ref = n("Z3_simplifier_inc_ref", 2)),
-                  (_._Z3_simplifier_dec_ref = n("Z3_simplifier_dec_ref", 2)),
-                  (_._Z3_get_num_simplifiers = n("Z3_get_num_simplifiers", 1)),
-                  (_._Z3_get_simplifier_name = n("Z3_get_simplifier_name", 2)),
-                  (_._Z3_simplifier_and_then = n("Z3_simplifier_and_then", 3)),
-                  (_._Z3_simplifier_using_params = n("Z3_simplifier_using_params", 3)),
-                  (_._Z3_simplifier_get_help = n("Z3_simplifier_get_help", 2)),
-                  (_._Z3_simplifier_get_param_descrs = n("Z3_simplifier_get_param_descrs", 2)),
-                  (_._Z3_simplifier_get_descr = n("Z3_simplifier_get_descr", 2)),
-                  (_._Z3_mk_int_symbol = n("Z3_mk_int_symbol", 2)),
-                  (_._Z3_mk_string_symbol = n("Z3_mk_string_symbol", 2)),
-                  (_._Z3_is_eq_sort = n("Z3_is_eq_sort", 3)),
-                  (_._Z3_mk_uninterpreted_sort = n("Z3_mk_uninterpreted_sort", 2)),
-                  (_._Z3_mk_type_variable = n("Z3_mk_type_variable", 2)),
-                  (_._Z3_is_eq_ast = n("Z3_is_eq_ast", 3)),
-                  (_._Z3_is_eq_func_decl = n("Z3_is_eq_func_decl", 3)),
-                  (_._Z3_mk_func_decl = n("Z3_mk_func_decl", 5)),
-                  (_._Z3_mk_rec_func_decl = n("Z3_mk_rec_func_decl", 5)),
-                  (_._Z3_add_rec_def = n("Z3_add_rec_def", 5)),
-                  (_._Z3_mk_app = n("Z3_mk_app", 4)),
-                  (_._Z3_mk_const = n("Z3_mk_const", 3)),
-                  (_._Z3_mk_fresh_func_decl = n("Z3_mk_fresh_func_decl", 5)),
-                  (_._Z3_mk_fresh_const = n("Z3_mk_fresh_const", 3)),
-                  (_._Z3_mk_true = n("Z3_mk_true", 1)),
-                  (_._Z3_mk_false = n("Z3_mk_false", 1)),
-                  (_._Z3_mk_not = n("Z3_mk_not", 2)),
-                  (_._Z3_mk_eq = n("Z3_mk_eq", 3)),
-                  (_._Z3_mk_distinct = n("Z3_mk_distinct", 3)),
-                  (_._Z3_mk_iff = n("Z3_mk_iff", 3)),
-                  (_._Z3_mk_implies = n("Z3_mk_implies", 3)),
-                  (_._Z3_mk_xor = n("Z3_mk_xor", 3)),
-                  (_._Z3_mk_and = n("Z3_mk_and", 3)),
-                  (_._Z3_mk_or = n("Z3_mk_or", 3)),
-                  (_._Z3_mk_ite = n("Z3_mk_ite", 4)),
-                  (_._Z3_mk_bool_sort = n("Z3_mk_bool_sort", 1)),
-                  (_._Z3_app_to_ast = n("Z3_app_to_ast", 2)),
-                  (_._Z3_sort_to_ast = n("Z3_sort_to_ast", 2)),
-                  (_._Z3_func_decl_to_ast = n("Z3_func_decl_to_ast", 2)),
-                  (_._Z3_get_ast_id = n("Z3_get_ast_id", 2)),
-                  (_._Z3_get_func_decl_id = n("Z3_get_func_decl_id", 2)),
-                  (_._Z3_get_sort_id = n("Z3_get_sort_id", 2)),
-                  (_._Z3_is_well_sorted = n("Z3_is_well_sorted", 2)),
-                  (_._Z3_get_symbol_kind = n("Z3_get_symbol_kind", 2)),
-                  (_._Z3_get_symbol_int = n("Z3_get_symbol_int", 2)),
-                  (_._Z3_get_symbol_string = n("Z3_get_symbol_string", 2)),
-                  (_._Z3_get_ast_kind = n("Z3_get_ast_kind", 2)),
-                  (_._Z3_get_ast_hash = n("Z3_get_ast_hash", 2)),
-                  (_._Z3_is_app = n("Z3_is_app", 2)),
-                  (_._Z3_to_app = n("Z3_to_app", 2)),
-                  (_._Z3_is_ground = n("Z3_is_ground", 2)),
-                  (_._Z3_get_depth = n("Z3_get_depth", 2)),
-                  (_._Z3_to_func_decl = n("Z3_to_func_decl", 2)),
-                  (_._Z3_get_app_decl = n("Z3_get_app_decl", 2)),
-                  (_._Z3_get_app_num_args = n("Z3_get_app_num_args", 2)),
-                  (_._Z3_get_app_arg = n("Z3_get_app_arg", 3)),
-                  (_._Z3_get_decl_name = n("Z3_get_decl_name", 2)),
-                  (_._Z3_get_decl_num_parameters = n("Z3_get_decl_num_parameters", 2)),
-                  (_._Z3_get_decl_parameter_kind = n("Z3_get_decl_parameter_kind", 3)),
-                  (_._Z3_get_decl_int_parameter = n("Z3_get_decl_int_parameter", 3)),
-                  (_._Z3_get_decl_double_parameter = n("Z3_get_decl_double_parameter", 3)),
-                  (_._Z3_get_decl_symbol_parameter = n("Z3_get_decl_symbol_parameter", 3)),
-                  (_._Z3_get_decl_sort_parameter = n("Z3_get_decl_sort_parameter", 3)),
-                  (_._Z3_get_decl_ast_parameter = n("Z3_get_decl_ast_parameter", 3)),
-                  (_._Z3_get_decl_func_decl_parameter = n("Z3_get_decl_func_decl_parameter", 3)),
-                  (_._Z3_get_decl_rational_parameter = n("Z3_get_decl_rational_parameter", 3)),
-                  (_._Z3_get_sort_name = n("Z3_get_sort_name", 2)),
-                  (_._Z3_get_sort = n("Z3_get_sort", 2)),
-                  (_._Z3_get_arity = n("Z3_get_arity", 2)),
-                  (_._Z3_get_domain_size = n("Z3_get_domain_size", 2)),
-                  (_._Z3_get_domain = n("Z3_get_domain", 3)),
-                  (_._Z3_get_range = n("Z3_get_range", 2)),
-                  (_._Z3_get_bool_value = n("Z3_get_bool_value", 2)),
-                  (_._Z3_simplify_get_help = n("Z3_simplify_get_help", 1)),
-                  (_._Z3_simplify_get_param_descrs = n("Z3_simplify_get_param_descrs", 1)),
-                  (_._Z3_update_term = n("Z3_update_term", 4)),
-                  (_._Z3_substitute = n("Z3_substitute", 5)),
-                  (_._Z3_substitute_funs = n("Z3_substitute_funs", 5)),
-                  (_._Z3_substitute_vars = n("Z3_substitute_vars", 4)),
-                  (_._Z3_ast_to_string = n("Z3_ast_to_string", 2)),
-                  (_._Z3_sort_to_string = n("Z3_sort_to_string", 2)),
-                  (_._Z3_func_decl_to_string = n("Z3_func_decl_to_string", 2)),
-                  (_._Z3_benchmark_to_smtlib_string = n("Z3_benchmark_to_smtlib_string", 8)),
-                  (_._Z3_get_decl_kind = n("Z3_get_decl_kind", 2)),
-                  (_._Z3_get_index_value = n("Z3_get_index_value", 2)),
-                  (_._Z3_translate = n("Z3_translate", 3)),
-                  (_._Z3_mk_context = n("Z3_mk_context", 1)),
-                  (_._Z3_mk_context_rc = n("Z3_mk_context_rc", 1)),
-                  (_._Z3_del_context = n("Z3_del_context", 1)),
-                  (_._Z3_interrupt = n("Z3_interrupt", 1)),
-                  (_._Z3_enable_concurrent_dec_ref = n("Z3_enable_concurrent_dec_ref", 1)),
-                  (_._Z3_toggle_warning_messages = n("Z3_toggle_warning_messages", 1)),
-                  (_._Z3_inc_ref = n("Z3_inc_ref", 2)),
-                  (_._Z3_dec_ref = n("Z3_dec_ref", 2)),
-                  (_._Z3_get_version = n("Z3_get_version", 4)),
-                  (_._Z3_get_full_version = n("Z3_get_full_version", 0)),
-                  (_._Z3_enable_trace = n("Z3_enable_trace", 1)),
-                  (_._Z3_disable_trace = n("Z3_disable_trace", 1)),
-                  (_._Z3_reset_memory = n("Z3_reset_memory", 0)),
-                  (_._Z3_finalize_memory = n("Z3_finalize_memory", 0)),
-                  (_._Z3_get_error_code = n("Z3_get_error_code", 1)),
-                  (_._Z3_set_error = n("Z3_set_error", 2)),
-                  (_._Z3_set_ast_print_mode = n("Z3_set_ast_print_mode", 2)),
-                  (_._Z3_qe_model_project = n("Z3_qe_model_project", 5)),
-                  (_._Z3_qe_model_project_skolem = n("Z3_qe_model_project_skolem", 6)),
-                  (_._Z3_qe_model_project_with_witness = n("Z3_qe_model_project_with_witness", 6)),
-                  (_._Z3_model_extrapolate = n("Z3_model_extrapolate", 3)),
-                  (_._Z3_qe_lite = n("Z3_qe_lite", 3)),
-                  (_._Z3_open_log = n("Z3_open_log", 1)),
-                  (_._Z3_append_log = n("Z3_append_log", 1)),
-                  (_._Z3_close_log = n("Z3_close_log", 0)),
-                  (_._Z3_mk_atmost = n("Z3_mk_atmost", 4)),
-                  (_._Z3_mk_atleast = n("Z3_mk_atleast", 4)),
-                  (_._Z3_mk_pble = n("Z3_mk_pble", 5)),
-                  (_._Z3_mk_pbge = n("Z3_mk_pbge", 5)),
-                  (_._Z3_mk_pbeq = n("Z3_mk_pbeq", 5)),
-                  (_._Z3_mk_goal = n("Z3_mk_goal", 4)),
-                  (_._Z3_goal_inc_ref = n("Z3_goal_inc_ref", 2)),
-                  (_._Z3_goal_dec_ref = n("Z3_goal_dec_ref", 2)),
-                  (_._Z3_goal_precision = n("Z3_goal_precision", 2)),
-                  (_._Z3_goal_assert = n("Z3_goal_assert", 3)),
-                  (_._Z3_goal_inconsistent = n("Z3_goal_inconsistent", 2)),
-                  (_._Z3_goal_depth = n("Z3_goal_depth", 2)),
-                  (_._Z3_goal_reset = n("Z3_goal_reset", 2)),
-                  (_._Z3_goal_size = n("Z3_goal_size", 2)),
-                  (_._Z3_goal_formula = n("Z3_goal_formula", 3)),
-                  (_._Z3_goal_num_exprs = n("Z3_goal_num_exprs", 2)),
-                  (_._Z3_goal_is_decided_sat = n("Z3_goal_is_decided_sat", 2)),
-                  (_._Z3_goal_is_decided_unsat = n("Z3_goal_is_decided_unsat", 2)),
-                  (_._Z3_goal_convert_model = n("Z3_goal_convert_model", 3)),
-                  (_._Z3_goal_translate = n("Z3_goal_translate", 3)),
-                  (_._Z3_goal_to_string = n("Z3_goal_to_string", 2)),
-                  (_._Z3_goal_to_dimacs_string = n("Z3_goal_to_dimacs_string", 3)),
-                  (_._Z3_rcf_del = n("Z3_rcf_del", 2)),
-                  (_._Z3_rcf_mk_rational = n("Z3_rcf_mk_rational", 2)),
-                  (_._Z3_rcf_mk_small_int = n("Z3_rcf_mk_small_int", 2)),
-                  (_._Z3_rcf_mk_pi = n("Z3_rcf_mk_pi", 1)),
-                  (_._Z3_rcf_mk_e = n("Z3_rcf_mk_e", 1)),
-                  (_._Z3_rcf_mk_infinitesimal = n("Z3_rcf_mk_infinitesimal", 1)),
-                  (_._Z3_rcf_mk_roots = n("Z3_rcf_mk_roots", 4)),
-                  (_._Z3_rcf_add = n("Z3_rcf_add", 3)),
-                  (_._Z3_rcf_sub = n("Z3_rcf_sub", 3)),
-                  (_._Z3_rcf_mul = n("Z3_rcf_mul", 3)),
-                  (_._Z3_rcf_div = n("Z3_rcf_div", 3)),
-                  (_._Z3_rcf_neg = n("Z3_rcf_neg", 2)),
-                  (_._Z3_rcf_inv = n("Z3_rcf_inv", 2)),
-                  (_._Z3_rcf_power = n("Z3_rcf_power", 3)),
-                  (_._Z3_rcf_lt = n("Z3_rcf_lt", 3)),
-                  (_._Z3_rcf_gt = n("Z3_rcf_gt", 3)),
-                  (_._Z3_rcf_le = n("Z3_rcf_le", 3)),
-                  (_._Z3_rcf_ge = n("Z3_rcf_ge", 3)),
-                  (_._Z3_rcf_eq = n("Z3_rcf_eq", 3)),
-                  (_._Z3_rcf_neq = n("Z3_rcf_neq", 3)),
-                  (_._Z3_rcf_num_to_string = n("Z3_rcf_num_to_string", 4)),
-                  (_._Z3_rcf_num_to_decimal_string = n("Z3_rcf_num_to_decimal_string", 3)),
-                  (_._Z3_rcf_get_numerator_denominator = n("Z3_rcf_get_numerator_denominator", 4)),
-                  (_._Z3_rcf_is_rational = n("Z3_rcf_is_rational", 2)),
-                  (_._Z3_rcf_is_algebraic = n("Z3_rcf_is_algebraic", 2)),
-                  (_._Z3_rcf_is_infinitesimal = n("Z3_rcf_is_infinitesimal", 2)),
-                  (_._Z3_rcf_is_transcendental = n("Z3_rcf_is_transcendental", 2)),
-                  (_._Z3_rcf_extension_index = n("Z3_rcf_extension_index", 2)),
-                  (_._Z3_rcf_transcendental_name = n("Z3_rcf_transcendental_name", 2)),
-                  (_._Z3_rcf_infinitesimal_name = n("Z3_rcf_infinitesimal_name", 2)),
-                  (_._Z3_rcf_num_coefficients = n("Z3_rcf_num_coefficients", 2)),
-                  (_._Z3_rcf_coefficient = n("Z3_rcf_coefficient", 3)),
-                  (_._Z3_rcf_interval = n("Z3_rcf_interval", 8)),
-                  (_._Z3_rcf_num_sign_conditions = n("Z3_rcf_num_sign_conditions", 2)),
-                  (_._Z3_rcf_sign_condition_sign = n("Z3_rcf_sign_condition_sign", 3)),
-                  (_._Z3_rcf_num_sign_condition_coefficients = n("Z3_rcf_num_sign_condition_coefficients", 3)),
-                  (_._Z3_rcf_sign_condition_coefficient = n("Z3_rcf_sign_condition_coefficient", 4)),
-                  (_._Z3_mk_seq_sort = n("Z3_mk_seq_sort", 2)),
-                  (_._Z3_mk_re_sort = n("Z3_mk_re_sort", 2)),
-                  (_._Z3_mk_string = n("Z3_mk_string", 2)),
-                  (_._Z3_mk_lstring = n("Z3_mk_lstring", 3)),
-                  (_._Z3_mk_u32string = n("Z3_mk_u32string", 3)),
-                  (_._Z3_mk_char = n("Z3_mk_char", 2)),
-                  (_._Z3_mk_string_sort = n("Z3_mk_string_sort", 1)),
-                  (_._Z3_mk_char_sort = n("Z3_mk_char_sort", 1)),
-                  (_._Z3_is_seq_sort = n("Z3_is_seq_sort", 2)),
-                  (_._Z3_is_re_sort = n("Z3_is_re_sort", 2)),
-                  (_._Z3_get_seq_sort_basis = n("Z3_get_seq_sort_basis", 2)),
-                  (_._Z3_get_re_sort_basis = n("Z3_get_re_sort_basis", 2)),
-                  (_._Z3_is_char_sort = n("Z3_is_char_sort", 2)),
-                  (_._Z3_is_string_sort = n("Z3_is_string_sort", 2)),
-                  (_._Z3_is_string = n("Z3_is_string", 2)),
-                  (_._Z3_get_string = n("Z3_get_string", 2)),
-                  (_._Z3_get_lstring = n("Z3_get_lstring", 3)),
-                  (_._Z3_get_string_length = n("Z3_get_string_length", 2)),
-                  (_._Z3_get_string_contents = n("Z3_get_string_contents", 4)),
-                  (_._Z3_mk_seq_empty = n("Z3_mk_seq_empty", 2)),
-                  (_._Z3_mk_seq_unit = n("Z3_mk_seq_unit", 2)),
-                  (_._Z3_mk_seq_concat = n("Z3_mk_seq_concat", 3)),
-                  (_._Z3_mk_seq_prefix = n("Z3_mk_seq_prefix", 3)),
-                  (_._Z3_mk_seq_suffix = n("Z3_mk_seq_suffix", 3)),
-                  (_._Z3_mk_seq_contains = n("Z3_mk_seq_contains", 3)),
-                  (_._Z3_mk_str_lt = n("Z3_mk_str_lt", 3)),
-                  (_._Z3_mk_str_le = n("Z3_mk_str_le", 3)),
-                  (_._Z3_mk_string_to_code = n("Z3_mk_string_to_code", 2)),
-                  (_._Z3_mk_string_from_code = n("Z3_mk_string_from_code", 2)),
-                  (_._Z3_mk_seq_extract = n("Z3_mk_seq_extract", 4)),
-                  (_._Z3_mk_seq_replace = n("Z3_mk_seq_replace", 4)),
-                  (_._Z3_mk_seq_at = n("Z3_mk_seq_at", 3)),
-                  (_._Z3_mk_seq_nth = n("Z3_mk_seq_nth", 3)),
-                  (_._Z3_mk_seq_length = n("Z3_mk_seq_length", 2)),
-                  (_._Z3_mk_seq_index = n("Z3_mk_seq_index", 4)),
-                  (_._Z3_mk_seq_last_index = n("Z3_mk_seq_last_index", 3)),
-                  (_._Z3_mk_seq_to_re = n("Z3_mk_seq_to_re", 2)),
-                  (_._Z3_mk_seq_in_re = n("Z3_mk_seq_in_re", 3)),
-                  (_._Z3_mk_int_to_str = n("Z3_mk_int_to_str", 2)),
-                  (_._Z3_mk_str_to_int = n("Z3_mk_str_to_int", 2)),
-                  (_._Z3_mk_ubv_to_str = n("Z3_mk_ubv_to_str", 2)),
-                  (_._Z3_mk_sbv_to_str = n("Z3_mk_sbv_to_str", 2)),
-                  (_._Z3_mk_re_loop = n("Z3_mk_re_loop", 4)),
-                  (_._Z3_mk_re_power = n("Z3_mk_re_power", 3)),
-                  (_._Z3_mk_re_plus = n("Z3_mk_re_plus", 2)),
-                  (_._Z3_mk_re_star = n("Z3_mk_re_star", 2)),
-                  (_._Z3_mk_re_option = n("Z3_mk_re_option", 2)),
-                  (_._Z3_mk_re_complement = n("Z3_mk_re_complement", 2)),
-                  (_._Z3_mk_re_diff = n("Z3_mk_re_diff", 3)),
-                  (_._Z3_mk_re_union = n("Z3_mk_re_union", 3)),
-                  (_._Z3_mk_re_intersect = n("Z3_mk_re_intersect", 3)),
-                  (_._Z3_mk_re_concat = n("Z3_mk_re_concat", 3)),
-                  (_._Z3_mk_re_range = n("Z3_mk_re_range", 3)),
-                  (_._Z3_mk_re_allchar = n("Z3_mk_re_allchar", 2)),
-                  (_._Z3_mk_re_empty = n("Z3_mk_re_empty", 2)),
-                  (_._Z3_mk_re_full = n("Z3_mk_re_full", 2)),
-                  (_._Z3_mk_char_le = n("Z3_mk_char_le", 3)),
-                  (_._Z3_mk_char_to_int = n("Z3_mk_char_to_int", 2)),
-                  (_._Z3_mk_char_to_bv = n("Z3_mk_char_to_bv", 2)),
-                  (_._Z3_mk_char_from_bv = n("Z3_mk_char_from_bv", 2)),
-                  (_._Z3_mk_char_is_digit = n("Z3_mk_char_is_digit", 2)),
-                  (_._Z3_mk_seq_map = n("Z3_mk_seq_map", 3)),
-                  (_._Z3_mk_seq_mapi = n("Z3_mk_seq_mapi", 4)),
-                  (_._Z3_mk_seq_foldl = n("Z3_mk_seq_foldl", 4)),
-                  (_._Z3_mk_seq_foldli = n("Z3_mk_seq_foldli", 5)),
-                  (_._Z3_mk_bv_sort = n("Z3_mk_bv_sort", 2)),
-                  (_._Z3_mk_bvnot = n("Z3_mk_bvnot", 2)),
-                  (_._Z3_mk_bvredand = n("Z3_mk_bvredand", 2)),
-                  (_._Z3_mk_bvredor = n("Z3_mk_bvredor", 2)),
-                  (_._Z3_mk_bvand = n("Z3_mk_bvand", 3)),
-                  (_._Z3_mk_bvor = n("Z3_mk_bvor", 3)),
-                  (_._Z3_mk_bvxor = n("Z3_mk_bvxor", 3)),
-                  (_._Z3_mk_bvnand = n("Z3_mk_bvnand", 3)),
-                  (_._Z3_mk_bvnor = n("Z3_mk_bvnor", 3)),
-                  (_._Z3_mk_bvxnor = n("Z3_mk_bvxnor", 3)),
-                  (_._Z3_mk_bvadd = n("Z3_mk_bvadd", 3)),
-                  (_._Z3_mk_bvmul = n("Z3_mk_bvmul", 3)),
-                  (_._Z3_mk_bvudiv = n("Z3_mk_bvudiv", 3)),
-                  (_._Z3_mk_bvsdiv = n("Z3_mk_bvsdiv", 3)),
-                  (_._Z3_mk_bvurem = n("Z3_mk_bvurem", 3)),
-                  (_._Z3_mk_bvsrem = n("Z3_mk_bvsrem", 3)),
-                  (_._Z3_mk_bvsmod = n("Z3_mk_bvsmod", 3)),
-                  (_._Z3_mk_bvule = n("Z3_mk_bvule", 3)),
-                  (_._Z3_mk_bvsle = n("Z3_mk_bvsle", 3)),
-                  (_._Z3_mk_bvuge = n("Z3_mk_bvuge", 3)),
-                  (_._Z3_mk_bvsge = n("Z3_mk_bvsge", 3)),
-                  (_._Z3_mk_bvult = n("Z3_mk_bvult", 3)),
-                  (_._Z3_mk_bvslt = n("Z3_mk_bvslt", 3)),
-                  (_._Z3_mk_bvugt = n("Z3_mk_bvugt", 3)),
-                  (_._Z3_mk_bvsgt = n("Z3_mk_bvsgt", 3)),
-                  (_._Z3_mk_concat = n("Z3_mk_concat", 3)),
-                  (_._Z3_mk_bvshl = n("Z3_mk_bvshl", 3)),
-                  (_._Z3_mk_bvlshr = n("Z3_mk_bvlshr", 3)),
-                  (_._Z3_mk_bvashr = n("Z3_mk_bvashr", 3)),
-                  (_._Z3_mk_ext_rotate_left = n("Z3_mk_ext_rotate_left", 3)),
-                  (_._Z3_mk_ext_rotate_right = n("Z3_mk_ext_rotate_right", 3)),
-                  (_._Z3_mk_extract = n("Z3_mk_extract", 4)),
-                  (_._Z3_mk_sign_ext = n("Z3_mk_sign_ext", 3)),
-                  (_._Z3_mk_zero_ext = n("Z3_mk_zero_ext", 3)),
-                  (_._Z3_mk_repeat = n("Z3_mk_repeat", 3)),
-                  (_._Z3_mk_bit2bool = n("Z3_mk_bit2bool", 3)),
-                  (_._Z3_mk_rotate_left = n("Z3_mk_rotate_left", 3)),
-                  (_._Z3_mk_rotate_right = n("Z3_mk_rotate_right", 3)),
-                  (_._Z3_mk_int2bv = n("Z3_mk_int2bv", 3)),
-                  (_._Z3_mk_bv2int = n("Z3_mk_bv2int", 3)),
-                  (_._Z3_get_bv_sort_size = n("Z3_get_bv_sort_size", 2)),
-                  (_._Z3_mk_bvadd_no_overflow = n("Z3_mk_bvadd_no_overflow", 4)),
-                  (_._Z3_mk_bvadd_no_underflow = n("Z3_mk_bvadd_no_underflow", 3)),
-                  (_._Z3_mk_bvsub_no_overflow = n("Z3_mk_bvsub_no_overflow", 3)),
-                  (_._Z3_mk_bvneg = n("Z3_mk_bvneg", 2)),
-                  (_._Z3_mk_bvsub_no_underflow = n("Z3_mk_bvsub_no_underflow", 4)),
-                  (_._Z3_mk_bvmul_no_overflow = n("Z3_mk_bvmul_no_overflow", 4)),
-                  (_._Z3_mk_bvmul_no_underflow = n("Z3_mk_bvmul_no_underflow", 3)),
-                  (_._Z3_mk_bvneg_no_overflow = n("Z3_mk_bvneg_no_overflow", 2)),
-                  (_._Z3_mk_bvsdiv_no_overflow = n("Z3_mk_bvsdiv_no_overflow", 3)),
-                  (_._Z3_mk_bvsub = n("Z3_mk_bvsub", 3)),
-                  (_._Z3_stats_to_string = n("Z3_stats_to_string", 2)),
-                  (_._Z3_stats_inc_ref = n("Z3_stats_inc_ref", 2)),
-                  (_._Z3_stats_dec_ref = n("Z3_stats_dec_ref", 2)),
-                  (_._Z3_stats_size = n("Z3_stats_size", 2)),
-                  (_._Z3_stats_get_key = n("Z3_stats_get_key", 3)),
-                  (_._Z3_stats_is_uint = n("Z3_stats_is_uint", 3)),
-                  (_._Z3_stats_is_double = n("Z3_stats_is_double", 3)),
-                  (_._Z3_stats_get_uint_value = n("Z3_stats_get_uint_value", 3)),
-                  (_._Z3_stats_get_double_value = n("Z3_stats_get_double_value", 3)),
-                  (_._Z3_get_estimated_alloc_size = n("Z3_get_estimated_alloc_size", 0)),
-                  (_._Z3_global_param_set = n("Z3_global_param_set", 2)),
-                  (_._Z3_global_param_reset_all = n("Z3_global_param_reset_all", 0)),
-                  (_._Z3_global_param_get = n("Z3_global_param_get", 2)),
-                  (_._Z3_get_global_param_descrs = n("Z3_get_global_param_descrs", 1)),
-                  (_._Z3_mk_config = n("Z3_mk_config", 0)),
-                  (_._Z3_del_config = n("Z3_del_config", 1)),
-                  (_._Z3_set_param_value = n("Z3_set_param_value", 3)),
-                  (_._Z3_update_param_value = n("Z3_update_param_value", 3)),
-                  (_._Z3_mk_simple_solver = n("Z3_mk_simple_solver", 1)),
-                  (_._Z3_mk_solver = n("Z3_mk_solver", 1)),
-                  (_._Z3_mk_solver_for_logic = n("Z3_mk_solver_for_logic", 2)),
-                  (_._Z3_mk_solver_from_tactic = n("Z3_mk_solver_from_tactic", 2)),
-                  (_._Z3_solver_add_simplifier = n("Z3_solver_add_simplifier", 3)),
-                  (_._Z3_solver_translate = n("Z3_solver_translate", 3)),
-                  (_._Z3_solver_import_model_converter = n("Z3_solver_import_model_converter", 3)),
-                  (_._Z3_solver_from_string = n("Z3_solver_from_string", 3)),
-                  (_._Z3_solver_from_file = n("Z3_solver_from_file", 3)),
-                  (_._Z3_solver_get_help = n("Z3_solver_get_help", 2)),
-                  (_._Z3_solver_get_param_descrs = n("Z3_solver_get_param_descrs", 2)),
-                  (_._Z3_solver_set_params = n("Z3_solver_set_params", 3)),
-                  (_._Z3_solver_inc_ref = n("Z3_solver_inc_ref", 2)),
-                  (_._Z3_solver_dec_ref = n("Z3_solver_dec_ref", 2)),
-                  (_._Z3_solver_push = n("Z3_solver_push", 2)),
-                  (_._Z3_solver_interrupt = n("Z3_solver_interrupt", 2)),
-                  (_._Z3_solver_pop = n("Z3_solver_pop", 3)),
-                  (_._Z3_solver_reset = n("Z3_solver_reset", 2)),
-                  (_._Z3_solver_get_num_scopes = n("Z3_solver_get_num_scopes", 2)),
-                  (_._Z3_solver_assert = n("Z3_solver_assert", 3)),
-                  (_._Z3_solver_assert_and_track = n("Z3_solver_assert_and_track", 4)),
-                  (_._Z3_solver_get_assertions = n("Z3_solver_get_assertions", 2)),
-                  (_._Z3_solver_get_units = n("Z3_solver_get_units", 2)),
-                  (_._Z3_solver_get_non_units = n("Z3_solver_get_non_units", 2)),
-                  (_._Z3_solver_get_levels = n("Z3_solver_get_levels", 5)),
-                  (_._Z3_solver_get_trail = n("Z3_solver_get_trail", 2)),
-                  (Tt = n("pthread_self", 0)),
-                  (_._Z3_solver_get_model = n("Z3_solver_get_model", 2)),
-                  (_._Z3_solver_get_proof = n("Z3_solver_get_proof", 2)),
-                  (_._Z3_solver_get_unsat_core = n("Z3_solver_get_unsat_core", 2)),
-                  (_._Z3_solver_get_reason_unknown = n("Z3_solver_get_reason_unknown", 2)),
-                  (_._Z3_solver_get_statistics = n("Z3_solver_get_statistics", 2)),
-                  (_._Z3_solver_to_string = n("Z3_solver_to_string", 2)),
-                  (_._Z3_solver_to_dimacs_string = n("Z3_solver_to_dimacs_string", 3)),
-                  (_._Z3_get_implied_equalities = n("Z3_get_implied_equalities", 5)),
-                  (_._Z3_solver_congruence_root = n("Z3_solver_congruence_root", 3)),
-                  (_._Z3_solver_congruence_next = n("Z3_solver_congruence_next", 3)),
-                  (_._Z3_solver_congruence_explain = n("Z3_solver_congruence_explain", 4)),
-                  (_._Z3_solver_solve_for = n("Z3_solver_solve_for", 5)),
-                  (_._Z3_solver_register_on_clause = n("Z3_solver_register_on_clause", 4)),
-                  (_._Z3_solver_propagate_init = n("Z3_solver_propagate_init", 6)),
-                  (_._Z3_solver_propagate_fixed = n("Z3_solver_propagate_fixed", 3)),
-                  (_._Z3_solver_propagate_final = n("Z3_solver_propagate_final", 3)),
-                  (_._Z3_solver_propagate_eq = n("Z3_solver_propagate_eq", 3)),
-                  (_._Z3_solver_propagate_diseq = n("Z3_solver_propagate_diseq", 3)),
-                  (_._Z3_solver_propagate_register = n("Z3_solver_propagate_register", 3)),
-                  (_._Z3_solver_propagate_register_cb = n("Z3_solver_propagate_register_cb", 3)),
-                  (_._Z3_solver_propagate_consequence = n("Z3_solver_propagate_consequence", 8)),
-                  (_._Z3_solver_propagate_created = n("Z3_solver_propagate_created", 3)),
-                  (_._Z3_solver_propagate_decide = n("Z3_solver_propagate_decide", 3)),
-                  (_._Z3_solver_propagate_on_binding = n("Z3_solver_propagate_on_binding", 3)),
-                  (_._Z3_solver_next_split = n("Z3_solver_next_split", 5)),
-                  (_._Z3_solver_propagate_declare = n("Z3_solver_propagate_declare", 5)),
-                  (_._Z3_solver_set_initial_value = n("Z3_solver_set_initial_value", 4)),
-                  (_._Z3_mk_quantifier = n("Z3_mk_quantifier", 9)),
-                  (_._Z3_mk_quantifier_ex = n("Z3_mk_quantifier_ex", 13)),
-                  (_._Z3_mk_forall = n("Z3_mk_forall", 8)),
-                  (_._Z3_mk_exists = n("Z3_mk_exists", 8)),
-                  (_._Z3_mk_lambda = n("Z3_mk_lambda", 5)),
-                  (_._Z3_mk_lambda_const = n("Z3_mk_lambda_const", 4)),
-                  (_._Z3_mk_quantifier_const_ex = n("Z3_mk_quantifier_const_ex", 12)),
-                  (_._Z3_mk_quantifier_const = n("Z3_mk_quantifier_const", 8)),
-                  (_._Z3_mk_forall_const = n("Z3_mk_forall_const", 7)),
-                  (_._Z3_mk_exists_const = n("Z3_mk_exists_const", 7)),
-                  (_._Z3_mk_pattern = n("Z3_mk_pattern", 3)),
-                  (_._Z3_mk_bound = n("Z3_mk_bound", 3)),
-                  (_._Z3_is_quantifier_forall = n("Z3_is_quantifier_forall", 2)),
-                  (_._Z3_is_quantifier_exists = n("Z3_is_quantifier_exists", 2)),
-                  (_._Z3_is_lambda = n("Z3_is_lambda", 2)),
-                  (_._Z3_get_quantifier_weight = n("Z3_get_quantifier_weight", 2)),
-                  (_._Z3_get_quantifier_skolem_id = n("Z3_get_quantifier_skolem_id", 2)),
-                  (_._Z3_get_quantifier_id = n("Z3_get_quantifier_id", 2)),
-                  (_._Z3_get_quantifier_num_patterns = n("Z3_get_quantifier_num_patterns", 2)),
-                  (_._Z3_get_quantifier_pattern_ast = n("Z3_get_quantifier_pattern_ast", 3)),
-                  (_._Z3_get_quantifier_num_no_patterns = n("Z3_get_quantifier_num_no_patterns", 2)),
-                  (_._Z3_get_quantifier_no_pattern_ast = n("Z3_get_quantifier_no_pattern_ast", 3)),
-                  (_._Z3_get_quantifier_bound_name = n("Z3_get_quantifier_bound_name", 3)),
-                  (_._Z3_get_quantifier_bound_sort = n("Z3_get_quantifier_bound_sort", 3)),
-                  (_._Z3_get_quantifier_body = n("Z3_get_quantifier_body", 2)),
-                  (_._Z3_get_quantifier_num_bound = n("Z3_get_quantifier_num_bound", 2)),
-                  (_._Z3_get_pattern_num_terms = n("Z3_get_pattern_num_terms", 2)),
-                  (_._Z3_get_pattern = n("Z3_get_pattern", 3)),
-                  (_._Z3_pattern_to_ast = n("Z3_pattern_to_ast", 2)),
-                  (_._Z3_pattern_to_string = n("Z3_pattern_to_string", 2)),
-                  (_._Z3_mk_params = n("Z3_mk_params", 1)),
-                  (_._Z3_params_inc_ref = n("Z3_params_inc_ref", 2)),
-                  (_._Z3_params_dec_ref = n("Z3_params_dec_ref", 2)),
-                  (_._Z3_params_set_bool = n("Z3_params_set_bool", 4)),
-                  (_._Z3_params_set_uint = n("Z3_params_set_uint", 4)),
-                  (_._Z3_params_set_double = n("Z3_params_set_double", 4)),
-                  (_._Z3_params_set_symbol = n("Z3_params_set_symbol", 4)),
-                  (_._Z3_params_to_string = n("Z3_params_to_string", 2)),
-                  (_._Z3_params_validate = n("Z3_params_validate", 3)),
-                  (_._Z3_param_descrs_inc_ref = n("Z3_param_descrs_inc_ref", 2)),
-                  (_._Z3_param_descrs_dec_ref = n("Z3_param_descrs_dec_ref", 2)),
-                  (_._Z3_param_descrs_get_kind = n("Z3_param_descrs_get_kind", 3)),
-                  (_._Z3_param_descrs_size = n("Z3_param_descrs_size", 2)),
-                  (_._Z3_param_descrs_get_name = n("Z3_param_descrs_get_name", 3)),
-                  (_._Z3_param_descrs_get_documentation = n("Z3_param_descrs_get_documentation", 3)),
-                  (_._Z3_param_descrs_to_string = n("Z3_param_descrs_to_string", 2)),
-                  (_._Z3_mk_numeral = n("Z3_mk_numeral", 3)),
-                  (_._Z3_mk_int = n("Z3_mk_int", 3)),
-                  (_._Z3_mk_unsigned_int = n("Z3_mk_unsigned_int", 3)),
-                  (_._Z3_mk_int64 = n("Z3_mk_int64", 3)),
-                  (_._Z3_mk_unsigned_int64 = n("Z3_mk_unsigned_int64", 3)),
-                  (_._Z3_is_numeral_ast = n("Z3_is_numeral_ast", 2)),
-                  (_._Z3_get_numeral_binary_string = n("Z3_get_numeral_binary_string", 2)),
-                  (_._Z3_get_numeral_string = n("Z3_get_numeral_string", 2)),
-                  (_._Z3_get_numeral_double = n("Z3_get_numeral_double", 2)),
-                  (_._Z3_get_numeral_decimal_string = n("Z3_get_numeral_decimal_string", 3)),
-                  (_._Z3_get_numeral_small = n("Z3_get_numeral_small", 4)),
-                  (_._Z3_get_numeral_int = n("Z3_get_numeral_int", 3)),
-                  (_._Z3_get_numeral_int64 = n("Z3_get_numeral_int64", 3)),
-                  (_._Z3_get_numeral_uint = n("Z3_get_numeral_uint", 3)),
-                  (_._Z3_get_numeral_uint64 = n("Z3_get_numeral_uint64", 3)),
-                  (_._Z3_get_numeral_rational_int64 = n("Z3_get_numeral_rational_int64", 4)),
-                  (_._Z3_mk_bv_numeral = n("Z3_mk_bv_numeral", 3)),
-                  (_._Z3_mk_parser_context = n("Z3_mk_parser_context", 1)),
-                  (_._Z3_parser_context_inc_ref = n("Z3_parser_context_inc_ref", 2)),
-                  (_._Z3_parser_context_dec_ref = n("Z3_parser_context_dec_ref", 2)),
-                  (_._Z3_parser_context_add_sort = n("Z3_parser_context_add_sort", 3)),
-                  (_._Z3_parser_context_add_decl = n("Z3_parser_context_add_decl", 3)),
-                  (_._Z3_parser_context_from_string = n("Z3_parser_context_from_string", 3)),
-                  (_._Z3_parse_smtlib2_string = n("Z3_parse_smtlib2_string", 8)),
-                  (_._Z3_parse_smtlib2_file = n("Z3_parse_smtlib2_file", 8)),
-                  (_._free = rn = n("free", 1)),
-                  (_._malloc = n("malloc", 1)),
-                  (nn = n("fflush", 1)),
-                  (an = n("_emscripten_thread_init", 6)),
-                  (Zi = n("_emscripten_thread_crashed", 0)),
-                  (on = e.emscripten_stack_get_end),
-                  e.emscripten_stack_get_base,
-                  (gi = n("_emscripten_run_js_on_main_thread", 5)),
-                  (di = n("_emscripten_thread_free_data", 1)),
-                  (sn = n("_emscripten_thread_exit", 1)),
-                  (hi = n("strerror", 1)),
-                  (bi = n("_emscripten_check_mailbox", 0)),
-                  (X = n("setThrew", 2)),
-                  (vi = n("_emscripten_tempret_set", 1)),
-                  (yi = e.emscripten_stack_init),
-                  (ki = e.emscripten_stack_set_limits),
-                  e.emscripten_stack_get_free,
-                  (Ei = e._emscripten_stack_restore),
-                  (wi = e._emscripten_stack_alloc),
-                  (un = e.emscripten_stack_get_current),
-                  (cn = n("__cxa_decrement_exception_refcount", 1)),
-                  (ln = n("__cxa_increment_exception_refcount", 1)),
-                  (Oi = n("__get_exception_message", 3)),
-                  (Pi = n("__cxa_can_catch", 3)),
-                  (Ti = n("__cxa_get_exception_ptr", 1)));
-              }
-              var mn;
-              function pa() {
-                mn = {
-                  __assert_fail: Xr,
-                  __cxa_begin_catch: vr,
-                  __cxa_end_catch: yr,
-                  __cxa_find_matching_catch_2: kr,
-                  __cxa_find_matching_catch_3: Er,
-                  __cxa_find_matching_catch_4: wr,
-                  __cxa_find_matching_catch_7: Or,
-                  __cxa_find_matching_catch_8: Pr,
-                  __cxa_rethrow: Tr,
-                  __cxa_throw: xr,
-                  __cxa_uncaught_exceptions: Sr,
-                  __pthread_create_js: Ut,
-                  __resumeException: Ar,
-                  __syscall_fcntl64: kt,
-                  __syscall_ioctl: Et,
-                  __syscall_openat: f_,
-                  _abort_js: Wt,
-                  _emscripten_init_main_thread_js: wt,
-                  _emscripten_notify_mailbox_postmessage: Qt,
-                  _emscripten_receive_on_main_thread_js: Nr,
-                  _emscripten_thread_cleanup: Ze,
-                  _emscripten_thread_mailbox_await: Yt,
-                  _emscripten_thread_set_strongref: _n,
-                  _tzset_js: en,
-                  clock_time_get: a_,
-                  emscripten_asm_const_async_on_main_thread: M_,
-                  emscripten_asm_const_int: de,
-                  emscripten_check_blocking_allowed: Ae,
-                  emscripten_exit_with_live_runtime: Re,
-                  emscripten_get_heap_max: at,
-                  emscripten_get_now: w_,
-                  emscripten_num_logical_cores: ot,
-                  emscripten_resize_heap: Lr,
-                  environ_get: si,
-                  environ_sizes_get: ui,
-                  exit: Ke,
-                  fd_close: ci,
-                  fd_read: li,
-                  fd_seek: mi,
-                  fd_write: fi,
-                  invoke_di: ro,
-                  invoke_dii: Fa,
-                  invoke_diid: Va,
-                  invoke_diii: fo,
-                  invoke_diiid: _o,
-                  invoke_fii: lo,
-                  invoke_fiii: bo,
-                  invoke_fiiii: io,
-                  invoke_i: ya,
-                  invoke_id: Ia,
-                  invoke_ii: ha,
-                  invoke_iid: La,
-                  invoke_iii: Za,
-                  invoke_iiid: to,
-                  invoke_iiii: ba,
-                  invoke_iiiii: ka,
-                  invoke_iiiiid: po,
-                  invoke_iiiiii: Ea,
-                  invoke_iiiiiii: Sa,
-                  invoke_iiiiiiii: Ba,
-                  invoke_iiiiiiiii: Ua,
-                  invoke_iiiiiiiiii: eo,
-                  invoke_iiiiiiiiiii: no,
-                  invoke_iiiiiiiiiiii: $a,
-                  invoke_iiiiiiiiiiiii: so,
-                  invoke_iiiiiiiiiiiiii: Ga,
-                  invoke_iiiiij: ho,
-                  invoke_iiij: Pa,
-                  invoke_iij: Ya,
-                  invoke_iiji: Wa,
-                  invoke_iijii: mo,
-                  invoke_j: Na,
-                  invoke_ji: Ka,
-                  invoke_jii: ja,
-                  invoke_jiiii: Zo,
-                  invoke_jiij: Ja,
-                  invoke_v: wa,
-                  invoke_vi: da,
-                  invoke_vid: Ra,
-                  invoke_vidi: wo,
-                  invoke_vifi: ko,
-                  invoke_vii: va,
-                  invoke_viid: Aa,
-                  invoke_viii: ga,
-                  invoke_viiid: To,
-                  invoke_viiii: Ta,
-                  invoke_viiiid: Ca,
-                  invoke_viiiif: Eo,
-                  invoke_viiiii: xa,
-                  invoke_viiiiii: Ma,
-                  invoke_viiiiiii: qa,
-                  invoke_viiiiiiii: Da,
-                  invoke_viiiiiiiii: Qa,
-                  invoke_viiiiiiiiii: ao,
-                  invoke_viiiiiiiiiii: Xa,
-                  invoke_viiiiiiiiiiii: oo,
-                  invoke_viiiiiiiiiiiii: go,
-                  invoke_viiiiiiiiiiiiiii: vo,
-                  invoke_viiiiiji: Ha,
-                  invoke_viiiiijj: Po,
-                  invoke_viij: Oa,
-                  invoke_viiji: uo,
-                  invoke_viijji: Oo,
-                  invoke_vij: co,
-                  invoke_viji: za,
-                  invoke_vijj: yo,
-                  llvm_eh_typeid_for: ea,
-                  memory: A_,
-                  proc_exit: Ft,
-                };
-              }
-              function Za(e, r, s) {
-                var p = W();
-                try {
-                  return Q(e)(r, s);
-                } catch (g) {
-                  if ((H(p), !(g instanceof $))) throw g;
-                  X(1, 0);
-                }
-              }
-              function ga(e, r, s, p) {
-                var g = W();
-                try {
-                  Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function da(e, r) {
-                var s = W();
-                try {
-                  Q(e)(r);
-                } catch (p) {
-                  if ((H(s), !(p instanceof $))) throw p;
-                  X(1, 0);
-                }
-              }
-              function ha(e, r) {
-                var s = W();
-                try {
-                  return Q(e)(r);
-                } catch (p) {
-                  if ((H(s), !(p instanceof $))) throw p;
-                  X(1, 0);
-                }
-              }
-              function ba(e, r, s, p) {
-                var g = W();
-                try {
-                  return Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function va(e, r, s) {
-                var p = W();
-                try {
-                  Q(e)(r, s);
-                } catch (g) {
-                  if ((H(p), !(g instanceof $))) throw g;
-                  X(1, 0);
-                }
-              }
-              function ya(e) {
-                var r = W();
-                try {
-                  return Q(e)();
-                } catch (s) {
-                  if ((H(r), !(s instanceof $))) throw s;
-                  X(1, 0);
-                }
-              }
-              function ka(e, r, s, p, g) {
-                var v = W();
-                try {
-                  return Q(e)(r, s, p, g);
-                } catch (O) {
-                  if ((H(v), !(O instanceof $))) throw O;
-                  X(1, 0);
-                }
-              }
-              function Ea(e, r, s, p, g, v) {
-                var O = W();
-                try {
-                  return Q(e)(r, s, p, g, v);
-                } catch (S) {
-                  if ((H(O), !(S instanceof $))) throw S;
-                  X(1, 0);
-                }
-              }
-              function wa(e) {
-                var r = W();
-                try {
-                  Q(e)();
-                } catch (s) {
-                  if ((H(r), !(s instanceof $))) throw s;
-                  X(1, 0);
-                }
-              }
-              function Oa(e, r, s, p) {
-                var g = W();
-                try {
-                  Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function Pa(e, r, s, p) {
-                var g = W();
-                try {
-                  return Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function Ta(e, r, s, p, g) {
-                var v = W();
-                try {
-                  Q(e)(r, s, p, g);
-                } catch (O) {
-                  if ((H(v), !(O instanceof $))) throw O;
-                  X(1, 0);
-                }
-              }
-              function xa(e, r, s, p, g, v) {
-                var O = W();
-                try {
-                  Q(e)(r, s, p, g, v);
-                } catch (S) {
-                  if ((H(O), !(S instanceof $))) throw S;
-                  X(1, 0);
-                }
-              }
-              function Sa(e, r, s, p, g, v, O) {
-                var S = W();
-                try {
-                  return Q(e)(r, s, p, g, v, O);
-                } catch (q) {
-                  if ((H(S), !(q instanceof $))) throw q;
-                  X(1, 0);
-                }
-              }
-              function Aa(e, r, s, p) {
-                var g = W();
-                try {
-                  Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function Ra(e, r, s) {
-                var p = W();
-                try {
-                  Q(e)(r, s);
-                } catch (g) {
-                  if ((H(p), !(g instanceof $))) throw g;
-                  X(1, 0);
-                }
-              }
-              function Ia(e, r) {
-                var s = W();
-                try {
-                  return Q(e)(r);
-                } catch (p) {
-                  if ((H(s), !(p instanceof $))) throw p;
-                  X(1, 0);
-                }
-              }
-              function Fa(e, r, s) {
-                var p = W();
-                try {
-                  return Q(e)(r, s);
-                } catch (g) {
-                  if ((H(p), !(g instanceof $))) throw g;
-                  X(1, 0);
-                }
-              }
-              function Na(e) {
-                var r = W();
-                try {
-                  return Q(e)();
-                } catch (s) {
-                  if ((H(r), !(s instanceof $))) throw s;
-                  return (X(1, 0), 0n);
-                }
-              }
-              function La(e, r, s) {
-                var p = W();
-                try {
-                  return Q(e)(r, s);
-                } catch (g) {
-                  if ((H(p), !(g instanceof $))) throw g;
-                  X(1, 0);
-                }
-              }
-              function qa(e, r, s, p, g, v, O, S) {
-                var q = W();
-                try {
-                  Q(e)(r, s, p, g, v, O, S);
-                } catch (z) {
-                  if ((H(q), !(z instanceof $))) throw z;
-                  X(1, 0);
-                }
-              }
-              function Ma(e, r, s, p, g, v, O) {
-                var S = W();
-                try {
-                  Q(e)(r, s, p, g, v, O);
-                } catch (q) {
-                  if ((H(S), !(q instanceof $))) throw q;
-                  X(1, 0);
-                }
-              }
-              function Ba(e, r, s, p, g, v, O, S) {
-                var q = W();
-                try {
-                  return Q(e)(r, s, p, g, v, O, S);
-                } catch (z) {
-                  if ((H(q), !(z instanceof $))) throw z;
-                  X(1, 0);
-                }
-              }
-              function Ua(e, r, s, p, g, v, O, S, q) {
-                var z = W();
-                try {
-                  return Q(e)(r, s, p, g, v, O, S, q);
-                } catch (Y) {
-                  if ((H(z), !(Y instanceof $))) throw Y;
-                  X(1, 0);
-                }
-              }
-              function Da(e, r, s, p, g, v, O, S, q) {
-                var z = W();
-                try {
-                  Q(e)(r, s, p, g, v, O, S, q);
-                } catch (Y) {
-                  if ((H(z), !(Y instanceof $))) throw Y;
-                  X(1, 0);
-                }
-              }
-              function Ca(e, r, s, p, g, v) {
-                var O = W();
-                try {
-                  Q(e)(r, s, p, g, v);
-                } catch (S) {
-                  if ((H(O), !(S instanceof $))) throw S;
-                  X(1, 0);
-                }
-              }
-              function za(e, r, s, p) {
-                var g = W();
-                try {
-                  Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function ja(e, r, s) {
-                var p = W();
-                try {
-                  return Q(e)(r, s);
-                } catch (g) {
-                  if ((H(p), !(g instanceof $))) throw g;
-                  return (X(1, 0), 0n);
-                }
-              }
-              function Va(e, r, s, p) {
-                var g = W();
-                try {
-                  return Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function Ga(e, r, s, p, g, v, O, S, q, z, Y, n_, __, J) {
-                var e_ = W();
-                try {
-                  return Q(e)(r, s, p, g, v, O, S, q, z, Y, n_, __, J);
-                } catch (d_) {
-                  if ((H(e_), !(d_ instanceof $))) throw d_;
-                  X(1, 0);
-                }
-              }
-              function $a(e, r, s, p, g, v, O, S, q, z, Y, n_) {
-                var __ = W();
-                try {
-                  return Q(e)(r, s, p, g, v, O, S, q, z, Y, n_);
-                } catch (J) {
-                  if ((H(__), !(J instanceof $))) throw J;
-                  X(1, 0);
-                }
-              }
-              function Wa(e, r, s, p) {
-                var g = W();
-                try {
-                  return Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function Ha(e, r, s, p, g, v, O, S) {
-                var q = W();
-                try {
-                  Q(e)(r, s, p, g, v, O, S);
-                } catch (z) {
-                  if ((H(q), !(z instanceof $))) throw z;
-                  X(1, 0);
-                }
-              }
-              function Ya(e, r, s) {
-                var p = W();
-                try {
-                  return Q(e)(r, s);
-                } catch (g) {
-                  if ((H(p), !(g instanceof $))) throw g;
-                  X(1, 0);
-                }
-              }
-              function Qa(e, r, s, p, g, v, O, S, q, z) {
-                var Y = W();
-                try {
-                  Q(e)(r, s, p, g, v, O, S, q, z);
-                } catch (n_) {
-                  if ((H(Y), !(n_ instanceof $))) throw n_;
-                  X(1, 0);
-                }
-              }
-              function Xa(e, r, s, p, g, v, O, S, q, z, Y, n_) {
-                var __ = W();
-                try {
-                  Q(e)(r, s, p, g, v, O, S, q, z, Y, n_);
-                } catch (J) {
-                  if ((H(__), !(J instanceof $))) throw J;
-                  X(1, 0);
-                }
-              }
-              function Ka(e, r) {
-                var s = W();
-                try {
-                  return Q(e)(r);
-                } catch (p) {
-                  if ((H(s), !(p instanceof $))) throw p;
-                  return (X(1, 0), 0n);
-                }
-              }
-              function Ja(e, r, s, p) {
-                var g = W();
-                try {
-                  return Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  return (X(1, 0), 0n);
-                }
-              }
-              function _o(e, r, s, p, g) {
-                var v = W();
-                try {
-                  return Q(e)(r, s, p, g);
-                } catch (O) {
-                  if ((H(v), !(O instanceof $))) throw O;
-                  X(1, 0);
-                }
-              }
-              function eo(e, r, s, p, g, v, O, S, q, z) {
-                var Y = W();
-                try {
-                  return Q(e)(r, s, p, g, v, O, S, q, z);
-                } catch (n_) {
-                  if ((H(Y), !(n_ instanceof $))) throw n_;
-                  X(1, 0);
-                }
-              }
-              function to(e, r, s, p) {
-                var g = W();
-                try {
-                  return Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function ro(e, r) {
-                var s = W();
-                try {
-                  return Q(e)(r);
-                } catch (p) {
-                  if ((H(s), !(p instanceof $))) throw p;
-                  X(1, 0);
-                }
-              }
-              function no(e, r, s, p, g, v, O, S, q, z, Y) {
-                var n_ = W();
-                try {
-                  return Q(e)(r, s, p, g, v, O, S, q, z, Y);
-                } catch (__) {
-                  if ((H(n_), !(__ instanceof $))) throw __;
-                  X(1, 0);
-                }
-              }
-              function io(e, r, s, p, g) {
-                var v = W();
-                try {
-                  return Q(e)(r, s, p, g);
-                } catch (O) {
-                  if ((H(v), !(O instanceof $))) throw O;
-                  X(1, 0);
-                }
-              }
-              function ao(e, r, s, p, g, v, O, S, q, z, Y) {
-                var n_ = W();
-                try {
-                  Q(e)(r, s, p, g, v, O, S, q, z, Y);
-                } catch (__) {
-                  if ((H(n_), !(__ instanceof $))) throw __;
-                  X(1, 0);
-                }
-              }
-              function oo(e, r, s, p, g, v, O, S, q, z, Y, n_, __) {
-                var J = W();
-                try {
-                  Q(e)(r, s, p, g, v, O, S, q, z, Y, n_, __);
-                } catch (e_) {
-                  if ((H(J), !(e_ instanceof $))) throw e_;
-                  X(1, 0);
-                }
-              }
-              function so(e, r, s, p, g, v, O, S, q, z, Y, n_, __) {
-                var J = W();
-                try {
-                  return Q(e)(r, s, p, g, v, O, S, q, z, Y, n_, __);
-                } catch (e_) {
-                  if ((H(J), !(e_ instanceof $))) throw e_;
-                  X(1, 0);
-                }
-              }
-              function uo(e, r, s, p, g) {
-                var v = W();
-                try {
-                  Q(e)(r, s, p, g);
-                } catch (O) {
-                  if ((H(v), !(O instanceof $))) throw O;
-                  X(1, 0);
-                }
-              }
-              function co(e, r, s) {
-                var p = W();
-                try {
-                  Q(e)(r, s);
-                } catch (g) {
-                  if ((H(p), !(g instanceof $))) throw g;
-                  X(1, 0);
-                }
-              }
-              function lo(e, r, s) {
-                var p = W();
-                try {
-                  return Q(e)(r, s);
-                } catch (g) {
-                  if ((H(p), !(g instanceof $))) throw g;
-                  X(1, 0);
-                }
-              }
-              function mo(e, r, s, p, g) {
-                var v = W();
-                try {
-                  return Q(e)(r, s, p, g);
-                } catch (O) {
-                  if ((H(v), !(O instanceof $))) throw O;
-                  X(1, 0);
-                }
-              }
-              function fo(e, r, s, p) {
-                var g = W();
-                try {
-                  return Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function po(e, r, s, p, g, v) {
-                var O = W();
-                try {
-                  return Q(e)(r, s, p, g, v);
-                } catch (S) {
-                  if ((H(O), !(S instanceof $))) throw S;
-                  X(1, 0);
-                }
-              }
-              function Zo(e, r, s, p, g) {
-                var v = W();
-                try {
-                  return Q(e)(r, s, p, g);
-                } catch (O) {
-                  if ((H(v), !(O instanceof $))) throw O;
-                  return (X(1, 0), 0n);
-                }
-              }
-              function go(e, r, s, p, g, v, O, S, q, z, Y, n_, __, J) {
-                var e_ = W();
-                try {
-                  Q(e)(r, s, p, g, v, O, S, q, z, Y, n_, __, J);
-                } catch (d_) {
-                  if ((H(e_), !(d_ instanceof $))) throw d_;
-                  X(1, 0);
-                }
-              }
-              function ho(e, r, s, p, g, v) {
-                var O = W();
-                try {
-                  return Q(e)(r, s, p, g, v);
-                } catch (S) {
-                  if ((H(O), !(S instanceof $))) throw S;
-                  X(1, 0);
-                }
-              }
-              function bo(e, r, s, p) {
-                var g = W();
-                try {
-                  return Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function vo(e, r, s, p, g, v, O, S, q, z, Y, n_, __, J, e_, d_) {
-                var Q_ = W();
-                try {
-                  Q(e)(r, s, p, g, v, O, S, q, z, Y, n_, __, J, e_, d_);
-                } catch (B_) {
-                  if ((H(Q_), !(B_ instanceof $))) throw B_;
-                  X(1, 0);
-                }
-              }
-              function yo(e, r, s, p) {
-                var g = W();
-                try {
-                  Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function ko(e, r, s, p) {
-                var g = W();
-                try {
-                  Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function Eo(e, r, s, p, g, v) {
-                var O = W();
-                try {
-                  Q(e)(r, s, p, g, v);
-                } catch (S) {
-                  if ((H(O), !(S instanceof $))) throw S;
-                  X(1, 0);
-                }
-              }
-              function wo(e, r, s, p) {
-                var g = W();
-                try {
-                  Q(e)(r, s, p);
-                } catch (v) {
-                  if ((H(g), !(v instanceof $))) throw v;
-                  X(1, 0);
-                }
-              }
-              function Oo(e, r, s, p, g, v) {
-                var O = W();
-                try {
-                  Q(e)(r, s, p, g, v);
-                } catch (S) {
-                  if ((H(O), !(S instanceof $))) throw S;
-                  X(1, 0);
-                }
-              }
-              function Po(e, r, s, p, g, v, O, S) {
-                var q = W();
-                try {
-                  Q(e)(r, s, p, g, v, O, S);
-                } catch (z) {
-                  if ((H(q), !(z instanceof $))) throw z;
-                  X(1, 0);
-                }
-              }
-              function To(e, r, s, p, g) {
-                var v = W();
-                try {
-                  Q(e)(r, s, p, g);
-                } catch (O) {
-                  if ((H(v), !(O instanceof $))) throw O;
-                  X(1, 0);
-                }
-              }
-              var xi;
-              function xo() {
-                (C(!M), yi(), qe());
-              }
-              function qr() {
-                if (K_ > 0) {
-                  xe = qr;
-                  return;
-                }
-                if (M) {
-                  (Ye?.(_), l_());
-                  return;
-                }
-                if ((xo(), D(), K_ > 0)) {
-                  xe = qr;
-                  return;
-                }
-                function e() {
-                  (C(!xi),
-                    (xi = !0),
-                    (_.calledRun = !0),
-                    !ie &&
-                      (l_(),
-                      Ye?.(_),
-                      _.onRuntimeInitialized?.(),
-                      F_("onRuntimeInitialized"),
-                      C(!_._main, 'compiled without a main, but one is present. if you added it from JS, use Module["onRuntimeInitialized"]'),
-                      k_()));
-                }
-                (_.setStatus
-                  ? (_.setStatus("Running..."),
-                    setTimeout(() => {
-                      (setTimeout(() => _.setStatus(""), 1), e());
-                    }, 1))
-                  : e(),
-                  $_());
-              }
-              function So() {
-                var e = V_,
-                  r = c_,
-                  s = !1;
-                V_ = c_ = (p) => {
-                  s = !0;
-                };
-                try {
-                  (nn(0),
-                    ["stdout", "stderr"].forEach((p) => {
-                      var g = d.analyzePath("/dev/" + p);
-                      if (g) {
-                        var v = g.object,
-                          O = v.rdev,
-                          S = pe.ttys[O];
-                        S?.output?.length && (s = !0);
-                      }
-                    }));
-                } catch {}
-                ((V_ = e),
-                  (c_ = r),
-                  s &&
-                    oe(
-                      "stdio streams had content in them that was not flushed. you should set EXIT_RUNTIME to 1 (see the Emscripten FAQ), or make sure to emit a newline when you printf etc.",
-                    ));
-              }
-              var Ve;
-              (M || ((Ve = await pr()), qr()),
-                E
-                  ? (P = _)
-                  : (P = new Promise((e, r) => {
-                      ((Ye = e), (Ee = r));
-                    })));
-              for (const e of Object.keys(_))
-                e in x ||
-                  Object.defineProperty(x, e, {
-                    configurable: !0,
-                    get() {
-                      t_(
-                        `Access to module property ('${e}') is no longer possible via the module constructor argument; Instead, use the result of the module constructor.`,
-                      );
-                    },
-                  });
-              return P;
-            };
-          })();
-          ((T.exports = t), (T.exports.default = t));
-          var b = globalThis.self?.name?.startsWith("em-pthread"),
-            I = typeof process == "object" && process.versions?.node && process.type != "renderer";
-          (I && (b = Ne.workerData === "em-pthread"), b && t());
-        })(Br)),
-      Br.exports
-    );
-  }
-  var $e = {},
-    tr = {},
-    Ur = {},
-    Dr = function (T, y) {
+  var qn = Cn(),
+    Tt = {},
+    vt = {},
+    _r = {},
+    Ir = {},
+    Zr = function (g, l) {
       return (
-        (Dr =
+        (Zr =
           Object.setPrototypeOf ||
           ({ __proto__: [] } instanceof Array &&
-            function (t, b) {
-              t.__proto__ = b;
+            function (t, c) {
+              t.__proto__ = c;
             }) ||
-          function (t, b) {
-            for (var I in b) Object.prototype.hasOwnProperty.call(b, I) && (t[I] = b[I]);
+          function (t, c) {
+            for (var P in c) Object.prototype.hasOwnProperty.call(c, P) && (t[P] = c[P]);
           }),
-        Dr(T, y)
+        Zr(g, l)
       );
     };
-  function dn(T, y) {
-    if (typeof y != "function" && y !== null) throw new TypeError("Class extends value " + String(y) + " is not a constructor or null");
-    Dr(T, y);
+  function he(g, l) {
+    if (typeof l != "function" && l !== null) throw new TypeError("Class extends value " + String(l) + " is not a constructor or null");
+    Zr(g, l);
     function t() {
-      this.constructor = T;
+      this.constructor = g;
     }
-    T.prototype = y === null ? Object.create(y) : ((t.prototype = y.prototype), new t());
+    g.prototype = l === null ? Object.create(l) : ((t.prototype = l.prototype), new t());
   }
-  var rr = function () {
+  var ir = function () {
     return (
-      (rr =
+      (ir =
         Object.assign ||
-        function (y) {
-          for (var t, b = 1, I = arguments.length; b < I; b++) {
-            t = arguments[b];
-            for (var R in t) Object.prototype.hasOwnProperty.call(t, R) && (y[R] = t[R]);
+        function (l) {
+          for (var t, c = 1, P = arguments.length; c < P; c++) {
+            t = arguments[c];
+            for (var y in t) Object.prototype.hasOwnProperty.call(t, y) && (l[y] = t[y]);
           }
-          return y;
+          return l;
         }),
-      rr.apply(this, arguments)
+      ir.apply(this, arguments)
     );
   };
-  function hn(T, y) {
+  function be(g, l) {
     var t = {};
-    for (var b in T) Object.prototype.hasOwnProperty.call(T, b) && y.indexOf(b) < 0 && (t[b] = T[b]);
-    if (T != null && typeof Object.getOwnPropertySymbols == "function")
-      for (var I = 0, b = Object.getOwnPropertySymbols(T); I < b.length; I++)
-        y.indexOf(b[I]) < 0 && Object.prototype.propertyIsEnumerable.call(T, b[I]) && (t[b[I]] = T[b[I]]);
+    for (var c in g) Object.prototype.hasOwnProperty.call(g, c) && l.indexOf(c) < 0 && (t[c] = g[c]);
+    if (g != null && typeof Object.getOwnPropertySymbols == "function")
+      for (var P = 0, c = Object.getOwnPropertySymbols(g); P < c.length; P++)
+        l.indexOf(c[P]) < 0 && Object.prototype.propertyIsEnumerable.call(g, c[P]) && (t[c[P]] = g[c[P]]);
     return t;
   }
-  function bn(T, y, t, b) {
-    var I = arguments.length,
-      R = I < 3 ? y : b === null ? (b = Object.getOwnPropertyDescriptor(y, t)) : b,
-      x;
-    if (typeof Reflect == "object" && typeof Reflect.decorate == "function") R = Reflect.decorate(T, y, t, b);
-    else for (var P = T.length - 1; P >= 0; P--) (x = T[P]) && (R = (I < 3 ? x(R) : I > 3 ? x(y, t, R) : x(y, t)) || R);
-    return (I > 3 && R && Object.defineProperty(y, t, R), R);
+  function ge(g, l, t, c) {
+    var P = arguments.length,
+      y = P < 3 ? l : c === null ? (c = Object.getOwnPropertyDescriptor(l, t)) : c,
+      O;
+    if (typeof Reflect == "object" && typeof Reflect.decorate == "function") y = Reflect.decorate(g, l, t, c);
+    else for (var b = g.length - 1; b >= 0; b--) (O = g[b]) && (y = (P < 3 ? O(y) : P > 3 ? O(l, t, y) : O(l, t)) || y);
+    return (P > 3 && y && Object.defineProperty(l, t, y), y);
   }
-  function vn(T, y) {
-    return function (t, b) {
-      y(t, b, T);
+  function Oe(g, l) {
+    return function (t, c) {
+      l(t, c, g);
     };
   }
-  function yn(T, y, t, b, I, R) {
-    function x(Z) {
-      if (Z !== void 0 && typeof Z != "function") throw new TypeError("Function expected");
-      return Z;
+  function Pe(g, l, t, c, P, y) {
+    function O(u) {
+      if (u !== void 0 && typeof u != "function") throw new TypeError("Function expected");
+      return u;
     }
     for (
-      var P = b.kind,
-        _ = P === "getter" ? "get" : P === "setter" ? "set" : "value",
-        B = !y && T ? (b.static ? T : T.prototype) : null,
-        a = y || (B ? Object.getOwnPropertyDescriptor(B, b.name) : {}),
-        V,
-        s_ = !1,
-        M = t.length - 1;
-      M >= 0;
-      M--
+      var b = c.kind,
+        a = b === "getter" ? "get" : b === "setter" ? "set" : "value",
+        S = !l && g ? (c.static ? g : g.prototype) : null,
+        r = l || (S ? Object.getOwnPropertyDescriptor(S, c.name) : {}),
+        d,
+        M = !1,
+        I = t.length - 1;
+      I >= 0;
+      I--
     ) {
-      var K = {};
-      for (var u in b) K[u] = u === "access" ? {} : b[u];
-      for (var u in b.access) K.access[u] = b.access[u];
-      K.addInitializer = function (Z) {
-        if (s_) throw new TypeError("Cannot add initializers after decoration has completed");
-        R.push(x(Z || null));
+      var N = {};
+      for (var _ in c) N[_] = _ === "access" ? {} : c[_];
+      for (var _ in c.access) N.access[_] = c.access[_];
+      N.addInitializer = function (u) {
+        if (M) throw new TypeError("Cannot add initializers after decoration has completed");
+        y.push(O(u || null));
       };
-      var c = (0, t[M])(P === "accessor" ? { get: a.get, set: a.set } : a[_], K);
-      if (P === "accessor") {
-        if (c === void 0) continue;
-        if (c === null || typeof c != "object") throw new TypeError("Object expected");
-        ((V = x(c.get)) && (a.get = V), (V = x(c.set)) && (a.set = V), (V = x(c.init)) && I.unshift(V));
-      } else (V = x(c)) && (P === "field" ? I.unshift(V) : (a[_] = V));
+      var n = (0, t[I])(b === "accessor" ? { get: r.get, set: r.set } : r[a], N);
+      if (b === "accessor") {
+        if (n === void 0) continue;
+        if (n === null || typeof n != "object") throw new TypeError("Object expected");
+        ((d = O(n.get)) && (r.get = d), (d = O(n.set)) && (r.set = d), (d = O(n.init)) && P.unshift(d));
+      } else (d = O(n)) && (b === "field" ? P.unshift(d) : (r[a] = d));
     }
-    (B && Object.defineProperty(B, b.name, a), (s_ = !0));
+    (S && Object.defineProperty(S, c.name, r), (M = !0));
   }
-  function kn(T, y, t) {
-    for (var b = arguments.length > 2, I = 0; I < y.length; I++) t = b ? y[I].call(T, t) : y[I].call(T);
-    return b ? t : void 0;
+  function ye(g, l, t) {
+    for (var c = arguments.length > 2, P = 0; P < l.length; P++) t = c ? l[P].call(g, t) : l[P].call(g);
+    return c ? t : void 0;
   }
-  function En(T) {
-    return typeof T == "symbol" ? T : "".concat(T);
+  function Ee(g) {
+    return typeof g == "symbol" ? g : "".concat(g);
   }
-  function wn(T, y, t) {
+  function we(g, l, t) {
     return (
-      typeof y == "symbol" && (y = y.description ? "[".concat(y.description, "]") : ""),
-      Object.defineProperty(T, "name", { configurable: !0, value: t ? "".concat(t, " ", y) : y })
+      typeof l == "symbol" && (l = l.description ? "[".concat(l.description, "]") : ""),
+      Object.defineProperty(g, "name", { configurable: !0, value: t ? "".concat(t, " ", l) : l })
     );
   }
-  function On(T, y) {
-    if (typeof Reflect == "object" && typeof Reflect.metadata == "function") return Reflect.metadata(T, y);
+  function Ae(g, l) {
+    if (typeof Reflect == "object" && typeof Reflect.metadata == "function") return Reflect.metadata(g, l);
   }
-  function Pn(T, y, t, b) {
-    function I(R) {
-      return R instanceof t
-        ? R
-        : new t(function (x) {
-            x(R);
+  function Re(g, l, t, c) {
+    function P(y) {
+      return y instanceof t
+        ? y
+        : new t(function (O) {
+            O(y);
           });
     }
-    return new (t || (t = Promise))(function (R, x) {
-      function P(a) {
+    return new (t || (t = Promise))(function (y, O) {
+      function b(r) {
         try {
-          B(b.next(a));
-        } catch (V) {
-          x(V);
+          S(c.next(r));
+        } catch (d) {
+          O(d);
         }
       }
-      function _(a) {
+      function a(r) {
         try {
-          B(b.throw(a));
-        } catch (V) {
-          x(V);
+          S(c.throw(r));
+        } catch (d) {
+          O(d);
         }
       }
-      function B(a) {
-        a.done ? R(a.value) : I(a.value).then(P, _);
+      function S(r) {
+        r.done ? y(r.value) : P(r.value).then(b, a);
       }
-      B((b = b.apply(T, y || [])).next());
+      S((c = c.apply(g, l || [])).next());
     });
   }
-  function Tn(T, y) {
+  function Te(g, l) {
     var t = {
         label: 0,
         sent: function () {
-          if (R[0] & 1) throw R[1];
-          return R[1];
+          if (y[0] & 1) throw y[1];
+          return y[1];
         },
         trys: [],
         ops: [],
       },
-      b,
-      I,
-      R,
-      x = Object.create((typeof Iterator == "function" ? Iterator : Object).prototype);
+      c,
+      P,
+      y,
+      O = Object.create((typeof Iterator == "function" ? Iterator : Object).prototype);
     return (
-      (x.next = P(0)),
-      (x.throw = P(1)),
-      (x.return = P(2)),
+      (O.next = b(0)),
+      (O.throw = b(1)),
+      (O.return = b(2)),
       typeof Symbol == "function" &&
-        (x[Symbol.iterator] = function () {
+        (O[Symbol.iterator] = function () {
           return this;
         }),
-      x
+      O
     );
-    function P(B) {
-      return function (a) {
-        return _([B, a]);
+    function b(S) {
+      return function (r) {
+        return a([S, r]);
       };
     }
-    function _(B) {
-      if (b) throw new TypeError("Generator is already executing.");
-      for (; x && ((x = 0), B[0] && (t = 0)), t; )
+    function a(S) {
+      if (c) throw new TypeError("Generator is already executing.");
+      for (; O && ((O = 0), S[0] && (t = 0)), t; )
         try {
-          if (((b = 1), I && (R = B[0] & 2 ? I.return : B[0] ? I.throw || ((R = I.return) && R.call(I), 0) : I.next) && !(R = R.call(I, B[1])).done))
-            return R;
-          switch (((I = 0), R && (B = [B[0] & 2, R.value]), B[0])) {
+          if (((c = 1), P && (y = S[0] & 2 ? P.return : S[0] ? P.throw || ((y = P.return) && y.call(P), 0) : P.next) && !(y = y.call(P, S[1])).done))
+            return y;
+          switch (((P = 0), y && (S = [S[0] & 2, y.value]), S[0])) {
             case 0:
             case 1:
-              R = B;
+              y = S;
               break;
             case 4:
-              return (t.label++, { value: B[1], done: !1 });
+              return (t.label++, { value: S[1], done: !1 });
             case 5:
-              (t.label++, (I = B[1]), (B = [0]));
+              (t.label++, (P = S[1]), (S = [0]));
               continue;
             case 7:
-              ((B = t.ops.pop()), t.trys.pop());
+              ((S = t.ops.pop()), t.trys.pop());
               continue;
             default:
-              if (((R = t.trys), !(R = R.length > 0 && R[R.length - 1]) && (B[0] === 6 || B[0] === 2))) {
+              if (((y = t.trys), !(y = y.length > 0 && y[y.length - 1]) && (S[0] === 6 || S[0] === 2))) {
                 t = 0;
                 continue;
               }
-              if (B[0] === 3 && (!R || (B[1] > R[0] && B[1] < R[3]))) {
-                t.label = B[1];
+              if (S[0] === 3 && (!y || (S[1] > y[0] && S[1] < y[3]))) {
+                t.label = S[1];
                 break;
               }
-              if (B[0] === 6 && t.label < R[1]) {
-                ((t.label = R[1]), (R = B));
+              if (S[0] === 6 && t.label < y[1]) {
+                ((t.label = y[1]), (y = S));
                 break;
               }
-              if (R && t.label < R[2]) {
-                ((t.label = R[2]), t.ops.push(B));
+              if (y && t.label < y[2]) {
+                ((t.label = y[2]), t.ops.push(S));
                 break;
               }
-              (R[2] && t.ops.pop(), t.trys.pop());
+              (y[2] && t.ops.pop(), t.trys.pop());
               continue;
           }
-          B = y.call(T, t);
-        } catch (a) {
-          ((B = [6, a]), (I = 0));
+          S = l.call(g, t);
+        } catch (r) {
+          ((S = [6, r]), (P = 0));
         } finally {
-          b = R = 0;
+          c = y = 0;
         }
-      if (B[0] & 5) throw B[1];
-      return { value: B[0] ? B[1] : void 0, done: !0 };
+      if (S[0] & 5) throw S[1];
+      return { value: S[0] ? S[1] : void 0, done: !0 };
     }
   }
-  var nr = Object.create
-    ? function (T, y, t, b) {
-        b === void 0 && (b = t);
-        var I = Object.getOwnPropertyDescriptor(y, t);
-        ((!I || ("get" in I ? !y.__esModule : I.writable || I.configurable)) &&
-          (I = {
+  var or = Object.create
+    ? function (g, l, t, c) {
+        c === void 0 && (c = t);
+        var P = Object.getOwnPropertyDescriptor(l, t);
+        ((!P || ("get" in P ? !l.__esModule : P.writable || P.configurable)) &&
+          (P = {
             enumerable: !0,
             get: function () {
-              return y[t];
+              return l[t];
             },
           }),
-          Object.defineProperty(T, b, I));
+          Object.defineProperty(g, c, P));
       }
-    : function (T, y, t, b) {
-        (b === void 0 && (b = t), (T[b] = y[t]));
+    : function (g, l, t, c) {
+        (c === void 0 && (c = t), (g[c] = l[t]));
       };
-  function xn(T, y) {
-    for (var t in T) t !== "default" && !Object.prototype.hasOwnProperty.call(y, t) && nr(y, T, t);
+  function ve(g, l) {
+    for (var t in g) t !== "default" && !Object.prototype.hasOwnProperty.call(l, t) && or(l, g, t);
   }
-  function ir(T) {
-    var y = typeof Symbol == "function" && Symbol.iterator,
-      t = y && T[y],
-      b = 0;
-    if (t) return t.call(T);
-    if (T && typeof T.length == "number")
+  function sr(g) {
+    var l = typeof Symbol == "function" && Symbol.iterator,
+      t = l && g[l],
+      c = 0;
+    if (t) return t.call(g);
+    if (g && typeof g.length == "number")
       return {
         next: function () {
-          return (T && b >= T.length && (T = void 0), { value: T && T[b++], done: !T });
+          return (g && c >= g.length && (g = void 0), { value: g && g[c++], done: !g });
         },
       };
-    throw new TypeError(y ? "Object is not iterable." : "Symbol.iterator is not defined.");
+    throw new TypeError(l ? "Object is not iterable." : "Symbol.iterator is not defined.");
   }
-  function Cr(T, y) {
-    var t = typeof Symbol == "function" && T[Symbol.iterator];
-    if (!t) return T;
-    var b = t.call(T),
-      I,
-      R = [],
-      x;
+  function xr(g, l) {
+    var t = typeof Symbol == "function" && g[Symbol.iterator];
+    if (!t) return g;
+    var c = t.call(g),
+      P,
+      y = [],
+      O;
     try {
-      for (; (y === void 0 || y-- > 0) && !(I = b.next()).done; ) R.push(I.value);
-    } catch (P) {
-      x = { error: P };
+      for (; (l === void 0 || l-- > 0) && !(P = c.next()).done; ) y.push(P.value);
+    } catch (b) {
+      O = { error: b };
     } finally {
       try {
-        I && !I.done && (t = b.return) && t.call(b);
+        P && !P.done && (t = c.return) && t.call(c);
       } finally {
-        if (x) throw x.error;
+        if (O) throw O.error;
       }
     }
-    return R;
+    return y;
   }
-  function Sn() {
-    for (var T = [], y = 0; y < arguments.length; y++) T = T.concat(Cr(arguments[y]));
-    return T;
+  function Se() {
+    for (var g = [], l = 0; l < arguments.length; l++) g = g.concat(xr(arguments[l]));
+    return g;
   }
-  function An() {
-    for (var T = 0, y = 0, t = arguments.length; y < t; y++) T += arguments[y].length;
-    for (var b = Array(T), I = 0, y = 0; y < t; y++) for (var R = arguments[y], x = 0, P = R.length; x < P; x++, I++) b[I] = R[x];
-    return b;
+  function Ie() {
+    for (var g = 0, l = 0, t = arguments.length; l < t; l++) g += arguments[l].length;
+    for (var c = Array(g), P = 0, l = 0; l < t; l++) for (var y = arguments[l], O = 0, b = y.length; O < b; O++, P++) c[P] = y[O];
+    return c;
   }
-  function Rn(T, y, t) {
+  function Ze(g, l, t) {
     if (t || arguments.length === 2)
-      for (var b = 0, I = y.length, R; b < I; b++) (R || !(b in y)) && (R || (R = Array.prototype.slice.call(y, 0, b)), (R[b] = y[b]));
-    return T.concat(R || Array.prototype.slice.call(y));
+      for (var c = 0, P = l.length, y; c < P; c++) (y || !(c in l)) && (y || (y = Array.prototype.slice.call(l, 0, c)), (y[c] = l[c]));
+    return g.concat(y || Array.prototype.slice.call(l));
   }
-  function ut(T) {
-    return this instanceof ut ? ((this.v = T), this) : new ut(T);
+  function Mt(g) {
+    return this instanceof Mt ? ((this.v = g), this) : new Mt(g);
   }
-  function In(T, y, t) {
+  function xe(g, l, t) {
     if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var b = t.apply(T, y || []),
-      I,
-      R = [];
+    var c = t.apply(g, l || []),
+      P,
+      y = [];
     return (
-      (I = Object.create((typeof AsyncIterator == "function" ? AsyncIterator : Object).prototype)),
-      P("next"),
-      P("throw"),
-      P("return", x),
-      (I[Symbol.asyncIterator] = function () {
+      (P = Object.create((typeof AsyncIterator == "function" ? AsyncIterator : Object).prototype)),
+      b("next"),
+      b("throw"),
+      b("return", O),
+      (P[Symbol.asyncIterator] = function () {
         return this;
       }),
-      I
+      P
     );
-    function x(M) {
-      return function (K) {
-        return Promise.resolve(K).then(M, V);
+    function O(I) {
+      return function (N) {
+        return Promise.resolve(N).then(I, d);
       };
     }
-    function P(M, K) {
-      b[M] &&
-        ((I[M] = function (u) {
-          return new Promise(function (c, Z) {
-            R.push([M, u, c, Z]) > 1 || _(M, u);
+    function b(I, N) {
+      c[I] &&
+        ((P[I] = function (_) {
+          return new Promise(function (n, u) {
+            y.push([I, _, n, u]) > 1 || a(I, _);
           });
         }),
-        K && (I[M] = K(I[M])));
+        N && (P[I] = N(P[I])));
     }
-    function _(M, K) {
+    function a(I, N) {
       try {
-        B(b[M](K));
-      } catch (u) {
-        s_(R[0][3], u);
+        S(c[I](N));
+      } catch (_) {
+        M(y[0][3], _);
       }
     }
-    function B(M) {
-      M.value instanceof ut ? Promise.resolve(M.value.v).then(a, V) : s_(R[0][2], M);
+    function S(I) {
+      I.value instanceof Mt ? Promise.resolve(I.value.v).then(r, d) : M(y[0][2], I);
     }
-    function a(M) {
-      _("next", M);
+    function r(I) {
+      a("next", I);
     }
-    function V(M) {
-      _("throw", M);
+    function d(I) {
+      a("throw", I);
     }
-    function s_(M, K) {
-      (M(K), R.shift(), R.length && _(R[0][0], R[0][1]));
+    function M(I, N) {
+      (I(N), y.shift(), y.length && a(y[0][0], y[0][1]));
     }
   }
-  function Fn(T) {
-    var y, t;
+  function Ne(g) {
+    var l, t;
     return (
-      (y = {}),
-      b("next"),
-      b("throw", function (I) {
-        throw I;
+      (l = {}),
+      c("next"),
+      c("throw", function (P) {
+        throw P;
       }),
-      b("return"),
-      (y[Symbol.iterator] = function () {
+      c("return"),
+      (l[Symbol.iterator] = function () {
         return this;
       }),
-      y
+      l
     );
-    function b(I, R) {
-      y[I] = T[I]
-        ? function (x) {
-            return (t = !t) ? { value: ut(T[I](x)), done: !1 } : R ? R(x) : x;
+    function c(P, y) {
+      l[P] = g[P]
+        ? function (O) {
+            return (t = !t) ? { value: Mt(g[P](O)), done: !1 } : y ? y(O) : O;
           }
-        : R;
+        : y;
     }
   }
-  function Nn(T) {
+  function de(g) {
     if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var y = T[Symbol.asyncIterator],
+    var l = g[Symbol.asyncIterator],
       t;
-    return y
-      ? y.call(T)
-      : ((T = typeof ir == "function" ? ir(T) : T[Symbol.iterator]()),
+    return l
+      ? l.call(g)
+      : ((g = typeof sr == "function" ? sr(g) : g[Symbol.iterator]()),
         (t = {}),
-        b("next"),
-        b("throw"),
-        b("return"),
+        c("next"),
+        c("throw"),
+        c("return"),
         (t[Symbol.asyncIterator] = function () {
           return this;
         }),
         t);
-    function b(R) {
-      t[R] =
-        T[R] &&
-        function (x) {
-          return new Promise(function (P, _) {
-            ((x = T[R](x)), I(P, _, x.done, x.value));
+    function c(y) {
+      t[y] =
+        g[y] &&
+        function (O) {
+          return new Promise(function (b, a) {
+            ((O = g[y](O)), P(b, a, O.done, O.value));
           });
         };
     }
-    function I(R, x, P, _) {
-      Promise.resolve(_).then(function (B) {
-        R({ value: B, done: P });
-      }, x);
+    function P(y, O, b, a) {
+      Promise.resolve(a).then(function (S) {
+        y({ value: S, done: b });
+      }, O);
     }
   }
-  function Ln(T, y) {
-    return (Object.defineProperty ? Object.defineProperty(T, "raw", { value: y }) : (T.raw = y), T);
+  function Be(g, l) {
+    return (Object.defineProperty ? Object.defineProperty(g, "raw", { value: l }) : (g.raw = l), g);
   }
-  var Ni = Object.create
-      ? function (T, y) {
-          Object.defineProperty(T, "default", { enumerable: !0, value: y });
+  var zn = Object.create
+      ? function (g, l) {
+          Object.defineProperty(g, "default", { enumerable: !0, value: l });
         }
-      : function (T, y) {
-          T.default = y;
+      : function (g, l) {
+          g.default = l;
         },
-    zr = function (T) {
+    Nr = function (g) {
       return (
-        (zr =
+        (Nr =
           Object.getOwnPropertyNames ||
-          function (y) {
+          function (l) {
             var t = [];
-            for (var b in y) Object.prototype.hasOwnProperty.call(y, b) && (t[t.length] = b);
+            for (var c in l) Object.prototype.hasOwnProperty.call(l, c) && (t[t.length] = c);
             return t;
           }),
-        zr(T)
+        Nr(g)
       );
     };
-  function qn(T) {
-    if (T && T.__esModule) return T;
-    var y = {};
-    if (T != null) for (var t = zr(T), b = 0; b < t.length; b++) t[b] !== "default" && nr(y, T, t[b]);
-    return (Ni(y, T), y);
+  function Le(g) {
+    if (g && g.__esModule) return g;
+    var l = {};
+    if (g != null) for (var t = Nr(g), c = 0; c < t.length; c++) t[c] !== "default" && or(l, g, t[c]);
+    return (zn(l, g), l);
   }
-  function Mn(T) {
-    return T && T.__esModule ? T : { default: T };
+  function Ue(g) {
+    return g && g.__esModule ? g : { default: g };
   }
-  function Bn(T, y, t, b) {
-    if (t === "a" && !b) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof y == "function" ? T !== y || !b : !y.has(T))
+  function Fe(g, l, t, c) {
+    if (t === "a" && !c) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof l == "function" ? g !== l || !c : !l.has(g))
       throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return t === "m" ? b : t === "a" ? b.call(T) : b ? b.value : y.get(T);
+    return t === "m" ? c : t === "a" ? c.call(g) : c ? c.value : l.get(g);
   }
-  function Un(T, y, t, b, I) {
-    if (b === "m") throw new TypeError("Private method is not writable");
-    if (b === "a" && !I) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof y == "function" ? T !== y || !I : !y.has(T))
+  function Me(g, l, t, c, P) {
+    if (c === "m") throw new TypeError("Private method is not writable");
+    if (c === "a" && !P) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof l == "function" ? g !== l || !P : !l.has(g))
       throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (b === "a" ? I.call(T, t) : I ? (I.value = t) : y.set(T, t), t);
+    return (c === "a" ? P.call(g, t) : P ? (P.value = t) : l.set(g, t), t);
   }
-  function Dn(T, y) {
-    if (y === null || (typeof y != "object" && typeof y != "function")) throw new TypeError("Cannot use 'in' operator on non-object");
-    return typeof T == "function" ? y === T : T.has(y);
+  function De(g, l) {
+    if (l === null || (typeof l != "object" && typeof l != "function")) throw new TypeError("Cannot use 'in' operator on non-object");
+    return typeof g == "function" ? l === g : g.has(l);
   }
-  function Cn(T, y, t) {
-    if (y != null) {
-      if (typeof y != "object" && typeof y != "function") throw new TypeError("Object expected.");
-      var b, I;
+  function ke(g, l, t) {
+    if (l != null) {
+      if (typeof l != "object" && typeof l != "function") throw new TypeError("Object expected.");
+      var c, P;
       if (t) {
         if (!Symbol.asyncDispose) throw new TypeError("Symbol.asyncDispose is not defined.");
-        b = y[Symbol.asyncDispose];
+        c = l[Symbol.asyncDispose];
       }
-      if (b === void 0) {
+      if (c === void 0) {
         if (!Symbol.dispose) throw new TypeError("Symbol.dispose is not defined.");
-        ((b = y[Symbol.dispose]), t && (I = b));
+        ((c = l[Symbol.dispose]), t && (P = c));
       }
-      if (typeof b != "function") throw new TypeError("Object not disposable.");
-      (I &&
-        (b = function () {
+      if (typeof c != "function") throw new TypeError("Object not disposable.");
+      (P &&
+        (c = function () {
           try {
-            I.call(this);
-          } catch (R) {
-            return Promise.reject(R);
+            P.call(this);
+          } catch (y) {
+            return Promise.reject(y);
           }
         }),
-        T.stack.push({ value: y, dispose: b, async: t }));
-    } else t && T.stack.push({ async: !0 });
-    return y;
+        g.stack.push({ value: l, dispose: c, async: t }));
+    } else t && g.stack.push({ async: !0 });
+    return l;
   }
-  var Li =
+  var Vn =
     typeof SuppressedError == "function"
       ? SuppressedError
-      : function (T, y, t) {
-          var b = new Error(t);
-          return ((b.name = "SuppressedError"), (b.error = T), (b.suppressed = y), b);
+      : function (g, l, t) {
+          var c = new Error(t);
+          return ((c.name = "SuppressedError"), (c.error = g), (c.suppressed = l), c);
         };
-  function zn(T) {
-    function y(R) {
-      ((T.error = T.hasError ? new Li(R, T.error, "An error was suppressed during disposal.") : R), (T.hasError = !0));
+  function Ce(g) {
+    function l(y) {
+      ((g.error = g.hasError ? new Vn(y, g.error, "An error was suppressed during disposal.") : y), (g.hasError = !0));
     }
     var t,
-      b = 0;
-    function I() {
-      for (; (t = T.stack.pop()); )
+      c = 0;
+    function P() {
+      for (; (t = g.stack.pop()); )
         try {
-          if (!t.async && b === 1) return ((b = 0), T.stack.push(t), Promise.resolve().then(I));
+          if (!t.async && c === 1) return ((c = 0), g.stack.push(t), Promise.resolve().then(P));
           if (t.dispose) {
-            var R = t.dispose.call(t.value);
+            var y = t.dispose.call(t.value);
             if (t.async)
               return (
-                (b |= 2),
-                Promise.resolve(R).then(I, function (x) {
-                  return (y(x), I());
+                (c |= 2),
+                Promise.resolve(y).then(P, function (O) {
+                  return (l(O), P());
                 })
               );
-          } else b |= 1;
-        } catch (x) {
-          y(x);
+          } else c |= 1;
+        } catch (O) {
+          l(O);
         }
-      if (b === 1) return T.hasError ? Promise.reject(T.error) : Promise.resolve();
-      if (T.hasError) throw T.error;
+      if (c === 1) return g.hasError ? Promise.reject(g.error) : Promise.resolve();
+      if (g.hasError) throw g.error;
     }
-    return I();
+    return P();
   }
-  function jn(T, y) {
-    return typeof T == "string" && /^\.\.?\//.test(T)
-      ? T.replace(/\.(tsx)$|((?:\.d)?)((?:\.[^./]+?)?)\.([cm]?)ts$/i, function (t, b, I, R, x) {
-          return b ? (y ? ".jsx" : ".js") : I && (!R || !x) ? t : I + R + "." + x.toLowerCase() + "js";
+  function qe(g, l) {
+    return typeof g == "string" && /^\.\.?\//.test(g)
+      ? g.replace(/\.(tsx)$|((?:\.d)?)((?:\.[^./]+?)?)\.([cm]?)ts$/i, function (t, c, P, y, O) {
+          return c ? (l ? ".jsx" : ".js") : P && (!y || !O) ? t : P + y + "." + O.toLowerCase() + "js";
         })
-      : T;
+      : g;
   }
-  const ar = st(
+  const ur = qt(
     Object.freeze(
       Object.defineProperty(
         {
           __proto__: null,
-          __addDisposableResource: Cn,
+          __addDisposableResource: ke,
           get __assign() {
-            return rr;
+            return ir;
           },
-          __asyncDelegator: Fn,
-          __asyncGenerator: In,
-          __asyncValues: Nn,
-          __await: ut,
-          __awaiter: Pn,
-          __classPrivateFieldGet: Bn,
-          __classPrivateFieldIn: Dn,
-          __classPrivateFieldSet: Un,
-          __createBinding: nr,
-          __decorate: bn,
-          __disposeResources: zn,
-          __esDecorate: yn,
-          __exportStar: xn,
-          __extends: dn,
-          __generator: Tn,
-          __importDefault: Mn,
-          __importStar: qn,
-          __makeTemplateObject: Ln,
-          __metadata: On,
-          __param: vn,
-          __propKey: En,
-          __read: Cr,
-          __rest: hn,
-          __rewriteRelativeImportExtension: jn,
-          __runInitializers: kn,
-          __setFunctionName: wn,
-          __spread: Sn,
-          __spreadArray: Rn,
-          __spreadArrays: An,
-          __values: ir,
+          __asyncDelegator: Ne,
+          __asyncGenerator: xe,
+          __asyncValues: de,
+          __await: Mt,
+          __awaiter: Re,
+          __classPrivateFieldGet: Fe,
+          __classPrivateFieldIn: De,
+          __classPrivateFieldSet: Me,
+          __createBinding: or,
+          __decorate: ge,
+          __disposeResources: Ce,
+          __esDecorate: Pe,
+          __exportStar: ve,
+          __extends: he,
+          __generator: Te,
+          __importDefault: Ue,
+          __importStar: Le,
+          __makeTemplateObject: Be,
+          __metadata: Ae,
+          __param: Oe,
+          __propKey: Ee,
+          __read: xr,
+          __rest: be,
+          __rewriteRelativeImportExtension: qe,
+          __runInitializers: ye,
+          __setFunctionName: we,
+          __spread: Se,
+          __spreadArray: Ze,
+          __spreadArrays: Ie,
+          __values: sr,
           default: {
-            __extends: dn,
-            __assign: rr,
-            __rest: hn,
-            __decorate: bn,
-            __param: vn,
-            __esDecorate: yn,
-            __runInitializers: kn,
-            __propKey: En,
-            __setFunctionName: wn,
-            __metadata: On,
-            __awaiter: Pn,
-            __generator: Tn,
-            __createBinding: nr,
-            __exportStar: xn,
-            __values: ir,
-            __read: Cr,
-            __spread: Sn,
-            __spreadArrays: An,
-            __spreadArray: Rn,
-            __await: ut,
-            __asyncGenerator: In,
-            __asyncDelegator: Fn,
-            __asyncValues: Nn,
-            __makeTemplateObject: Ln,
-            __importStar: qn,
-            __importDefault: Mn,
-            __classPrivateFieldGet: Bn,
-            __classPrivateFieldSet: Un,
-            __classPrivateFieldIn: Dn,
-            __addDisposableResource: Cn,
-            __disposeResources: zn,
-            __rewriteRelativeImportExtension: jn,
+            __extends: he,
+            __assign: ir,
+            __rest: be,
+            __decorate: ge,
+            __param: Oe,
+            __esDecorate: Pe,
+            __runInitializers: ye,
+            __propKey: Ee,
+            __setFunctionName: we,
+            __metadata: Ae,
+            __awaiter: Re,
+            __generator: Te,
+            __createBinding: or,
+            __exportStar: ve,
+            __values: sr,
+            __read: xr,
+            __spread: Se,
+            __spreadArrays: Ie,
+            __spreadArray: Ze,
+            __await: Mt,
+            __asyncGenerator: xe,
+            __asyncDelegator: Ne,
+            __asyncValues: de,
+            __makeTemplateObject: Be,
+            __importStar: Le,
+            __importDefault: Ue,
+            __classPrivateFieldGet: Fe,
+            __classPrivateFieldSet: Me,
+            __classPrivateFieldIn: De,
+            __addDisposableResource: ke,
+            __disposeResources: Ce,
+            __rewriteRelativeImportExtension: qe,
           },
         },
         Symbol.toStringTag,
@@ -7954,62 +1832,62 @@
       ),
     ),
   );
-  var or = {},
-    sr = {},
-    be = {},
-    Vn;
-  function ur() {
+  var ar = {},
+    cr = {},
+    bt = {},
+    ze;
+  function mr() {
     return (
-      Vn ||
-        ((Vn = 1),
-        Object.defineProperty(be, "__esModule", { value: !0 }),
-        (be.E_CANCELED = be.E_ALREADY_LOCKED = be.E_TIMEOUT = void 0),
-        (be.E_TIMEOUT = new Error("timeout while waiting for mutex to become available")),
-        (be.E_ALREADY_LOCKED = new Error("mutex already locked")),
-        (be.E_CANCELED = new Error("request for lock canceled"))),
-      be
+      ze ||
+        ((ze = 1),
+        Object.defineProperty(bt, "__esModule", { value: !0 }),
+        (bt.E_CANCELED = bt.E_ALREADY_LOCKED = bt.E_TIMEOUT = void 0),
+        (bt.E_TIMEOUT = new Error("timeout while waiting for mutex to become available")),
+        (bt.E_ALREADY_LOCKED = new Error("mutex already locked")),
+        (bt.E_CANCELED = new Error("request for lock canceled"))),
+      bt
     );
   }
-  var Gn;
-  function $n() {
-    if (Gn) return sr;
-    ((Gn = 1), Object.defineProperty(sr, "__esModule", { value: !0 }));
-    var T = ar,
-      y = ur(),
+  var Ve;
+  function Ge() {
+    if (Ve) return cr;
+    ((Ve = 1), Object.defineProperty(cr, "__esModule", { value: !0 }));
+    var g = ur,
+      l = mr(),
       t = (function () {
-        function R(x, P) {
-          (P === void 0 && (P = y.E_CANCELED), (this._value = x), (this._cancelError = P), (this._queue = []), (this._weightedWaiters = []));
+        function y(O, b) {
+          (b === void 0 && (b = l.E_CANCELED), (this._value = O), (this._cancelError = b), (this._queue = []), (this._weightedWaiters = []));
         }
         return (
-          (R.prototype.acquire = function (x, P) {
-            var _ = this;
-            if ((x === void 0 && (x = 1), P === void 0 && (P = 0), x <= 0)) throw new Error("invalid weight ".concat(x, ": must be positive"));
-            return new Promise(function (B, a) {
-              var V = { resolve: B, reject: a, weight: x, priority: P },
-                s_ = I(_._queue, function (M) {
-                  return P <= M.priority;
+          (y.prototype.acquire = function (O, b) {
+            var a = this;
+            if ((O === void 0 && (O = 1), b === void 0 && (b = 0), O <= 0)) throw new Error("invalid weight ".concat(O, ": must be positive"));
+            return new Promise(function (S, r) {
+              var d = { resolve: S, reject: r, weight: O, priority: b },
+                M = P(a._queue, function (I) {
+                  return b <= I.priority;
                 });
-              s_ === -1 && x <= _._value ? _._dispatchItem(V) : _._queue.splice(s_ + 1, 0, V);
+              M === -1 && O <= a._value ? a._dispatchItem(d) : a._queue.splice(M + 1, 0, d);
             });
           }),
-          (R.prototype.runExclusive = function (x) {
-            return T.__awaiter(this, arguments, void 0, function (P, _, B) {
-              var a, V, s_;
+          (y.prototype.runExclusive = function (O) {
+            return g.__awaiter(this, arguments, void 0, function (b, a, S) {
+              var r, d, M;
               return (
-                _ === void 0 && (_ = 1),
-                B === void 0 && (B = 0),
-                T.__generator(this, function (M) {
-                  switch (M.label) {
+                a === void 0 && (a = 1),
+                S === void 0 && (S = 0),
+                g.__generator(this, function (I) {
+                  switch (I.label) {
                     case 0:
-                      return [4, this.acquire(_, B)];
+                      return [4, this.acquire(a, S)];
                     case 1:
-                      ((a = M.sent()), (V = a[0]), (s_ = a[1]), (M.label = 2));
+                      ((r = I.sent()), (d = r[0]), (M = r[1]), (I.label = 2));
                     case 2:
-                      return (M.trys.push([2, , 4, 5]), [4, P(V)]);
+                      return (I.trys.push([2, , 4, 5]), [4, b(d)]);
                     case 3:
-                      return [2, M.sent()];
+                      return [2, I.sent()];
                     case 4:
-                      return (s_(), [7]);
+                      return (M(), [7]);
                     case 5:
                       return [2];
                   }
@@ -8017,180 +1895,180 @@
               );
             });
           }),
-          (R.prototype.waitForUnlock = function (x, P) {
-            var _ = this;
-            if ((x === void 0 && (x = 1), P === void 0 && (P = 0), x <= 0)) throw new Error("invalid weight ".concat(x, ": must be positive"));
-            return this._couldLockImmediately(x, P)
+          (y.prototype.waitForUnlock = function (O, b) {
+            var a = this;
+            if ((O === void 0 && (O = 1), b === void 0 && (b = 0), O <= 0)) throw new Error("invalid weight ".concat(O, ": must be positive"));
+            return this._couldLockImmediately(O, b)
               ? Promise.resolve()
-              : new Promise(function (B) {
-                  (_._weightedWaiters[x - 1] || (_._weightedWaiters[x - 1] = []), b(_._weightedWaiters[x - 1], { resolve: B, priority: P }));
+              : new Promise(function (S) {
+                  (a._weightedWaiters[O - 1] || (a._weightedWaiters[O - 1] = []), c(a._weightedWaiters[O - 1], { resolve: S, priority: b }));
                 });
           }),
-          (R.prototype.isLocked = function () {
+          (y.prototype.isLocked = function () {
             return this._value <= 0;
           }),
-          (R.prototype.getValue = function () {
+          (y.prototype.getValue = function () {
             return this._value;
           }),
-          (R.prototype.setValue = function (x) {
-            ((this._value = x), this._dispatchQueue());
+          (y.prototype.setValue = function (O) {
+            ((this._value = O), this._dispatchQueue());
           }),
-          (R.prototype.release = function (x) {
-            if ((x === void 0 && (x = 1), x <= 0)) throw new Error("invalid weight ".concat(x, ": must be positive"));
-            ((this._value += x), this._dispatchQueue());
+          (y.prototype.release = function (O) {
+            if ((O === void 0 && (O = 1), O <= 0)) throw new Error("invalid weight ".concat(O, ": must be positive"));
+            ((this._value += O), this._dispatchQueue());
           }),
-          (R.prototype.cancel = function () {
-            var x = this;
-            (this._queue.forEach(function (P) {
-              return P.reject(x._cancelError);
+          (y.prototype.cancel = function () {
+            var O = this;
+            (this._queue.forEach(function (b) {
+              return b.reject(O._cancelError);
             }),
               (this._queue = []));
           }),
-          (R.prototype._dispatchQueue = function () {
+          (y.prototype._dispatchQueue = function () {
             for (this._drainUnlockWaiters(); this._queue.length > 0 && this._queue[0].weight <= this._value; )
               (this._dispatchItem(this._queue.shift()), this._drainUnlockWaiters());
           }),
-          (R.prototype._dispatchItem = function (x) {
-            var P = this._value;
-            ((this._value -= x.weight), x.resolve([P, this._newReleaser(x.weight)]));
+          (y.prototype._dispatchItem = function (O) {
+            var b = this._value;
+            ((this._value -= O.weight), O.resolve([b, this._newReleaser(O.weight)]));
           }),
-          (R.prototype._newReleaser = function (x) {
-            var P = this,
-              _ = !1;
+          (y.prototype._newReleaser = function (O) {
+            var b = this,
+              a = !1;
             return function () {
-              _ || ((_ = !0), P.release(x));
+              a || ((a = !0), b.release(O));
             };
           }),
-          (R.prototype._drainUnlockWaiters = function () {
+          (y.prototype._drainUnlockWaiters = function () {
             if (this._queue.length === 0)
-              for (var x = this._value; x > 0; x--) {
-                var P = this._weightedWaiters[x - 1];
-                P &&
-                  (P.forEach(function (a) {
-                    return a.resolve();
+              for (var O = this._value; O > 0; O--) {
+                var b = this._weightedWaiters[O - 1];
+                b &&
+                  (b.forEach(function (r) {
+                    return r.resolve();
                   }),
-                  (this._weightedWaiters[x - 1] = []));
+                  (this._weightedWaiters[O - 1] = []));
               }
             else
-              for (var _ = this._queue[0].priority, x = this._value; x > 0; x--) {
-                var P = this._weightedWaiters[x - 1];
-                if (P) {
-                  var B = P.findIndex(function (s_) {
-                    return s_.priority <= _;
+              for (var a = this._queue[0].priority, O = this._value; O > 0; O--) {
+                var b = this._weightedWaiters[O - 1];
+                if (b) {
+                  var S = b.findIndex(function (M) {
+                    return M.priority <= a;
                   });
-                  (B === -1 ? P : P.splice(0, B)).forEach(function (s_) {
-                    return s_.resolve();
+                  (S === -1 ? b : b.splice(0, S)).forEach(function (M) {
+                    return M.resolve();
                   });
                 }
               }
           }),
-          (R.prototype._couldLockImmediately = function (x, P) {
-            return (this._queue.length === 0 || this._queue[0].priority < P) && x <= this._value;
+          (y.prototype._couldLockImmediately = function (O, b) {
+            return (this._queue.length === 0 || this._queue[0].priority < b) && O <= this._value;
           }),
-          R
+          y
         );
       })();
-    function b(R, x) {
-      var P = I(R, function (_) {
-        return x.priority <= _.priority;
+    function c(y, O) {
+      var b = P(y, function (a) {
+        return O.priority <= a.priority;
       });
-      R.splice(P + 1, 0, x);
+      y.splice(b + 1, 0, O);
     }
-    function I(R, x) {
-      for (var P = R.length - 1; P >= 0; P--) if (x(R[P])) return P;
+    function P(y, O) {
+      for (var b = y.length - 1; b >= 0; b--) if (O(y[b])) return b;
       return -1;
     }
-    return ((sr.default = t), sr);
+    return ((cr.default = t), cr);
   }
-  var Wn;
-  function qi() {
-    if (Wn) return or;
-    ((Wn = 1), Object.defineProperty(or, "__esModule", { value: !0 }));
-    var T = ar,
-      y = $n(),
+  var $e;
+  function Gn() {
+    if ($e) return ar;
+    (($e = 1), Object.defineProperty(ar, "__esModule", { value: !0 }));
+    var g = ur,
+      l = Ge(),
       t = (function () {
-        function b(I) {
-          this._semaphore = new y.default(1, I);
+        function c(P) {
+          this._semaphore = new l.default(1, P);
         }
         return (
-          (b.prototype.acquire = function () {
-            return T.__awaiter(this, arguments, void 0, function (I) {
-              var R, x;
+          (c.prototype.acquire = function () {
+            return g.__awaiter(this, arguments, void 0, function (P) {
+              var y, O;
               return (
-                I === void 0 && (I = 0),
-                T.__generator(this, function (P) {
-                  switch (P.label) {
+                P === void 0 && (P = 0),
+                g.__generator(this, function (b) {
+                  switch (b.label) {
                     case 0:
-                      return [4, this._semaphore.acquire(1, I)];
+                      return [4, this._semaphore.acquire(1, P)];
                     case 1:
-                      return ((R = P.sent()), (x = R[1]), [2, x]);
+                      return ((y = b.sent()), (O = y[1]), [2, O]);
                   }
                 })
               );
             });
           }),
-          (b.prototype.runExclusive = function (I, R) {
+          (c.prototype.runExclusive = function (P, y) {
             return (
-              R === void 0 && (R = 0),
+              y === void 0 && (y = 0),
               this._semaphore.runExclusive(
                 function () {
-                  return I();
+                  return P();
                 },
                 1,
-                R,
+                y,
               )
             );
           }),
-          (b.prototype.isLocked = function () {
+          (c.prototype.isLocked = function () {
             return this._semaphore.isLocked();
           }),
-          (b.prototype.waitForUnlock = function (I) {
-            return (I === void 0 && (I = 0), this._semaphore.waitForUnlock(1, I));
+          (c.prototype.waitForUnlock = function (P) {
+            return (P === void 0 && (P = 0), this._semaphore.waitForUnlock(1, P));
           }),
-          (b.prototype.release = function () {
+          (c.prototype.release = function () {
             this._semaphore.isLocked() && this._semaphore.release();
           }),
-          (b.prototype.cancel = function () {
+          (c.prototype.cancel = function () {
             return this._semaphore.cancel();
           }),
-          b
+          c
         );
       })();
-    return ((or.default = t), or);
+    return ((ar.default = t), ar);
   }
-  var At = {},
-    Hn;
-  function Yn() {
-    if (Hn) return At;
-    ((Hn = 1), Object.defineProperty(At, "__esModule", { value: !0 }), (At.withTimeout = void 0));
-    var T = ar,
-      y = ur();
-    function t(I, R, x) {
-      var P = this;
+  var Vt = {},
+    Qe;
+  function Ye() {
+    if (Qe) return Vt;
+    ((Qe = 1), Object.defineProperty(Vt, "__esModule", { value: !0 }), (Vt.withTimeout = void 0));
+    var g = ur,
+      l = mr();
+    function t(P, y, O) {
+      var b = this;
       return (
-        x === void 0 && (x = y.E_TIMEOUT),
+        O === void 0 && (O = l.E_TIMEOUT),
         {
-          acquire: function (_, B) {
-            var a;
-            if ((b(I) ? (a = _) : ((a = void 0), (B = _)), a !== void 0 && a <= 0))
-              throw new Error("invalid weight ".concat(a, ": must be positive"));
-            return new Promise(function (V, s_) {
-              return T.__awaiter(P, void 0, void 0, function () {
-                var M, K, u, c, Z;
-                return T.__generator(this, function (A) {
+          acquire: function (a, S) {
+            var r;
+            if ((c(P) ? (r = a) : ((r = void 0), (S = a)), r !== void 0 && r <= 0))
+              throw new Error("invalid weight ".concat(r, ": must be positive"));
+            return new Promise(function (d, M) {
+              return g.__awaiter(b, void 0, void 0, function () {
+                var I, N, _, n, u;
+                return g.__generator(this, function (A) {
                   switch (A.label) {
                     case 0:
-                      ((M = !1),
-                        (K = setTimeout(function () {
-                          ((M = !0), s_(x));
-                        }, R)),
+                      ((I = !1),
+                        (N = setTimeout(function () {
+                          ((I = !0), M(O));
+                        }, y)),
                         (A.label = 1));
                     case 1:
-                      return (A.trys.push([1, 3, , 4]), [4, b(I) ? I.acquire(a, B) : I.acquire(B)]);
+                      return (A.trys.push([1, 3, , 4]), [4, c(P) ? P.acquire(r, S) : P.acquire(S)]);
                     case 2:
-                      return ((u = A.sent()), M ? ((c = Array.isArray(u) ? u[1] : u), c()) : (clearTimeout(K), V(u)), [3, 4]);
+                      return ((_ = A.sent()), I ? ((n = Array.isArray(_) ? _[1] : _), n()) : (clearTimeout(N), d(_)), [3, 4]);
                     case 3:
-                      return ((Z = A.sent()), M || (clearTimeout(K), s_(Z)), [3, 4]);
+                      return ((u = A.sent()), I || (clearTimeout(N), M(u)), [3, 4]);
                     case 4:
                       return [2];
                   }
@@ -8198,570 +2076,570 @@
               });
             });
           },
-          runExclusive: function (_, B, a) {
-            return T.__awaiter(this, void 0, void 0, function () {
-              var V, s_;
-              return T.__generator(this, function (M) {
-                switch (M.label) {
+          runExclusive: function (a, S, r) {
+            return g.__awaiter(this, void 0, void 0, function () {
+              var d, M;
+              return g.__generator(this, function (I) {
+                switch (I.label) {
                   case 0:
-                    ((V = function () {}), (M.label = 1));
+                    ((d = function () {}), (I.label = 1));
                   case 1:
-                    return (M.trys.push([1, , 7, 8]), [4, this.acquire(B, a)]);
+                    return (I.trys.push([1, , 7, 8]), [4, this.acquire(S, r)]);
                   case 2:
-                    return ((s_ = M.sent()), Array.isArray(s_) ? ((V = s_[1]), [4, _(s_[0])]) : [3, 4]);
+                    return ((M = I.sent()), Array.isArray(M) ? ((d = M[1]), [4, a(M[0])]) : [3, 4]);
                   case 3:
-                    return [2, M.sent()];
+                    return [2, I.sent()];
                   case 4:
-                    return ((V = s_), [4, _()]);
+                    return ((d = M), [4, a()]);
                   case 5:
-                    return [2, M.sent()];
+                    return [2, I.sent()];
                   case 6:
                     return [3, 8];
                   case 7:
-                    return (V(), [7]);
+                    return (d(), [7]);
                   case 8:
                     return [2];
                 }
               });
             });
           },
-          release: function (_) {
-            I.release(_);
+          release: function (a) {
+            P.release(a);
           },
           cancel: function () {
-            return I.cancel();
+            return P.cancel();
           },
-          waitForUnlock: function (_, B) {
-            var a;
-            if ((b(I) ? (a = _) : ((a = void 0), (B = _)), a !== void 0 && a <= 0))
-              throw new Error("invalid weight ".concat(a, ": must be positive"));
-            return new Promise(function (V, s_) {
-              var M = setTimeout(function () {
-                return s_(x);
-              }, R);
-              (b(I) ? I.waitForUnlock(a, B) : I.waitForUnlock(B)).then(function () {
-                (clearTimeout(M), V());
+          waitForUnlock: function (a, S) {
+            var r;
+            if ((c(P) ? (r = a) : ((r = void 0), (S = a)), r !== void 0 && r <= 0))
+              throw new Error("invalid weight ".concat(r, ": must be positive"));
+            return new Promise(function (d, M) {
+              var I = setTimeout(function () {
+                return M(O);
+              }, y);
+              (c(P) ? P.waitForUnlock(r, S) : P.waitForUnlock(S)).then(function () {
+                (clearTimeout(I), d());
               });
             });
           },
           isLocked: function () {
-            return I.isLocked();
+            return P.isLocked();
           },
           getValue: function () {
-            return I.getValue();
+            return P.getValue();
           },
-          setValue: function (_) {
-            return I.setValue(_);
+          setValue: function (a) {
+            return P.setValue(a);
           },
         }
       );
     }
-    At.withTimeout = t;
-    function b(I) {
-      return I.getValue !== void 0;
+    Vt.withTimeout = t;
+    function c(P) {
+      return P.getValue !== void 0;
     }
-    return At;
+    return Vt;
   }
-  var Rt = {},
-    Qn;
-  function Mi() {
-    if (Qn) return Rt;
-    ((Qn = 1), Object.defineProperty(Rt, "__esModule", { value: !0 }), (Rt.tryAcquire = void 0));
-    var T = ur(),
-      y = Yn();
-    function t(b, I) {
-      return (I === void 0 && (I = T.E_ALREADY_LOCKED), (0, y.withTimeout)(b, 0, I));
+  var Gt = {},
+    je;
+  function $n() {
+    if (je) return Gt;
+    ((je = 1), Object.defineProperty(Gt, "__esModule", { value: !0 }), (Gt.tryAcquire = void 0));
+    var g = mr(),
+      l = Ye();
+    function t(c, P) {
+      return (P === void 0 && (P = g.E_ALREADY_LOCKED), (0, l.withTimeout)(c, 0, P));
     }
-    return ((Rt.tryAcquire = t), Rt);
+    return ((Gt.tryAcquire = t), Gt);
   }
-  var Xn;
-  function Bi() {
+  var He;
+  function Qn() {
     return (
-      Xn ||
-        ((Xn = 1),
-        (function (T) {
-          (Object.defineProperty(T, "__esModule", { value: !0 }), (T.tryAcquire = T.withTimeout = T.Semaphore = T.Mutex = void 0));
-          var y = ar,
-            t = qi();
-          Object.defineProperty(T, "Mutex", {
+      He ||
+        ((He = 1),
+        (function (g) {
+          (Object.defineProperty(g, "__esModule", { value: !0 }), (g.tryAcquire = g.withTimeout = g.Semaphore = g.Mutex = void 0));
+          var l = ur,
+            t = Gn();
+          Object.defineProperty(g, "Mutex", {
             enumerable: !0,
             get: function () {
               return t.default;
             },
           });
-          var b = $n();
-          Object.defineProperty(T, "Semaphore", {
+          var c = Ge();
+          Object.defineProperty(g, "Semaphore", {
             enumerable: !0,
             get: function () {
-              return b.default;
+              return c.default;
             },
           });
-          var I = Yn();
-          Object.defineProperty(T, "withTimeout", {
+          var P = Ye();
+          Object.defineProperty(g, "withTimeout", {
             enumerable: !0,
             get: function () {
-              return I.withTimeout;
+              return P.withTimeout;
             },
           });
-          var R = Mi();
-          (Object.defineProperty(T, "tryAcquire", {
+          var y = $n();
+          (Object.defineProperty(g, "tryAcquire", {
             enumerable: !0,
             get: function () {
-              return R.tryAcquire;
+              return y.tryAcquire;
             },
           }),
-            y.__exportStar(ur(), T));
-        })(Ur)),
-      Ur
+            l.__exportStar(mr(), g));
+        })(Ir)),
+      Ir
     );
   }
-  var We = {},
-    O_ = {},
-    Kn;
-  function Jn() {
-    if (Kn) return O_;
-    ((Kn = 1),
-      Object.defineProperty(O_, "__esModule", { value: !0 }),
-      (O_.Z3_goal_prec =
-        O_.Z3_error_code =
-        O_.Z3_ast_print_mode =
-        O_.Z3_param_kind =
-        O_.Z3_decl_kind =
-        O_.Z3_ast_kind =
-        O_.Z3_sort_kind =
-        O_.Z3_parameter_kind =
-        O_.Z3_symbol_kind =
-        O_.Z3_lbool =
+  var St = {},
+    Q = {},
+    We;
+  function Xe() {
+    if (We) return Q;
+    ((We = 1),
+      Object.defineProperty(Q, "__esModule", { value: !0 }),
+      (Q.Z3_goal_prec =
+        Q.Z3_error_code =
+        Q.Z3_ast_print_mode =
+        Q.Z3_param_kind =
+        Q.Z3_decl_kind =
+        Q.Z3_ast_kind =
+        Q.Z3_sort_kind =
+        Q.Z3_parameter_kind =
+        Q.Z3_symbol_kind =
+        Q.Z3_lbool =
           void 0));
-    var T;
-    (function (a) {
-      ((a[(a.Z3_L_FALSE = -1)] = "Z3_L_FALSE"), (a[(a.Z3_L_UNDEF = 0)] = "Z3_L_UNDEF"), (a[(a.Z3_L_TRUE = 1)] = "Z3_L_TRUE"));
-    })(T || (O_.Z3_lbool = T = {}));
-    var y;
-    (function (a) {
-      ((a[(a.Z3_INT_SYMBOL = 0)] = "Z3_INT_SYMBOL"), (a[(a.Z3_STRING_SYMBOL = 1)] = "Z3_STRING_SYMBOL"));
-    })(y || (O_.Z3_symbol_kind = y = {}));
+    var g;
+    (function (r) {
+      ((r[(r.Z3_L_FALSE = -1)] = "Z3_L_FALSE"), (r[(r.Z3_L_UNDEF = 0)] = "Z3_L_UNDEF"), (r[(r.Z3_L_TRUE = 1)] = "Z3_L_TRUE"));
+    })(g || (Q.Z3_lbool = g = {}));
+    var l;
+    (function (r) {
+      ((r[(r.Z3_INT_SYMBOL = 0)] = "Z3_INT_SYMBOL"), (r[(r.Z3_STRING_SYMBOL = 1)] = "Z3_STRING_SYMBOL"));
+    })(l || (Q.Z3_symbol_kind = l = {}));
     var t;
-    (function (a) {
-      ((a[(a.Z3_PARAMETER_INT = 0)] = "Z3_PARAMETER_INT"),
-        (a[(a.Z3_PARAMETER_DOUBLE = 1)] = "Z3_PARAMETER_DOUBLE"),
-        (a[(a.Z3_PARAMETER_RATIONAL = 2)] = "Z3_PARAMETER_RATIONAL"),
-        (a[(a.Z3_PARAMETER_SYMBOL = 3)] = "Z3_PARAMETER_SYMBOL"),
-        (a[(a.Z3_PARAMETER_SORT = 4)] = "Z3_PARAMETER_SORT"),
-        (a[(a.Z3_PARAMETER_AST = 5)] = "Z3_PARAMETER_AST"),
-        (a[(a.Z3_PARAMETER_FUNC_DECL = 6)] = "Z3_PARAMETER_FUNC_DECL"),
-        (a[(a.Z3_PARAMETER_INTERNAL = 7)] = "Z3_PARAMETER_INTERNAL"),
-        (a[(a.Z3_PARAMETER_ZSTRING = 8)] = "Z3_PARAMETER_ZSTRING"));
-    })(t || (O_.Z3_parameter_kind = t = {}));
-    var b;
-    (function (a) {
-      ((a[(a.Z3_UNINTERPRETED_SORT = 0)] = "Z3_UNINTERPRETED_SORT"),
-        (a[(a.Z3_BOOL_SORT = 1)] = "Z3_BOOL_SORT"),
-        (a[(a.Z3_INT_SORT = 2)] = "Z3_INT_SORT"),
-        (a[(a.Z3_REAL_SORT = 3)] = "Z3_REAL_SORT"),
-        (a[(a.Z3_BV_SORT = 4)] = "Z3_BV_SORT"),
-        (a[(a.Z3_ARRAY_SORT = 5)] = "Z3_ARRAY_SORT"),
-        (a[(a.Z3_DATATYPE_SORT = 6)] = "Z3_DATATYPE_SORT"),
-        (a[(a.Z3_RELATION_SORT = 7)] = "Z3_RELATION_SORT"),
-        (a[(a.Z3_FINITE_DOMAIN_SORT = 8)] = "Z3_FINITE_DOMAIN_SORT"),
-        (a[(a.Z3_FLOATING_POINT_SORT = 9)] = "Z3_FLOATING_POINT_SORT"),
-        (a[(a.Z3_ROUNDING_MODE_SORT = 10)] = "Z3_ROUNDING_MODE_SORT"),
-        (a[(a.Z3_SEQ_SORT = 11)] = "Z3_SEQ_SORT"),
-        (a[(a.Z3_RE_SORT = 12)] = "Z3_RE_SORT"),
-        (a[(a.Z3_CHAR_SORT = 13)] = "Z3_CHAR_SORT"),
-        (a[(a.Z3_TYPE_VAR = 14)] = "Z3_TYPE_VAR"),
-        (a[(a.Z3_UNKNOWN_SORT = 1e3)] = "Z3_UNKNOWN_SORT"));
-    })(b || (O_.Z3_sort_kind = b = {}));
-    var I;
-    (function (a) {
-      ((a[(a.Z3_NUMERAL_AST = 0)] = "Z3_NUMERAL_AST"),
-        (a[(a.Z3_APP_AST = 1)] = "Z3_APP_AST"),
-        (a[(a.Z3_VAR_AST = 2)] = "Z3_VAR_AST"),
-        (a[(a.Z3_QUANTIFIER_AST = 3)] = "Z3_QUANTIFIER_AST"),
-        (a[(a.Z3_SORT_AST = 4)] = "Z3_SORT_AST"),
-        (a[(a.Z3_FUNC_DECL_AST = 5)] = "Z3_FUNC_DECL_AST"),
-        (a[(a.Z3_UNKNOWN_AST = 1e3)] = "Z3_UNKNOWN_AST"));
-    })(I || (O_.Z3_ast_kind = I = {}));
-    var R;
-    (function (a) {
-      ((a[(a.Z3_OP_TRUE = 256)] = "Z3_OP_TRUE"),
-        (a[(a.Z3_OP_FALSE = 257)] = "Z3_OP_FALSE"),
-        (a[(a.Z3_OP_EQ = 258)] = "Z3_OP_EQ"),
-        (a[(a.Z3_OP_DISTINCT = 259)] = "Z3_OP_DISTINCT"),
-        (a[(a.Z3_OP_ITE = 260)] = "Z3_OP_ITE"),
-        (a[(a.Z3_OP_AND = 261)] = "Z3_OP_AND"),
-        (a[(a.Z3_OP_OR = 262)] = "Z3_OP_OR"),
-        (a[(a.Z3_OP_IFF = 263)] = "Z3_OP_IFF"),
-        (a[(a.Z3_OP_XOR = 264)] = "Z3_OP_XOR"),
-        (a[(a.Z3_OP_NOT = 265)] = "Z3_OP_NOT"),
-        (a[(a.Z3_OP_IMPLIES = 266)] = "Z3_OP_IMPLIES"),
-        (a[(a.Z3_OP_OEQ = 267)] = "Z3_OP_OEQ"),
-        (a[(a.Z3_OP_ANUM = 512)] = "Z3_OP_ANUM"),
-        (a[(a.Z3_OP_AGNUM = 513)] = "Z3_OP_AGNUM"),
-        (a[(a.Z3_OP_LE = 514)] = "Z3_OP_LE"),
-        (a[(a.Z3_OP_GE = 515)] = "Z3_OP_GE"),
-        (a[(a.Z3_OP_LT = 516)] = "Z3_OP_LT"),
-        (a[(a.Z3_OP_GT = 517)] = "Z3_OP_GT"),
-        (a[(a.Z3_OP_ADD = 518)] = "Z3_OP_ADD"),
-        (a[(a.Z3_OP_SUB = 519)] = "Z3_OP_SUB"),
-        (a[(a.Z3_OP_UMINUS = 520)] = "Z3_OP_UMINUS"),
-        (a[(a.Z3_OP_MUL = 521)] = "Z3_OP_MUL"),
-        (a[(a.Z3_OP_DIV = 522)] = "Z3_OP_DIV"),
-        (a[(a.Z3_OP_IDIV = 523)] = "Z3_OP_IDIV"),
-        (a[(a.Z3_OP_REM = 524)] = "Z3_OP_REM"),
-        (a[(a.Z3_OP_MOD = 525)] = "Z3_OP_MOD"),
-        (a[(a.Z3_OP_TO_REAL = 526)] = "Z3_OP_TO_REAL"),
-        (a[(a.Z3_OP_TO_INT = 527)] = "Z3_OP_TO_INT"),
-        (a[(a.Z3_OP_IS_INT = 528)] = "Z3_OP_IS_INT"),
-        (a[(a.Z3_OP_POWER = 529)] = "Z3_OP_POWER"),
-        (a[(a.Z3_OP_ABS = 530)] = "Z3_OP_ABS"),
-        (a[(a.Z3_OP_STORE = 768)] = "Z3_OP_STORE"),
-        (a[(a.Z3_OP_SELECT = 769)] = "Z3_OP_SELECT"),
-        (a[(a.Z3_OP_CONST_ARRAY = 770)] = "Z3_OP_CONST_ARRAY"),
-        (a[(a.Z3_OP_ARRAY_MAP = 771)] = "Z3_OP_ARRAY_MAP"),
-        (a[(a.Z3_OP_ARRAY_DEFAULT = 772)] = "Z3_OP_ARRAY_DEFAULT"),
-        (a[(a.Z3_OP_SET_UNION = 773)] = "Z3_OP_SET_UNION"),
-        (a[(a.Z3_OP_SET_INTERSECT = 774)] = "Z3_OP_SET_INTERSECT"),
-        (a[(a.Z3_OP_SET_DIFFERENCE = 775)] = "Z3_OP_SET_DIFFERENCE"),
-        (a[(a.Z3_OP_SET_COMPLEMENT = 776)] = "Z3_OP_SET_COMPLEMENT"),
-        (a[(a.Z3_OP_SET_SUBSET = 777)] = "Z3_OP_SET_SUBSET"),
-        (a[(a.Z3_OP_AS_ARRAY = 778)] = "Z3_OP_AS_ARRAY"),
-        (a[(a.Z3_OP_ARRAY_EXT = 779)] = "Z3_OP_ARRAY_EXT"),
-        (a[(a.Z3_OP_SET_HAS_SIZE = 780)] = "Z3_OP_SET_HAS_SIZE"),
-        (a[(a.Z3_OP_SET_CARD = 781)] = "Z3_OP_SET_CARD"),
-        (a[(a.Z3_OP_BNUM = 1024)] = "Z3_OP_BNUM"),
-        (a[(a.Z3_OP_BIT1 = 1025)] = "Z3_OP_BIT1"),
-        (a[(a.Z3_OP_BIT0 = 1026)] = "Z3_OP_BIT0"),
-        (a[(a.Z3_OP_BNEG = 1027)] = "Z3_OP_BNEG"),
-        (a[(a.Z3_OP_BADD = 1028)] = "Z3_OP_BADD"),
-        (a[(a.Z3_OP_BSUB = 1029)] = "Z3_OP_BSUB"),
-        (a[(a.Z3_OP_BMUL = 1030)] = "Z3_OP_BMUL"),
-        (a[(a.Z3_OP_BSDIV = 1031)] = "Z3_OP_BSDIV"),
-        (a[(a.Z3_OP_BUDIV = 1032)] = "Z3_OP_BUDIV"),
-        (a[(a.Z3_OP_BSREM = 1033)] = "Z3_OP_BSREM"),
-        (a[(a.Z3_OP_BUREM = 1034)] = "Z3_OP_BUREM"),
-        (a[(a.Z3_OP_BSMOD = 1035)] = "Z3_OP_BSMOD"),
-        (a[(a.Z3_OP_BSDIV0 = 1036)] = "Z3_OP_BSDIV0"),
-        (a[(a.Z3_OP_BUDIV0 = 1037)] = "Z3_OP_BUDIV0"),
-        (a[(a.Z3_OP_BSREM0 = 1038)] = "Z3_OP_BSREM0"),
-        (a[(a.Z3_OP_BUREM0 = 1039)] = "Z3_OP_BUREM0"),
-        (a[(a.Z3_OP_BSMOD0 = 1040)] = "Z3_OP_BSMOD0"),
-        (a[(a.Z3_OP_ULEQ = 1041)] = "Z3_OP_ULEQ"),
-        (a[(a.Z3_OP_SLEQ = 1042)] = "Z3_OP_SLEQ"),
-        (a[(a.Z3_OP_UGEQ = 1043)] = "Z3_OP_UGEQ"),
-        (a[(a.Z3_OP_SGEQ = 1044)] = "Z3_OP_SGEQ"),
-        (a[(a.Z3_OP_ULT = 1045)] = "Z3_OP_ULT"),
-        (a[(a.Z3_OP_SLT = 1046)] = "Z3_OP_SLT"),
-        (a[(a.Z3_OP_UGT = 1047)] = "Z3_OP_UGT"),
-        (a[(a.Z3_OP_SGT = 1048)] = "Z3_OP_SGT"),
-        (a[(a.Z3_OP_BAND = 1049)] = "Z3_OP_BAND"),
-        (a[(a.Z3_OP_BOR = 1050)] = "Z3_OP_BOR"),
-        (a[(a.Z3_OP_BNOT = 1051)] = "Z3_OP_BNOT"),
-        (a[(a.Z3_OP_BXOR = 1052)] = "Z3_OP_BXOR"),
-        (a[(a.Z3_OP_BNAND = 1053)] = "Z3_OP_BNAND"),
-        (a[(a.Z3_OP_BNOR = 1054)] = "Z3_OP_BNOR"),
-        (a[(a.Z3_OP_BXNOR = 1055)] = "Z3_OP_BXNOR"),
-        (a[(a.Z3_OP_CONCAT = 1056)] = "Z3_OP_CONCAT"),
-        (a[(a.Z3_OP_SIGN_EXT = 1057)] = "Z3_OP_SIGN_EXT"),
-        (a[(a.Z3_OP_ZERO_EXT = 1058)] = "Z3_OP_ZERO_EXT"),
-        (a[(a.Z3_OP_EXTRACT = 1059)] = "Z3_OP_EXTRACT"),
-        (a[(a.Z3_OP_REPEAT = 1060)] = "Z3_OP_REPEAT"),
-        (a[(a.Z3_OP_BREDOR = 1061)] = "Z3_OP_BREDOR"),
-        (a[(a.Z3_OP_BREDAND = 1062)] = "Z3_OP_BREDAND"),
-        (a[(a.Z3_OP_BCOMP = 1063)] = "Z3_OP_BCOMP"),
-        (a[(a.Z3_OP_BSHL = 1064)] = "Z3_OP_BSHL"),
-        (a[(a.Z3_OP_BLSHR = 1065)] = "Z3_OP_BLSHR"),
-        (a[(a.Z3_OP_BASHR = 1066)] = "Z3_OP_BASHR"),
-        (a[(a.Z3_OP_ROTATE_LEFT = 1067)] = "Z3_OP_ROTATE_LEFT"),
-        (a[(a.Z3_OP_ROTATE_RIGHT = 1068)] = "Z3_OP_ROTATE_RIGHT"),
-        (a[(a.Z3_OP_EXT_ROTATE_LEFT = 1069)] = "Z3_OP_EXT_ROTATE_LEFT"),
-        (a[(a.Z3_OP_EXT_ROTATE_RIGHT = 1070)] = "Z3_OP_EXT_ROTATE_RIGHT"),
-        (a[(a.Z3_OP_BIT2BOOL = 1071)] = "Z3_OP_BIT2BOOL"),
-        (a[(a.Z3_OP_INT2BV = 1072)] = "Z3_OP_INT2BV"),
-        (a[(a.Z3_OP_BV2INT = 1073)] = "Z3_OP_BV2INT"),
-        (a[(a.Z3_OP_SBV2INT = 1074)] = "Z3_OP_SBV2INT"),
-        (a[(a.Z3_OP_CARRY = 1075)] = "Z3_OP_CARRY"),
-        (a[(a.Z3_OP_XOR3 = 1076)] = "Z3_OP_XOR3"),
-        (a[(a.Z3_OP_BSMUL_NO_OVFL = 1077)] = "Z3_OP_BSMUL_NO_OVFL"),
-        (a[(a.Z3_OP_BUMUL_NO_OVFL = 1078)] = "Z3_OP_BUMUL_NO_OVFL"),
-        (a[(a.Z3_OP_BSMUL_NO_UDFL = 1079)] = "Z3_OP_BSMUL_NO_UDFL"),
-        (a[(a.Z3_OP_BSDIV_I = 1080)] = "Z3_OP_BSDIV_I"),
-        (a[(a.Z3_OP_BUDIV_I = 1081)] = "Z3_OP_BUDIV_I"),
-        (a[(a.Z3_OP_BSREM_I = 1082)] = "Z3_OP_BSREM_I"),
-        (a[(a.Z3_OP_BUREM_I = 1083)] = "Z3_OP_BUREM_I"),
-        (a[(a.Z3_OP_BSMOD_I = 1084)] = "Z3_OP_BSMOD_I"),
-        (a[(a.Z3_OP_PR_UNDEF = 1280)] = "Z3_OP_PR_UNDEF"),
-        (a[(a.Z3_OP_PR_TRUE = 1281)] = "Z3_OP_PR_TRUE"),
-        (a[(a.Z3_OP_PR_ASSERTED = 1282)] = "Z3_OP_PR_ASSERTED"),
-        (a[(a.Z3_OP_PR_GOAL = 1283)] = "Z3_OP_PR_GOAL"),
-        (a[(a.Z3_OP_PR_MODUS_PONENS = 1284)] = "Z3_OP_PR_MODUS_PONENS"),
-        (a[(a.Z3_OP_PR_REFLEXIVITY = 1285)] = "Z3_OP_PR_REFLEXIVITY"),
-        (a[(a.Z3_OP_PR_SYMMETRY = 1286)] = "Z3_OP_PR_SYMMETRY"),
-        (a[(a.Z3_OP_PR_TRANSITIVITY = 1287)] = "Z3_OP_PR_TRANSITIVITY"),
-        (a[(a.Z3_OP_PR_TRANSITIVITY_STAR = 1288)] = "Z3_OP_PR_TRANSITIVITY_STAR"),
-        (a[(a.Z3_OP_PR_MONOTONICITY = 1289)] = "Z3_OP_PR_MONOTONICITY"),
-        (a[(a.Z3_OP_PR_QUANT_INTRO = 1290)] = "Z3_OP_PR_QUANT_INTRO"),
-        (a[(a.Z3_OP_PR_BIND = 1291)] = "Z3_OP_PR_BIND"),
-        (a[(a.Z3_OP_PR_DISTRIBUTIVITY = 1292)] = "Z3_OP_PR_DISTRIBUTIVITY"),
-        (a[(a.Z3_OP_PR_AND_ELIM = 1293)] = "Z3_OP_PR_AND_ELIM"),
-        (a[(a.Z3_OP_PR_NOT_OR_ELIM = 1294)] = "Z3_OP_PR_NOT_OR_ELIM"),
-        (a[(a.Z3_OP_PR_REWRITE = 1295)] = "Z3_OP_PR_REWRITE"),
-        (a[(a.Z3_OP_PR_REWRITE_STAR = 1296)] = "Z3_OP_PR_REWRITE_STAR"),
-        (a[(a.Z3_OP_PR_PULL_QUANT = 1297)] = "Z3_OP_PR_PULL_QUANT"),
-        (a[(a.Z3_OP_PR_PUSH_QUANT = 1298)] = "Z3_OP_PR_PUSH_QUANT"),
-        (a[(a.Z3_OP_PR_ELIM_UNUSED_VARS = 1299)] = "Z3_OP_PR_ELIM_UNUSED_VARS"),
-        (a[(a.Z3_OP_PR_DER = 1300)] = "Z3_OP_PR_DER"),
-        (a[(a.Z3_OP_PR_QUANT_INST = 1301)] = "Z3_OP_PR_QUANT_INST"),
-        (a[(a.Z3_OP_PR_HYPOTHESIS = 1302)] = "Z3_OP_PR_HYPOTHESIS"),
-        (a[(a.Z3_OP_PR_LEMMA = 1303)] = "Z3_OP_PR_LEMMA"),
-        (a[(a.Z3_OP_PR_UNIT_RESOLUTION = 1304)] = "Z3_OP_PR_UNIT_RESOLUTION"),
-        (a[(a.Z3_OP_PR_IFF_TRUE = 1305)] = "Z3_OP_PR_IFF_TRUE"),
-        (a[(a.Z3_OP_PR_IFF_FALSE = 1306)] = "Z3_OP_PR_IFF_FALSE"),
-        (a[(a.Z3_OP_PR_COMMUTATIVITY = 1307)] = "Z3_OP_PR_COMMUTATIVITY"),
-        (a[(a.Z3_OP_PR_DEF_AXIOM = 1308)] = "Z3_OP_PR_DEF_AXIOM"),
-        (a[(a.Z3_OP_PR_ASSUMPTION_ADD = 1309)] = "Z3_OP_PR_ASSUMPTION_ADD"),
-        (a[(a.Z3_OP_PR_LEMMA_ADD = 1310)] = "Z3_OP_PR_LEMMA_ADD"),
-        (a[(a.Z3_OP_PR_REDUNDANT_DEL = 1311)] = "Z3_OP_PR_REDUNDANT_DEL"),
-        (a[(a.Z3_OP_PR_CLAUSE_TRAIL = 1312)] = "Z3_OP_PR_CLAUSE_TRAIL"),
-        (a[(a.Z3_OP_PR_DEF_INTRO = 1313)] = "Z3_OP_PR_DEF_INTRO"),
-        (a[(a.Z3_OP_PR_APPLY_DEF = 1314)] = "Z3_OP_PR_APPLY_DEF"),
-        (a[(a.Z3_OP_PR_IFF_OEQ = 1315)] = "Z3_OP_PR_IFF_OEQ"),
-        (a[(a.Z3_OP_PR_NNF_POS = 1316)] = "Z3_OP_PR_NNF_POS"),
-        (a[(a.Z3_OP_PR_NNF_NEG = 1317)] = "Z3_OP_PR_NNF_NEG"),
-        (a[(a.Z3_OP_PR_SKOLEMIZE = 1318)] = "Z3_OP_PR_SKOLEMIZE"),
-        (a[(a.Z3_OP_PR_MODUS_PONENS_OEQ = 1319)] = "Z3_OP_PR_MODUS_PONENS_OEQ"),
-        (a[(a.Z3_OP_PR_TH_LEMMA = 1320)] = "Z3_OP_PR_TH_LEMMA"),
-        (a[(a.Z3_OP_PR_HYPER_RESOLVE = 1321)] = "Z3_OP_PR_HYPER_RESOLVE"),
-        (a[(a.Z3_OP_RA_STORE = 1536)] = "Z3_OP_RA_STORE"),
-        (a[(a.Z3_OP_RA_EMPTY = 1537)] = "Z3_OP_RA_EMPTY"),
-        (a[(a.Z3_OP_RA_IS_EMPTY = 1538)] = "Z3_OP_RA_IS_EMPTY"),
-        (a[(a.Z3_OP_RA_JOIN = 1539)] = "Z3_OP_RA_JOIN"),
-        (a[(a.Z3_OP_RA_UNION = 1540)] = "Z3_OP_RA_UNION"),
-        (a[(a.Z3_OP_RA_WIDEN = 1541)] = "Z3_OP_RA_WIDEN"),
-        (a[(a.Z3_OP_RA_PROJECT = 1542)] = "Z3_OP_RA_PROJECT"),
-        (a[(a.Z3_OP_RA_FILTER = 1543)] = "Z3_OP_RA_FILTER"),
-        (a[(a.Z3_OP_RA_NEGATION_FILTER = 1544)] = "Z3_OP_RA_NEGATION_FILTER"),
-        (a[(a.Z3_OP_RA_RENAME = 1545)] = "Z3_OP_RA_RENAME"),
-        (a[(a.Z3_OP_RA_COMPLEMENT = 1546)] = "Z3_OP_RA_COMPLEMENT"),
-        (a[(a.Z3_OP_RA_SELECT = 1547)] = "Z3_OP_RA_SELECT"),
-        (a[(a.Z3_OP_RA_CLONE = 1548)] = "Z3_OP_RA_CLONE"),
-        (a[(a.Z3_OP_FD_CONSTANT = 1549)] = "Z3_OP_FD_CONSTANT"),
-        (a[(a.Z3_OP_FD_LT = 1550)] = "Z3_OP_FD_LT"),
-        (a[(a.Z3_OP_SEQ_UNIT = 1551)] = "Z3_OP_SEQ_UNIT"),
-        (a[(a.Z3_OP_SEQ_EMPTY = 1552)] = "Z3_OP_SEQ_EMPTY"),
-        (a[(a.Z3_OP_SEQ_CONCAT = 1553)] = "Z3_OP_SEQ_CONCAT"),
-        (a[(a.Z3_OP_SEQ_PREFIX = 1554)] = "Z3_OP_SEQ_PREFIX"),
-        (a[(a.Z3_OP_SEQ_SUFFIX = 1555)] = "Z3_OP_SEQ_SUFFIX"),
-        (a[(a.Z3_OP_SEQ_CONTAINS = 1556)] = "Z3_OP_SEQ_CONTAINS"),
-        (a[(a.Z3_OP_SEQ_EXTRACT = 1557)] = "Z3_OP_SEQ_EXTRACT"),
-        (a[(a.Z3_OP_SEQ_REPLACE = 1558)] = "Z3_OP_SEQ_REPLACE"),
-        (a[(a.Z3_OP_SEQ_REPLACE_RE = 1559)] = "Z3_OP_SEQ_REPLACE_RE"),
-        (a[(a.Z3_OP_SEQ_REPLACE_RE_ALL = 1560)] = "Z3_OP_SEQ_REPLACE_RE_ALL"),
-        (a[(a.Z3_OP_SEQ_REPLACE_ALL = 1561)] = "Z3_OP_SEQ_REPLACE_ALL"),
-        (a[(a.Z3_OP_SEQ_AT = 1562)] = "Z3_OP_SEQ_AT"),
-        (a[(a.Z3_OP_SEQ_NTH = 1563)] = "Z3_OP_SEQ_NTH"),
-        (a[(a.Z3_OP_SEQ_LENGTH = 1564)] = "Z3_OP_SEQ_LENGTH"),
-        (a[(a.Z3_OP_SEQ_INDEX = 1565)] = "Z3_OP_SEQ_INDEX"),
-        (a[(a.Z3_OP_SEQ_LAST_INDEX = 1566)] = "Z3_OP_SEQ_LAST_INDEX"),
-        (a[(a.Z3_OP_SEQ_TO_RE = 1567)] = "Z3_OP_SEQ_TO_RE"),
-        (a[(a.Z3_OP_SEQ_IN_RE = 1568)] = "Z3_OP_SEQ_IN_RE"),
-        (a[(a.Z3_OP_SEQ_MAP = 1569)] = "Z3_OP_SEQ_MAP"),
-        (a[(a.Z3_OP_SEQ_MAPI = 1570)] = "Z3_OP_SEQ_MAPI"),
-        (a[(a.Z3_OP_SEQ_FOLDL = 1571)] = "Z3_OP_SEQ_FOLDL"),
-        (a[(a.Z3_OP_SEQ_FOLDLI = 1572)] = "Z3_OP_SEQ_FOLDLI"),
-        (a[(a.Z3_OP_STR_TO_INT = 1573)] = "Z3_OP_STR_TO_INT"),
-        (a[(a.Z3_OP_INT_TO_STR = 1574)] = "Z3_OP_INT_TO_STR"),
-        (a[(a.Z3_OP_UBV_TO_STR = 1575)] = "Z3_OP_UBV_TO_STR"),
-        (a[(a.Z3_OP_SBV_TO_STR = 1576)] = "Z3_OP_SBV_TO_STR"),
-        (a[(a.Z3_OP_STR_TO_CODE = 1577)] = "Z3_OP_STR_TO_CODE"),
-        (a[(a.Z3_OP_STR_FROM_CODE = 1578)] = "Z3_OP_STR_FROM_CODE"),
-        (a[(a.Z3_OP_STRING_LT = 1579)] = "Z3_OP_STRING_LT"),
-        (a[(a.Z3_OP_STRING_LE = 1580)] = "Z3_OP_STRING_LE"),
-        (a[(a.Z3_OP_RE_PLUS = 1581)] = "Z3_OP_RE_PLUS"),
-        (a[(a.Z3_OP_RE_STAR = 1582)] = "Z3_OP_RE_STAR"),
-        (a[(a.Z3_OP_RE_OPTION = 1583)] = "Z3_OP_RE_OPTION"),
-        (a[(a.Z3_OP_RE_CONCAT = 1584)] = "Z3_OP_RE_CONCAT"),
-        (a[(a.Z3_OP_RE_UNION = 1585)] = "Z3_OP_RE_UNION"),
-        (a[(a.Z3_OP_RE_RANGE = 1586)] = "Z3_OP_RE_RANGE"),
-        (a[(a.Z3_OP_RE_DIFF = 1587)] = "Z3_OP_RE_DIFF"),
-        (a[(a.Z3_OP_RE_INTERSECT = 1588)] = "Z3_OP_RE_INTERSECT"),
-        (a[(a.Z3_OP_RE_LOOP = 1589)] = "Z3_OP_RE_LOOP"),
-        (a[(a.Z3_OP_RE_POWER = 1590)] = "Z3_OP_RE_POWER"),
-        (a[(a.Z3_OP_RE_COMPLEMENT = 1591)] = "Z3_OP_RE_COMPLEMENT"),
-        (a[(a.Z3_OP_RE_EMPTY_SET = 1592)] = "Z3_OP_RE_EMPTY_SET"),
-        (a[(a.Z3_OP_RE_FULL_SET = 1593)] = "Z3_OP_RE_FULL_SET"),
-        (a[(a.Z3_OP_RE_FULL_CHAR_SET = 1594)] = "Z3_OP_RE_FULL_CHAR_SET"),
-        (a[(a.Z3_OP_RE_OF_PRED = 1595)] = "Z3_OP_RE_OF_PRED"),
-        (a[(a.Z3_OP_RE_REVERSE = 1596)] = "Z3_OP_RE_REVERSE"),
-        (a[(a.Z3_OP_RE_DERIVATIVE = 1597)] = "Z3_OP_RE_DERIVATIVE"),
-        (a[(a.Z3_OP_CHAR_CONST = 1598)] = "Z3_OP_CHAR_CONST"),
-        (a[(a.Z3_OP_CHAR_LE = 1599)] = "Z3_OP_CHAR_LE"),
-        (a[(a.Z3_OP_CHAR_TO_INT = 1600)] = "Z3_OP_CHAR_TO_INT"),
-        (a[(a.Z3_OP_CHAR_TO_BV = 1601)] = "Z3_OP_CHAR_TO_BV"),
-        (a[(a.Z3_OP_CHAR_FROM_BV = 1602)] = "Z3_OP_CHAR_FROM_BV"),
-        (a[(a.Z3_OP_CHAR_IS_DIGIT = 1603)] = "Z3_OP_CHAR_IS_DIGIT"),
-        (a[(a.Z3_OP_LABEL = 1792)] = "Z3_OP_LABEL"),
-        (a[(a.Z3_OP_LABEL_LIT = 1793)] = "Z3_OP_LABEL_LIT"),
-        (a[(a.Z3_OP_DT_CONSTRUCTOR = 2048)] = "Z3_OP_DT_CONSTRUCTOR"),
-        (a[(a.Z3_OP_DT_RECOGNISER = 2049)] = "Z3_OP_DT_RECOGNISER"),
-        (a[(a.Z3_OP_DT_IS = 2050)] = "Z3_OP_DT_IS"),
-        (a[(a.Z3_OP_DT_ACCESSOR = 2051)] = "Z3_OP_DT_ACCESSOR"),
-        (a[(a.Z3_OP_DT_UPDATE_FIELD = 2052)] = "Z3_OP_DT_UPDATE_FIELD"),
-        (a[(a.Z3_OP_PB_AT_MOST = 2304)] = "Z3_OP_PB_AT_MOST"),
-        (a[(a.Z3_OP_PB_AT_LEAST = 2305)] = "Z3_OP_PB_AT_LEAST"),
-        (a[(a.Z3_OP_PB_LE = 2306)] = "Z3_OP_PB_LE"),
-        (a[(a.Z3_OP_PB_GE = 2307)] = "Z3_OP_PB_GE"),
-        (a[(a.Z3_OP_PB_EQ = 2308)] = "Z3_OP_PB_EQ"),
-        (a[(a.Z3_OP_SPECIAL_RELATION_LO = 40960)] = "Z3_OP_SPECIAL_RELATION_LO"),
-        (a[(a.Z3_OP_SPECIAL_RELATION_PO = 40961)] = "Z3_OP_SPECIAL_RELATION_PO"),
-        (a[(a.Z3_OP_SPECIAL_RELATION_PLO = 40962)] = "Z3_OP_SPECIAL_RELATION_PLO"),
-        (a[(a.Z3_OP_SPECIAL_RELATION_TO = 40963)] = "Z3_OP_SPECIAL_RELATION_TO"),
-        (a[(a.Z3_OP_SPECIAL_RELATION_TC = 40964)] = "Z3_OP_SPECIAL_RELATION_TC"),
-        (a[(a.Z3_OP_SPECIAL_RELATION_TRC = 40965)] = "Z3_OP_SPECIAL_RELATION_TRC"),
-        (a[(a.Z3_OP_FPA_RM_NEAREST_TIES_TO_EVEN = 45056)] = "Z3_OP_FPA_RM_NEAREST_TIES_TO_EVEN"),
-        (a[(a.Z3_OP_FPA_RM_NEAREST_TIES_TO_AWAY = 45057)] = "Z3_OP_FPA_RM_NEAREST_TIES_TO_AWAY"),
-        (a[(a.Z3_OP_FPA_RM_TOWARD_POSITIVE = 45058)] = "Z3_OP_FPA_RM_TOWARD_POSITIVE"),
-        (a[(a.Z3_OP_FPA_RM_TOWARD_NEGATIVE = 45059)] = "Z3_OP_FPA_RM_TOWARD_NEGATIVE"),
-        (a[(a.Z3_OP_FPA_RM_TOWARD_ZERO = 45060)] = "Z3_OP_FPA_RM_TOWARD_ZERO"),
-        (a[(a.Z3_OP_FPA_NUM = 45061)] = "Z3_OP_FPA_NUM"),
-        (a[(a.Z3_OP_FPA_PLUS_INF = 45062)] = "Z3_OP_FPA_PLUS_INF"),
-        (a[(a.Z3_OP_FPA_MINUS_INF = 45063)] = "Z3_OP_FPA_MINUS_INF"),
-        (a[(a.Z3_OP_FPA_NAN = 45064)] = "Z3_OP_FPA_NAN"),
-        (a[(a.Z3_OP_FPA_PLUS_ZERO = 45065)] = "Z3_OP_FPA_PLUS_ZERO"),
-        (a[(a.Z3_OP_FPA_MINUS_ZERO = 45066)] = "Z3_OP_FPA_MINUS_ZERO"),
-        (a[(a.Z3_OP_FPA_ADD = 45067)] = "Z3_OP_FPA_ADD"),
-        (a[(a.Z3_OP_FPA_SUB = 45068)] = "Z3_OP_FPA_SUB"),
-        (a[(a.Z3_OP_FPA_NEG = 45069)] = "Z3_OP_FPA_NEG"),
-        (a[(a.Z3_OP_FPA_MUL = 45070)] = "Z3_OP_FPA_MUL"),
-        (a[(a.Z3_OP_FPA_DIV = 45071)] = "Z3_OP_FPA_DIV"),
-        (a[(a.Z3_OP_FPA_REM = 45072)] = "Z3_OP_FPA_REM"),
-        (a[(a.Z3_OP_FPA_ABS = 45073)] = "Z3_OP_FPA_ABS"),
-        (a[(a.Z3_OP_FPA_MIN = 45074)] = "Z3_OP_FPA_MIN"),
-        (a[(a.Z3_OP_FPA_MAX = 45075)] = "Z3_OP_FPA_MAX"),
-        (a[(a.Z3_OP_FPA_FMA = 45076)] = "Z3_OP_FPA_FMA"),
-        (a[(a.Z3_OP_FPA_SQRT = 45077)] = "Z3_OP_FPA_SQRT"),
-        (a[(a.Z3_OP_FPA_ROUND_TO_INTEGRAL = 45078)] = "Z3_OP_FPA_ROUND_TO_INTEGRAL"),
-        (a[(a.Z3_OP_FPA_EQ = 45079)] = "Z3_OP_FPA_EQ"),
-        (a[(a.Z3_OP_FPA_LT = 45080)] = "Z3_OP_FPA_LT"),
-        (a[(a.Z3_OP_FPA_GT = 45081)] = "Z3_OP_FPA_GT"),
-        (a[(a.Z3_OP_FPA_LE = 45082)] = "Z3_OP_FPA_LE"),
-        (a[(a.Z3_OP_FPA_GE = 45083)] = "Z3_OP_FPA_GE"),
-        (a[(a.Z3_OP_FPA_IS_NAN = 45084)] = "Z3_OP_FPA_IS_NAN"),
-        (a[(a.Z3_OP_FPA_IS_INF = 45085)] = "Z3_OP_FPA_IS_INF"),
-        (a[(a.Z3_OP_FPA_IS_ZERO = 45086)] = "Z3_OP_FPA_IS_ZERO"),
-        (a[(a.Z3_OP_FPA_IS_NORMAL = 45087)] = "Z3_OP_FPA_IS_NORMAL"),
-        (a[(a.Z3_OP_FPA_IS_SUBNORMAL = 45088)] = "Z3_OP_FPA_IS_SUBNORMAL"),
-        (a[(a.Z3_OP_FPA_IS_NEGATIVE = 45089)] = "Z3_OP_FPA_IS_NEGATIVE"),
-        (a[(a.Z3_OP_FPA_IS_POSITIVE = 45090)] = "Z3_OP_FPA_IS_POSITIVE"),
-        (a[(a.Z3_OP_FPA_FP = 45091)] = "Z3_OP_FPA_FP"),
-        (a[(a.Z3_OP_FPA_TO_FP = 45092)] = "Z3_OP_FPA_TO_FP"),
-        (a[(a.Z3_OP_FPA_TO_FP_UNSIGNED = 45093)] = "Z3_OP_FPA_TO_FP_UNSIGNED"),
-        (a[(a.Z3_OP_FPA_TO_UBV = 45094)] = "Z3_OP_FPA_TO_UBV"),
-        (a[(a.Z3_OP_FPA_TO_SBV = 45095)] = "Z3_OP_FPA_TO_SBV"),
-        (a[(a.Z3_OP_FPA_TO_REAL = 45096)] = "Z3_OP_FPA_TO_REAL"),
-        (a[(a.Z3_OP_FPA_TO_IEEE_BV = 45097)] = "Z3_OP_FPA_TO_IEEE_BV"),
-        (a[(a.Z3_OP_FPA_BVWRAP = 45098)] = "Z3_OP_FPA_BVWRAP"),
-        (a[(a.Z3_OP_FPA_BV2RM = 45099)] = "Z3_OP_FPA_BV2RM"),
-        (a[(a.Z3_OP_INTERNAL = 45100)] = "Z3_OP_INTERNAL"),
-        (a[(a.Z3_OP_RECURSIVE = 45101)] = "Z3_OP_RECURSIVE"),
-        (a[(a.Z3_OP_UNINTERPRETED = 45102)] = "Z3_OP_UNINTERPRETED"));
-    })(R || (O_.Z3_decl_kind = R = {}));
-    var x;
-    (function (a) {
-      ((a[(a.Z3_PK_UINT = 0)] = "Z3_PK_UINT"),
-        (a[(a.Z3_PK_BOOL = 1)] = "Z3_PK_BOOL"),
-        (a[(a.Z3_PK_DOUBLE = 2)] = "Z3_PK_DOUBLE"),
-        (a[(a.Z3_PK_SYMBOL = 3)] = "Z3_PK_SYMBOL"),
-        (a[(a.Z3_PK_STRING = 4)] = "Z3_PK_STRING"),
-        (a[(a.Z3_PK_OTHER = 5)] = "Z3_PK_OTHER"),
-        (a[(a.Z3_PK_INVALID = 6)] = "Z3_PK_INVALID"));
-    })(x || (O_.Z3_param_kind = x = {}));
+    (function (r) {
+      ((r[(r.Z3_PARAMETER_INT = 0)] = "Z3_PARAMETER_INT"),
+        (r[(r.Z3_PARAMETER_DOUBLE = 1)] = "Z3_PARAMETER_DOUBLE"),
+        (r[(r.Z3_PARAMETER_RATIONAL = 2)] = "Z3_PARAMETER_RATIONAL"),
+        (r[(r.Z3_PARAMETER_SYMBOL = 3)] = "Z3_PARAMETER_SYMBOL"),
+        (r[(r.Z3_PARAMETER_SORT = 4)] = "Z3_PARAMETER_SORT"),
+        (r[(r.Z3_PARAMETER_AST = 5)] = "Z3_PARAMETER_AST"),
+        (r[(r.Z3_PARAMETER_FUNC_DECL = 6)] = "Z3_PARAMETER_FUNC_DECL"),
+        (r[(r.Z3_PARAMETER_INTERNAL = 7)] = "Z3_PARAMETER_INTERNAL"),
+        (r[(r.Z3_PARAMETER_ZSTRING = 8)] = "Z3_PARAMETER_ZSTRING"));
+    })(t || (Q.Z3_parameter_kind = t = {}));
+    var c;
+    (function (r) {
+      ((r[(r.Z3_UNINTERPRETED_SORT = 0)] = "Z3_UNINTERPRETED_SORT"),
+        (r[(r.Z3_BOOL_SORT = 1)] = "Z3_BOOL_SORT"),
+        (r[(r.Z3_INT_SORT = 2)] = "Z3_INT_SORT"),
+        (r[(r.Z3_REAL_SORT = 3)] = "Z3_REAL_SORT"),
+        (r[(r.Z3_BV_SORT = 4)] = "Z3_BV_SORT"),
+        (r[(r.Z3_ARRAY_SORT = 5)] = "Z3_ARRAY_SORT"),
+        (r[(r.Z3_DATATYPE_SORT = 6)] = "Z3_DATATYPE_SORT"),
+        (r[(r.Z3_RELATION_SORT = 7)] = "Z3_RELATION_SORT"),
+        (r[(r.Z3_FINITE_DOMAIN_SORT = 8)] = "Z3_FINITE_DOMAIN_SORT"),
+        (r[(r.Z3_FLOATING_POINT_SORT = 9)] = "Z3_FLOATING_POINT_SORT"),
+        (r[(r.Z3_ROUNDING_MODE_SORT = 10)] = "Z3_ROUNDING_MODE_SORT"),
+        (r[(r.Z3_SEQ_SORT = 11)] = "Z3_SEQ_SORT"),
+        (r[(r.Z3_RE_SORT = 12)] = "Z3_RE_SORT"),
+        (r[(r.Z3_CHAR_SORT = 13)] = "Z3_CHAR_SORT"),
+        (r[(r.Z3_TYPE_VAR = 14)] = "Z3_TYPE_VAR"),
+        (r[(r.Z3_UNKNOWN_SORT = 1e3)] = "Z3_UNKNOWN_SORT"));
+    })(c || (Q.Z3_sort_kind = c = {}));
     var P;
-    (function (a) {
-      ((a[(a.Z3_PRINT_SMTLIB_FULL = 0)] = "Z3_PRINT_SMTLIB_FULL"),
-        (a[(a.Z3_PRINT_LOW_LEVEL = 1)] = "Z3_PRINT_LOW_LEVEL"),
-        (a[(a.Z3_PRINT_SMTLIB2_COMPLIANT = 2)] = "Z3_PRINT_SMTLIB2_COMPLIANT"));
-    })(P || (O_.Z3_ast_print_mode = P = {}));
-    var _;
-    (function (a) {
-      ((a[(a.Z3_OK = 0)] = "Z3_OK"),
-        (a[(a.Z3_SORT_ERROR = 1)] = "Z3_SORT_ERROR"),
-        (a[(a.Z3_IOB = 2)] = "Z3_IOB"),
-        (a[(a.Z3_INVALID_ARG = 3)] = "Z3_INVALID_ARG"),
-        (a[(a.Z3_PARSER_ERROR = 4)] = "Z3_PARSER_ERROR"),
-        (a[(a.Z3_NO_PARSER = 5)] = "Z3_NO_PARSER"),
-        (a[(a.Z3_INVALID_PATTERN = 6)] = "Z3_INVALID_PATTERN"),
-        (a[(a.Z3_MEMOUT_FAIL = 7)] = "Z3_MEMOUT_FAIL"),
-        (a[(a.Z3_FILE_ACCESS_ERROR = 8)] = "Z3_FILE_ACCESS_ERROR"),
-        (a[(a.Z3_INTERNAL_FATAL = 9)] = "Z3_INTERNAL_FATAL"),
-        (a[(a.Z3_INVALID_USAGE = 10)] = "Z3_INVALID_USAGE"),
-        (a[(a.Z3_DEC_REF_ERROR = 11)] = "Z3_DEC_REF_ERROR"),
-        (a[(a.Z3_EXCEPTION = 12)] = "Z3_EXCEPTION"));
-    })(_ || (O_.Z3_error_code = _ = {}));
-    var B;
+    (function (r) {
+      ((r[(r.Z3_NUMERAL_AST = 0)] = "Z3_NUMERAL_AST"),
+        (r[(r.Z3_APP_AST = 1)] = "Z3_APP_AST"),
+        (r[(r.Z3_VAR_AST = 2)] = "Z3_VAR_AST"),
+        (r[(r.Z3_QUANTIFIER_AST = 3)] = "Z3_QUANTIFIER_AST"),
+        (r[(r.Z3_SORT_AST = 4)] = "Z3_SORT_AST"),
+        (r[(r.Z3_FUNC_DECL_AST = 5)] = "Z3_FUNC_DECL_AST"),
+        (r[(r.Z3_UNKNOWN_AST = 1e3)] = "Z3_UNKNOWN_AST"));
+    })(P || (Q.Z3_ast_kind = P = {}));
+    var y;
+    (function (r) {
+      ((r[(r.Z3_OP_TRUE = 256)] = "Z3_OP_TRUE"),
+        (r[(r.Z3_OP_FALSE = 257)] = "Z3_OP_FALSE"),
+        (r[(r.Z3_OP_EQ = 258)] = "Z3_OP_EQ"),
+        (r[(r.Z3_OP_DISTINCT = 259)] = "Z3_OP_DISTINCT"),
+        (r[(r.Z3_OP_ITE = 260)] = "Z3_OP_ITE"),
+        (r[(r.Z3_OP_AND = 261)] = "Z3_OP_AND"),
+        (r[(r.Z3_OP_OR = 262)] = "Z3_OP_OR"),
+        (r[(r.Z3_OP_IFF = 263)] = "Z3_OP_IFF"),
+        (r[(r.Z3_OP_XOR = 264)] = "Z3_OP_XOR"),
+        (r[(r.Z3_OP_NOT = 265)] = "Z3_OP_NOT"),
+        (r[(r.Z3_OP_IMPLIES = 266)] = "Z3_OP_IMPLIES"),
+        (r[(r.Z3_OP_OEQ = 267)] = "Z3_OP_OEQ"),
+        (r[(r.Z3_OP_ANUM = 512)] = "Z3_OP_ANUM"),
+        (r[(r.Z3_OP_AGNUM = 513)] = "Z3_OP_AGNUM"),
+        (r[(r.Z3_OP_LE = 514)] = "Z3_OP_LE"),
+        (r[(r.Z3_OP_GE = 515)] = "Z3_OP_GE"),
+        (r[(r.Z3_OP_LT = 516)] = "Z3_OP_LT"),
+        (r[(r.Z3_OP_GT = 517)] = "Z3_OP_GT"),
+        (r[(r.Z3_OP_ADD = 518)] = "Z3_OP_ADD"),
+        (r[(r.Z3_OP_SUB = 519)] = "Z3_OP_SUB"),
+        (r[(r.Z3_OP_UMINUS = 520)] = "Z3_OP_UMINUS"),
+        (r[(r.Z3_OP_MUL = 521)] = "Z3_OP_MUL"),
+        (r[(r.Z3_OP_DIV = 522)] = "Z3_OP_DIV"),
+        (r[(r.Z3_OP_IDIV = 523)] = "Z3_OP_IDIV"),
+        (r[(r.Z3_OP_REM = 524)] = "Z3_OP_REM"),
+        (r[(r.Z3_OP_MOD = 525)] = "Z3_OP_MOD"),
+        (r[(r.Z3_OP_TO_REAL = 526)] = "Z3_OP_TO_REAL"),
+        (r[(r.Z3_OP_TO_INT = 527)] = "Z3_OP_TO_INT"),
+        (r[(r.Z3_OP_IS_INT = 528)] = "Z3_OP_IS_INT"),
+        (r[(r.Z3_OP_POWER = 529)] = "Z3_OP_POWER"),
+        (r[(r.Z3_OP_ABS = 530)] = "Z3_OP_ABS"),
+        (r[(r.Z3_OP_STORE = 768)] = "Z3_OP_STORE"),
+        (r[(r.Z3_OP_SELECT = 769)] = "Z3_OP_SELECT"),
+        (r[(r.Z3_OP_CONST_ARRAY = 770)] = "Z3_OP_CONST_ARRAY"),
+        (r[(r.Z3_OP_ARRAY_MAP = 771)] = "Z3_OP_ARRAY_MAP"),
+        (r[(r.Z3_OP_ARRAY_DEFAULT = 772)] = "Z3_OP_ARRAY_DEFAULT"),
+        (r[(r.Z3_OP_SET_UNION = 773)] = "Z3_OP_SET_UNION"),
+        (r[(r.Z3_OP_SET_INTERSECT = 774)] = "Z3_OP_SET_INTERSECT"),
+        (r[(r.Z3_OP_SET_DIFFERENCE = 775)] = "Z3_OP_SET_DIFFERENCE"),
+        (r[(r.Z3_OP_SET_COMPLEMENT = 776)] = "Z3_OP_SET_COMPLEMENT"),
+        (r[(r.Z3_OP_SET_SUBSET = 777)] = "Z3_OP_SET_SUBSET"),
+        (r[(r.Z3_OP_AS_ARRAY = 778)] = "Z3_OP_AS_ARRAY"),
+        (r[(r.Z3_OP_ARRAY_EXT = 779)] = "Z3_OP_ARRAY_EXT"),
+        (r[(r.Z3_OP_SET_HAS_SIZE = 780)] = "Z3_OP_SET_HAS_SIZE"),
+        (r[(r.Z3_OP_SET_CARD = 781)] = "Z3_OP_SET_CARD"),
+        (r[(r.Z3_OP_BNUM = 1024)] = "Z3_OP_BNUM"),
+        (r[(r.Z3_OP_BIT1 = 1025)] = "Z3_OP_BIT1"),
+        (r[(r.Z3_OP_BIT0 = 1026)] = "Z3_OP_BIT0"),
+        (r[(r.Z3_OP_BNEG = 1027)] = "Z3_OP_BNEG"),
+        (r[(r.Z3_OP_BADD = 1028)] = "Z3_OP_BADD"),
+        (r[(r.Z3_OP_BSUB = 1029)] = "Z3_OP_BSUB"),
+        (r[(r.Z3_OP_BMUL = 1030)] = "Z3_OP_BMUL"),
+        (r[(r.Z3_OP_BSDIV = 1031)] = "Z3_OP_BSDIV"),
+        (r[(r.Z3_OP_BUDIV = 1032)] = "Z3_OP_BUDIV"),
+        (r[(r.Z3_OP_BSREM = 1033)] = "Z3_OP_BSREM"),
+        (r[(r.Z3_OP_BUREM = 1034)] = "Z3_OP_BUREM"),
+        (r[(r.Z3_OP_BSMOD = 1035)] = "Z3_OP_BSMOD"),
+        (r[(r.Z3_OP_BSDIV0 = 1036)] = "Z3_OP_BSDIV0"),
+        (r[(r.Z3_OP_BUDIV0 = 1037)] = "Z3_OP_BUDIV0"),
+        (r[(r.Z3_OP_BSREM0 = 1038)] = "Z3_OP_BSREM0"),
+        (r[(r.Z3_OP_BUREM0 = 1039)] = "Z3_OP_BUREM0"),
+        (r[(r.Z3_OP_BSMOD0 = 1040)] = "Z3_OP_BSMOD0"),
+        (r[(r.Z3_OP_ULEQ = 1041)] = "Z3_OP_ULEQ"),
+        (r[(r.Z3_OP_SLEQ = 1042)] = "Z3_OP_SLEQ"),
+        (r[(r.Z3_OP_UGEQ = 1043)] = "Z3_OP_UGEQ"),
+        (r[(r.Z3_OP_SGEQ = 1044)] = "Z3_OP_SGEQ"),
+        (r[(r.Z3_OP_ULT = 1045)] = "Z3_OP_ULT"),
+        (r[(r.Z3_OP_SLT = 1046)] = "Z3_OP_SLT"),
+        (r[(r.Z3_OP_UGT = 1047)] = "Z3_OP_UGT"),
+        (r[(r.Z3_OP_SGT = 1048)] = "Z3_OP_SGT"),
+        (r[(r.Z3_OP_BAND = 1049)] = "Z3_OP_BAND"),
+        (r[(r.Z3_OP_BOR = 1050)] = "Z3_OP_BOR"),
+        (r[(r.Z3_OP_BNOT = 1051)] = "Z3_OP_BNOT"),
+        (r[(r.Z3_OP_BXOR = 1052)] = "Z3_OP_BXOR"),
+        (r[(r.Z3_OP_BNAND = 1053)] = "Z3_OP_BNAND"),
+        (r[(r.Z3_OP_BNOR = 1054)] = "Z3_OP_BNOR"),
+        (r[(r.Z3_OP_BXNOR = 1055)] = "Z3_OP_BXNOR"),
+        (r[(r.Z3_OP_CONCAT = 1056)] = "Z3_OP_CONCAT"),
+        (r[(r.Z3_OP_SIGN_EXT = 1057)] = "Z3_OP_SIGN_EXT"),
+        (r[(r.Z3_OP_ZERO_EXT = 1058)] = "Z3_OP_ZERO_EXT"),
+        (r[(r.Z3_OP_EXTRACT = 1059)] = "Z3_OP_EXTRACT"),
+        (r[(r.Z3_OP_REPEAT = 1060)] = "Z3_OP_REPEAT"),
+        (r[(r.Z3_OP_BREDOR = 1061)] = "Z3_OP_BREDOR"),
+        (r[(r.Z3_OP_BREDAND = 1062)] = "Z3_OP_BREDAND"),
+        (r[(r.Z3_OP_BCOMP = 1063)] = "Z3_OP_BCOMP"),
+        (r[(r.Z3_OP_BSHL = 1064)] = "Z3_OP_BSHL"),
+        (r[(r.Z3_OP_BLSHR = 1065)] = "Z3_OP_BLSHR"),
+        (r[(r.Z3_OP_BASHR = 1066)] = "Z3_OP_BASHR"),
+        (r[(r.Z3_OP_ROTATE_LEFT = 1067)] = "Z3_OP_ROTATE_LEFT"),
+        (r[(r.Z3_OP_ROTATE_RIGHT = 1068)] = "Z3_OP_ROTATE_RIGHT"),
+        (r[(r.Z3_OP_EXT_ROTATE_LEFT = 1069)] = "Z3_OP_EXT_ROTATE_LEFT"),
+        (r[(r.Z3_OP_EXT_ROTATE_RIGHT = 1070)] = "Z3_OP_EXT_ROTATE_RIGHT"),
+        (r[(r.Z3_OP_BIT2BOOL = 1071)] = "Z3_OP_BIT2BOOL"),
+        (r[(r.Z3_OP_INT2BV = 1072)] = "Z3_OP_INT2BV"),
+        (r[(r.Z3_OP_BV2INT = 1073)] = "Z3_OP_BV2INT"),
+        (r[(r.Z3_OP_SBV2INT = 1074)] = "Z3_OP_SBV2INT"),
+        (r[(r.Z3_OP_CARRY = 1075)] = "Z3_OP_CARRY"),
+        (r[(r.Z3_OP_XOR3 = 1076)] = "Z3_OP_XOR3"),
+        (r[(r.Z3_OP_BSMUL_NO_OVFL = 1077)] = "Z3_OP_BSMUL_NO_OVFL"),
+        (r[(r.Z3_OP_BUMUL_NO_OVFL = 1078)] = "Z3_OP_BUMUL_NO_OVFL"),
+        (r[(r.Z3_OP_BSMUL_NO_UDFL = 1079)] = "Z3_OP_BSMUL_NO_UDFL"),
+        (r[(r.Z3_OP_BSDIV_I = 1080)] = "Z3_OP_BSDIV_I"),
+        (r[(r.Z3_OP_BUDIV_I = 1081)] = "Z3_OP_BUDIV_I"),
+        (r[(r.Z3_OP_BSREM_I = 1082)] = "Z3_OP_BSREM_I"),
+        (r[(r.Z3_OP_BUREM_I = 1083)] = "Z3_OP_BUREM_I"),
+        (r[(r.Z3_OP_BSMOD_I = 1084)] = "Z3_OP_BSMOD_I"),
+        (r[(r.Z3_OP_PR_UNDEF = 1280)] = "Z3_OP_PR_UNDEF"),
+        (r[(r.Z3_OP_PR_TRUE = 1281)] = "Z3_OP_PR_TRUE"),
+        (r[(r.Z3_OP_PR_ASSERTED = 1282)] = "Z3_OP_PR_ASSERTED"),
+        (r[(r.Z3_OP_PR_GOAL = 1283)] = "Z3_OP_PR_GOAL"),
+        (r[(r.Z3_OP_PR_MODUS_PONENS = 1284)] = "Z3_OP_PR_MODUS_PONENS"),
+        (r[(r.Z3_OP_PR_REFLEXIVITY = 1285)] = "Z3_OP_PR_REFLEXIVITY"),
+        (r[(r.Z3_OP_PR_SYMMETRY = 1286)] = "Z3_OP_PR_SYMMETRY"),
+        (r[(r.Z3_OP_PR_TRANSITIVITY = 1287)] = "Z3_OP_PR_TRANSITIVITY"),
+        (r[(r.Z3_OP_PR_TRANSITIVITY_STAR = 1288)] = "Z3_OP_PR_TRANSITIVITY_STAR"),
+        (r[(r.Z3_OP_PR_MONOTONICITY = 1289)] = "Z3_OP_PR_MONOTONICITY"),
+        (r[(r.Z3_OP_PR_QUANT_INTRO = 1290)] = "Z3_OP_PR_QUANT_INTRO"),
+        (r[(r.Z3_OP_PR_BIND = 1291)] = "Z3_OP_PR_BIND"),
+        (r[(r.Z3_OP_PR_DISTRIBUTIVITY = 1292)] = "Z3_OP_PR_DISTRIBUTIVITY"),
+        (r[(r.Z3_OP_PR_AND_ELIM = 1293)] = "Z3_OP_PR_AND_ELIM"),
+        (r[(r.Z3_OP_PR_NOT_OR_ELIM = 1294)] = "Z3_OP_PR_NOT_OR_ELIM"),
+        (r[(r.Z3_OP_PR_REWRITE = 1295)] = "Z3_OP_PR_REWRITE"),
+        (r[(r.Z3_OP_PR_REWRITE_STAR = 1296)] = "Z3_OP_PR_REWRITE_STAR"),
+        (r[(r.Z3_OP_PR_PULL_QUANT = 1297)] = "Z3_OP_PR_PULL_QUANT"),
+        (r[(r.Z3_OP_PR_PUSH_QUANT = 1298)] = "Z3_OP_PR_PUSH_QUANT"),
+        (r[(r.Z3_OP_PR_ELIM_UNUSED_VARS = 1299)] = "Z3_OP_PR_ELIM_UNUSED_VARS"),
+        (r[(r.Z3_OP_PR_DER = 1300)] = "Z3_OP_PR_DER"),
+        (r[(r.Z3_OP_PR_QUANT_INST = 1301)] = "Z3_OP_PR_QUANT_INST"),
+        (r[(r.Z3_OP_PR_HYPOTHESIS = 1302)] = "Z3_OP_PR_HYPOTHESIS"),
+        (r[(r.Z3_OP_PR_LEMMA = 1303)] = "Z3_OP_PR_LEMMA"),
+        (r[(r.Z3_OP_PR_UNIT_RESOLUTION = 1304)] = "Z3_OP_PR_UNIT_RESOLUTION"),
+        (r[(r.Z3_OP_PR_IFF_TRUE = 1305)] = "Z3_OP_PR_IFF_TRUE"),
+        (r[(r.Z3_OP_PR_IFF_FALSE = 1306)] = "Z3_OP_PR_IFF_FALSE"),
+        (r[(r.Z3_OP_PR_COMMUTATIVITY = 1307)] = "Z3_OP_PR_COMMUTATIVITY"),
+        (r[(r.Z3_OP_PR_DEF_AXIOM = 1308)] = "Z3_OP_PR_DEF_AXIOM"),
+        (r[(r.Z3_OP_PR_ASSUMPTION_ADD = 1309)] = "Z3_OP_PR_ASSUMPTION_ADD"),
+        (r[(r.Z3_OP_PR_LEMMA_ADD = 1310)] = "Z3_OP_PR_LEMMA_ADD"),
+        (r[(r.Z3_OP_PR_REDUNDANT_DEL = 1311)] = "Z3_OP_PR_REDUNDANT_DEL"),
+        (r[(r.Z3_OP_PR_CLAUSE_TRAIL = 1312)] = "Z3_OP_PR_CLAUSE_TRAIL"),
+        (r[(r.Z3_OP_PR_DEF_INTRO = 1313)] = "Z3_OP_PR_DEF_INTRO"),
+        (r[(r.Z3_OP_PR_APPLY_DEF = 1314)] = "Z3_OP_PR_APPLY_DEF"),
+        (r[(r.Z3_OP_PR_IFF_OEQ = 1315)] = "Z3_OP_PR_IFF_OEQ"),
+        (r[(r.Z3_OP_PR_NNF_POS = 1316)] = "Z3_OP_PR_NNF_POS"),
+        (r[(r.Z3_OP_PR_NNF_NEG = 1317)] = "Z3_OP_PR_NNF_NEG"),
+        (r[(r.Z3_OP_PR_SKOLEMIZE = 1318)] = "Z3_OP_PR_SKOLEMIZE"),
+        (r[(r.Z3_OP_PR_MODUS_PONENS_OEQ = 1319)] = "Z3_OP_PR_MODUS_PONENS_OEQ"),
+        (r[(r.Z3_OP_PR_TH_LEMMA = 1320)] = "Z3_OP_PR_TH_LEMMA"),
+        (r[(r.Z3_OP_PR_HYPER_RESOLVE = 1321)] = "Z3_OP_PR_HYPER_RESOLVE"),
+        (r[(r.Z3_OP_RA_STORE = 1536)] = "Z3_OP_RA_STORE"),
+        (r[(r.Z3_OP_RA_EMPTY = 1537)] = "Z3_OP_RA_EMPTY"),
+        (r[(r.Z3_OP_RA_IS_EMPTY = 1538)] = "Z3_OP_RA_IS_EMPTY"),
+        (r[(r.Z3_OP_RA_JOIN = 1539)] = "Z3_OP_RA_JOIN"),
+        (r[(r.Z3_OP_RA_UNION = 1540)] = "Z3_OP_RA_UNION"),
+        (r[(r.Z3_OP_RA_WIDEN = 1541)] = "Z3_OP_RA_WIDEN"),
+        (r[(r.Z3_OP_RA_PROJECT = 1542)] = "Z3_OP_RA_PROJECT"),
+        (r[(r.Z3_OP_RA_FILTER = 1543)] = "Z3_OP_RA_FILTER"),
+        (r[(r.Z3_OP_RA_NEGATION_FILTER = 1544)] = "Z3_OP_RA_NEGATION_FILTER"),
+        (r[(r.Z3_OP_RA_RENAME = 1545)] = "Z3_OP_RA_RENAME"),
+        (r[(r.Z3_OP_RA_COMPLEMENT = 1546)] = "Z3_OP_RA_COMPLEMENT"),
+        (r[(r.Z3_OP_RA_SELECT = 1547)] = "Z3_OP_RA_SELECT"),
+        (r[(r.Z3_OP_RA_CLONE = 1548)] = "Z3_OP_RA_CLONE"),
+        (r[(r.Z3_OP_FD_CONSTANT = 1549)] = "Z3_OP_FD_CONSTANT"),
+        (r[(r.Z3_OP_FD_LT = 1550)] = "Z3_OP_FD_LT"),
+        (r[(r.Z3_OP_SEQ_UNIT = 1551)] = "Z3_OP_SEQ_UNIT"),
+        (r[(r.Z3_OP_SEQ_EMPTY = 1552)] = "Z3_OP_SEQ_EMPTY"),
+        (r[(r.Z3_OP_SEQ_CONCAT = 1553)] = "Z3_OP_SEQ_CONCAT"),
+        (r[(r.Z3_OP_SEQ_PREFIX = 1554)] = "Z3_OP_SEQ_PREFIX"),
+        (r[(r.Z3_OP_SEQ_SUFFIX = 1555)] = "Z3_OP_SEQ_SUFFIX"),
+        (r[(r.Z3_OP_SEQ_CONTAINS = 1556)] = "Z3_OP_SEQ_CONTAINS"),
+        (r[(r.Z3_OP_SEQ_EXTRACT = 1557)] = "Z3_OP_SEQ_EXTRACT"),
+        (r[(r.Z3_OP_SEQ_REPLACE = 1558)] = "Z3_OP_SEQ_REPLACE"),
+        (r[(r.Z3_OP_SEQ_REPLACE_RE = 1559)] = "Z3_OP_SEQ_REPLACE_RE"),
+        (r[(r.Z3_OP_SEQ_REPLACE_RE_ALL = 1560)] = "Z3_OP_SEQ_REPLACE_RE_ALL"),
+        (r[(r.Z3_OP_SEQ_REPLACE_ALL = 1561)] = "Z3_OP_SEQ_REPLACE_ALL"),
+        (r[(r.Z3_OP_SEQ_AT = 1562)] = "Z3_OP_SEQ_AT"),
+        (r[(r.Z3_OP_SEQ_NTH = 1563)] = "Z3_OP_SEQ_NTH"),
+        (r[(r.Z3_OP_SEQ_LENGTH = 1564)] = "Z3_OP_SEQ_LENGTH"),
+        (r[(r.Z3_OP_SEQ_INDEX = 1565)] = "Z3_OP_SEQ_INDEX"),
+        (r[(r.Z3_OP_SEQ_LAST_INDEX = 1566)] = "Z3_OP_SEQ_LAST_INDEX"),
+        (r[(r.Z3_OP_SEQ_TO_RE = 1567)] = "Z3_OP_SEQ_TO_RE"),
+        (r[(r.Z3_OP_SEQ_IN_RE = 1568)] = "Z3_OP_SEQ_IN_RE"),
+        (r[(r.Z3_OP_SEQ_MAP = 1569)] = "Z3_OP_SEQ_MAP"),
+        (r[(r.Z3_OP_SEQ_MAPI = 1570)] = "Z3_OP_SEQ_MAPI"),
+        (r[(r.Z3_OP_SEQ_FOLDL = 1571)] = "Z3_OP_SEQ_FOLDL"),
+        (r[(r.Z3_OP_SEQ_FOLDLI = 1572)] = "Z3_OP_SEQ_FOLDLI"),
+        (r[(r.Z3_OP_STR_TO_INT = 1573)] = "Z3_OP_STR_TO_INT"),
+        (r[(r.Z3_OP_INT_TO_STR = 1574)] = "Z3_OP_INT_TO_STR"),
+        (r[(r.Z3_OP_UBV_TO_STR = 1575)] = "Z3_OP_UBV_TO_STR"),
+        (r[(r.Z3_OP_SBV_TO_STR = 1576)] = "Z3_OP_SBV_TO_STR"),
+        (r[(r.Z3_OP_STR_TO_CODE = 1577)] = "Z3_OP_STR_TO_CODE"),
+        (r[(r.Z3_OP_STR_FROM_CODE = 1578)] = "Z3_OP_STR_FROM_CODE"),
+        (r[(r.Z3_OP_STRING_LT = 1579)] = "Z3_OP_STRING_LT"),
+        (r[(r.Z3_OP_STRING_LE = 1580)] = "Z3_OP_STRING_LE"),
+        (r[(r.Z3_OP_RE_PLUS = 1581)] = "Z3_OP_RE_PLUS"),
+        (r[(r.Z3_OP_RE_STAR = 1582)] = "Z3_OP_RE_STAR"),
+        (r[(r.Z3_OP_RE_OPTION = 1583)] = "Z3_OP_RE_OPTION"),
+        (r[(r.Z3_OP_RE_CONCAT = 1584)] = "Z3_OP_RE_CONCAT"),
+        (r[(r.Z3_OP_RE_UNION = 1585)] = "Z3_OP_RE_UNION"),
+        (r[(r.Z3_OP_RE_RANGE = 1586)] = "Z3_OP_RE_RANGE"),
+        (r[(r.Z3_OP_RE_DIFF = 1587)] = "Z3_OP_RE_DIFF"),
+        (r[(r.Z3_OP_RE_INTERSECT = 1588)] = "Z3_OP_RE_INTERSECT"),
+        (r[(r.Z3_OP_RE_LOOP = 1589)] = "Z3_OP_RE_LOOP"),
+        (r[(r.Z3_OP_RE_POWER = 1590)] = "Z3_OP_RE_POWER"),
+        (r[(r.Z3_OP_RE_COMPLEMENT = 1591)] = "Z3_OP_RE_COMPLEMENT"),
+        (r[(r.Z3_OP_RE_EMPTY_SET = 1592)] = "Z3_OP_RE_EMPTY_SET"),
+        (r[(r.Z3_OP_RE_FULL_SET = 1593)] = "Z3_OP_RE_FULL_SET"),
+        (r[(r.Z3_OP_RE_FULL_CHAR_SET = 1594)] = "Z3_OP_RE_FULL_CHAR_SET"),
+        (r[(r.Z3_OP_RE_OF_PRED = 1595)] = "Z3_OP_RE_OF_PRED"),
+        (r[(r.Z3_OP_RE_REVERSE = 1596)] = "Z3_OP_RE_REVERSE"),
+        (r[(r.Z3_OP_RE_DERIVATIVE = 1597)] = "Z3_OP_RE_DERIVATIVE"),
+        (r[(r.Z3_OP_CHAR_CONST = 1598)] = "Z3_OP_CHAR_CONST"),
+        (r[(r.Z3_OP_CHAR_LE = 1599)] = "Z3_OP_CHAR_LE"),
+        (r[(r.Z3_OP_CHAR_TO_INT = 1600)] = "Z3_OP_CHAR_TO_INT"),
+        (r[(r.Z3_OP_CHAR_TO_BV = 1601)] = "Z3_OP_CHAR_TO_BV"),
+        (r[(r.Z3_OP_CHAR_FROM_BV = 1602)] = "Z3_OP_CHAR_FROM_BV"),
+        (r[(r.Z3_OP_CHAR_IS_DIGIT = 1603)] = "Z3_OP_CHAR_IS_DIGIT"),
+        (r[(r.Z3_OP_LABEL = 1792)] = "Z3_OP_LABEL"),
+        (r[(r.Z3_OP_LABEL_LIT = 1793)] = "Z3_OP_LABEL_LIT"),
+        (r[(r.Z3_OP_DT_CONSTRUCTOR = 2048)] = "Z3_OP_DT_CONSTRUCTOR"),
+        (r[(r.Z3_OP_DT_RECOGNISER = 2049)] = "Z3_OP_DT_RECOGNISER"),
+        (r[(r.Z3_OP_DT_IS = 2050)] = "Z3_OP_DT_IS"),
+        (r[(r.Z3_OP_DT_ACCESSOR = 2051)] = "Z3_OP_DT_ACCESSOR"),
+        (r[(r.Z3_OP_DT_UPDATE_FIELD = 2052)] = "Z3_OP_DT_UPDATE_FIELD"),
+        (r[(r.Z3_OP_PB_AT_MOST = 2304)] = "Z3_OP_PB_AT_MOST"),
+        (r[(r.Z3_OP_PB_AT_LEAST = 2305)] = "Z3_OP_PB_AT_LEAST"),
+        (r[(r.Z3_OP_PB_LE = 2306)] = "Z3_OP_PB_LE"),
+        (r[(r.Z3_OP_PB_GE = 2307)] = "Z3_OP_PB_GE"),
+        (r[(r.Z3_OP_PB_EQ = 2308)] = "Z3_OP_PB_EQ"),
+        (r[(r.Z3_OP_SPECIAL_RELATION_LO = 40960)] = "Z3_OP_SPECIAL_RELATION_LO"),
+        (r[(r.Z3_OP_SPECIAL_RELATION_PO = 40961)] = "Z3_OP_SPECIAL_RELATION_PO"),
+        (r[(r.Z3_OP_SPECIAL_RELATION_PLO = 40962)] = "Z3_OP_SPECIAL_RELATION_PLO"),
+        (r[(r.Z3_OP_SPECIAL_RELATION_TO = 40963)] = "Z3_OP_SPECIAL_RELATION_TO"),
+        (r[(r.Z3_OP_SPECIAL_RELATION_TC = 40964)] = "Z3_OP_SPECIAL_RELATION_TC"),
+        (r[(r.Z3_OP_SPECIAL_RELATION_TRC = 40965)] = "Z3_OP_SPECIAL_RELATION_TRC"),
+        (r[(r.Z3_OP_FPA_RM_NEAREST_TIES_TO_EVEN = 45056)] = "Z3_OP_FPA_RM_NEAREST_TIES_TO_EVEN"),
+        (r[(r.Z3_OP_FPA_RM_NEAREST_TIES_TO_AWAY = 45057)] = "Z3_OP_FPA_RM_NEAREST_TIES_TO_AWAY"),
+        (r[(r.Z3_OP_FPA_RM_TOWARD_POSITIVE = 45058)] = "Z3_OP_FPA_RM_TOWARD_POSITIVE"),
+        (r[(r.Z3_OP_FPA_RM_TOWARD_NEGATIVE = 45059)] = "Z3_OP_FPA_RM_TOWARD_NEGATIVE"),
+        (r[(r.Z3_OP_FPA_RM_TOWARD_ZERO = 45060)] = "Z3_OP_FPA_RM_TOWARD_ZERO"),
+        (r[(r.Z3_OP_FPA_NUM = 45061)] = "Z3_OP_FPA_NUM"),
+        (r[(r.Z3_OP_FPA_PLUS_INF = 45062)] = "Z3_OP_FPA_PLUS_INF"),
+        (r[(r.Z3_OP_FPA_MINUS_INF = 45063)] = "Z3_OP_FPA_MINUS_INF"),
+        (r[(r.Z3_OP_FPA_NAN = 45064)] = "Z3_OP_FPA_NAN"),
+        (r[(r.Z3_OP_FPA_PLUS_ZERO = 45065)] = "Z3_OP_FPA_PLUS_ZERO"),
+        (r[(r.Z3_OP_FPA_MINUS_ZERO = 45066)] = "Z3_OP_FPA_MINUS_ZERO"),
+        (r[(r.Z3_OP_FPA_ADD = 45067)] = "Z3_OP_FPA_ADD"),
+        (r[(r.Z3_OP_FPA_SUB = 45068)] = "Z3_OP_FPA_SUB"),
+        (r[(r.Z3_OP_FPA_NEG = 45069)] = "Z3_OP_FPA_NEG"),
+        (r[(r.Z3_OP_FPA_MUL = 45070)] = "Z3_OP_FPA_MUL"),
+        (r[(r.Z3_OP_FPA_DIV = 45071)] = "Z3_OP_FPA_DIV"),
+        (r[(r.Z3_OP_FPA_REM = 45072)] = "Z3_OP_FPA_REM"),
+        (r[(r.Z3_OP_FPA_ABS = 45073)] = "Z3_OP_FPA_ABS"),
+        (r[(r.Z3_OP_FPA_MIN = 45074)] = "Z3_OP_FPA_MIN"),
+        (r[(r.Z3_OP_FPA_MAX = 45075)] = "Z3_OP_FPA_MAX"),
+        (r[(r.Z3_OP_FPA_FMA = 45076)] = "Z3_OP_FPA_FMA"),
+        (r[(r.Z3_OP_FPA_SQRT = 45077)] = "Z3_OP_FPA_SQRT"),
+        (r[(r.Z3_OP_FPA_ROUND_TO_INTEGRAL = 45078)] = "Z3_OP_FPA_ROUND_TO_INTEGRAL"),
+        (r[(r.Z3_OP_FPA_EQ = 45079)] = "Z3_OP_FPA_EQ"),
+        (r[(r.Z3_OP_FPA_LT = 45080)] = "Z3_OP_FPA_LT"),
+        (r[(r.Z3_OP_FPA_GT = 45081)] = "Z3_OP_FPA_GT"),
+        (r[(r.Z3_OP_FPA_LE = 45082)] = "Z3_OP_FPA_LE"),
+        (r[(r.Z3_OP_FPA_GE = 45083)] = "Z3_OP_FPA_GE"),
+        (r[(r.Z3_OP_FPA_IS_NAN = 45084)] = "Z3_OP_FPA_IS_NAN"),
+        (r[(r.Z3_OP_FPA_IS_INF = 45085)] = "Z3_OP_FPA_IS_INF"),
+        (r[(r.Z3_OP_FPA_IS_ZERO = 45086)] = "Z3_OP_FPA_IS_ZERO"),
+        (r[(r.Z3_OP_FPA_IS_NORMAL = 45087)] = "Z3_OP_FPA_IS_NORMAL"),
+        (r[(r.Z3_OP_FPA_IS_SUBNORMAL = 45088)] = "Z3_OP_FPA_IS_SUBNORMAL"),
+        (r[(r.Z3_OP_FPA_IS_NEGATIVE = 45089)] = "Z3_OP_FPA_IS_NEGATIVE"),
+        (r[(r.Z3_OP_FPA_IS_POSITIVE = 45090)] = "Z3_OP_FPA_IS_POSITIVE"),
+        (r[(r.Z3_OP_FPA_FP = 45091)] = "Z3_OP_FPA_FP"),
+        (r[(r.Z3_OP_FPA_TO_FP = 45092)] = "Z3_OP_FPA_TO_FP"),
+        (r[(r.Z3_OP_FPA_TO_FP_UNSIGNED = 45093)] = "Z3_OP_FPA_TO_FP_UNSIGNED"),
+        (r[(r.Z3_OP_FPA_TO_UBV = 45094)] = "Z3_OP_FPA_TO_UBV"),
+        (r[(r.Z3_OP_FPA_TO_SBV = 45095)] = "Z3_OP_FPA_TO_SBV"),
+        (r[(r.Z3_OP_FPA_TO_REAL = 45096)] = "Z3_OP_FPA_TO_REAL"),
+        (r[(r.Z3_OP_FPA_TO_IEEE_BV = 45097)] = "Z3_OP_FPA_TO_IEEE_BV"),
+        (r[(r.Z3_OP_FPA_BVWRAP = 45098)] = "Z3_OP_FPA_BVWRAP"),
+        (r[(r.Z3_OP_FPA_BV2RM = 45099)] = "Z3_OP_FPA_BV2RM"),
+        (r[(r.Z3_OP_INTERNAL = 45100)] = "Z3_OP_INTERNAL"),
+        (r[(r.Z3_OP_RECURSIVE = 45101)] = "Z3_OP_RECURSIVE"),
+        (r[(r.Z3_OP_UNINTERPRETED = 45102)] = "Z3_OP_UNINTERPRETED"));
+    })(y || (Q.Z3_decl_kind = y = {}));
+    var O;
+    (function (r) {
+      ((r[(r.Z3_PK_UINT = 0)] = "Z3_PK_UINT"),
+        (r[(r.Z3_PK_BOOL = 1)] = "Z3_PK_BOOL"),
+        (r[(r.Z3_PK_DOUBLE = 2)] = "Z3_PK_DOUBLE"),
+        (r[(r.Z3_PK_SYMBOL = 3)] = "Z3_PK_SYMBOL"),
+        (r[(r.Z3_PK_STRING = 4)] = "Z3_PK_STRING"),
+        (r[(r.Z3_PK_OTHER = 5)] = "Z3_PK_OTHER"),
+        (r[(r.Z3_PK_INVALID = 6)] = "Z3_PK_INVALID"));
+    })(O || (Q.Z3_param_kind = O = {}));
+    var b;
+    (function (r) {
+      ((r[(r.Z3_PRINT_SMTLIB_FULL = 0)] = "Z3_PRINT_SMTLIB_FULL"),
+        (r[(r.Z3_PRINT_LOW_LEVEL = 1)] = "Z3_PRINT_LOW_LEVEL"),
+        (r[(r.Z3_PRINT_SMTLIB2_COMPLIANT = 2)] = "Z3_PRINT_SMTLIB2_COMPLIANT"));
+    })(b || (Q.Z3_ast_print_mode = b = {}));
+    var a;
+    (function (r) {
+      ((r[(r.Z3_OK = 0)] = "Z3_OK"),
+        (r[(r.Z3_SORT_ERROR = 1)] = "Z3_SORT_ERROR"),
+        (r[(r.Z3_IOB = 2)] = "Z3_IOB"),
+        (r[(r.Z3_INVALID_ARG = 3)] = "Z3_INVALID_ARG"),
+        (r[(r.Z3_PARSER_ERROR = 4)] = "Z3_PARSER_ERROR"),
+        (r[(r.Z3_NO_PARSER = 5)] = "Z3_NO_PARSER"),
+        (r[(r.Z3_INVALID_PATTERN = 6)] = "Z3_INVALID_PATTERN"),
+        (r[(r.Z3_MEMOUT_FAIL = 7)] = "Z3_MEMOUT_FAIL"),
+        (r[(r.Z3_FILE_ACCESS_ERROR = 8)] = "Z3_FILE_ACCESS_ERROR"),
+        (r[(r.Z3_INTERNAL_FATAL = 9)] = "Z3_INTERNAL_FATAL"),
+        (r[(r.Z3_INVALID_USAGE = 10)] = "Z3_INVALID_USAGE"),
+        (r[(r.Z3_DEC_REF_ERROR = 11)] = "Z3_DEC_REF_ERROR"),
+        (r[(r.Z3_EXCEPTION = 12)] = "Z3_EXCEPTION"));
+    })(a || (Q.Z3_error_code = a = {}));
+    var S;
     return (
-      (function (a) {
-        ((a[(a.Z3_GOAL_PRECISE = 0)] = "Z3_GOAL_PRECISE"),
-          (a[(a.Z3_GOAL_UNDER = 1)] = "Z3_GOAL_UNDER"),
-          (a[(a.Z3_GOAL_OVER = 2)] = "Z3_GOAL_OVER"),
-          (a[(a.Z3_GOAL_UNDER_OVER = 3)] = "Z3_GOAL_UNDER_OVER"));
-      })(B || (O_.Z3_goal_prec = B = {})),
-      O_
+      (function (r) {
+        ((r[(r.Z3_GOAL_PRECISE = 0)] = "Z3_GOAL_PRECISE"),
+          (r[(r.Z3_GOAL_UNDER = 1)] = "Z3_GOAL_UNDER"),
+          (r[(r.Z3_GOAL_OVER = 2)] = "Z3_GOAL_OVER"),
+          (r[(r.Z3_GOAL_UNDER_OVER = 3)] = "Z3_GOAL_UNDER_OVER"));
+      })(S || (Q.Z3_goal_prec = S = {})),
+      Q
     );
   }
-  var cr = {},
-    _i;
-  function Ui() {
-    if (_i) return cr;
-    ((_i = 1), Object.defineProperty(cr, "__esModule", { value: !0 }), (cr.init = T));
-    async function T(y) {
-      let t = await y();
-      function b(u) {
-        return new Uint8Array(new Uint32Array(u).buffer);
+  var lr = {},
+    Ke;
+  function Yn() {
+    if (Ke) return lr;
+    ((Ke = 1), Object.defineProperty(lr, "__esModule", { value: !0 }), (lr.init = g));
+    async function g(l) {
+      let t = await l();
+      function c(_) {
+        return new Uint8Array(new Uint32Array(_).buffer);
       }
-      function I(u) {
-        return u.map((c) => (c ? 1 : 0));
+      function P(_) {
+        return _.map((n) => (n ? 1 : 0));
       }
-      function R(u, c) {
-        return Array.from(new Uint32Array(t.HEAPU32.buffer, u, c));
+      function y(_, n) {
+        return Array.from(new Uint32Array(t.HEAPU32.buffer, _, n));
       }
-      let x = t._malloc(24),
-        P = new Uint32Array(t.HEAPU32.buffer, x, 4),
-        _ = (u) => P[u],
-        B = new Int32Array(t.HEAPU32.buffer, x, 4),
-        a = (u) => B[u],
-        V = new BigUint64Array(t.HEAPU32.buffer, x, 2),
-        s_ = (u) => V[u],
-        M = new BigInt64Array(t.HEAPU32.buffer, x, 2),
-        K = (u) => M[u];
+      let O = t._malloc(24),
+        b = new Uint32Array(t.HEAPU32.buffer, O, 4),
+        a = (_) => b[_],
+        S = new Int32Array(t.HEAPU32.buffer, O, 4),
+        r = (_) => S[_],
+        d = new BigUint64Array(t.HEAPU32.buffer, O, 2),
+        M = (_) => d[_],
+        I = new BigInt64Array(t.HEAPU32.buffer, O, 2),
+        N = (_) => I[_];
       return {
         em: t,
         Z3: {
-          mk_context: function (u) {
-            let c = t._Z3_mk_context(u);
-            return (t._set_noop_error_handler(c), c);
+          mk_context: function (_) {
+            let n = t._Z3_mk_context(_);
+            return (t._set_noop_error_handler(n), n);
           },
-          mk_context_rc: function (u) {
-            let c = t._Z3_mk_context_rc(u);
-            return (t._set_noop_error_handler(c), c);
+          mk_context_rc: function (_) {
+            let n = t._Z3_mk_context_rc(_);
+            return (t._set_noop_error_handler(n), n);
           },
-          global_param_set: function (u, c) {
-            return t.ccall("Z3_global_param_set", "void", ["string", "string"], [u, c]);
+          global_param_set: function (_, n) {
+            return t.ccall("Z3_global_param_set", "void", ["string", "string"], [_, n]);
           },
           global_param_reset_all: t._Z3_global_param_reset_all,
-          global_param_get: function (u) {
-            return t.ccall("Z3_global_param_get", "boolean", ["string", "number"], [u, x]) ? t.UTF8ToString(_(0)) : null;
+          global_param_get: function (_) {
+            return t.ccall("Z3_global_param_get", "boolean", ["string", "number"], [_, O]) ? t.UTF8ToString(a(0)) : null;
           },
           mk_config: t._Z3_mk_config,
           del_config: t._Z3_del_config,
-          set_param_value: function (u, c, Z) {
-            return t.ccall("Z3_set_param_value", "void", ["number", "string", "string"], [u, c, Z]);
+          set_param_value: function (_, n, u) {
+            return t.ccall("Z3_set_param_value", "void", ["number", "string", "string"], [_, n, u]);
           },
           del_context: t._Z3_del_context,
           inc_ref: t._Z3_inc_ref,
           dec_ref: t._Z3_dec_ref,
-          update_param_value: function (u, c, Z) {
-            return t.ccall("Z3_update_param_value", "void", ["number", "string", "string"], [u, c, Z]);
+          update_param_value: function (_, n, u) {
+            return t.ccall("Z3_update_param_value", "void", ["number", "string", "string"], [_, n, u]);
           },
           get_global_param_descrs: t._Z3_get_global_param_descrs,
           interrupt: t._Z3_interrupt,
@@ -8773,27 +2651,27 @@
           params_set_uint: t._Z3_params_set_uint,
           params_set_double: t._Z3_params_set_double,
           params_set_symbol: t._Z3_params_set_symbol,
-          params_to_string: function (u, c) {
-            return t.ccall("Z3_params_to_string", "string", ["number", "number"], [u, c]);
+          params_to_string: function (_, n) {
+            return t.ccall("Z3_params_to_string", "string", ["number", "number"], [_, n]);
           },
           params_validate: t._Z3_params_validate,
           param_descrs_inc_ref: t._Z3_param_descrs_inc_ref,
           param_descrs_dec_ref: t._Z3_param_descrs_dec_ref,
           param_descrs_get_kind: t._Z3_param_descrs_get_kind,
-          param_descrs_size: function (u, c) {
-            let Z = t.ccall("Z3_param_descrs_size", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          param_descrs_size: function (_, n) {
+            let u = t.ccall("Z3_param_descrs_size", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           param_descrs_get_name: t._Z3_param_descrs_get_name,
-          param_descrs_get_documentation: function (u, c, Z) {
-            return t.ccall("Z3_param_descrs_get_documentation", "string", ["number", "number", "number"], [u, c, Z]);
+          param_descrs_get_documentation: function (_, n, u) {
+            return t.ccall("Z3_param_descrs_get_documentation", "string", ["number", "number", "number"], [_, n, u]);
           },
-          param_descrs_to_string: function (u, c) {
-            return t.ccall("Z3_param_descrs_to_string", "string", ["number", "number"], [u, c]);
+          param_descrs_to_string: function (_, n) {
+            return t.ccall("Z3_param_descrs_to_string", "string", ["number", "number"], [_, n]);
           },
           mk_int_symbol: t._Z3_mk_int_symbol,
-          mk_string_symbol: function (u, c) {
-            return t.ccall("Z3_mk_string_symbol", "number", ["number", "string"], [u, c]);
+          mk_string_symbol: function (_, n) {
+            return t.ccall("Z3_mk_string_symbol", "number", ["number", "string"], [_, n]);
           },
           mk_uninterpreted_sort: t._Z3_mk_uninterpreted_sort,
           mk_type_variable: t._Z3_mk_type_variable,
@@ -8803,154 +2681,154 @@
           mk_bv_sort: t._Z3_mk_bv_sort,
           mk_finite_domain_sort: t._Z3_mk_finite_domain_sort,
           mk_array_sort: t._Z3_mk_array_sort,
-          mk_array_sort_n: function (u, c, Z) {
-            return t.ccall("Z3_mk_array_sort_n", "number", ["number", "number", "array", "number"], [u, c.length, b(c), Z]);
+          mk_array_sort_n: function (_, n, u) {
+            return t.ccall("Z3_mk_array_sort_n", "number", ["number", "number", "array", "number"], [_, n.length, c(n), u]);
           },
-          mk_tuple_sort: function (u, c, Z, A) {
-            if (Z.length !== A.length)
-              throw new TypeError(`field_names and field_sorts must be the same length (got ${Z.length} and {field_sorts.length})`);
-            let j = t._malloc(4 * Z.length);
+          mk_tuple_sort: function (_, n, u, A) {
+            if (u.length !== A.length)
+              throw new TypeError(`field_names and field_sorts must be the same length (got ${u.length} and {field_sorts.length})`);
+            let Z = t._malloc(4 * u.length);
             try {
               return {
                 rv: t.ccall(
                   "Z3_mk_tuple_sort",
                   "number",
                   ["number", "number", "number", "array", "array", "number", "number"],
-                  [u, c, Z.length, b(Z), b(A), x, j],
+                  [_, n, u.length, c(u), c(A), O, Z],
                 ),
-                mk_tuple_decl: _(0),
-                proj_decl: R(j, Z.length),
+                mk_tuple_decl: a(0),
+                proj_decl: y(Z, u.length),
               };
             } finally {
-              t._free(j);
+              t._free(Z);
             }
           },
-          mk_enumeration_sort: function (u, c, Z) {
-            let A = t._malloc(4 * Z.length);
+          mk_enumeration_sort: function (_, n, u) {
+            let A = t._malloc(4 * u.length);
             try {
-              let j = t._malloc(4 * Z.length);
+              let Z = t._malloc(4 * u.length);
               try {
                 return {
                   rv: t.ccall(
                     "Z3_mk_enumeration_sort",
                     "number",
                     ["number", "number", "number", "array", "number", "number"],
-                    [u, c, Z.length, b(Z), A, j],
+                    [_, n, u.length, c(u), A, Z],
                   ),
-                  enum_consts: R(A, Z.length),
-                  enum_testers: R(j, Z.length),
+                  enum_consts: y(A, u.length),
+                  enum_testers: y(Z, u.length),
                 };
               } finally {
-                t._free(j);
+                t._free(Z);
               }
             } finally {
               t._free(A);
             }
           },
-          mk_list_sort: function (u, c, Z) {
+          mk_list_sort: function (_, n, u) {
             return {
               rv: t.ccall(
                 "Z3_mk_list_sort",
                 "number",
                 ["number", "number", "number", "number", "number", "number", "number", "number", "number"],
-                [u, c, Z, x, x + 4, x + 8, x + 12, x + 16, x + 20],
+                [_, n, u, O, O + 4, O + 8, O + 12, O + 16, O + 20],
               ),
-              nil_decl: _(0),
-              is_nil_decl: _(1),
-              cons_decl: _(2),
-              is_cons_decl: _(3),
-              head_decl: _(4),
-              tail_decl: _(5),
+              nil_decl: a(0),
+              is_nil_decl: a(1),
+              cons_decl: a(2),
+              is_cons_decl: a(3),
+              head_decl: a(4),
+              tail_decl: a(5),
             };
           },
-          mk_constructor: function (u, c, Z, A, j, o_) {
-            if (A.length !== j.length) throw new TypeError(`field_names and sorts must be the same length (got ${A.length} and {sorts.length})`);
-            if (A.length !== o_.length)
+          mk_constructor: function (_, n, u, A, Z, F) {
+            if (A.length !== Z.length) throw new TypeError(`field_names and sorts must be the same length (got ${A.length} and {sorts.length})`);
+            if (A.length !== F.length)
               throw new TypeError(`field_names and sort_refs must be the same length (got ${A.length} and {sort_refs.length})`);
             return t.ccall(
               "Z3_mk_constructor",
               "number",
               ["number", "number", "number", "number", "array", "array", "array"],
-              [u, c, Z, A.length, b(A), b(j), b(o_)],
+              [_, n, u, A.length, c(A), c(Z), c(F)],
             );
           },
-          constructor_num_fields: function (u, c) {
-            let Z = t.ccall("Z3_constructor_num_fields", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          constructor_num_fields: function (_, n) {
+            let u = t.ccall("Z3_constructor_num_fields", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           del_constructor: t._Z3_del_constructor,
-          mk_datatype: function (u, c, Z) {
-            return t.ccall("Z3_mk_datatype", "number", ["number", "number", "number", "array"], [u, c, Z.length, b(Z)]);
+          mk_datatype: function (_, n, u) {
+            return t.ccall("Z3_mk_datatype", "number", ["number", "number", "number", "array"], [_, n, u.length, c(u)]);
           },
           mk_datatype_sort: t._Z3_mk_datatype_sort,
-          mk_constructor_list: function (u, c) {
-            return t.ccall("Z3_mk_constructor_list", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_constructor_list: function (_, n) {
+            return t.ccall("Z3_mk_constructor_list", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
           del_constructor_list: t._Z3_del_constructor_list,
-          mk_datatypes: function (u, c, Z) {
-            if (c.length !== Z.length)
-              throw new TypeError(`sort_names and constructor_lists must be the same length (got ${c.length} and {constructor_lists.length})`);
-            let A = t._malloc(4 * c.length);
+          mk_datatypes: function (_, n, u) {
+            if (n.length !== u.length)
+              throw new TypeError(`sort_names and constructor_lists must be the same length (got ${n.length} and {constructor_lists.length})`);
+            let A = t._malloc(4 * n.length);
             try {
-              let j = t.ccall("Z3_mk_datatypes", "void", ["number", "number", "array", "number", "array"], [u, c.length, b(c), A, b(Z)]);
-              return R(A, c.length);
+              let Z = t.ccall("Z3_mk_datatypes", "void", ["number", "number", "array", "number", "array"], [_, n.length, c(n), A, c(u)]);
+              return y(A, n.length);
             } finally {
               t._free(A);
             }
           },
-          query_constructor: function (u, c, Z) {
-            let A = t._malloc(4 * Z);
+          query_constructor: function (_, n, u) {
+            let A = t._malloc(4 * u);
             try {
-              let j = t.ccall("Z3_query_constructor", "void", ["number", "number", "number", "number", "number", "number"], [u, c, Z, x, x + 4, A]);
-              return { constructor: _(0), tester: _(1), accessors: R(A, Z) };
+              let Z = t.ccall("Z3_query_constructor", "void", ["number", "number", "number", "number", "number", "number"], [_, n, u, O, O + 4, A]);
+              return { constructor: a(0), tester: a(1), accessors: y(A, u) };
             } finally {
               t._free(A);
             }
           },
-          mk_func_decl: function (u, c, Z, A) {
-            return t.ccall("Z3_mk_func_decl", "number", ["number", "number", "number", "array", "number"], [u, c, Z.length, b(Z), A]);
+          mk_func_decl: function (_, n, u, A) {
+            return t.ccall("Z3_mk_func_decl", "number", ["number", "number", "number", "array", "number"], [_, n, u.length, c(u), A]);
           },
-          mk_app: function (u, c, Z) {
-            return t.ccall("Z3_mk_app", "number", ["number", "number", "number", "array"], [u, c, Z.length, b(Z)]);
+          mk_app: function (_, n, u) {
+            return t.ccall("Z3_mk_app", "number", ["number", "number", "number", "array"], [_, n, u.length, c(u)]);
           },
           mk_const: t._Z3_mk_const,
-          mk_fresh_func_decl: function (u, c, Z, A) {
-            return t.ccall("Z3_mk_fresh_func_decl", "number", ["number", "string", "number", "array", "number"], [u, c, Z.length, b(Z), A]);
+          mk_fresh_func_decl: function (_, n, u, A) {
+            return t.ccall("Z3_mk_fresh_func_decl", "number", ["number", "string", "number", "array", "number"], [_, n, u.length, c(u), A]);
           },
-          mk_fresh_const: function (u, c, Z) {
-            return t.ccall("Z3_mk_fresh_const", "number", ["number", "string", "number"], [u, c, Z]);
+          mk_fresh_const: function (_, n, u) {
+            return t.ccall("Z3_mk_fresh_const", "number", ["number", "string", "number"], [_, n, u]);
           },
-          mk_rec_func_decl: function (u, c, Z, A) {
-            return t.ccall("Z3_mk_rec_func_decl", "number", ["number", "number", "number", "array", "number"], [u, c, Z.length, b(Z), A]);
+          mk_rec_func_decl: function (_, n, u, A) {
+            return t.ccall("Z3_mk_rec_func_decl", "number", ["number", "number", "number", "array", "number"], [_, n, u.length, c(u), A]);
           },
-          add_rec_def: function (u, c, Z, A) {
-            return t.ccall("Z3_add_rec_def", "void", ["number", "number", "number", "array", "number"], [u, c, Z.length, b(Z), A]);
+          add_rec_def: function (_, n, u, A) {
+            return t.ccall("Z3_add_rec_def", "void", ["number", "number", "number", "array", "number"], [_, n, u.length, c(u), A]);
           },
           mk_true: t._Z3_mk_true,
           mk_false: t._Z3_mk_false,
           mk_eq: t._Z3_mk_eq,
-          mk_distinct: function (u, c) {
-            return t.ccall("Z3_mk_distinct", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_distinct: function (_, n) {
+            return t.ccall("Z3_mk_distinct", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
           mk_not: t._Z3_mk_not,
           mk_ite: t._Z3_mk_ite,
           mk_iff: t._Z3_mk_iff,
           mk_implies: t._Z3_mk_implies,
           mk_xor: t._Z3_mk_xor,
-          mk_and: function (u, c) {
-            return t.ccall("Z3_mk_and", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_and: function (_, n) {
+            return t.ccall("Z3_mk_and", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
-          mk_or: function (u, c) {
-            return t.ccall("Z3_mk_or", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_or: function (_, n) {
+            return t.ccall("Z3_mk_or", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
-          mk_add: function (u, c) {
-            return t.ccall("Z3_mk_add", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_add: function (_, n) {
+            return t.ccall("Z3_mk_add", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
-          mk_mul: function (u, c) {
-            return t.ccall("Z3_mk_mul", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_mul: function (_, n) {
+            return t.ccall("Z3_mk_mul", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
-          mk_sub: function (u, c) {
-            return t.ccall("Z3_mk_sub", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_sub: function (_, n) {
+            return t.ccall("Z3_mk_sub", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
           mk_unary_minus: t._Z3_mk_unary_minus,
           mk_div: t._Z3_mk_div,
@@ -9016,16 +2894,16 @@
           mk_bvmul_no_overflow: t._Z3_mk_bvmul_no_overflow,
           mk_bvmul_no_underflow: t._Z3_mk_bvmul_no_underflow,
           mk_select: t._Z3_mk_select,
-          mk_select_n: function (u, c, Z) {
-            return t.ccall("Z3_mk_select_n", "number", ["number", "number", "number", "array"], [u, c, Z.length, b(Z)]);
+          mk_select_n: function (_, n, u) {
+            return t.ccall("Z3_mk_select_n", "number", ["number", "number", "number", "array"], [_, n, u.length, c(u)]);
           },
           mk_store: t._Z3_mk_store,
-          mk_store_n: function (u, c, Z, A) {
-            return t.ccall("Z3_mk_store_n", "number", ["number", "number", "number", "array", "number"], [u, c, Z.length, b(Z), A]);
+          mk_store_n: function (_, n, u, A) {
+            return t.ccall("Z3_mk_store_n", "number", ["number", "number", "number", "array", "number"], [_, n, u.length, c(u), A]);
           },
           mk_const_array: t._Z3_mk_const_array,
-          mk_map: function (u, c, Z) {
-            return t.ccall("Z3_mk_map", "number", ["number", "number", "number", "array"], [u, c, Z.length, b(Z)]);
+          mk_map: function (_, n, u) {
+            return t.ccall("Z3_mk_map", "number", ["number", "number", "number", "array"], [_, n, u.length, c(u)]);
           },
           mk_array_default: t._Z3_mk_array_default,
           mk_as_array: t._Z3_mk_as_array,
@@ -9035,19 +2913,19 @@
           mk_full_set: t._Z3_mk_full_set,
           mk_set_add: t._Z3_mk_set_add,
           mk_set_del: t._Z3_mk_set_del,
-          mk_set_union: function (u, c) {
-            return t.ccall("Z3_mk_set_union", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_set_union: function (_, n) {
+            return t.ccall("Z3_mk_set_union", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
-          mk_set_intersect: function (u, c) {
-            return t.ccall("Z3_mk_set_intersect", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_set_intersect: function (_, n) {
+            return t.ccall("Z3_mk_set_intersect", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
           mk_set_difference: t._Z3_mk_set_difference,
           mk_set_complement: t._Z3_mk_set_complement,
           mk_set_member: t._Z3_mk_set_member,
           mk_set_subset: t._Z3_mk_set_subset,
           mk_array_ext: t._Z3_mk_array_ext,
-          mk_numeral: function (u, c, Z) {
-            return t.ccall("Z3_mk_numeral", "number", ["number", "string", "number"], [u, c, Z]);
+          mk_numeral: function (_, n, u) {
+            return t.ccall("Z3_mk_numeral", "number", ["number", "string", "number"], [_, n, u]);
           },
           mk_real: t._Z3_mk_real,
           mk_real_int64: t._Z3_mk_real_int64,
@@ -9055,59 +2933,59 @@
           mk_unsigned_int: t._Z3_mk_unsigned_int,
           mk_int64: t._Z3_mk_int64,
           mk_unsigned_int64: t._Z3_mk_unsigned_int64,
-          mk_bv_numeral: function (u, c) {
-            return t.ccall("Z3_mk_bv_numeral", "number", ["number", "number", "array"], [u, c.length, I(c)]);
+          mk_bv_numeral: function (_, n) {
+            return t.ccall("Z3_mk_bv_numeral", "number", ["number", "number", "array"], [_, n.length, P(n)]);
           },
           mk_seq_sort: t._Z3_mk_seq_sort,
-          is_seq_sort: function (u, c) {
-            return t.ccall("Z3_is_seq_sort", "boolean", ["number", "number"], [u, c]);
+          is_seq_sort: function (_, n) {
+            return t.ccall("Z3_is_seq_sort", "boolean", ["number", "number"], [_, n]);
           },
           get_seq_sort_basis: t._Z3_get_seq_sort_basis,
           mk_re_sort: t._Z3_mk_re_sort,
-          is_re_sort: function (u, c) {
-            return t.ccall("Z3_is_re_sort", "boolean", ["number", "number"], [u, c]);
+          is_re_sort: function (_, n) {
+            return t.ccall("Z3_is_re_sort", "boolean", ["number", "number"], [_, n]);
           },
           get_re_sort_basis: t._Z3_get_re_sort_basis,
           mk_string_sort: t._Z3_mk_string_sort,
           mk_char_sort: t._Z3_mk_char_sort,
-          is_string_sort: function (u, c) {
-            return t.ccall("Z3_is_string_sort", "boolean", ["number", "number"], [u, c]);
+          is_string_sort: function (_, n) {
+            return t.ccall("Z3_is_string_sort", "boolean", ["number", "number"], [_, n]);
           },
-          is_char_sort: function (u, c) {
-            return t.ccall("Z3_is_char_sort", "boolean", ["number", "number"], [u, c]);
+          is_char_sort: function (_, n) {
+            return t.ccall("Z3_is_char_sort", "boolean", ["number", "number"], [_, n]);
           },
-          mk_string: function (u, c) {
-            return t.ccall("Z3_mk_string", "number", ["number", "string"], [u, c]);
+          mk_string: function (_, n) {
+            return t.ccall("Z3_mk_string", "number", ["number", "string"], [_, n]);
           },
-          mk_lstring: function (u, c, Z) {
-            return t.ccall("Z3_mk_lstring", "number", ["number", "number", "string"], [u, c, Z]);
+          mk_lstring: function (_, n, u) {
+            return t.ccall("Z3_mk_lstring", "number", ["number", "number", "string"], [_, n, u]);
           },
-          mk_u32string: function (u, c) {
-            return t.ccall("Z3_mk_u32string", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_u32string: function (_, n) {
+            return t.ccall("Z3_mk_u32string", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
-          is_string: function (u, c) {
-            return t.ccall("Z3_is_string", "boolean", ["number", "number"], [u, c]);
+          is_string: function (_, n) {
+            return t.ccall("Z3_is_string", "boolean", ["number", "number"], [_, n]);
           },
-          get_string: function (u, c) {
-            return t.ccall("Z3_get_string", "string", ["number", "number"], [u, c]);
+          get_string: function (_, n) {
+            return t.ccall("Z3_get_string", "string", ["number", "number"], [_, n]);
           },
-          get_string_length: function (u, c) {
-            let Z = t.ccall("Z3_get_string_length", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_string_length: function (_, n) {
+            let u = t.ccall("Z3_get_string_length", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
-          get_string_contents: function (u, c, Z) {
-            let A = t._malloc(4 * Z);
+          get_string_contents: function (_, n, u) {
+            let A = t._malloc(4 * u);
             try {
-              let j = t.ccall("Z3_get_string_contents", "void", ["number", "number", "number", "number"], [u, c, Z, A]);
-              return R(A, Z);
+              let Z = t.ccall("Z3_get_string_contents", "void", ["number", "number", "number", "number"], [_, n, u, A]);
+              return y(A, u);
             } finally {
               t._free(A);
             }
           },
           mk_seq_empty: t._Z3_mk_seq_empty,
           mk_seq_unit: t._Z3_mk_seq_unit,
-          mk_seq_concat: function (u, c) {
-            return t.ccall("Z3_mk_seq_concat", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_seq_concat: function (_, n) {
+            return t.ccall("Z3_mk_seq_concat", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
           mk_seq_prefix: t._Z3_mk_seq_prefix,
           mk_seq_suffix: t._Z3_mk_seq_suffix,
@@ -9136,18 +3014,18 @@
           mk_re_plus: t._Z3_mk_re_plus,
           mk_re_star: t._Z3_mk_re_star,
           mk_re_option: t._Z3_mk_re_option,
-          mk_re_union: function (u, c) {
-            return t.ccall("Z3_mk_re_union", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_re_union: function (_, n) {
+            return t.ccall("Z3_mk_re_union", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
-          mk_re_concat: function (u, c) {
-            return t.ccall("Z3_mk_re_concat", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_re_concat: function (_, n) {
+            return t.ccall("Z3_mk_re_concat", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
           mk_re_range: t._Z3_mk_re_range,
           mk_re_allchar: t._Z3_mk_re_allchar,
           mk_re_loop: t._Z3_mk_re_loop,
           mk_re_power: t._Z3_mk_re_power,
-          mk_re_intersect: function (u, c) {
-            return t.ccall("Z3_mk_re_intersect", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_re_intersect: function (_, n) {
+            return t.ccall("Z3_mk_re_intersect", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
           mk_re_complement: t._Z3_mk_re_complement,
           mk_re_diff: t._Z3_mk_re_diff,
@@ -9164,178 +3042,177 @@
           mk_piecewise_linear_order: t._Z3_mk_piecewise_linear_order,
           mk_tree_order: t._Z3_mk_tree_order,
           mk_transitive_closure: t._Z3_mk_transitive_closure,
-          mk_pattern: function (u, c) {
-            return t.ccall("Z3_mk_pattern", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          mk_pattern: function (_, n) {
+            return t.ccall("Z3_mk_pattern", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
           mk_bound: t._Z3_mk_bound,
-          mk_forall: function (u, c, Z, A, j, o_) {
-            if (A.length !== j.length) throw new TypeError(`sorts and decl_names must be the same length (got ${A.length} and {decl_names.length})`);
+          mk_forall: function (_, n, u, A, Z, F) {
+            if (A.length !== Z.length) throw new TypeError(`sorts and decl_names must be the same length (got ${A.length} and {decl_names.length})`);
             return t.ccall(
               "Z3_mk_forall",
               "number",
               ["number", "number", "number", "array", "number", "array", "array", "number"],
-              [u, c, Z.length, b(Z), A.length, b(A), b(j), o_],
+              [_, n, u.length, c(u), A.length, c(A), c(Z), F],
             );
           },
-          mk_exists: function (u, c, Z, A, j, o_) {
-            if (A.length !== j.length) throw new TypeError(`sorts and decl_names must be the same length (got ${A.length} and {decl_names.length})`);
+          mk_exists: function (_, n, u, A, Z, F) {
+            if (A.length !== Z.length) throw new TypeError(`sorts and decl_names must be the same length (got ${A.length} and {decl_names.length})`);
             return t.ccall(
               "Z3_mk_exists",
               "number",
               ["number", "number", "number", "array", "number", "array", "array", "number"],
-              [u, c, Z.length, b(Z), A.length, b(A), b(j), o_],
+              [_, n, u.length, c(u), A.length, c(A), c(Z), F],
             );
           },
-          mk_quantifier: function (u, c, Z, A, j, o_, r_) {
-            if (j.length !== o_.length) throw new TypeError(`sorts and decl_names must be the same length (got ${j.length} and {decl_names.length})`);
+          mk_quantifier: function (_, n, u, A, Z, F, B) {
+            if (Z.length !== F.length) throw new TypeError(`sorts and decl_names must be the same length (got ${Z.length} and {decl_names.length})`);
             return t.ccall(
               "Z3_mk_quantifier",
               "number",
               ["number", "boolean", "number", "number", "array", "number", "array", "array", "number"],
-              [u, c, Z, A.length, b(A), j.length, b(j), b(o_), r_],
+              [_, n, u, A.length, c(A), Z.length, c(Z), c(F), B],
             );
           },
-          mk_quantifier_ex: function (u, c, Z, A, j, o_, r_, x_, S_, k) {
-            if (x_.length !== S_.length)
-              throw new TypeError(`sorts and decl_names must be the same length (got ${x_.length} and {decl_names.length})`);
+          mk_quantifier_ex: function (_, n, u, A, Z, F, B, K, rt, f) {
+            if (K.length !== rt.length) throw new TypeError(`sorts and decl_names must be the same length (got ${K.length} and {decl_names.length})`);
             return t.ccall(
               "Z3_mk_quantifier_ex",
               "number",
               ["number", "boolean", "number", "number", "number", "number", "array", "number", "array", "number", "array", "array", "number"],
-              [u, c, Z, A, j, o_.length, b(o_), r_.length, b(r_), x_.length, b(x_), b(S_), k],
+              [_, n, u, A, Z, F.length, c(F), B.length, c(B), K.length, c(K), c(rt), f],
             );
           },
-          mk_forall_const: function (u, c, Z, A, j) {
+          mk_forall_const: function (_, n, u, A, Z) {
             return t.ccall(
               "Z3_mk_forall_const",
               "number",
               ["number", "number", "number", "array", "number", "array", "number"],
-              [u, c, Z.length, b(Z), A.length, b(A), j],
+              [_, n, u.length, c(u), A.length, c(A), Z],
             );
           },
-          mk_exists_const: function (u, c, Z, A, j) {
+          mk_exists_const: function (_, n, u, A, Z) {
             return t.ccall(
               "Z3_mk_exists_const",
               "number",
               ["number", "number", "number", "array", "number", "array", "number"],
-              [u, c, Z.length, b(Z), A.length, b(A), j],
+              [_, n, u.length, c(u), A.length, c(A), Z],
             );
           },
-          mk_quantifier_const: function (u, c, Z, A, j, o_) {
+          mk_quantifier_const: function (_, n, u, A, Z, F) {
             return t.ccall(
               "Z3_mk_quantifier_const",
               "number",
               ["number", "boolean", "number", "number", "array", "number", "array", "number"],
-              [u, c, Z, A.length, b(A), j.length, b(j), o_],
+              [_, n, u, A.length, c(A), Z.length, c(Z), F],
             );
           },
-          mk_quantifier_const_ex: function (u, c, Z, A, j, o_, r_, x_, S_) {
+          mk_quantifier_const_ex: function (_, n, u, A, Z, F, B, K, rt) {
             return t.ccall(
               "Z3_mk_quantifier_const_ex",
               "number",
               ["number", "boolean", "number", "number", "number", "number", "array", "number", "array", "number", "array", "number"],
-              [u, c, Z, A, j, o_.length, b(o_), r_.length, b(r_), x_.length, b(x_), S_],
+              [_, n, u, A, Z, F.length, c(F), B.length, c(B), K.length, c(K), rt],
             );
           },
-          mk_lambda: function (u, c, Z, A) {
-            if (c.length !== Z.length) throw new TypeError(`sorts and decl_names must be the same length (got ${c.length} and {decl_names.length})`);
-            return t.ccall("Z3_mk_lambda", "number", ["number", "number", "array", "array", "number"], [u, c.length, b(c), b(Z), A]);
+          mk_lambda: function (_, n, u, A) {
+            if (n.length !== u.length) throw new TypeError(`sorts and decl_names must be the same length (got ${n.length} and {decl_names.length})`);
+            return t.ccall("Z3_mk_lambda", "number", ["number", "number", "array", "array", "number"], [_, n.length, c(n), c(u), A]);
           },
-          mk_lambda_const: function (u, c, Z) {
-            return t.ccall("Z3_mk_lambda_const", "number", ["number", "number", "array", "number"], [u, c.length, b(c), Z]);
+          mk_lambda_const: function (_, n, u) {
+            return t.ccall("Z3_mk_lambda_const", "number", ["number", "number", "array", "number"], [_, n.length, c(n), u]);
           },
           get_symbol_kind: t._Z3_get_symbol_kind,
           get_symbol_int: t._Z3_get_symbol_int,
-          get_symbol_string: function (u, c) {
-            return t.ccall("Z3_get_symbol_string", "string", ["number", "number"], [u, c]);
+          get_symbol_string: function (_, n) {
+            return t.ccall("Z3_get_symbol_string", "string", ["number", "number"], [_, n]);
           },
           get_sort_name: t._Z3_get_sort_name,
-          get_sort_id: function (u, c) {
-            let Z = t.ccall("Z3_get_sort_id", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_sort_id: function (_, n) {
+            let u = t.ccall("Z3_get_sort_id", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           sort_to_ast: t._Z3_sort_to_ast,
-          is_eq_sort: function (u, c, Z) {
-            return t.ccall("Z3_is_eq_sort", "boolean", ["number", "number", "number"], [u, c, Z]);
+          is_eq_sort: function (_, n, u) {
+            return t.ccall("Z3_is_eq_sort", "boolean", ["number", "number", "number"], [_, n, u]);
           },
           get_sort_kind: t._Z3_get_sort_kind,
-          get_bv_sort_size: function (u, c) {
-            let Z = t.ccall("Z3_get_bv_sort_size", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_bv_sort_size: function (_, n) {
+            let u = t.ccall("Z3_get_bv_sort_size", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
-          get_finite_domain_sort_size: function (u, c) {
-            return t.ccall("Z3_get_finite_domain_sort_size", "boolean", ["number", "number", "number"], [u, c, x]) ? s_(0) : null;
+          get_finite_domain_sort_size: function (_, n) {
+            return t.ccall("Z3_get_finite_domain_sort_size", "boolean", ["number", "number", "number"], [_, n, O]) ? M(0) : null;
           },
-          get_array_arity: function (u, c) {
-            let Z = t.ccall("Z3_get_array_arity", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_array_arity: function (_, n) {
+            let u = t.ccall("Z3_get_array_arity", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_array_sort_domain: t._Z3_get_array_sort_domain,
           get_array_sort_domain_n: t._Z3_get_array_sort_domain_n,
           get_array_sort_range: t._Z3_get_array_sort_range,
           get_tuple_sort_mk_decl: t._Z3_get_tuple_sort_mk_decl,
-          get_tuple_sort_num_fields: function (u, c) {
-            let Z = t.ccall("Z3_get_tuple_sort_num_fields", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_tuple_sort_num_fields: function (_, n) {
+            let u = t.ccall("Z3_get_tuple_sort_num_fields", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_tuple_sort_field_decl: t._Z3_get_tuple_sort_field_decl,
-          is_recursive_datatype_sort: function (u, c) {
-            return t.ccall("Z3_is_recursive_datatype_sort", "boolean", ["number", "number"], [u, c]);
+          is_recursive_datatype_sort: function (_, n) {
+            return t.ccall("Z3_is_recursive_datatype_sort", "boolean", ["number", "number"], [_, n]);
           },
-          get_datatype_sort_num_constructors: function (u, c) {
-            let Z = t.ccall("Z3_get_datatype_sort_num_constructors", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_datatype_sort_num_constructors: function (_, n) {
+            let u = t.ccall("Z3_get_datatype_sort_num_constructors", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_datatype_sort_constructor: t._Z3_get_datatype_sort_constructor,
           get_datatype_sort_recognizer: t._Z3_get_datatype_sort_recognizer,
           get_datatype_sort_constructor_accessor: t._Z3_get_datatype_sort_constructor_accessor,
           datatype_update_field: t._Z3_datatype_update_field,
-          get_relation_arity: function (u, c) {
-            let Z = t.ccall("Z3_get_relation_arity", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_relation_arity: function (_, n) {
+            let u = t.ccall("Z3_get_relation_arity", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_relation_column: t._Z3_get_relation_column,
-          mk_atmost: function (u, c, Z) {
-            return t.ccall("Z3_mk_atmost", "number", ["number", "number", "array", "number"], [u, c.length, b(c), Z]);
+          mk_atmost: function (_, n, u) {
+            return t.ccall("Z3_mk_atmost", "number", ["number", "number", "array", "number"], [_, n.length, c(n), u]);
           },
-          mk_atleast: function (u, c, Z) {
-            return t.ccall("Z3_mk_atleast", "number", ["number", "number", "array", "number"], [u, c.length, b(c), Z]);
+          mk_atleast: function (_, n, u) {
+            return t.ccall("Z3_mk_atleast", "number", ["number", "number", "array", "number"], [_, n.length, c(n), u]);
           },
-          mk_pble: function (u, c, Z, A) {
-            if (c.length !== Z.length) throw new TypeError(`args and coeffs must be the same length (got ${c.length} and {coeffs.length})`);
-            return t.ccall("Z3_mk_pble", "number", ["number", "number", "array", "array", "number"], [u, c.length, b(c), b(Z), A]);
+          mk_pble: function (_, n, u, A) {
+            if (n.length !== u.length) throw new TypeError(`args and coeffs must be the same length (got ${n.length} and {coeffs.length})`);
+            return t.ccall("Z3_mk_pble", "number", ["number", "number", "array", "array", "number"], [_, n.length, c(n), c(u), A]);
           },
-          mk_pbge: function (u, c, Z, A) {
-            if (c.length !== Z.length) throw new TypeError(`args and coeffs must be the same length (got ${c.length} and {coeffs.length})`);
-            return t.ccall("Z3_mk_pbge", "number", ["number", "number", "array", "array", "number"], [u, c.length, b(c), b(Z), A]);
+          mk_pbge: function (_, n, u, A) {
+            if (n.length !== u.length) throw new TypeError(`args and coeffs must be the same length (got ${n.length} and {coeffs.length})`);
+            return t.ccall("Z3_mk_pbge", "number", ["number", "number", "array", "array", "number"], [_, n.length, c(n), c(u), A]);
           },
-          mk_pbeq: function (u, c, Z, A) {
-            if (c.length !== Z.length) throw new TypeError(`args and coeffs must be the same length (got ${c.length} and {coeffs.length})`);
-            return t.ccall("Z3_mk_pbeq", "number", ["number", "number", "array", "array", "number"], [u, c.length, b(c), b(Z), A]);
+          mk_pbeq: function (_, n, u, A) {
+            if (n.length !== u.length) throw new TypeError(`args and coeffs must be the same length (got ${n.length} and {coeffs.length})`);
+            return t.ccall("Z3_mk_pbeq", "number", ["number", "number", "array", "array", "number"], [_, n.length, c(n), c(u), A]);
           },
           func_decl_to_ast: t._Z3_func_decl_to_ast,
-          is_eq_func_decl: function (u, c, Z) {
-            return t.ccall("Z3_is_eq_func_decl", "boolean", ["number", "number", "number"], [u, c, Z]);
+          is_eq_func_decl: function (_, n, u) {
+            return t.ccall("Z3_is_eq_func_decl", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          get_func_decl_id: function (u, c) {
-            let Z = t.ccall("Z3_get_func_decl_id", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_func_decl_id: function (_, n) {
+            let u = t.ccall("Z3_get_func_decl_id", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_decl_name: t._Z3_get_decl_name,
           get_decl_kind: t._Z3_get_decl_kind,
-          get_domain_size: function (u, c) {
-            let Z = t.ccall("Z3_get_domain_size", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_domain_size: function (_, n) {
+            let u = t.ccall("Z3_get_domain_size", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
-          get_arity: function (u, c) {
-            let Z = t.ccall("Z3_get_arity", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_arity: function (_, n) {
+            let u = t.ccall("Z3_get_arity", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_domain: t._Z3_get_domain,
           get_range: t._Z3_get_range,
-          get_decl_num_parameters: function (u, c) {
-            let Z = t.ccall("Z3_get_decl_num_parameters", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_decl_num_parameters: function (_, n) {
+            let u = t.ccall("Z3_get_decl_num_parameters", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_decl_parameter_kind: t._Z3_get_decl_parameter_kind,
           get_decl_int_parameter: t._Z3_get_decl_int_parameter,
@@ -9344,292 +3221,292 @@
           get_decl_sort_parameter: t._Z3_get_decl_sort_parameter,
           get_decl_ast_parameter: t._Z3_get_decl_ast_parameter,
           get_decl_func_decl_parameter: t._Z3_get_decl_func_decl_parameter,
-          get_decl_rational_parameter: function (u, c, Z) {
-            return t.ccall("Z3_get_decl_rational_parameter", "string", ["number", "number", "number"], [u, c, Z]);
+          get_decl_rational_parameter: function (_, n, u) {
+            return t.ccall("Z3_get_decl_rational_parameter", "string", ["number", "number", "number"], [_, n, u]);
           },
           app_to_ast: t._Z3_app_to_ast,
           get_app_decl: t._Z3_get_app_decl,
-          get_app_num_args: function (u, c) {
-            let Z = t.ccall("Z3_get_app_num_args", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_app_num_args: function (_, n) {
+            let u = t.ccall("Z3_get_app_num_args", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_app_arg: t._Z3_get_app_arg,
-          is_eq_ast: function (u, c, Z) {
-            return t.ccall("Z3_is_eq_ast", "boolean", ["number", "number", "number"], [u, c, Z]);
+          is_eq_ast: function (_, n, u) {
+            return t.ccall("Z3_is_eq_ast", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          get_ast_id: function (u, c) {
-            let Z = t.ccall("Z3_get_ast_id", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_ast_id: function (_, n) {
+            let u = t.ccall("Z3_get_ast_id", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
-          get_ast_hash: function (u, c) {
-            let Z = t.ccall("Z3_get_ast_hash", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_ast_hash: function (_, n) {
+            let u = t.ccall("Z3_get_ast_hash", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_sort: t._Z3_get_sort,
-          is_well_sorted: function (u, c) {
-            return t.ccall("Z3_is_well_sorted", "boolean", ["number", "number"], [u, c]);
+          is_well_sorted: function (_, n) {
+            return t.ccall("Z3_is_well_sorted", "boolean", ["number", "number"], [_, n]);
           },
           get_bool_value: t._Z3_get_bool_value,
           get_ast_kind: t._Z3_get_ast_kind,
-          is_app: function (u, c) {
-            return t.ccall("Z3_is_app", "boolean", ["number", "number"], [u, c]);
+          is_app: function (_, n) {
+            return t.ccall("Z3_is_app", "boolean", ["number", "number"], [_, n]);
           },
-          is_ground: function (u, c) {
-            return t.ccall("Z3_is_ground", "boolean", ["number", "number"], [u, c]);
+          is_ground: function (_, n) {
+            return t.ccall("Z3_is_ground", "boolean", ["number", "number"], [_, n]);
           },
-          get_depth: function (u, c) {
-            let Z = t.ccall("Z3_get_depth", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_depth: function (_, n) {
+            let u = t.ccall("Z3_get_depth", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
-          is_numeral_ast: function (u, c) {
-            return t.ccall("Z3_is_numeral_ast", "boolean", ["number", "number"], [u, c]);
+          is_numeral_ast: function (_, n) {
+            return t.ccall("Z3_is_numeral_ast", "boolean", ["number", "number"], [_, n]);
           },
-          is_algebraic_number: function (u, c) {
-            return t.ccall("Z3_is_algebraic_number", "boolean", ["number", "number"], [u, c]);
+          is_algebraic_number: function (_, n) {
+            return t.ccall("Z3_is_algebraic_number", "boolean", ["number", "number"], [_, n]);
           },
           to_app: t._Z3_to_app,
           to_func_decl: t._Z3_to_func_decl,
-          get_numeral_string: function (u, c) {
-            return t.ccall("Z3_get_numeral_string", "string", ["number", "number"], [u, c]);
+          get_numeral_string: function (_, n) {
+            return t.ccall("Z3_get_numeral_string", "string", ["number", "number"], [_, n]);
           },
-          get_numeral_binary_string: function (u, c) {
-            return t.ccall("Z3_get_numeral_binary_string", "string", ["number", "number"], [u, c]);
+          get_numeral_binary_string: function (_, n) {
+            return t.ccall("Z3_get_numeral_binary_string", "string", ["number", "number"], [_, n]);
           },
-          get_numeral_decimal_string: function (u, c, Z) {
-            return t.ccall("Z3_get_numeral_decimal_string", "string", ["number", "number", "number"], [u, c, Z]);
+          get_numeral_decimal_string: function (_, n, u) {
+            return t.ccall("Z3_get_numeral_decimal_string", "string", ["number", "number", "number"], [_, n, u]);
           },
           get_numeral_double: t._Z3_get_numeral_double,
           get_numerator: t._Z3_get_numerator,
           get_denominator: t._Z3_get_denominator,
-          get_numeral_small: function (u, c) {
-            return t.ccall("Z3_get_numeral_small", "boolean", ["number", "number", "number", "number"], [u, c, x, x + 8])
-              ? { num: K(0), den: K(1) }
+          get_numeral_small: function (_, n) {
+            return t.ccall("Z3_get_numeral_small", "boolean", ["number", "number", "number", "number"], [_, n, O, O + 8])
+              ? { num: N(0), den: N(1) }
               : null;
           },
-          get_numeral_int: function (u, c) {
-            return t.ccall("Z3_get_numeral_int", "boolean", ["number", "number", "number"], [u, c, x]) ? a(0) : null;
+          get_numeral_int: function (_, n) {
+            return t.ccall("Z3_get_numeral_int", "boolean", ["number", "number", "number"], [_, n, O]) ? r(0) : null;
           },
-          get_numeral_uint: function (u, c) {
-            return t.ccall("Z3_get_numeral_uint", "boolean", ["number", "number", "number"], [u, c, x]) ? _(0) : null;
+          get_numeral_uint: function (_, n) {
+            return t.ccall("Z3_get_numeral_uint", "boolean", ["number", "number", "number"], [_, n, O]) ? a(0) : null;
           },
-          get_numeral_uint64: function (u, c) {
-            return t.ccall("Z3_get_numeral_uint64", "boolean", ["number", "number", "number"], [u, c, x]) ? s_(0) : null;
+          get_numeral_uint64: function (_, n) {
+            return t.ccall("Z3_get_numeral_uint64", "boolean", ["number", "number", "number"], [_, n, O]) ? M(0) : null;
           },
-          get_numeral_int64: function (u, c) {
-            return t.ccall("Z3_get_numeral_int64", "boolean", ["number", "number", "number"], [u, c, x]) ? K(0) : null;
+          get_numeral_int64: function (_, n) {
+            return t.ccall("Z3_get_numeral_int64", "boolean", ["number", "number", "number"], [_, n, O]) ? N(0) : null;
           },
-          get_numeral_rational_int64: function (u, c) {
-            return t.ccall("Z3_get_numeral_rational_int64", "boolean", ["number", "number", "number", "number"], [u, c, x, x + 8])
-              ? { num: K(0), den: K(1) }
+          get_numeral_rational_int64: function (_, n) {
+            return t.ccall("Z3_get_numeral_rational_int64", "boolean", ["number", "number", "number", "number"], [_, n, O, O + 8])
+              ? { num: N(0), den: N(1) }
               : null;
           },
           get_algebraic_number_lower: t._Z3_get_algebraic_number_lower,
           get_algebraic_number_upper: t._Z3_get_algebraic_number_upper,
           pattern_to_ast: t._Z3_pattern_to_ast,
-          get_pattern_num_terms: function (u, c) {
-            let Z = t.ccall("Z3_get_pattern_num_terms", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_pattern_num_terms: function (_, n) {
+            let u = t.ccall("Z3_get_pattern_num_terms", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_pattern: t._Z3_get_pattern,
-          get_index_value: function (u, c) {
-            let Z = t.ccall("Z3_get_index_value", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_index_value: function (_, n) {
+            let u = t.ccall("Z3_get_index_value", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
-          is_quantifier_forall: function (u, c) {
-            return t.ccall("Z3_is_quantifier_forall", "boolean", ["number", "number"], [u, c]);
+          is_quantifier_forall: function (_, n) {
+            return t.ccall("Z3_is_quantifier_forall", "boolean", ["number", "number"], [_, n]);
           },
-          is_quantifier_exists: function (u, c) {
-            return t.ccall("Z3_is_quantifier_exists", "boolean", ["number", "number"], [u, c]);
+          is_quantifier_exists: function (_, n) {
+            return t.ccall("Z3_is_quantifier_exists", "boolean", ["number", "number"], [_, n]);
           },
-          is_lambda: function (u, c) {
-            return t.ccall("Z3_is_lambda", "boolean", ["number", "number"], [u, c]);
+          is_lambda: function (_, n) {
+            return t.ccall("Z3_is_lambda", "boolean", ["number", "number"], [_, n]);
           },
-          get_quantifier_weight: function (u, c) {
-            let Z = t.ccall("Z3_get_quantifier_weight", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_quantifier_weight: function (_, n) {
+            let u = t.ccall("Z3_get_quantifier_weight", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_quantifier_skolem_id: t._Z3_get_quantifier_skolem_id,
           get_quantifier_id: t._Z3_get_quantifier_id,
-          get_quantifier_num_patterns: function (u, c) {
-            let Z = t.ccall("Z3_get_quantifier_num_patterns", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_quantifier_num_patterns: function (_, n) {
+            let u = t.ccall("Z3_get_quantifier_num_patterns", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_quantifier_pattern_ast: t._Z3_get_quantifier_pattern_ast,
-          get_quantifier_num_no_patterns: function (u, c) {
-            let Z = t.ccall("Z3_get_quantifier_num_no_patterns", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_quantifier_num_no_patterns: function (_, n) {
+            let u = t.ccall("Z3_get_quantifier_num_no_patterns", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_quantifier_no_pattern_ast: t._Z3_get_quantifier_no_pattern_ast,
-          get_quantifier_num_bound: function (u, c) {
-            let Z = t.ccall("Z3_get_quantifier_num_bound", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          get_quantifier_num_bound: function (_, n) {
+            let u = t.ccall("Z3_get_quantifier_num_bound", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           get_quantifier_bound_name: t._Z3_get_quantifier_bound_name,
           get_quantifier_bound_sort: t._Z3_get_quantifier_bound_sort,
           get_quantifier_body: t._Z3_get_quantifier_body,
-          simplify: function (u, c) {
-            return t.async_call(t._async_Z3_simplify, u, c);
+          simplify: function (_, n) {
+            return t.async_call(t._async_Z3_simplify, _, n);
           },
-          simplify_ex: function (u, c, Z) {
-            return t.async_call(t._async_Z3_simplify_ex, u, c, Z);
+          simplify_ex: function (_, n, u) {
+            return t.async_call(t._async_Z3_simplify_ex, _, n, u);
           },
-          simplify_get_help: function (u) {
-            return t.ccall("Z3_simplify_get_help", "string", ["number"], [u]);
+          simplify_get_help: function (_) {
+            return t.ccall("Z3_simplify_get_help", "string", ["number"], [_]);
           },
           simplify_get_param_descrs: t._Z3_simplify_get_param_descrs,
-          update_term: function (u, c, Z) {
-            return t.ccall("Z3_update_term", "number", ["number", "number", "number", "array"], [u, c, Z.length, b(Z)]);
+          update_term: function (_, n, u) {
+            return t.ccall("Z3_update_term", "number", ["number", "number", "number", "array"], [_, n, u.length, c(u)]);
           },
-          substitute: function (u, c, Z, A) {
-            if (Z.length !== A.length) throw new TypeError(`from and to must be the same length (got ${Z.length} and {to.length})`);
-            return t.ccall("Z3_substitute", "number", ["number", "number", "number", "array", "array"], [u, c, Z.length, b(Z), b(A)]);
+          substitute: function (_, n, u, A) {
+            if (u.length !== A.length) throw new TypeError(`from and to must be the same length (got ${u.length} and {to.length})`);
+            return t.ccall("Z3_substitute", "number", ["number", "number", "number", "array", "array"], [_, n, u.length, c(u), c(A)]);
           },
-          substitute_vars: function (u, c, Z) {
-            return t.ccall("Z3_substitute_vars", "number", ["number", "number", "number", "array"], [u, c, Z.length, b(Z)]);
+          substitute_vars: function (_, n, u) {
+            return t.ccall("Z3_substitute_vars", "number", ["number", "number", "number", "array"], [_, n, u.length, c(u)]);
           },
-          substitute_funs: function (u, c, Z, A) {
-            if (Z.length !== A.length) throw new TypeError(`from and to must be the same length (got ${Z.length} and {to.length})`);
-            return t.ccall("Z3_substitute_funs", "number", ["number", "number", "number", "array", "array"], [u, c, Z.length, b(Z), b(A)]);
+          substitute_funs: function (_, n, u, A) {
+            if (u.length !== A.length) throw new TypeError(`from and to must be the same length (got ${u.length} and {to.length})`);
+            return t.ccall("Z3_substitute_funs", "number", ["number", "number", "number", "array", "array"], [_, n, u.length, c(u), c(A)]);
           },
           translate: t._Z3_translate,
           mk_model: t._Z3_mk_model,
           model_inc_ref: t._Z3_model_inc_ref,
           model_dec_ref: t._Z3_model_dec_ref,
-          model_eval: function (u, c, Z, A) {
-            return t.ccall("Z3_model_eval", "boolean", ["number", "number", "number", "boolean", "number"], [u, c, Z, A, x]) ? _(0) : null;
+          model_eval: function (_, n, u, A) {
+            return t.ccall("Z3_model_eval", "boolean", ["number", "number", "number", "boolean", "number"], [_, n, u, A, O]) ? a(0) : null;
           },
           model_get_const_interp: t._Z3_model_get_const_interp,
-          model_has_interp: function (u, c, Z) {
-            return t.ccall("Z3_model_has_interp", "boolean", ["number", "number", "number"], [u, c, Z]);
+          model_has_interp: function (_, n, u) {
+            return t.ccall("Z3_model_has_interp", "boolean", ["number", "number", "number"], [_, n, u]);
           },
           model_get_func_interp: t._Z3_model_get_func_interp,
-          model_get_num_consts: function (u, c) {
-            let Z = t.ccall("Z3_model_get_num_consts", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          model_get_num_consts: function (_, n) {
+            let u = t.ccall("Z3_model_get_num_consts", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           model_get_const_decl: t._Z3_model_get_const_decl,
-          model_get_num_funcs: function (u, c) {
-            let Z = t.ccall("Z3_model_get_num_funcs", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          model_get_num_funcs: function (_, n) {
+            let u = t.ccall("Z3_model_get_num_funcs", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           model_get_func_decl: t._Z3_model_get_func_decl,
-          model_get_num_sorts: function (u, c) {
-            let Z = t.ccall("Z3_model_get_num_sorts", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          model_get_num_sorts: function (_, n) {
+            let u = t.ccall("Z3_model_get_num_sorts", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           model_get_sort: t._Z3_model_get_sort,
           model_get_sort_universe: t._Z3_model_get_sort_universe,
           model_translate: t._Z3_model_translate,
-          is_as_array: function (u, c) {
-            return t.ccall("Z3_is_as_array", "boolean", ["number", "number"], [u, c]);
+          is_as_array: function (_, n) {
+            return t.ccall("Z3_is_as_array", "boolean", ["number", "number"], [_, n]);
           },
           get_as_array_func_decl: t._Z3_get_as_array_func_decl,
           add_func_interp: t._Z3_add_func_interp,
           add_const_interp: t._Z3_add_const_interp,
           func_interp_inc_ref: t._Z3_func_interp_inc_ref,
           func_interp_dec_ref: t._Z3_func_interp_dec_ref,
-          func_interp_get_num_entries: function (u, c) {
-            let Z = t.ccall("Z3_func_interp_get_num_entries", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          func_interp_get_num_entries: function (_, n) {
+            let u = t.ccall("Z3_func_interp_get_num_entries", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           func_interp_get_entry: t._Z3_func_interp_get_entry,
           func_interp_get_else: t._Z3_func_interp_get_else,
           func_interp_set_else: t._Z3_func_interp_set_else,
-          func_interp_get_arity: function (u, c) {
-            let Z = t.ccall("Z3_func_interp_get_arity", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          func_interp_get_arity: function (_, n) {
+            let u = t.ccall("Z3_func_interp_get_arity", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           func_interp_add_entry: t._Z3_func_interp_add_entry,
           func_entry_inc_ref: t._Z3_func_entry_inc_ref,
           func_entry_dec_ref: t._Z3_func_entry_dec_ref,
           func_entry_get_value: t._Z3_func_entry_get_value,
-          func_entry_get_num_args: function (u, c) {
-            let Z = t.ccall("Z3_func_entry_get_num_args", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          func_entry_get_num_args: function (_, n) {
+            let u = t.ccall("Z3_func_entry_get_num_args", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           func_entry_get_arg: t._Z3_func_entry_get_arg,
-          open_log: function (u) {
-            return t.ccall("Z3_open_log", "boolean", ["string"], [u]);
+          open_log: function (_) {
+            return t.ccall("Z3_open_log", "boolean", ["string"], [_]);
           },
-          append_log: function (u) {
-            return t.ccall("Z3_append_log", "void", ["string"], [u]);
+          append_log: function (_) {
+            return t.ccall("Z3_append_log", "void", ["string"], [_]);
           },
           close_log: t._Z3_close_log,
           toggle_warning_messages: t._Z3_toggle_warning_messages,
           set_ast_print_mode: t._Z3_set_ast_print_mode,
-          ast_to_string: function (u, c) {
-            return t.ccall("Z3_ast_to_string", "string", ["number", "number"], [u, c]);
+          ast_to_string: function (_, n) {
+            return t.ccall("Z3_ast_to_string", "string", ["number", "number"], [_, n]);
           },
-          pattern_to_string: function (u, c) {
-            return t.ccall("Z3_pattern_to_string", "string", ["number", "number"], [u, c]);
+          pattern_to_string: function (_, n) {
+            return t.ccall("Z3_pattern_to_string", "string", ["number", "number"], [_, n]);
           },
-          sort_to_string: function (u, c) {
-            return t.ccall("Z3_sort_to_string", "string", ["number", "number"], [u, c]);
+          sort_to_string: function (_, n) {
+            return t.ccall("Z3_sort_to_string", "string", ["number", "number"], [_, n]);
           },
-          func_decl_to_string: function (u, c) {
-            return t.ccall("Z3_func_decl_to_string", "string", ["number", "number"], [u, c]);
+          func_decl_to_string: function (_, n) {
+            return t.ccall("Z3_func_decl_to_string", "string", ["number", "number"], [_, n]);
           },
-          model_to_string: function (u, c) {
-            return t.ccall("Z3_model_to_string", "string", ["number", "number"], [u, c]);
+          model_to_string: function (_, n) {
+            return t.ccall("Z3_model_to_string", "string", ["number", "number"], [_, n]);
           },
-          benchmark_to_smtlib_string: function (u, c, Z, A, j, o_, r_) {
+          benchmark_to_smtlib_string: function (_, n, u, A, Z, F, B) {
             return t.ccall(
               "Z3_benchmark_to_smtlib_string",
               "string",
               ["number", "string", "string", "string", "string", "number", "array", "number"],
-              [u, c, Z, A, j, o_.length, b(o_), r_],
+              [_, n, u, A, Z, F.length, c(F), B],
             );
           },
-          parse_smtlib2_string: function (u, c, Z, A, j, o_) {
-            if (Z.length !== A.length) throw new TypeError(`sort_names and sorts must be the same length (got ${Z.length} and {sorts.length})`);
-            if (j.length !== o_.length) throw new TypeError(`decl_names and decls must be the same length (got ${j.length} and {decls.length})`);
+          parse_smtlib2_string: function (_, n, u, A, Z, F) {
+            if (u.length !== A.length) throw new TypeError(`sort_names and sorts must be the same length (got ${u.length} and {sorts.length})`);
+            if (Z.length !== F.length) throw new TypeError(`decl_names and decls must be the same length (got ${Z.length} and {decls.length})`);
             return t.ccall(
               "Z3_parse_smtlib2_string",
               "number",
               ["number", "string", "number", "array", "array", "number", "array", "array"],
-              [u, c, Z.length, b(Z), b(A), j.length, b(j), b(o_)],
+              [_, n, u.length, c(u), c(A), Z.length, c(Z), c(F)],
             );
           },
-          parse_smtlib2_file: function (u, c, Z, A, j, o_) {
-            if (Z.length !== A.length) throw new TypeError(`sort_names and sorts must be the same length (got ${Z.length} and {sorts.length})`);
-            if (j.length !== o_.length) throw new TypeError(`decl_names and decls must be the same length (got ${j.length} and {decls.length})`);
+          parse_smtlib2_file: function (_, n, u, A, Z, F) {
+            if (u.length !== A.length) throw new TypeError(`sort_names and sorts must be the same length (got ${u.length} and {sorts.length})`);
+            if (Z.length !== F.length) throw new TypeError(`decl_names and decls must be the same length (got ${Z.length} and {decls.length})`);
             return t.ccall(
               "Z3_parse_smtlib2_file",
               "number",
               ["number", "string", "number", "array", "array", "number", "array", "array"],
-              [u, c, Z.length, b(Z), b(A), j.length, b(j), b(o_)],
+              [_, n, u.length, c(u), c(A), Z.length, c(Z), c(F)],
             );
           },
-          eval_smtlib2_string: async function (u, c) {
-            return await t.async_call(() => t.ccall("async_Z3_eval_smtlib2_string", "void", ["number", "string"], [u, c]));
+          eval_smtlib2_string: async function (_, n) {
+            return await t.async_call(() => t.ccall("async_Z3_eval_smtlib2_string", "void", ["number", "string"], [_, n]));
           },
           mk_parser_context: t._Z3_mk_parser_context,
           parser_context_inc_ref: t._Z3_parser_context_inc_ref,
           parser_context_dec_ref: t._Z3_parser_context_dec_ref,
           parser_context_add_sort: t._Z3_parser_context_add_sort,
           parser_context_add_decl: t._Z3_parser_context_add_decl,
-          parser_context_from_string: function (u, c, Z) {
-            return t.ccall("Z3_parser_context_from_string", "number", ["number", "number", "string"], [u, c, Z]);
+          parser_context_from_string: function (_, n, u) {
+            return t.ccall("Z3_parser_context_from_string", "number", ["number", "number", "string"], [_, n, u]);
           },
           get_error_code: t._Z3_get_error_code,
           set_error: t._Z3_set_error,
-          get_error_msg: function (u, c) {
-            return t.ccall("Z3_get_error_msg", "string", ["number", "number"], [u, c]);
+          get_error_msg: function (_, n) {
+            return t.ccall("Z3_get_error_msg", "string", ["number", "number"], [_, n]);
           },
           get_version: function () {
             return (
-              t.ccall("Z3_get_version", "void", ["number", "number", "number", "number"], [x, x + 4, x + 8, x + 12]),
-              { major: _(0), minor: _(1), build_number: _(2), revision_number: _(3) }
+              t.ccall("Z3_get_version", "void", ["number", "number", "number", "number"], [O, O + 4, O + 8, O + 12]),
+              { major: a(0), minor: a(1), build_number: a(2), revision_number: a(3) }
             );
           },
           get_full_version: function () {
             return t.ccall("Z3_get_full_version", "string", [], []);
           },
-          enable_trace: function (u) {
-            return t.ccall("Z3_enable_trace", "void", ["string"], [u]);
+          enable_trace: function (_) {
+            return t.ccall("Z3_enable_trace", "void", ["string"], [_]);
           },
-          disable_trace: function (u) {
-            return t.ccall("Z3_disable_trace", "void", ["string"], [u]);
+          disable_trace: function (_) {
+            return t.ccall("Z3_disable_trace", "void", ["string"], [_]);
           },
           reset_memory: t._Z3_reset_memory,
           finalize_memory: t._Z3_finalize_memory,
@@ -9638,51 +3515,51 @@
           goal_dec_ref: t._Z3_goal_dec_ref,
           goal_precision: t._Z3_goal_precision,
           goal_assert: t._Z3_goal_assert,
-          goal_inconsistent: function (u, c) {
-            return t.ccall("Z3_goal_inconsistent", "boolean", ["number", "number"], [u, c]);
+          goal_inconsistent: function (_, n) {
+            return t.ccall("Z3_goal_inconsistent", "boolean", ["number", "number"], [_, n]);
           },
-          goal_depth: function (u, c) {
-            let Z = t.ccall("Z3_goal_depth", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          goal_depth: function (_, n) {
+            let u = t.ccall("Z3_goal_depth", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           goal_reset: t._Z3_goal_reset,
-          goal_size: function (u, c) {
-            let Z = t.ccall("Z3_goal_size", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          goal_size: function (_, n) {
+            let u = t.ccall("Z3_goal_size", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           goal_formula: t._Z3_goal_formula,
-          goal_num_exprs: function (u, c) {
-            let Z = t.ccall("Z3_goal_num_exprs", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          goal_num_exprs: function (_, n) {
+            let u = t.ccall("Z3_goal_num_exprs", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
-          goal_is_decided_sat: function (u, c) {
-            return t.ccall("Z3_goal_is_decided_sat", "boolean", ["number", "number"], [u, c]);
+          goal_is_decided_sat: function (_, n) {
+            return t.ccall("Z3_goal_is_decided_sat", "boolean", ["number", "number"], [_, n]);
           },
-          goal_is_decided_unsat: function (u, c) {
-            return t.ccall("Z3_goal_is_decided_unsat", "boolean", ["number", "number"], [u, c]);
+          goal_is_decided_unsat: function (_, n) {
+            return t.ccall("Z3_goal_is_decided_unsat", "boolean", ["number", "number"], [_, n]);
           },
           goal_translate: t._Z3_goal_translate,
           goal_convert_model: t._Z3_goal_convert_model,
-          goal_to_string: function (u, c) {
-            return t.ccall("Z3_goal_to_string", "string", ["number", "number"], [u, c]);
+          goal_to_string: function (_, n) {
+            return t.ccall("Z3_goal_to_string", "string", ["number", "number"], [_, n]);
           },
-          goal_to_dimacs_string: function (u, c, Z) {
-            return t.ccall("Z3_goal_to_dimacs_string", "string", ["number", "number", "boolean"], [u, c, Z]);
+          goal_to_dimacs_string: function (_, n, u) {
+            return t.ccall("Z3_goal_to_dimacs_string", "string", ["number", "number", "boolean"], [_, n, u]);
           },
-          mk_tactic: function (u, c) {
-            return t.ccall("Z3_mk_tactic", "number", ["number", "string"], [u, c]);
+          mk_tactic: function (_, n) {
+            return t.ccall("Z3_mk_tactic", "number", ["number", "string"], [_, n]);
           },
           tactic_inc_ref: t._Z3_tactic_inc_ref,
           tactic_dec_ref: t._Z3_tactic_dec_ref,
-          mk_probe: function (u, c) {
-            return t.ccall("Z3_mk_probe", "number", ["number", "string"], [u, c]);
+          mk_probe: function (_, n) {
+            return t.ccall("Z3_mk_probe", "number", ["number", "string"], [_, n]);
           },
           probe_inc_ref: t._Z3_probe_inc_ref,
           probe_dec_ref: t._Z3_probe_dec_ref,
           tactic_and_then: t._Z3_tactic_and_then,
           tactic_or_else: t._Z3_tactic_or_else,
-          tactic_par_or: function (u, c) {
-            return t.ccall("Z3_tactic_par_or", "number", ["number", "number", "array"], [u, c.length, b(c)]);
+          tactic_par_or: function (_, n) {
+            return t.ccall("Z3_tactic_par_or", "number", ["number", "number", "array"], [_, n.length, c(n)]);
           },
           tactic_par_and_then: t._Z3_tactic_par_and_then,
           tactic_try_for: t._Z3_tactic_try_for,
@@ -9694,27 +3571,27 @@
           tactic_fail_if: t._Z3_tactic_fail_if,
           tactic_fail_if_not_decided: t._Z3_tactic_fail_if_not_decided,
           tactic_using_params: t._Z3_tactic_using_params,
-          mk_simplifier: function (u, c) {
-            return t.ccall("Z3_mk_simplifier", "number", ["number", "string"], [u, c]);
+          mk_simplifier: function (_, n) {
+            return t.ccall("Z3_mk_simplifier", "number", ["number", "string"], [_, n]);
           },
           simplifier_inc_ref: t._Z3_simplifier_inc_ref,
           simplifier_dec_ref: t._Z3_simplifier_dec_ref,
           solver_add_simplifier: t._Z3_solver_add_simplifier,
           simplifier_and_then: t._Z3_simplifier_and_then,
           simplifier_using_params: t._Z3_simplifier_using_params,
-          get_num_simplifiers: function (u) {
-            let c = t.ccall("Z3_get_num_simplifiers", "number", ["number"], [u]);
-            return ((c = new Uint32Array([c])[0]), c);
+          get_num_simplifiers: function (_) {
+            let n = t.ccall("Z3_get_num_simplifiers", "number", ["number"], [_]);
+            return ((n = new Uint32Array([n])[0]), n);
           },
-          get_simplifier_name: function (u, c) {
-            return t.ccall("Z3_get_simplifier_name", "string", ["number", "number"], [u, c]);
+          get_simplifier_name: function (_, n) {
+            return t.ccall("Z3_get_simplifier_name", "string", ["number", "number"], [_, n]);
           },
-          simplifier_get_help: function (u, c) {
-            return t.ccall("Z3_simplifier_get_help", "string", ["number", "number"], [u, c]);
+          simplifier_get_help: function (_, n) {
+            return t.ccall("Z3_simplifier_get_help", "string", ["number", "number"], [_, n]);
           },
           simplifier_get_param_descrs: t._Z3_simplifier_get_param_descrs,
-          simplifier_get_descr: function (u, c) {
-            return t.ccall("Z3_simplifier_get_descr", "string", ["number", "string"], [u, c]);
+          simplifier_get_descr: function (_, n) {
+            return t.ccall("Z3_simplifier_get_descr", "string", ["number", "string"], [_, n]);
           },
           probe_const: t._Z3_probe_const,
           probe_lt: t._Z3_probe_lt,
@@ -9725,45 +3602,45 @@
           probe_and: t._Z3_probe_and,
           probe_or: t._Z3_probe_or,
           probe_not: t._Z3_probe_not,
-          get_num_tactics: function (u) {
-            let c = t.ccall("Z3_get_num_tactics", "number", ["number"], [u]);
-            return ((c = new Uint32Array([c])[0]), c);
+          get_num_tactics: function (_) {
+            let n = t.ccall("Z3_get_num_tactics", "number", ["number"], [_]);
+            return ((n = new Uint32Array([n])[0]), n);
           },
-          get_tactic_name: function (u, c) {
-            return t.ccall("Z3_get_tactic_name", "string", ["number", "number"], [u, c]);
+          get_tactic_name: function (_, n) {
+            return t.ccall("Z3_get_tactic_name", "string", ["number", "number"], [_, n]);
           },
-          get_num_probes: function (u) {
-            let c = t.ccall("Z3_get_num_probes", "number", ["number"], [u]);
-            return ((c = new Uint32Array([c])[0]), c);
+          get_num_probes: function (_) {
+            let n = t.ccall("Z3_get_num_probes", "number", ["number"], [_]);
+            return ((n = new Uint32Array([n])[0]), n);
           },
-          get_probe_name: function (u, c) {
-            return t.ccall("Z3_get_probe_name", "string", ["number", "number"], [u, c]);
+          get_probe_name: function (_, n) {
+            return t.ccall("Z3_get_probe_name", "string", ["number", "number"], [_, n]);
           },
-          tactic_get_help: function (u, c) {
-            return t.ccall("Z3_tactic_get_help", "string", ["number", "number"], [u, c]);
+          tactic_get_help: function (_, n) {
+            return t.ccall("Z3_tactic_get_help", "string", ["number", "number"], [_, n]);
           },
           tactic_get_param_descrs: t._Z3_tactic_get_param_descrs,
-          tactic_get_descr: function (u, c) {
-            return t.ccall("Z3_tactic_get_descr", "string", ["number", "string"], [u, c]);
+          tactic_get_descr: function (_, n) {
+            return t.ccall("Z3_tactic_get_descr", "string", ["number", "string"], [_, n]);
           },
-          probe_get_descr: function (u, c) {
-            return t.ccall("Z3_probe_get_descr", "string", ["number", "string"], [u, c]);
+          probe_get_descr: function (_, n) {
+            return t.ccall("Z3_probe_get_descr", "string", ["number", "string"], [_, n]);
           },
           probe_apply: t._Z3_probe_apply,
-          tactic_apply: function (u, c, Z) {
-            return t.async_call(t._async_Z3_tactic_apply, u, c, Z);
+          tactic_apply: function (_, n, u) {
+            return t.async_call(t._async_Z3_tactic_apply, _, n, u);
           },
-          tactic_apply_ex: function (u, c, Z, A) {
-            return t.async_call(t._async_Z3_tactic_apply_ex, u, c, Z, A);
+          tactic_apply_ex: function (_, n, u, A) {
+            return t.async_call(t._async_Z3_tactic_apply_ex, _, n, u, A);
           },
           apply_result_inc_ref: t._Z3_apply_result_inc_ref,
           apply_result_dec_ref: t._Z3_apply_result_dec_ref,
-          apply_result_to_string: function (u, c) {
-            return t.ccall("Z3_apply_result_to_string", "string", ["number", "number"], [u, c]);
+          apply_result_to_string: function (_, n) {
+            return t.ccall("Z3_apply_result_to_string", "string", ["number", "number"], [_, n]);
           },
-          apply_result_get_num_subgoals: function (u, c) {
-            let Z = t.ccall("Z3_apply_result_get_num_subgoals", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          apply_result_get_num_subgoals: function (_, n) {
+            let u = t.ccall("Z3_apply_result_get_num_subgoals", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           apply_result_get_subgoal: t._Z3_apply_result_get_subgoal,
           mk_solver: t._Z3_mk_solver,
@@ -9772,8 +3649,8 @@
           mk_solver_from_tactic: t._Z3_mk_solver_from_tactic,
           solver_translate: t._Z3_solver_translate,
           solver_import_model_converter: t._Z3_solver_import_model_converter,
-          solver_get_help: function (u, c) {
-            return t.ccall("Z3_solver_get_help", "string", ["number", "number"], [u, c]);
+          solver_get_help: function (_, n) {
+            return t.ccall("Z3_solver_get_help", "string", ["number", "number"], [_, n]);
           },
           solver_get_param_descrs: t._Z3_solver_get_param_descrs,
           solver_set_params: t._Z3_solver_set_params,
@@ -9783,120 +3660,120 @@
           solver_push: t._Z3_solver_push,
           solver_pop: t._Z3_solver_pop,
           solver_reset: t._Z3_solver_reset,
-          solver_get_num_scopes: function (u, c) {
-            let Z = t.ccall("Z3_solver_get_num_scopes", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          solver_get_num_scopes: function (_, n) {
+            let u = t.ccall("Z3_solver_get_num_scopes", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           solver_assert: t._Z3_solver_assert,
           solver_assert_and_track: t._Z3_solver_assert_and_track,
-          solver_from_file: function (u, c, Z) {
-            return t.ccall("Z3_solver_from_file", "void", ["number", "number", "string"], [u, c, Z]);
+          solver_from_file: function (_, n, u) {
+            return t.ccall("Z3_solver_from_file", "void", ["number", "number", "string"], [_, n, u]);
           },
-          solver_from_string: function (u, c, Z) {
-            return t.ccall("Z3_solver_from_string", "void", ["number", "number", "string"], [u, c, Z]);
+          solver_from_string: function (_, n, u) {
+            return t.ccall("Z3_solver_from_string", "void", ["number", "number", "string"], [_, n, u]);
           },
           solver_get_assertions: t._Z3_solver_get_assertions,
           solver_get_units: t._Z3_solver_get_units,
           solver_get_trail: t._Z3_solver_get_trail,
           solver_get_non_units: t._Z3_solver_get_non_units,
-          solver_get_levels: function (u, c, Z, A) {
-            return t.ccall("Z3_solver_get_levels", "void", ["number", "number", "number", "number", "array"], [u, c, Z, A.length, b(A)]);
+          solver_get_levels: function (_, n, u, A) {
+            return t.ccall("Z3_solver_get_levels", "void", ["number", "number", "number", "number", "array"], [_, n, u, A.length, c(A)]);
           },
           solver_congruence_root: t._Z3_solver_congruence_root,
           solver_congruence_next: t._Z3_solver_congruence_next,
           solver_congruence_explain: t._Z3_solver_congruence_explain,
           solver_solve_for: t._Z3_solver_solve_for,
-          solver_next_split: function (u, c, Z, A, j) {
-            return t.ccall("Z3_solver_next_split", "boolean", ["number", "number", "number", "number", "number"], [u, c, Z, A, j]);
+          solver_next_split: function (_, n, u, A, Z) {
+            return t.ccall("Z3_solver_next_split", "boolean", ["number", "number", "number", "number", "number"], [_, n, u, A, Z]);
           },
-          solver_propagate_declare: function (u, c, Z, A) {
-            return t.ccall("Z3_solver_propagate_declare", "number", ["number", "number", "number", "array", "number"], [u, c, Z.length, b(Z), A]);
+          solver_propagate_declare: function (_, n, u, A) {
+            return t.ccall("Z3_solver_propagate_declare", "number", ["number", "number", "number", "array", "number"], [_, n, u.length, c(u), A]);
           },
           solver_propagate_register: t._Z3_solver_propagate_register,
           solver_propagate_register_cb: t._Z3_solver_propagate_register_cb,
-          solver_propagate_consequence: function (u, c, Z, A, j, o_) {
-            if (A.length !== j.length) throw new TypeError(`eq_lhs and eq_rhs must be the same length (got ${A.length} and {eq_rhs.length})`);
+          solver_propagate_consequence: function (_, n, u, A, Z, F) {
+            if (A.length !== Z.length) throw new TypeError(`eq_lhs and eq_rhs must be the same length (got ${A.length} and {eq_rhs.length})`);
             return t.ccall(
               "Z3_solver_propagate_consequence",
               "boolean",
               ["number", "number", "number", "array", "number", "array", "array", "number"],
-              [u, c, Z.length, b(Z), A.length, b(A), b(j), o_],
+              [_, n, u.length, c(u), A.length, c(A), c(Z), F],
             );
           },
           solver_set_initial_value: t._Z3_solver_set_initial_value,
-          solver_check: function (u, c) {
-            return t.async_call(t._async_Z3_solver_check, u, c);
+          solver_check: function (_, n) {
+            return t.async_call(t._async_Z3_solver_check, _, n);
           },
-          solver_check_assumptions: async function (u, c, Z) {
+          solver_check_assumptions: async function (_, n, u) {
             return await t.async_call(() =>
-              t.ccall("async_Z3_solver_check_assumptions", "void", ["number", "number", "number", "array"], [u, c, Z.length, b(Z)]),
+              t.ccall("async_Z3_solver_check_assumptions", "void", ["number", "number", "number", "array"], [_, n, u.length, c(u)]),
             );
           },
-          get_implied_equalities: function (u, c, Z) {
-            let A = t._malloc(4 * Z.length);
+          get_implied_equalities: function (_, n, u) {
+            let A = t._malloc(4 * u.length);
             try {
               return {
-                rv: t.ccall("Z3_get_implied_equalities", "number", ["number", "number", "number", "array", "number"], [u, c, Z.length, b(Z), A]),
-                class_ids: R(A, Z.length),
+                rv: t.ccall("Z3_get_implied_equalities", "number", ["number", "number", "number", "array", "number"], [_, n, u.length, c(u), A]),
+                class_ids: y(A, u.length),
               };
             } finally {
               t._free(A);
             }
           },
-          solver_get_consequences: function (u, c, Z, A, j) {
-            return t.async_call(t._async_Z3_solver_get_consequences, u, c, Z, A, j);
+          solver_get_consequences: function (_, n, u, A, Z) {
+            return t.async_call(t._async_Z3_solver_get_consequences, _, n, u, A, Z);
           },
-          solver_cube: function (u, c, Z, A) {
-            return t.async_call(t._async_Z3_solver_cube, u, c, Z, A);
+          solver_cube: function (_, n, u, A) {
+            return t.async_call(t._async_Z3_solver_cube, _, n, u, A);
           },
           solver_get_model: t._Z3_solver_get_model,
           solver_get_proof: t._Z3_solver_get_proof,
           solver_get_unsat_core: t._Z3_solver_get_unsat_core,
-          solver_get_reason_unknown: function (u, c) {
-            return t.ccall("Z3_solver_get_reason_unknown", "string", ["number", "number"], [u, c]);
+          solver_get_reason_unknown: function (_, n) {
+            return t.ccall("Z3_solver_get_reason_unknown", "string", ["number", "number"], [_, n]);
           },
           solver_get_statistics: t._Z3_solver_get_statistics,
-          solver_to_string: function (u, c) {
-            return t.ccall("Z3_solver_to_string", "string", ["number", "number"], [u, c]);
+          solver_to_string: function (_, n) {
+            return t.ccall("Z3_solver_to_string", "string", ["number", "number"], [_, n]);
           },
-          solver_to_dimacs_string: function (u, c, Z) {
-            return t.ccall("Z3_solver_to_dimacs_string", "string", ["number", "number", "boolean"], [u, c, Z]);
+          solver_to_dimacs_string: function (_, n, u) {
+            return t.ccall("Z3_solver_to_dimacs_string", "string", ["number", "number", "boolean"], [_, n, u]);
           },
-          stats_to_string: function (u, c) {
-            return t.ccall("Z3_stats_to_string", "string", ["number", "number"], [u, c]);
+          stats_to_string: function (_, n) {
+            return t.ccall("Z3_stats_to_string", "string", ["number", "number"], [_, n]);
           },
           stats_inc_ref: t._Z3_stats_inc_ref,
           stats_dec_ref: t._Z3_stats_dec_ref,
-          stats_size: function (u, c) {
-            let Z = t.ccall("Z3_stats_size", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          stats_size: function (_, n) {
+            let u = t.ccall("Z3_stats_size", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
-          stats_get_key: function (u, c, Z) {
-            return t.ccall("Z3_stats_get_key", "string", ["number", "number", "number"], [u, c, Z]);
+          stats_get_key: function (_, n, u) {
+            return t.ccall("Z3_stats_get_key", "string", ["number", "number", "number"], [_, n, u]);
           },
-          stats_is_uint: function (u, c, Z) {
-            return t.ccall("Z3_stats_is_uint", "boolean", ["number", "number", "number"], [u, c, Z]);
+          stats_is_uint: function (_, n, u) {
+            return t.ccall("Z3_stats_is_uint", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          stats_is_double: function (u, c, Z) {
-            return t.ccall("Z3_stats_is_double", "boolean", ["number", "number", "number"], [u, c, Z]);
+          stats_is_double: function (_, n, u) {
+            return t.ccall("Z3_stats_is_double", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          stats_get_uint_value: function (u, c, Z) {
-            let A = t.ccall("Z3_stats_get_uint_value", "number", ["number", "number", "number"], [u, c, Z]);
+          stats_get_uint_value: function (_, n, u) {
+            let A = t.ccall("Z3_stats_get_uint_value", "number", ["number", "number", "number"], [_, n, u]);
             return ((A = new Uint32Array([A])[0]), A);
           },
           stats_get_double_value: t._Z3_stats_get_double_value,
           get_estimated_alloc_size: t._Z3_get_estimated_alloc_size,
-          algebraic_is_value: function (u, c) {
-            return t.ccall("Z3_algebraic_is_value", "boolean", ["number", "number"], [u, c]);
+          algebraic_is_value: function (_, n) {
+            return t.ccall("Z3_algebraic_is_value", "boolean", ["number", "number"], [_, n]);
           },
-          algebraic_is_pos: function (u, c) {
-            return t.ccall("Z3_algebraic_is_pos", "boolean", ["number", "number"], [u, c]);
+          algebraic_is_pos: function (_, n) {
+            return t.ccall("Z3_algebraic_is_pos", "boolean", ["number", "number"], [_, n]);
           },
-          algebraic_is_neg: function (u, c) {
-            return t.ccall("Z3_algebraic_is_neg", "boolean", ["number", "number"], [u, c]);
+          algebraic_is_neg: function (_, n) {
+            return t.ccall("Z3_algebraic_is_neg", "boolean", ["number", "number"], [_, n]);
           },
-          algebraic_is_zero: function (u, c) {
-            return t.ccall("Z3_algebraic_is_zero", "boolean", ["number", "number"], [u, c]);
+          algebraic_is_zero: function (_, n) {
+            return t.ccall("Z3_algebraic_is_zero", "boolean", ["number", "number"], [_, n]);
           },
           algebraic_sign: t._Z3_algebraic_sign,
           algebraic_add: t._Z3_algebraic_add,
@@ -9905,124 +3782,124 @@
           algebraic_div: t._Z3_algebraic_div,
           algebraic_root: t._Z3_algebraic_root,
           algebraic_power: t._Z3_algebraic_power,
-          algebraic_lt: function (u, c, Z) {
-            return t.ccall("Z3_algebraic_lt", "boolean", ["number", "number", "number"], [u, c, Z]);
+          algebraic_lt: function (_, n, u) {
+            return t.ccall("Z3_algebraic_lt", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          algebraic_gt: function (u, c, Z) {
-            return t.ccall("Z3_algebraic_gt", "boolean", ["number", "number", "number"], [u, c, Z]);
+          algebraic_gt: function (_, n, u) {
+            return t.ccall("Z3_algebraic_gt", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          algebraic_le: function (u, c, Z) {
-            return t.ccall("Z3_algebraic_le", "boolean", ["number", "number", "number"], [u, c, Z]);
+          algebraic_le: function (_, n, u) {
+            return t.ccall("Z3_algebraic_le", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          algebraic_ge: function (u, c, Z) {
-            return t.ccall("Z3_algebraic_ge", "boolean", ["number", "number", "number"], [u, c, Z]);
+          algebraic_ge: function (_, n, u) {
+            return t.ccall("Z3_algebraic_ge", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          algebraic_eq: function (u, c, Z) {
-            return t.ccall("Z3_algebraic_eq", "boolean", ["number", "number", "number"], [u, c, Z]);
+          algebraic_eq: function (_, n, u) {
+            return t.ccall("Z3_algebraic_eq", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          algebraic_neq: function (u, c, Z) {
-            return t.ccall("Z3_algebraic_neq", "boolean", ["number", "number", "number"], [u, c, Z]);
+          algebraic_neq: function (_, n, u) {
+            return t.ccall("Z3_algebraic_neq", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          algebraic_roots: async function (u, c, Z) {
+          algebraic_roots: async function (_, n, u) {
             return await t.async_call(() =>
-              t.ccall("async_Z3_algebraic_roots", "void", ["number", "number", "number", "array"], [u, c, Z.length, b(Z)]),
+              t.ccall("async_Z3_algebraic_roots", "void", ["number", "number", "number", "array"], [_, n, u.length, c(u)]),
             );
           },
-          algebraic_eval: async function (u, c, Z) {
+          algebraic_eval: async function (_, n, u) {
             return await t.async_call(() =>
-              t.ccall("async_Z3_algebraic_eval", "void", ["number", "number", "number", "array"], [u, c, Z.length, b(Z)]),
+              t.ccall("async_Z3_algebraic_eval", "void", ["number", "number", "number", "array"], [_, n, u.length, c(u)]),
             );
           },
           algebraic_get_poly: t._Z3_algebraic_get_poly,
-          algebraic_get_i: function (u, c) {
-            let Z = t.ccall("Z3_algebraic_get_i", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          algebraic_get_i: function (_, n) {
+            let u = t.ccall("Z3_algebraic_get_i", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           mk_ast_vector: t._Z3_mk_ast_vector,
           ast_vector_inc_ref: t._Z3_ast_vector_inc_ref,
           ast_vector_dec_ref: t._Z3_ast_vector_dec_ref,
-          ast_vector_size: function (u, c) {
-            let Z = t.ccall("Z3_ast_vector_size", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          ast_vector_size: function (_, n) {
+            let u = t.ccall("Z3_ast_vector_size", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           ast_vector_get: t._Z3_ast_vector_get,
           ast_vector_set: t._Z3_ast_vector_set,
           ast_vector_resize: t._Z3_ast_vector_resize,
           ast_vector_push: t._Z3_ast_vector_push,
           ast_vector_translate: t._Z3_ast_vector_translate,
-          ast_vector_to_string: function (u, c) {
-            return t.ccall("Z3_ast_vector_to_string", "string", ["number", "number"], [u, c]);
+          ast_vector_to_string: function (_, n) {
+            return t.ccall("Z3_ast_vector_to_string", "string", ["number", "number"], [_, n]);
           },
           mk_ast_map: t._Z3_mk_ast_map,
           ast_map_inc_ref: t._Z3_ast_map_inc_ref,
           ast_map_dec_ref: t._Z3_ast_map_dec_ref,
-          ast_map_contains: function (u, c, Z) {
-            return t.ccall("Z3_ast_map_contains", "boolean", ["number", "number", "number"], [u, c, Z]);
+          ast_map_contains: function (_, n, u) {
+            return t.ccall("Z3_ast_map_contains", "boolean", ["number", "number", "number"], [_, n, u]);
           },
           ast_map_find: t._Z3_ast_map_find,
           ast_map_insert: t._Z3_ast_map_insert,
           ast_map_erase: t._Z3_ast_map_erase,
           ast_map_reset: t._Z3_ast_map_reset,
-          ast_map_size: function (u, c) {
-            let Z = t.ccall("Z3_ast_map_size", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          ast_map_size: function (_, n) {
+            let u = t.ccall("Z3_ast_map_size", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           ast_map_keys: t._Z3_ast_map_keys,
-          ast_map_to_string: function (u, c) {
-            return t.ccall("Z3_ast_map_to_string", "string", ["number", "number"], [u, c]);
+          ast_map_to_string: function (_, n) {
+            return t.ccall("Z3_ast_map_to_string", "string", ["number", "number"], [_, n]);
           },
           mk_fixedpoint: t._Z3_mk_fixedpoint,
           fixedpoint_inc_ref: t._Z3_fixedpoint_inc_ref,
           fixedpoint_dec_ref: t._Z3_fixedpoint_dec_ref,
           fixedpoint_add_rule: t._Z3_fixedpoint_add_rule,
-          fixedpoint_add_fact: function (u, c, Z, A) {
-            return t.ccall("Z3_fixedpoint_add_fact", "void", ["number", "number", "number", "number", "array"], [u, c, Z, A.length, b(A)]);
+          fixedpoint_add_fact: function (_, n, u, A) {
+            return t.ccall("Z3_fixedpoint_add_fact", "void", ["number", "number", "number", "number", "array"], [_, n, u, A.length, c(A)]);
           },
           fixedpoint_assert: t._Z3_fixedpoint_assert,
-          fixedpoint_query: function (u, c, Z) {
-            return t.async_call(t._async_Z3_fixedpoint_query, u, c, Z);
+          fixedpoint_query: function (_, n, u) {
+            return t.async_call(t._async_Z3_fixedpoint_query, _, n, u);
           },
-          fixedpoint_query_relations: async function (u, c, Z) {
+          fixedpoint_query_relations: async function (_, n, u) {
             return await t.async_call(() =>
-              t.ccall("async_Z3_fixedpoint_query_relations", "void", ["number", "number", "number", "array"], [u, c, Z.length, b(Z)]),
+              t.ccall("async_Z3_fixedpoint_query_relations", "void", ["number", "number", "number", "array"], [_, n, u.length, c(u)]),
             );
           },
           fixedpoint_get_answer: t._Z3_fixedpoint_get_answer,
-          fixedpoint_get_reason_unknown: function (u, c) {
-            return t.ccall("Z3_fixedpoint_get_reason_unknown", "string", ["number", "number"], [u, c]);
+          fixedpoint_get_reason_unknown: function (_, n) {
+            return t.ccall("Z3_fixedpoint_get_reason_unknown", "string", ["number", "number"], [_, n]);
           },
           fixedpoint_update_rule: t._Z3_fixedpoint_update_rule,
-          fixedpoint_get_num_levels: function (u, c, Z) {
-            let A = t.ccall("Z3_fixedpoint_get_num_levels", "number", ["number", "number", "number"], [u, c, Z]);
+          fixedpoint_get_num_levels: function (_, n, u) {
+            let A = t.ccall("Z3_fixedpoint_get_num_levels", "number", ["number", "number", "number"], [_, n, u]);
             return ((A = new Uint32Array([A])[0]), A);
           },
           fixedpoint_get_cover_delta: t._Z3_fixedpoint_get_cover_delta,
           fixedpoint_add_cover: t._Z3_fixedpoint_add_cover,
           fixedpoint_get_statistics: t._Z3_fixedpoint_get_statistics,
           fixedpoint_register_relation: t._Z3_fixedpoint_register_relation,
-          fixedpoint_set_predicate_representation: function (u, c, Z, A) {
+          fixedpoint_set_predicate_representation: function (_, n, u, A) {
             return t.ccall(
               "Z3_fixedpoint_set_predicate_representation",
               "void",
               ["number", "number", "number", "number", "array"],
-              [u, c, Z, A.length, b(A)],
+              [_, n, u, A.length, c(A)],
             );
           },
           fixedpoint_get_rules: t._Z3_fixedpoint_get_rules,
           fixedpoint_get_assertions: t._Z3_fixedpoint_get_assertions,
           fixedpoint_set_params: t._Z3_fixedpoint_set_params,
-          fixedpoint_get_help: function (u, c) {
-            return t.ccall("Z3_fixedpoint_get_help", "string", ["number", "number"], [u, c]);
+          fixedpoint_get_help: function (_, n) {
+            return t.ccall("Z3_fixedpoint_get_help", "string", ["number", "number"], [_, n]);
           },
           fixedpoint_get_param_descrs: t._Z3_fixedpoint_get_param_descrs,
-          fixedpoint_to_string: function (u, c, Z) {
-            return t.ccall("Z3_fixedpoint_to_string", "string", ["number", "number", "number", "array"], [u, c, Z.length, b(Z)]);
+          fixedpoint_to_string: function (_, n, u) {
+            return t.ccall("Z3_fixedpoint_to_string", "string", ["number", "number", "number", "array"], [_, n, u.length, c(u)]);
           },
-          fixedpoint_from_string: function (u, c, Z) {
-            return t.ccall("Z3_fixedpoint_from_string", "number", ["number", "number", "string"], [u, c, Z]);
+          fixedpoint_from_string: function (_, n, u) {
+            return t.ccall("Z3_fixedpoint_from_string", "number", ["number", "number", "string"], [_, n, u]);
           },
-          fixedpoint_from_file: function (u, c, Z) {
-            return t.ccall("Z3_fixedpoint_from_file", "number", ["number", "number", "string"], [u, c, Z]);
+          fixedpoint_from_file: function (_, n, u) {
+            return t.ccall("Z3_fixedpoint_from_file", "number", ["number", "number", "string"], [_, n, u]);
           },
           mk_fpa_rounding_mode_sort: t._Z3_mk_fpa_rounding_mode_sort,
           mk_fpa_round_nearest_ties_to_even: t._Z3_mk_fpa_round_nearest_ties_to_even,
@@ -10085,51 +3962,51 @@
           mk_fpa_to_ubv: t._Z3_mk_fpa_to_ubv,
           mk_fpa_to_sbv: t._Z3_mk_fpa_to_sbv,
           mk_fpa_to_real: t._Z3_mk_fpa_to_real,
-          fpa_get_ebits: function (u, c) {
-            let Z = t.ccall("Z3_fpa_get_ebits", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          fpa_get_ebits: function (_, n) {
+            let u = t.ccall("Z3_fpa_get_ebits", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
-          fpa_get_sbits: function (u, c) {
-            let Z = t.ccall("Z3_fpa_get_sbits", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          fpa_get_sbits: function (_, n) {
+            let u = t.ccall("Z3_fpa_get_sbits", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
-          fpa_is_numeral_nan: function (u, c) {
-            return t.ccall("Z3_fpa_is_numeral_nan", "boolean", ["number", "number"], [u, c]);
+          fpa_is_numeral_nan: function (_, n) {
+            return t.ccall("Z3_fpa_is_numeral_nan", "boolean", ["number", "number"], [_, n]);
           },
-          fpa_is_numeral_inf: function (u, c) {
-            return t.ccall("Z3_fpa_is_numeral_inf", "boolean", ["number", "number"], [u, c]);
+          fpa_is_numeral_inf: function (_, n) {
+            return t.ccall("Z3_fpa_is_numeral_inf", "boolean", ["number", "number"], [_, n]);
           },
-          fpa_is_numeral_zero: function (u, c) {
-            return t.ccall("Z3_fpa_is_numeral_zero", "boolean", ["number", "number"], [u, c]);
+          fpa_is_numeral_zero: function (_, n) {
+            return t.ccall("Z3_fpa_is_numeral_zero", "boolean", ["number", "number"], [_, n]);
           },
-          fpa_is_numeral_normal: function (u, c) {
-            return t.ccall("Z3_fpa_is_numeral_normal", "boolean", ["number", "number"], [u, c]);
+          fpa_is_numeral_normal: function (_, n) {
+            return t.ccall("Z3_fpa_is_numeral_normal", "boolean", ["number", "number"], [_, n]);
           },
-          fpa_is_numeral_subnormal: function (u, c) {
-            return t.ccall("Z3_fpa_is_numeral_subnormal", "boolean", ["number", "number"], [u, c]);
+          fpa_is_numeral_subnormal: function (_, n) {
+            return t.ccall("Z3_fpa_is_numeral_subnormal", "boolean", ["number", "number"], [_, n]);
           },
-          fpa_is_numeral_positive: function (u, c) {
-            return t.ccall("Z3_fpa_is_numeral_positive", "boolean", ["number", "number"], [u, c]);
+          fpa_is_numeral_positive: function (_, n) {
+            return t.ccall("Z3_fpa_is_numeral_positive", "boolean", ["number", "number"], [_, n]);
           },
-          fpa_is_numeral_negative: function (u, c) {
-            return t.ccall("Z3_fpa_is_numeral_negative", "boolean", ["number", "number"], [u, c]);
+          fpa_is_numeral_negative: function (_, n) {
+            return t.ccall("Z3_fpa_is_numeral_negative", "boolean", ["number", "number"], [_, n]);
           },
           fpa_get_numeral_sign_bv: t._Z3_fpa_get_numeral_sign_bv,
           fpa_get_numeral_significand_bv: t._Z3_fpa_get_numeral_significand_bv,
-          fpa_get_numeral_sign: function (u, c) {
-            return t.ccall("Z3_fpa_get_numeral_sign", "boolean", ["number", "number", "number"], [u, c, x]) ? a(0) : null;
+          fpa_get_numeral_sign: function (_, n) {
+            return t.ccall("Z3_fpa_get_numeral_sign", "boolean", ["number", "number", "number"], [_, n, O]) ? r(0) : null;
           },
-          fpa_get_numeral_significand_string: function (u, c) {
-            return t.ccall("Z3_fpa_get_numeral_significand_string", "string", ["number", "number"], [u, c]);
+          fpa_get_numeral_significand_string: function (_, n) {
+            return t.ccall("Z3_fpa_get_numeral_significand_string", "string", ["number", "number"], [_, n]);
           },
-          fpa_get_numeral_significand_uint64: function (u, c) {
-            return t.ccall("Z3_fpa_get_numeral_significand_uint64", "boolean", ["number", "number", "number"], [u, c, x]) ? s_(0) : null;
+          fpa_get_numeral_significand_uint64: function (_, n) {
+            return t.ccall("Z3_fpa_get_numeral_significand_uint64", "boolean", ["number", "number", "number"], [_, n, O]) ? M(0) : null;
           },
-          fpa_get_numeral_exponent_string: function (u, c, Z) {
-            return t.ccall("Z3_fpa_get_numeral_exponent_string", "string", ["number", "number", "boolean"], [u, c, Z]);
+          fpa_get_numeral_exponent_string: function (_, n, u) {
+            return t.ccall("Z3_fpa_get_numeral_exponent_string", "string", ["number", "number", "boolean"], [_, n, u]);
           },
-          fpa_get_numeral_exponent_int64: function (u, c, Z) {
-            return t.ccall("Z3_fpa_get_numeral_exponent_int64", "boolean", ["number", "number", "number", "boolean"], [u, c, x, Z]) ? K(0) : null;
+          fpa_get_numeral_exponent_int64: function (_, n, u) {
+            return t.ccall("Z3_fpa_get_numeral_exponent_int64", "boolean", ["number", "number", "number", "boolean"], [_, n, O, u]) ? N(0) : null;
           },
           fpa_get_numeral_exponent_bv: t._Z3_fpa_get_numeral_exponent_bv,
           mk_fpa_to_ieee_bv: t._Z3_mk_fpa_to_ieee_bv,
@@ -10139,28 +4016,28 @@
           optimize_dec_ref: t._Z3_optimize_dec_ref,
           optimize_assert: t._Z3_optimize_assert,
           optimize_assert_and_track: t._Z3_optimize_assert_and_track,
-          optimize_assert_soft: function (u, c, Z, A, j) {
-            let o_ = t.ccall("Z3_optimize_assert_soft", "number", ["number", "number", "number", "string", "number"], [u, c, Z, A, j]);
-            return ((o_ = new Uint32Array([o_])[0]), o_);
+          optimize_assert_soft: function (_, n, u, A, Z) {
+            let F = t.ccall("Z3_optimize_assert_soft", "number", ["number", "number", "number", "string", "number"], [_, n, u, A, Z]);
+            return ((F = new Uint32Array([F])[0]), F);
           },
-          optimize_maximize: function (u, c, Z) {
-            let A = t.ccall("Z3_optimize_maximize", "number", ["number", "number", "number"], [u, c, Z]);
+          optimize_maximize: function (_, n, u) {
+            let A = t.ccall("Z3_optimize_maximize", "number", ["number", "number", "number"], [_, n, u]);
             return ((A = new Uint32Array([A])[0]), A);
           },
-          optimize_minimize: function (u, c, Z) {
-            let A = t.ccall("Z3_optimize_minimize", "number", ["number", "number", "number"], [u, c, Z]);
+          optimize_minimize: function (_, n, u) {
+            let A = t.ccall("Z3_optimize_minimize", "number", ["number", "number", "number"], [_, n, u]);
             return ((A = new Uint32Array([A])[0]), A);
           },
           optimize_push: t._Z3_optimize_push,
           optimize_pop: t._Z3_optimize_pop,
           optimize_set_initial_value: t._Z3_optimize_set_initial_value,
-          optimize_check: async function (u, c, Z) {
+          optimize_check: async function (_, n, u) {
             return await t.async_call(() =>
-              t.ccall("async_Z3_optimize_check", "void", ["number", "number", "number", "array"], [u, c, Z.length, b(Z)]),
+              t.ccall("async_Z3_optimize_check", "void", ["number", "number", "number", "array"], [_, n, u.length, c(u)]),
             );
           },
-          optimize_get_reason_unknown: function (u, c) {
-            return t.ccall("Z3_optimize_get_reason_unknown", "string", ["number", "number"], [u, c]);
+          optimize_get_reason_unknown: function (_, n) {
+            return t.ccall("Z3_optimize_get_reason_unknown", "string", ["number", "number"], [_, n]);
           },
           optimize_get_model: t._Z3_optimize_get_model,
           optimize_get_unsat_core: t._Z3_optimize_get_unsat_core,
@@ -10170,39 +4047,39 @@
           optimize_get_upper: t._Z3_optimize_get_upper,
           optimize_get_lower_as_vector: t._Z3_optimize_get_lower_as_vector,
           optimize_get_upper_as_vector: t._Z3_optimize_get_upper_as_vector,
-          optimize_to_string: function (u, c) {
-            return t.ccall("Z3_optimize_to_string", "string", ["number", "number"], [u, c]);
+          optimize_to_string: function (_, n) {
+            return t.ccall("Z3_optimize_to_string", "string", ["number", "number"], [_, n]);
           },
-          optimize_from_string: function (u, c, Z) {
-            return t.ccall("Z3_optimize_from_string", "void", ["number", "number", "string"], [u, c, Z]);
+          optimize_from_string: function (_, n, u) {
+            return t.ccall("Z3_optimize_from_string", "void", ["number", "number", "string"], [_, n, u]);
           },
-          optimize_from_file: function (u, c, Z) {
-            return t.ccall("Z3_optimize_from_file", "void", ["number", "number", "string"], [u, c, Z]);
+          optimize_from_file: function (_, n, u) {
+            return t.ccall("Z3_optimize_from_file", "void", ["number", "number", "string"], [_, n, u]);
           },
-          optimize_get_help: function (u, c) {
-            return t.ccall("Z3_optimize_get_help", "string", ["number", "number"], [u, c]);
+          optimize_get_help: function (_, n) {
+            return t.ccall("Z3_optimize_get_help", "string", ["number", "number"], [_, n]);
           },
           optimize_get_statistics: t._Z3_optimize_get_statistics,
           optimize_get_assertions: t._Z3_optimize_get_assertions,
           optimize_get_objectives: t._Z3_optimize_get_objectives,
-          polynomial_subresultants: function (u, c, Z, A) {
-            return t.async_call(t._async_Z3_polynomial_subresultants, u, c, Z, A);
+          polynomial_subresultants: function (_, n, u, A) {
+            return t.async_call(t._async_Z3_polynomial_subresultants, _, n, u, A);
           },
           rcf_del: t._Z3_rcf_del,
-          rcf_mk_rational: function (u, c) {
-            return t.ccall("Z3_rcf_mk_rational", "number", ["number", "string"], [u, c]);
+          rcf_mk_rational: function (_, n) {
+            return t.ccall("Z3_rcf_mk_rational", "number", ["number", "string"], [_, n]);
           },
           rcf_mk_small_int: t._Z3_rcf_mk_small_int,
           rcf_mk_pi: t._Z3_rcf_mk_pi,
           rcf_mk_e: t._Z3_rcf_mk_e,
           rcf_mk_infinitesimal: t._Z3_rcf_mk_infinitesimal,
-          rcf_mk_roots: function (u, c) {
-            let Z = t._malloc(4 * c.length);
+          rcf_mk_roots: function (_, n) {
+            let u = t._malloc(4 * n.length);
             try {
-              let A = t.ccall("Z3_rcf_mk_roots", "number", ["number", "number", "array", "number"], [u, c.length, b(c), Z]);
-              return ((A = new Uint32Array([A])[0]), { rv: A, roots: R(Z, c.length) });
+              let A = t.ccall("Z3_rcf_mk_roots", "number", ["number", "number", "array", "number"], [_, n.length, c(n), u]);
+              return ((A = new Uint32Array([A])[0]), { rv: A, roots: y(u, n.length) });
             } finally {
-              t._free(Z);
+              t._free(u);
             }
           },
           rcf_add: t._Z3_rcf_add,
@@ -10212,94 +4089,94 @@
           rcf_neg: t._Z3_rcf_neg,
           rcf_inv: t._Z3_rcf_inv,
           rcf_power: t._Z3_rcf_power,
-          rcf_lt: function (u, c, Z) {
-            return t.ccall("Z3_rcf_lt", "boolean", ["number", "number", "number"], [u, c, Z]);
+          rcf_lt: function (_, n, u) {
+            return t.ccall("Z3_rcf_lt", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          rcf_gt: function (u, c, Z) {
-            return t.ccall("Z3_rcf_gt", "boolean", ["number", "number", "number"], [u, c, Z]);
+          rcf_gt: function (_, n, u) {
+            return t.ccall("Z3_rcf_gt", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          rcf_le: function (u, c, Z) {
-            return t.ccall("Z3_rcf_le", "boolean", ["number", "number", "number"], [u, c, Z]);
+          rcf_le: function (_, n, u) {
+            return t.ccall("Z3_rcf_le", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          rcf_ge: function (u, c, Z) {
-            return t.ccall("Z3_rcf_ge", "boolean", ["number", "number", "number"], [u, c, Z]);
+          rcf_ge: function (_, n, u) {
+            return t.ccall("Z3_rcf_ge", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          rcf_eq: function (u, c, Z) {
-            return t.ccall("Z3_rcf_eq", "boolean", ["number", "number", "number"], [u, c, Z]);
+          rcf_eq: function (_, n, u) {
+            return t.ccall("Z3_rcf_eq", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          rcf_neq: function (u, c, Z) {
-            return t.ccall("Z3_rcf_neq", "boolean", ["number", "number", "number"], [u, c, Z]);
+          rcf_neq: function (_, n, u) {
+            return t.ccall("Z3_rcf_neq", "boolean", ["number", "number", "number"], [_, n, u]);
           },
-          rcf_num_to_string: function (u, c, Z, A) {
-            return t.ccall("Z3_rcf_num_to_string", "string", ["number", "number", "boolean", "boolean"], [u, c, Z, A]);
+          rcf_num_to_string: function (_, n, u, A) {
+            return t.ccall("Z3_rcf_num_to_string", "string", ["number", "number", "boolean", "boolean"], [_, n, u, A]);
           },
-          rcf_num_to_decimal_string: function (u, c, Z) {
-            return t.ccall("Z3_rcf_num_to_decimal_string", "string", ["number", "number", "number"], [u, c, Z]);
+          rcf_num_to_decimal_string: function (_, n, u) {
+            return t.ccall("Z3_rcf_num_to_decimal_string", "string", ["number", "number", "number"], [_, n, u]);
           },
-          rcf_get_numerator_denominator: function (u, c) {
+          rcf_get_numerator_denominator: function (_, n) {
             return (
-              t.ccall("Z3_rcf_get_numerator_denominator", "void", ["number", "number", "number", "number"], [u, c, x, x + 4]),
-              { n: _(0), d: _(1) }
+              t.ccall("Z3_rcf_get_numerator_denominator", "void", ["number", "number", "number", "number"], [_, n, O, O + 4]),
+              { n: a(0), d: a(1) }
             );
           },
-          rcf_is_rational: function (u, c) {
-            return t.ccall("Z3_rcf_is_rational", "boolean", ["number", "number"], [u, c]);
+          rcf_is_rational: function (_, n) {
+            return t.ccall("Z3_rcf_is_rational", "boolean", ["number", "number"], [_, n]);
           },
-          rcf_is_algebraic: function (u, c) {
-            return t.ccall("Z3_rcf_is_algebraic", "boolean", ["number", "number"], [u, c]);
+          rcf_is_algebraic: function (_, n) {
+            return t.ccall("Z3_rcf_is_algebraic", "boolean", ["number", "number"], [_, n]);
           },
-          rcf_is_infinitesimal: function (u, c) {
-            return t.ccall("Z3_rcf_is_infinitesimal", "boolean", ["number", "number"], [u, c]);
+          rcf_is_infinitesimal: function (_, n) {
+            return t.ccall("Z3_rcf_is_infinitesimal", "boolean", ["number", "number"], [_, n]);
           },
-          rcf_is_transcendental: function (u, c) {
-            return t.ccall("Z3_rcf_is_transcendental", "boolean", ["number", "number"], [u, c]);
+          rcf_is_transcendental: function (_, n) {
+            return t.ccall("Z3_rcf_is_transcendental", "boolean", ["number", "number"], [_, n]);
           },
-          rcf_extension_index: function (u, c) {
-            let Z = t.ccall("Z3_rcf_extension_index", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          rcf_extension_index: function (_, n) {
+            let u = t.ccall("Z3_rcf_extension_index", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           rcf_transcendental_name: t._Z3_rcf_transcendental_name,
           rcf_infinitesimal_name: t._Z3_rcf_infinitesimal_name,
-          rcf_num_coefficients: function (u, c) {
-            let Z = t.ccall("Z3_rcf_num_coefficients", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          rcf_num_coefficients: function (_, n) {
+            let u = t.ccall("Z3_rcf_num_coefficients", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           rcf_coefficient: t._Z3_rcf_coefficient,
-          rcf_num_sign_conditions: function (u, c) {
-            let Z = t.ccall("Z3_rcf_num_sign_conditions", "number", ["number", "number"], [u, c]);
-            return ((Z = new Uint32Array([Z])[0]), Z);
+          rcf_num_sign_conditions: function (_, n) {
+            let u = t.ccall("Z3_rcf_num_sign_conditions", "number", ["number", "number"], [_, n]);
+            return ((u = new Uint32Array([u])[0]), u);
           },
           rcf_sign_condition_sign: t._Z3_rcf_sign_condition_sign,
-          rcf_num_sign_condition_coefficients: function (u, c, Z) {
-            let A = t.ccall("Z3_rcf_num_sign_condition_coefficients", "number", ["number", "number", "number"], [u, c, Z]);
+          rcf_num_sign_condition_coefficients: function (_, n, u) {
+            let A = t.ccall("Z3_rcf_num_sign_condition_coefficients", "number", ["number", "number", "number"], [_, n, u]);
             return ((A = new Uint32Array([A])[0]), A);
           },
           rcf_sign_condition_coefficient: t._Z3_rcf_sign_condition_coefficient,
-          fixedpoint_query_from_lvl: function (u, c, Z, A) {
-            return t.async_call(t._async_Z3_fixedpoint_query_from_lvl, u, c, Z, A);
+          fixedpoint_query_from_lvl: function (_, n, u, A) {
+            return t.async_call(t._async_Z3_fixedpoint_query_from_lvl, _, n, u, A);
           },
           fixedpoint_get_ground_sat_answer: t._Z3_fixedpoint_get_ground_sat_answer,
           fixedpoint_get_rules_along_trace: t._Z3_fixedpoint_get_rules_along_trace,
           fixedpoint_get_rule_names_along_trace: t._Z3_fixedpoint_get_rule_names_along_trace,
           fixedpoint_add_invariant: t._Z3_fixedpoint_add_invariant,
           fixedpoint_get_reachable: t._Z3_fixedpoint_get_reachable,
-          qe_model_project: function (u, c, Z, A) {
-            return t.ccall("Z3_qe_model_project", "number", ["number", "number", "number", "array", "number"], [u, c, Z.length, b(Z), A]);
+          qe_model_project: function (_, n, u, A) {
+            return t.ccall("Z3_qe_model_project", "number", ["number", "number", "number", "array", "number"], [_, n, u.length, c(u), A]);
           },
-          qe_model_project_skolem: function (u, c, Z, A, j) {
+          qe_model_project_skolem: function (_, n, u, A, Z) {
             return t.ccall(
               "Z3_qe_model_project_skolem",
               "number",
               ["number", "number", "number", "array", "number", "number"],
-              [u, c, Z.length, b(Z), A, j],
+              [_, n, u.length, c(u), A, Z],
             );
           },
-          qe_model_project_with_witness: function (u, c, Z, A, j) {
+          qe_model_project_with_witness: function (_, n, u, A, Z) {
             return t.ccall(
               "Z3_qe_model_project_with_witness",
               "number",
               ["number", "number", "number", "array", "number", "number"],
-              [u, c, Z.length, b(Z), A, j],
+              [_, n, u.length, c(u), A, Z],
             );
           },
           model_extrapolate: t._Z3_model_extrapolate,
@@ -10307,1264 +4184,1264 @@
         },
       };
     }
-    return cr;
+    return lr;
   }
-  var ei;
-  function ti() {
+  var Je;
+  function tn() {
     return (
-      ei ||
-        ((ei = 1),
-        (function (T) {
-          var y =
-              (We && We.__createBinding) ||
+      Je ||
+        ((Je = 1),
+        (function (g) {
+          var l =
+              (St && St.__createBinding) ||
               (Object.create
-                ? function (b, I, R, x) {
-                    x === void 0 && (x = R);
-                    var P = Object.getOwnPropertyDescriptor(I, R);
-                    ((!P || ("get" in P ? !I.__esModule : P.writable || P.configurable)) &&
-                      (P = {
+                ? function (c, P, y, O) {
+                    O === void 0 && (O = y);
+                    var b = Object.getOwnPropertyDescriptor(P, y);
+                    ((!b || ("get" in b ? !P.__esModule : b.writable || b.configurable)) &&
+                      (b = {
                         enumerable: !0,
                         get: function () {
-                          return I[R];
+                          return P[y];
                         },
                       }),
-                      Object.defineProperty(b, x, P));
+                      Object.defineProperty(c, O, b));
                   }
-                : function (b, I, R, x) {
-                    (x === void 0 && (x = R), (b[x] = I[R]));
+                : function (c, P, y, O) {
+                    (O === void 0 && (O = y), (c[O] = P[y]));
                   }),
             t =
-              (We && We.__exportStar) ||
-              function (b, I) {
-                for (var R in b) R !== "default" && !Object.prototype.hasOwnProperty.call(I, R) && y(I, b, R);
+              (St && St.__exportStar) ||
+              function (c, P) {
+                for (var y in c) y !== "default" && !Object.prototype.hasOwnProperty.call(P, y) && l(P, c, y);
               };
-          (Object.defineProperty(T, "__esModule", { value: !0 }), t(Jn(), T), t(Ui(), T));
-        })(We)),
-      We
+          (Object.defineProperty(g, "__esModule", { value: !0 }), t(Xe(), g), t(Yn(), g));
+        })(St)),
+      St
     );
   }
-  var He = {},
-    ri;
-  function lr() {
-    if (ri) return He;
-    ((ri = 1), Object.defineProperty(He, "__esModule", { value: !0 }), (He.Z3AssertionError = He.Z3Error = void 0));
-    class T extends Error {}
-    He.Z3Error = T;
-    class y extends T {}
-    return ((He.Z3AssertionError = y), He);
+  var It = {},
+    rn;
+  function fr() {
+    if (rn) return It;
+    ((rn = 1), Object.defineProperty(It, "__esModule", { value: !0 }), (It.Z3AssertionError = It.Z3Error = void 0));
+    class g extends Error {}
+    It.Z3Error = g;
+    class l extends g {}
+    return ((It.Z3AssertionError = l), It);
   }
-  var ct = {},
-    ni;
-  function Di() {
-    if (ni) return ct;
-    ((ni = 1), Object.defineProperty(ct, "__esModule", { value: !0 }), (ct.assertExhaustive = y), (ct.assert = t), (ct.allSatisfy = b));
-    const T = lr();
-    function y(I) {
+  var Dt = {},
+    en;
+  function jn() {
+    if (en) return Dt;
+    ((en = 1), Object.defineProperty(Dt, "__esModule", { value: !0 }), (Dt.assertExhaustive = l), (Dt.assert = t), (Dt.allSatisfy = c));
+    const g = fr();
+    function l(P) {
       throw new Error("Unexpected code execution detected, should be caught at compile time");
     }
-    function t(I, R) {
-      if (!I) throw new T.Z3AssertionError(R ?? "Assertion failed");
+    function t(P, y) {
+      if (!P) throw new g.Z3AssertionError(y ?? "Assertion failed");
     }
-    function b(I, R) {
-      let x = !1;
-      for (const P of I) if (((x = !0), !R(P))) return !1;
-      return x === !0 ? !0 : null;
+    function c(P, y) {
+      let O = !1;
+      for (const b of P) if (((O = !0), !y(b))) return !1;
+      return O === !0 ? !0 : null;
     }
-    return ct;
+    return Dt;
   }
-  var ii;
-  function Ci() {
-    if (ii) return tr;
-    ((ii = 1), Object.defineProperty(tr, "__esModule", { value: !0 }), (tr.createApi = P));
-    const T = Bi(),
-      y = ti(),
-      t = lr(),
-      b = Di(),
-      I = 17,
-      R = new T.Mutex();
-    function x(_) {
-      const B =
-        _ !== null &&
-        (typeof _ == "object" || typeof _ == "function") &&
-        _.numerator !== null &&
-        (typeof _.numerator == "number" || typeof _.numerator == "bigint") &&
-        _.denominator !== null &&
-        (typeof _.denominator == "number" || typeof _.denominator == "bigint");
+  var nn;
+  function Hn() {
+    if (nn) return _r;
+    ((nn = 1), Object.defineProperty(_r, "__esModule", { value: !0 }), (_r.createApi = b));
+    const g = Qn(),
+      l = tn(),
+      t = fr(),
+      c = jn(),
+      P = 17,
+      y = new g.Mutex();
+    function O(a) {
+      const S =
+        a !== null &&
+        (typeof a == "object" || typeof a == "function") &&
+        a.numerator !== null &&
+        (typeof a.numerator == "number" || typeof a.numerator == "bigint") &&
+        a.denominator !== null &&
+        (typeof a.denominator == "number" || typeof a.denominator == "bigint");
       return (
-        B &&
-          (0, b.assert)(
-            (typeof _.numerator != "number" || Number.isSafeInteger(_.numerator)) &&
-              (typeof _.denominator != "number" || Number.isSafeInteger(_.denominator)),
+        S &&
+          (0, c.assert)(
+            (typeof a.numerator != "number" || Number.isSafeInteger(a.numerator)) &&
+              (typeof a.denominator != "number" || Number.isSafeInteger(a.denominator)),
             "Fraction numerator and denominator must be integers",
           ),
-        B
+        S
       );
     }
-    function P(_) {
-      const B = new FinalizationRegistry((r_) => r_());
-      function a(r_) {
-        _.enable_trace(r_);
+    function b(a) {
+      const S = new FinalizationRegistry((B) => B());
+      function r(B) {
+        a.enable_trace(B);
       }
-      function V(r_) {
-        _.disable_trace(r_);
-      }
-      function s_() {
-        return _.get_version();
+      function d(B) {
+        a.disable_trace(B);
       }
       function M() {
-        const { major: r_, minor: x_, build_number: S_ } = _.get_version();
-        return `${r_}.${x_}.${S_}`;
+        return a.get_version();
       }
-      function K() {
-        return _.get_full_version();
+      function I() {
+        const { major: B, minor: K, build_number: rt } = a.get_version();
+        return `${B}.${K}.${rt}`;
       }
-      function u(r_) {
-        return _.open_log(r_);
+      function N() {
+        return a.get_full_version();
       }
-      function c(r_) {
-        _.append_log(r_);
+      function _(B) {
+        return a.open_log(B);
       }
-      function Z(r_, x_) {
-        typeof r_ == "string"
-          ? _.global_param_set(r_, x_.toString())
-          : ((0, b.assert)(x_ === void 0, "Can't provide a Record and second parameter to set_param at the same time"),
-            Object.entries(r_).forEach(([S_, k]) => Z(S_, k)));
+      function n(B) {
+        a.append_log(B);
+      }
+      function u(B, K) {
+        typeof B == "string"
+          ? a.global_param_set(B, K.toString())
+          : ((0, c.assert)(K === void 0, "Can't provide a Record and second parameter to set_param at the same time"),
+            Object.entries(B).forEach(([rt, f]) => u(rt, f)));
       }
       function A() {
-        _.global_param_reset_all();
+        a.global_param_reset_all();
       }
-      function j(r_) {
-        return _.global_param_get(r_);
+      function Z(B) {
+        return a.global_param_get(B);
       }
-      function o_(r_, x_) {
-        const S_ = _.mk_config();
-        x_ != null && Object.entries(x_).forEach(([m, o]) => F(_.set_param_value(S_, m, o.toString())));
-        const k = _.mk_context_rc(S_);
-        (_.set_ast_print_mode(k, y.Z3_ast_print_mode.Z3_PRINT_SMTLIB2_COMPLIANT), _.del_config(S_));
-        function G(...m) {
-          m.forEach((o) => (0, b.assert)("ctx" in o ? w_ === o.ctx : w_ === o, "Context mismatch"));
+      function F(B, K) {
+        const rt = a.mk_config();
+        K != null && Object.entries(K).forEach(([i, e]) => E(a.set_param_value(rt, i, e.toString())));
+        const f = a.mk_context_rc(rt);
+        (a.set_ast_print_mode(f, l.Z3_ast_print_mode.Z3_PRINT_SMTLIB2_COMPLIANT), a.del_config(rt));
+        function x(...i) {
+          i.forEach((e) => (0, c.assert)("ctx" in e ? W === e.ctx : W === e, "Context mismatch"));
         }
-        function re(m) {
-          if (m == null) throw new TypeError("Expected non-null pointer");
+        function $t(i) {
+          if (i == null) throw new TypeError("Expected non-null pointer");
         }
-        function ne() {
-          if (_.get_error_code(k) !== y.Z3_error_code.Z3_OK) throw new Error(_.get_error_msg(w_.ptr, _.get_error_code(w_.ptr)));
+        function Qt() {
+          if (a.get_error_code(f) !== l.Z3_error_code.Z3_OK) throw new Error(a.get_error_msg(W.ptr, a.get_error_code(W.ptr)));
         }
-        function F(m) {
-          return (ne(), m);
+        function E(i) {
+          return (Qt(), i);
         }
-        function y_(m) {
-          return F(typeof m == "number" ? _.mk_int_symbol(k, m) : _.mk_string_symbol(k, m));
+        function Y(i) {
+          return E(typeof i == "number" ? a.mk_int_symbol(f, i) : a.mk_string_symbol(f, i));
         }
-        function ye(m) {
-          const o = F(_.get_symbol_kind(k, m));
-          switch (o) {
-            case y.Z3_symbol_kind.Z3_INT_SYMBOL:
-              return _.get_symbol_int(k, m);
-            case y.Z3_symbol_kind.Z3_STRING_SYMBOL:
-              return _.get_symbol_string(k, m);
+        function Zt(i) {
+          const e = E(a.get_symbol_kind(f, i));
+          switch (e) {
+            case l.Z3_symbol_kind.Z3_INT_SYMBOL:
+              return a.get_symbol_int(f, i);
+            case l.Z3_symbol_kind.Z3_STRING_SYMBOL:
+              return a.get_symbol_string(f, i);
             default:
-              (0, b.assertExhaustive)(o);
+              (0, c.assertExhaustive)(e);
           }
         }
-        function Le(m, o) {
-          const w = _.mk_params(k);
+        function Yt(i, e) {
+          const h = a.mk_params(f);
           return (
-            _.params_inc_ref(k, w),
-            typeof o == "boolean"
-              ? _.params_set_bool(k, w, y_(m), o)
-              : typeof o == "number"
-                ? Number.isInteger(o)
-                  ? F(_.params_set_uint(k, w, y_(m), o))
-                  : F(_.params_set_double(k, w, y_(m), o))
-                : typeof o == "string" && F(_.params_set_symbol(k, w, y_(m), y_(o))),
-            w
+            a.params_inc_ref(f, h),
+            typeof e == "boolean"
+              ? a.params_set_bool(f, h, Y(i), e)
+              : typeof e == "number"
+                ? Number.isInteger(e)
+                  ? E(a.params_set_uint(f, h, Y(i), e))
+                  : E(a.params_set_double(f, h, Y(i), e))
+                : typeof e == "string" && E(a.params_set_symbol(f, h, Y(i), Y(e))),
+            h
           );
         }
-        function V_(m) {
-          switch (F(_.get_ast_kind(k, m))) {
-            case y.Z3_ast_kind.Z3_SORT_AST:
-              return c_(m);
-            case y.Z3_ast_kind.Z3_FUNC_DECL_AST:
-              return new j_(m);
+        function jt(i) {
+          switch (E(a.get_ast_kind(f, i))) {
+            case l.Z3_ast_kind.Z3_SORT_AST:
+              return pt(i);
+            case l.Z3_ast_kind.Z3_FUNC_DECL_AST:
+              return new st(i);
             default:
-              return h_(m);
+              return j(i);
           }
         }
-        function c_(m) {
-          switch (F(_.get_sort_kind(k, m))) {
-            case y.Z3_sort_kind.Z3_BOOL_SORT:
-              return new Ir(m);
-            case y.Z3_sort_kind.Z3_INT_SORT:
-            case y.Z3_sort_kind.Z3_REAL_SORT:
-              return new J_(m);
-            case y.Z3_sort_kind.Z3_BV_SORT:
-              return new Et(m);
-            case y.Z3_sort_kind.Z3_ARRAY_SORT:
-              return new wt(m);
+        function pt(i) {
+          switch (E(a.get_sort_kind(f, i))) {
+            case l.Z3_sort_kind.Z3_BOOL_SORT:
+              return new dn(i);
+            case l.Z3_sort_kind.Z3_INT_SORT:
+            case l.Z3_sort_kind.Z3_REAL_SORT:
+              return new Jt(i);
+            case l.Z3_sort_kind.Z3_BV_SORT:
+              return new se(i);
+            case l.Z3_sort_kind.Z3_ARRAY_SORT:
+              return new Er(i);
             default:
-              return new H_(m);
+              return new yt(i);
           }
         }
-        function h_(m) {
-          const o = F(_.get_ast_kind(k, m));
-          if (o === y.Z3_ast_kind.Z3_QUANTIFIER_AST) return _.is_lambda(k, m) ? new Nr(m) : new ze(m);
-          switch (F(_.get_sort_kind(k, _.get_sort(k, m)))) {
-            case y.Z3_sort_kind.Z3_BOOL_SORT:
-              return new u_(m);
-            case y.Z3_sort_kind.Z3_INT_SORT:
-              return o === y.Z3_ast_kind.Z3_NUMERAL_AST ? new T_(m) : new d(m);
-            case y.Z3_sort_kind.Z3_REAL_SORT:
-              return o === y.Z3_ast_kind.Z3_NUMERAL_AST ? new kt(m) : new d(m);
-            case y.Z3_sort_kind.Z3_BV_SORT:
-              return o === y.Z3_ast_kind.Z3_NUMERAL_AST ? new Wt(m) : new f_(m);
-            case y.Z3_sort_kind.Z3_ARRAY_SORT:
-              return new rt(m);
+        function j(i) {
+          const e = E(a.get_ast_kind(f, i));
+          if (e === l.Z3_ast_kind.Z3_QUANTIFIER_AST) return a.is_lambda(f, i) ? new Fn(i) : new ce(i);
+          switch (E(a.get_sort_kind(f, a.get_sort(f, i)))) {
+            case l.Z3_sort_kind.Z3_BOOL_SORT:
+              return new D(i);
+            case l.Z3_sort_kind.Z3_INT_SORT:
+              return e === l.Z3_ast_kind.Z3_NUMERAL_AST ? new tr(i) : new G(i);
+            case l.Z3_sort_kind.Z3_REAL_SORT:
+              return e === l.Z3_ast_kind.Z3_NUMERAL_AST ? new oe(i) : new G(i);
+            case l.Z3_sort_kind.Z3_BV_SORT:
+              return e === l.Z3_ast_kind.Z3_NUMERAL_AST ? new ue(i) : new C(i);
+            case l.Z3_sort_kind.Z3_ARRAY_SORT:
+              return new wr(i);
             default:
-              return new Y_(m);
+              return new ht(i);
           }
         }
-        function G_(m) {
-          const o = [];
-          for (const w of m) mr(w) ? o.push(...w.values()) : o.push(w);
-          return o;
+        function kt(i) {
+          const e = [];
+          for (const h of i) sn(h) ? e.push(...h.values()) : e.push(h);
+          return e;
         }
-        function ie(m) {
-          return n(m) ? m : new K_(m);
+        function pr(i) {
+          return z(i) ? i : new yr(i);
         }
-        function b_(m, o) {
-          (0, b.assert)(o.length > 0, "At least one argument expected");
-          let w = ie(o[0]);
-          for (let U = 1; U < o.length; U++) w = new K_(F(m(k, w.ptr, ie(o[U]).ptr)));
-          return w;
+        function H(i, e) {
+          (0, c.assert)(e.length > 0, "At least one argument expected");
+          let h = pr(e[0]);
+          for (let T = 1; T < e.length; T++) h = new yr(E(i(f, h.ptr, pr(e[T]).ptr)));
+          return h;
         }
-        function C() {
-          F(_.interrupt(k));
+        function tt() {
+          E(a.interrupt(f));
         }
-        function ce(m) {
-          const o = m instanceof tt;
-          return (o && G(m), o);
+        function hr(i) {
+          const e = i instanceof Pr;
+          return (e && x(i), e);
         }
-        function qe(m) {
-          const o = m instanceof Te;
-          return (o && G(m), o);
+        function Ht(i) {
+          const e = i instanceof Or;
+          return (e && x(i), e);
         }
-        function $_(m) {
-          const o = m instanceof H_;
-          return (o && G(m), o);
+        function xt(i) {
+          const e = i instanceof yt;
+          return (e && x(i), e);
         }
-        function $(m) {
-          const o = m instanceof j_;
-          return (o && G(m), o);
+        function Ot(i) {
+          const e = i instanceof st;
+          return (e && x(i), e);
         }
-        function ke(m) {
-          const o = m instanceof jt;
-          return (o && G(m), o);
+        function Wt(i) {
+          const e = i instanceof Kr;
+          return (e && x(i), e);
         }
-        function I_(m) {
-          if (!i(m)) return !1;
-          const o = F(_.get_ast_kind(k, m.ast));
-          return o === y.Z3_ast_kind.Z3_NUMERAL_AST || o === y.Z3_ast_kind.Z3_APP_AST;
+        function et(i) {
+          if (!X(i)) return !1;
+          const e = E(a.get_ast_kind(f, i.ast));
+          return e === l.Z3_ast_kind.Z3_NUMERAL_AST || e === l.Z3_ast_kind.Z3_APP_AST;
         }
-        function F_(m) {
-          return i(m) && I_(m) && m.numArgs() === 0;
+        function _t(i) {
+          return X(i) && et(i) && i.numArgs() === 0;
         }
-        function i(m) {
-          const o = m instanceof Y_;
-          return (o && G(m), o);
+        function X(i) {
+          const e = i instanceof ht;
+          return (e && x(i), e);
         }
-        function lt(m) {
-          return i(m) && F(_.get_ast_kind(k, m.ast)) === y.Z3_ast_kind.Z3_VAR_AST;
+        function br(i) {
+          return X(i) && E(a.get_ast_kind(f, i.ast)) === l.Z3_ast_kind.Z3_VAR_AST;
         }
-        function U_(m, o) {
-          return i(m) && I_(m) && m.decl().kind() === o;
+        function it(i, e) {
+          return X(i) && et(i) && i.decl().kind() === e;
         }
-        function W_(m) {
-          const o = m instanceof Y_ && m.sort.kind() === y.Z3_sort_kind.Z3_BOOL_SORT;
-          return (o && G(m), o);
+        function ft(i) {
+          const e = i instanceof ht && i.sort.kind() === l.Z3_sort_kind.Z3_BOOL_SORT;
+          return (e && x(i), e);
         }
-        function le(m) {
-          return U_(m, y.Z3_decl_kind.Z3_OP_TRUE);
+        function Nt(i) {
+          return it(i, l.Z3_decl_kind.Z3_OP_TRUE);
         }
-        function It(m) {
-          return U_(m, y.Z3_decl_kind.Z3_OP_FALSE);
+        function Lr(i) {
+          return it(i, l.Z3_decl_kind.Z3_OP_FALSE);
         }
-        function Ye(m) {
-          return U_(m, y.Z3_decl_kind.Z3_OP_AND);
+        function Ur(i) {
+          return it(i, l.Z3_decl_kind.Z3_OP_AND);
         }
-        function Ee(m) {
-          return U_(m, y.Z3_decl_kind.Z3_OP_OR);
+        function Xt(i) {
+          return it(i, l.Z3_decl_kind.Z3_OP_OR);
         }
-        function mt(m) {
-          return U_(m, y.Z3_decl_kind.Z3_OP_IMPLIES);
+        function Fr(i) {
+          return it(i, l.Z3_decl_kind.Z3_OP_IMPLIES);
         }
-        function ft(m) {
-          return U_(m, y.Z3_decl_kind.Z3_OP_NOT);
+        function Mr(i) {
+          return it(i, l.Z3_decl_kind.Z3_OP_NOT);
         }
-        function Qe(m) {
-          return U_(m, y.Z3_decl_kind.Z3_OP_EQ);
+        function gr(i) {
+          return it(i, l.Z3_decl_kind.Z3_OP_EQ);
         }
-        function me(m) {
-          return U_(m, y.Z3_decl_kind.Z3_OP_DISTINCT);
+        function Ct(i) {
+          return it(i, l.Z3_decl_kind.Z3_OP_DISTINCT);
         }
-        function A_(m) {
-          const o = m instanceof Qt;
-          return (o && G(m), o);
+        function ut(i) {
+          const e = i instanceof ae;
+          return (e && x(i), e);
         }
-        function E_(m) {
-          const o = m instanceof d;
-          return (o && G(m), o);
+        function Pt(i) {
+          const e = i instanceof G;
+          return (e && x(i), e);
         }
-        function ae(m) {
-          const o = m instanceof J_;
-          return (o && G(m), o);
+        function Dr(i) {
+          const e = i instanceof Jt;
+          return (e && x(i), e);
         }
-        function N_(m) {
-          return E_(m) && h(m.sort);
+        function at(i) {
+          return Pt(i) && m(i.sort);
         }
-        function P_(m) {
-          const o = m instanceof T_;
-          return (o && G(m), o);
+        function kr(i) {
+          const e = i instanceof tr;
+          return (e && x(i), e);
         }
-        function h(m) {
-          return $_(m) && m.kind() === y.Z3_sort_kind.Z3_INT_SORT;
+        function m(i) {
+          return xt(i) && i.kind() === l.Z3_sort_kind.Z3_INT_SORT;
         }
-        function l(m) {
-          return E_(m) && E(m.sort);
+        function o(i) {
+          return Pt(i) && p(i.sort);
         }
-        function f(m) {
-          const o = m instanceof kt;
-          return (o && G(m), o);
+        function s(i) {
+          const e = i instanceof oe;
+          return (e && x(i), e);
         }
-        function E(m) {
-          return $_(m) && m.kind() === y.Z3_sort_kind.Z3_REAL_SORT;
+        function p(i) {
+          return xt(i) && i.kind() === l.Z3_sort_kind.Z3_REAL_SORT;
         }
-        function N(m) {
-          const o = m instanceof Et;
-          return (o && G(m), o);
+        function w(i) {
+          const e = i instanceof se;
+          return (e && x(i), e);
         }
-        function L(m) {
-          const o = m instanceof f_;
-          return (o && G(m), o);
+        function R(i) {
+          const e = i instanceof C;
+          return (e && x(i), e);
         }
-        function D(m) {
-          const o = m instanceof Wt;
-          return (o && G(m), o);
+        function v(i) {
+          const e = i instanceof ue;
+          return (e && x(i), e);
         }
-        function l_(m) {
-          const o = m instanceof wt;
-          return (o && G(m), o);
+        function k(i) {
+          const e = i instanceof Er;
+          return (e && x(i), e);
         }
-        function k_(m) {
-          const o = m instanceof rt;
-          return (o && G(m), o);
+        function $(i) {
+          const e = i instanceof wr;
+          return (e && x(i), e);
         }
-        function t_(m) {
-          return U_(m, y.Z3_decl_kind.Z3_OP_CONST_ARRAY);
+        function V(i) {
+          return it(i, l.Z3_decl_kind.Z3_OP_CONST_ARRAY);
         }
-        function n(m) {
-          const o = m instanceof K_;
-          return (o && G(m), o);
+        function z(i) {
+          const e = i instanceof yr;
+          return (e && x(i), e);
         }
-        function Z_(m) {
-          const o = m instanceof xe;
-          return (o && G(m), o);
+        function q(i) {
+          const e = i instanceof Jr;
+          return (e && x(i), e);
         }
-        function mr(m) {
-          const o = m instanceof Ze;
-          return (o && G(m), o);
+        function sn(i) {
+          const e = i instanceof wt;
+          return (e && x(i), e);
         }
-        function Gr(m, o) {
-          return m.eqIdentity(o);
+        function o_(i, e) {
+          return i.eqIdentity(e);
         }
-        function $r(m) {
-          return ((0, b.assert)(lt(m), "Z3 bound variable expected"), _.get_index_value(k, m.ast));
+        function s_(i) {
+          return ((0, c.assert)(br(i), "Z3 bound variable expected"), a.get_index_value(f, i.ast));
         }
-        function R_(m) {
-          if (typeof m == "boolean") return D_.val(m);
-          if (typeof m == "number") {
-            if (!Number.isFinite(m)) throw new Error(`cannot represent infinity/NaN (got ${m})`);
-            return Math.floor(m) === m ? C_.val(m) : q_.val(m);
+        function J(i) {
+          if (typeof i == "boolean") return ct.val(i);
+          if (typeof i == "number") {
+            if (!Number.isFinite(i)) throw new Error(`cannot represent infinity/NaN (got ${i})`);
+            return Math.floor(i) === i ? mt.val(i) : ot.val(i);
           } else {
-            if (x(m)) return q_.val(m);
-            if (typeof m == "bigint") return C_.val(m);
-            if (i(m)) return m;
+            if (O(i)) return ot.val(i);
+            if (typeof i == "bigint") return mt.val(i);
+            if (X(i)) return i;
           }
-          (0, b.assert)(!1);
+          (0, c.assert)(!1);
         }
-        async function Wr(...m) {
-          const o = new w_.Solver();
-          o.add(...m);
-          const w = await o.check();
-          return w === "sat" ? o.model() : w;
+        async function u_(...i) {
+          const e = new W.Solver();
+          e.add(...i);
+          const h = await e.check();
+          return h === "sat" ? e.model() : h;
         }
-        async function fr(m) {
-          const o = await _.simplify(k, m.ast);
-          return h_(F(o));
+        async function a_(i) {
+          const e = await a.simplify(f, i.ast);
+          return j(E(e));
         }
-        const pr = { declare: (m) => new H_(_.mk_uninterpreted_sort(k, y_(m))) },
-          Zr = {
-            declare: (m, ...o) => {
-              const w = o.length - 1,
-                U = o[w];
-              G(U);
-              const i_ = [];
-              for (let a_ = 0; a_ < w; a_++) (G(o[a_]), i_.push(o[a_].ptr));
-              return new j_(_.mk_func_decl(k, y_(m), i_, U.ptr));
+        const c_ = { declare: (i) => new yt(a.mk_uninterpreted_sort(f, Y(i))) },
+          m_ = {
+            declare: (i, ...e) => {
+              const h = e.length - 1,
+                T = e[h];
+              x(T);
+              const L = [];
+              for (let U = 0; U < h; U++) (x(e[U]), L.push(e[U].ptr));
+              return new st(a.mk_func_decl(f, Y(i), L, T.ptr));
             },
-            fresh: (...m) => {
-              const o = m.length - 1,
-                w = m[o];
-              G(w);
-              const U = [];
-              for (let i_ = 0; i_ < o; i_++) (G(m[i_]), U.push(m[i_].ptr));
-              return new j_(_.mk_fresh_func_decl(k, "f", U, w.ptr));
+            fresh: (...i) => {
+              const e = i.length - 1,
+                h = i[e];
+              x(h);
+              const T = [];
+              for (let L = 0; L < e; L++) (x(i[L]), T.push(i[L].ptr));
+              return new st(a.mk_fresh_func_decl(f, "f", T, h.ptr));
             },
           },
-          gr = {
-            declare: (m, ...o) => {
-              const w = o.length - 1,
-                U = o[w];
-              G(U);
-              const i_ = [];
-              for (let a_ = 0; a_ < w; a_++) (G(o[a_]), i_.push(o[a_].ptr));
-              return new j_(_.mk_rec_func_decl(k, y_(m), i_, U.ptr));
+          l_ = {
+            declare: (i, ...e) => {
+              const h = e.length - 1,
+                T = e[h];
+              x(T);
+              const L = [];
+              for (let U = 0; U < h; U++) (x(e[U]), L.push(e[U].ptr));
+              return new st(a.mk_rec_func_decl(f, Y(i), L, T.ptr));
             },
-            addDefinition: (m, o, w) => {
-              (G(m, ...o, w),
-                F(
-                  _.add_rec_def(
-                    k,
-                    m.ptr,
-                    o.map((U) => U.ast),
-                    w.ast,
+            addDefinition: (i, e, h) => {
+              (x(i, ...e, h),
+                E(
+                  a.add_rec_def(
+                    f,
+                    i.ptr,
+                    e.map((T) => T.ast),
+                    h.ast,
                   ),
                 ));
             },
           },
-          D_ = {
-            sort: () => new Ir(_.mk_bool_sort(k)),
-            const: (m) => new u_(_.mk_const(k, y_(m), D_.sort().ptr)),
-            consts: (m) => (typeof m == "string" && (m = m.split(" ")), m.map((o) => D_.const(o))),
-            vector: (m, o) => {
-              const w = [];
-              for (let U = 0; U < o; U++) w.push(D_.const(`${m}__${U}`));
-              return w;
+          ct = {
+            sort: () => new dn(a.mk_bool_sort(f)),
+            const: (i) => new D(a.mk_const(f, Y(i), ct.sort().ptr)),
+            consts: (i) => (typeof i == "string" && (i = i.split(" ")), i.map((e) => ct.const(e))),
+            vector: (i, e) => {
+              const h = [];
+              for (let T = 0; T < e; T++) h.push(ct.const(`${i}__${T}`));
+              return h;
             },
-            fresh: (m = "b") => new u_(_.mk_fresh_const(k, m, D_.sort().ptr)),
-            val: (m) => (m ? new u_(_.mk_true(k)) : new u_(_.mk_false(k))),
+            fresh: (i = "b") => new D(a.mk_fresh_const(f, i, ct.sort().ptr)),
+            val: (i) => (i ? new D(a.mk_true(f)) : new D(a.mk_false(f))),
           },
-          C_ = {
-            sort: () => new J_(_.mk_int_sort(k)),
-            const: (m) => new d(_.mk_const(k, y_(m), C_.sort().ptr)),
-            consts: (m) => (typeof m == "string" && (m = m.split(" ")), m.map((o) => C_.const(o))),
-            vector: (m, o) => {
-              const w = [];
-              for (let U = 0; U < o; U++) w.push(C_.const(`${m}__${U}`));
-              return w;
+          mt = {
+            sort: () => new Jt(a.mk_int_sort(f)),
+            const: (i) => new G(a.mk_const(f, Y(i), mt.sort().ptr)),
+            consts: (i) => (typeof i == "string" && (i = i.split(" ")), i.map((e) => mt.const(e))),
+            vector: (i, e) => {
+              const h = [];
+              for (let T = 0; T < e; T++) h.push(mt.const(`${i}__${T}`));
+              return h;
             },
-            fresh: (m = "x") => new d(_.mk_fresh_const(k, m, C_.sort().ptr)),
-            val: (m) => (
-              (0, b.assert)(typeof m == "bigint" || typeof m == "string" || Number.isSafeInteger(m)),
-              new T_(F(_.mk_numeral(k, m.toString(), C_.sort().ptr)))
+            fresh: (i = "x") => new G(a.mk_fresh_const(f, i, mt.sort().ptr)),
+            val: (i) => (
+              (0, c.assert)(typeof i == "bigint" || typeof i == "string" || Number.isSafeInteger(i)),
+              new tr(E(a.mk_numeral(f, i.toString(), mt.sort().ptr)))
             ),
           },
-          q_ = {
-            sort: () => new J_(_.mk_real_sort(k)),
-            const: (m) => new d(F(_.mk_const(k, y_(m), q_.sort().ptr))),
-            consts: (m) => (typeof m == "string" && (m = m.split(" ")), m.map((o) => q_.const(o))),
-            vector: (m, o) => {
-              const w = [];
-              for (let U = 0; U < o; U++) w.push(q_.const(`${m}__${U}`));
-              return w;
+          ot = {
+            sort: () => new Jt(a.mk_real_sort(f)),
+            const: (i) => new G(E(a.mk_const(f, Y(i), ot.sort().ptr))),
+            consts: (i) => (typeof i == "string" && (i = i.split(" ")), i.map((e) => ot.const(e))),
+            vector: (i, e) => {
+              const h = [];
+              for (let T = 0; T < e; T++) h.push(ot.const(`${i}__${T}`));
+              return h;
             },
-            fresh: (m = "b") => new d(_.mk_fresh_const(k, m, q_.sort().ptr)),
-            val: (m) => (x(m) && (m = `${m.numerator}/${m.denominator}`), new kt(_.mk_numeral(k, m.toString(), q_.sort().ptr))),
+            fresh: (i = "b") => new G(a.mk_fresh_const(f, i, ot.sort().ptr)),
+            val: (i) => (O(i) && (i = `${i.numerator}/${i.denominator}`), new oe(a.mk_numeral(f, i.toString(), ot.sort().ptr))),
           },
-          we = {
-            sort(m) {
-              return ((0, b.assert)(Number.isSafeInteger(m), "number of bits must be an integer"), new Et(_.mk_bv_sort(k, m)));
+          dt = {
+            sort(i) {
+              return ((0, c.assert)(Number.isSafeInteger(i), "number of bits must be an integer"), new se(a.mk_bv_sort(f, i)));
             },
-            const(m, o) {
-              return new f_(F(_.mk_const(k, y_(m), N(o) ? o.ptr : we.sort(o).ptr)));
+            const(i, e) {
+              return new C(E(a.mk_const(f, Y(i), w(e) ? e.ptr : dt.sort(e).ptr)));
             },
-            consts(m, o) {
-              return (typeof m == "string" && (m = m.split(" ")), m.map((w) => we.const(w, o)));
+            consts(i, e) {
+              return (typeof i == "string" && (i = i.split(" ")), i.map((h) => dt.const(h, e)));
             },
-            val(m, o) {
-              return m === !0 ? we.val(1, o) : m === !1 ? we.val(0, o) : new Wt(F(_.mk_numeral(k, m.toString(), N(o) ? o.ptr : we.sort(o).ptr)));
+            val(i, e) {
+              return i === !0 ? dt.val(1, e) : i === !1 ? dt.val(0, e) : new ue(E(a.mk_numeral(f, i.toString(), w(e) ? e.ptr : dt.sort(e).ptr)));
             },
           },
-          Me = {
-            sort(...m) {
-              const o = m.length - 1,
-                w = m[o],
-                U = m[0];
-              if (o === 1) return new wt(_.mk_array_sort(k, U.ptr, w.ptr));
-              const i_ = m.slice(0, o);
-              return new wt(
-                _.mk_array_sort_n(
-                  k,
-                  i_.map((a_) => a_.ptr),
-                  w.ptr,
+          Kt = {
+            sort(...i) {
+              const e = i.length - 1,
+                h = i[e],
+                T = i[0];
+              if (e === 1) return new Er(a.mk_array_sort(f, T.ptr, h.ptr));
+              const L = i.slice(0, e);
+              return new Er(
+                a.mk_array_sort_n(
+                  f,
+                  L.map((U) => U.ptr),
+                  h.ptr,
                 ),
               );
             },
-            const(m, ...o) {
-              return new rt(F(_.mk_const(k, y_(m), Me.sort(...o).ptr)));
+            const(i, ...e) {
+              return new wr(E(a.mk_const(f, Y(i), Kt.sort(...e).ptr)));
             },
-            consts(m, ...o) {
-              return (typeof m == "string" && (m = m.split(" ")), m.map((w) => Me.const(w, ...o)));
+            consts(i, ...e) {
+              return (typeof i == "string" && (i = i.split(" ")), i.map((h) => Kt.const(h, ...e)));
             },
-            K(m, o) {
-              return new rt(F(_.mk_const_array(k, m.ptr, o.ptr)));
-            },
-          },
-          Xe = {
-            sort(m) {
-              return Me.sort(m, D_.sort());
-            },
-            const(m, o) {
-              return new se(F(_.mk_const(k, y_(m), Me.sort(o, D_.sort()).ptr)));
-            },
-            consts(m, o) {
-              return (typeof m == "string" && (m = m.split(" ")), m.map((w) => Xe.const(w, o)));
-            },
-            empty(m) {
-              return fe(m);
-            },
-            val(m, o) {
-              var w = fe(o);
-              for (const U of m) w = g_(w, U);
-              return w;
+            K(i, e) {
+              return new wr(E(a.mk_const_array(f, i.ptr, e.ptr)));
             },
           },
-          pt = Object.assign((m) => new Ht(w_, m), {
-            createDatatypes(...m) {
-              return nt(...m);
+          un = {
+            sort(i) {
+              return Kt.sort(i, ct.sort());
+            },
+            const(i, e) {
+              return new Et(E(a.mk_const(f, Y(i), Kt.sort(e, ct.sort()).ptr)));
+            },
+            consts(i, e) {
+              return (typeof i == "string" && (i = i.split(" ")), i.map((h) => un.const(h, e)));
+            },
+            empty(i) {
+              return Xr(i);
+            },
+            val(i, e) {
+              var h = Xr(e);
+              for (const T of i) h = Wr(h, T);
+              return h;
+            },
+          },
+          f_ = Object.assign((i) => new Ln(W, i), {
+            createDatatypes(...i) {
+              return Un(...i);
             },
           });
-        function W(m, o, w) {
-          return n(m) && Z_(o) && Z_(w)
-            ? vr(m, o, w)
-            : ((0, b.assert)(!n(m) && !Z_(o) && !Z_(w), "Mixed expressions and goals"),
-              typeof m == "boolean" && (m = D_.val(m)),
-              (o = R_(o)),
-              (w = R_(w)),
-              h_(F(_.mk_ite(k, m.ptr, o.ast, w.ast))));
+        function Cr(i, e, h) {
+          return z(i) && q(e) && q(h)
+            ? cn(i, e, h)
+            : ((0, c.assert)(!z(i) && !q(e) && !q(h), "Mixed expressions and goals"),
+              typeof i == "boolean" && (i = ct.val(i)),
+              (e = J(e)),
+              (h = J(h)),
+              j(E(a.mk_ite(f, i.ptr, e.ast, h.ast))));
         }
-        function H(...m) {
+        function p_(...i) {
           return (
-            (0, b.assert)(m.length > 0, "Can't make Distinct ouf of nothing"),
-            new u_(
-              F(
-                _.mk_distinct(
-                  k,
-                  m.map((o) => ((o = R_(o)), G(o), o.ast)),
+            (0, c.assert)(i.length > 0, "Can't make Distinct ouf of nothing"),
+            new D(
+              E(
+                a.mk_distinct(
+                  f,
+                  i.map((e) => ((e = J(e)), x(e), e.ast)),
                 ),
               ),
             )
           );
         }
-        function Be(m, o) {
-          return (G(o), h_(F(_.mk_const(k, y_(m), o.ptr))));
+        function an(i, e) {
+          return (x(e), j(E(a.mk_const(f, Y(i), e.ptr))));
         }
-        function z_(m, o) {
-          return (G(o), typeof m == "string" && (m = m.split(" ")), m.map((w) => Be(w, o)));
+        function h_(i, e) {
+          return (x(e), typeof i == "string" && (i = i.split(" ")), i.map((h) => an(h, e)));
         }
-        function Ft(m, o = "c") {
-          return (G(m), h_(_.mk_fresh_const(m.ctx.ptr, o, m.ptr)));
+        function b_(i, e = "c") {
+          return (x(i), j(a.mk_fresh_const(i.ctx.ptr, e, i.ptr)));
         }
-        function dr(m, o) {
-          return (G(o), h_(_.mk_bound(o.ctx.ptr, m, o.ptr)));
+        function g_(i, e) {
+          return (x(e), j(a.mk_bound(e.ctx.ptr, i, e.ptr)));
         }
-        function Nt(m, o) {
-          return ((m = R_(m)), (o = R_(o)), G(m, o), new u_(F(_.mk_implies(k, m.ptr, o.ptr))));
+        function qr(i, e) {
+          return ((i = J(i)), (e = J(e)), x(i, e), new D(E(a.mk_implies(f, i.ptr, e.ptr))));
         }
-        function Ke(m, o) {
-          return ((m = R_(m)), (o = R_(o)), G(m, o), new u_(F(_.mk_iff(k, m.ptr, o.ptr))));
+        function zr(i, e) {
+          return ((i = J(i)), (e = J(e)), x(i, e), new D(E(a.mk_iff(f, i.ptr, e.ptr))));
         }
-        function Oe(m, o) {
-          return ((m = R_(m)), (o = R_(o)), G(m, o), m.eq(o));
+        function O_(i, e) {
+          return ((i = J(i)), (e = J(e)), x(i, e), i.eq(e));
         }
-        function p_(m, o) {
-          return ((m = R_(m)), (o = R_(o)), G(m, o), new u_(F(_.mk_xor(k, m.ptr, o.ptr))));
+        function Vr(i, e) {
+          return ((i = J(i)), (e = J(e)), x(i, e), new D(E(a.mk_xor(f, i.ptr, e.ptr))));
         }
-        function Zt(m) {
-          return (typeof m == "boolean" && (m = R_(m)), G(m), n(m) ? new K_(F(_.probe_not(k, m.ptr))) : new u_(F(_.mk_not(k, m.ptr))));
+        function Gr(i) {
+          return (typeof i == "boolean" && (i = J(i)), x(i), z(i) ? new yr(E(a.probe_not(f, i.ptr))) : new D(E(a.mk_not(f, i.ptr))));
         }
-        function Lt(...m) {
+        function $r(...i) {
           if (
-            (m.length == 1 &&
-              m[0] instanceof w_.AstVector &&
-              ((m = [...m[0].values()]), (0, b.assert)((0, b.allSatisfy)(m, W_) ?? !0, "AstVector containing not bools")),
-            (0, b.allSatisfy)(m, n) ?? !1)
+            (i.length == 1 &&
+              i[0] instanceof W.AstVector &&
+              ((i = [...i[0].values()]), (0, c.assert)((0, c.allSatisfy)(i, ft) ?? !0, "AstVector containing not bools")),
+            (0, c.allSatisfy)(i, z) ?? !1)
           )
-            return b_(_.probe_and, m);
+            return H(a.probe_and, i);
           {
-            const w = m.map(R_);
+            const h = i.map(J);
             return (
-              G(...w),
-              new u_(
-                F(
-                  _.mk_and(
-                    k,
-                    w.map((U) => U.ptr),
+              x(...h),
+              new D(
+                E(
+                  a.mk_and(
+                    f,
+                    h.map((T) => T.ptr),
                   ),
                 ),
               )
             );
           }
         }
-        function qt(...m) {
+        function Qr(...i) {
           if (
-            (m.length == 1 &&
-              m[0] instanceof w_.AstVector &&
-              ((m = [...m[0].values()]), (0, b.assert)((0, b.allSatisfy)(m, W_) ?? !0, "AstVector containing not bools")),
-            (0, b.allSatisfy)(m, n) ?? !1)
+            (i.length == 1 &&
+              i[0] instanceof W.AstVector &&
+              ((i = [...i[0].values()]), (0, c.assert)((0, c.allSatisfy)(i, ft) ?? !0, "AstVector containing not bools")),
+            (0, c.allSatisfy)(i, z) ?? !1)
           )
-            return b_(_.probe_or, m);
+            return H(a.probe_or, i);
           {
-            const w = m.map(R_);
+            const h = i.map(J);
             return (
-              G(...w),
-              new u_(
-                F(
-                  _.mk_or(
-                    k,
-                    w.map((U) => U.ptr),
+              x(...h),
+              new D(
+                E(
+                  a.mk_or(
+                    f,
+                    h.map((T) => T.ptr),
                   ),
                 ),
               )
             );
           }
         }
-        function hr(m, o, w) {
-          if ((G(...m), m.length !== o.length)) throw new Error("Number of arguments and coefficients must match");
-          return new u_(
-            F(
-              _.mk_pbeq(
-                k,
-                m.map((U) => U.ast),
-                o,
-                w,
+        function P_(i, e, h) {
+          if ((x(...i), i.length !== e.length)) throw new Error("Number of arguments and coefficients must match");
+          return new D(
+            E(
+              a.mk_pbeq(
+                f,
+                i.map((T) => T.ast),
+                e,
+                h,
               ),
             ),
           );
         }
-        function gt(m, o, w) {
-          if ((G(...m), m.length !== o.length)) throw new Error("Number of arguments and coefficients must match");
-          return new u_(
-            F(
-              _.mk_pbge(
-                k,
-                m.map((U) => U.ast),
-                o,
-                w,
+        function y_(i, e, h) {
+          if ((x(...i), i.length !== e.length)) throw new Error("Number of arguments and coefficients must match");
+          return new D(
+            E(
+              a.mk_pbge(
+                f,
+                i.map((T) => T.ast),
+                e,
+                h,
               ),
             ),
           );
         }
-        function Q(m, o, w) {
-          if ((G(...m), m.length !== o.length)) throw new Error("Number of arguments and coefficients must match");
-          return new u_(
-            F(
-              _.mk_pble(
-                k,
-                m.map((U) => U.ast),
-                o,
-                w,
+        function E_(i, e, h) {
+          if ((x(...i), i.length !== e.length)) throw new Error("Number of arguments and coefficients must match");
+          return new D(
+            E(
+              a.mk_pble(
+                f,
+                i.map((T) => T.ast),
+                e,
+                h,
               ),
             ),
           );
         }
-        function Hr(m, o, w = 1) {
-          if (!(0, b.allSatisfy)(m, F_)) throw new Error("Quantifier variables must be constants");
-          return new ze(
-            F(
-              _.mk_quantifier_const_ex(
-                k,
+        function w_(i, e, h = 1) {
+          if (!(0, c.allSatisfy)(i, _t)) throw new Error("Quantifier variables must be constants");
+          return new ce(
+            E(
+              a.mk_quantifier_const_ex(
+                f,
                 !0,
-                w,
-                y_(""),
-                y_(""),
-                m.map((U) => U.ptr),
+                h,
+                Y(""),
+                Y(""),
+                i.map((T) => T.ptr),
                 [],
                 [],
-                o.ptr,
+                e.ptr,
               ),
             ),
           );
         }
-        function Mt(m, o, w = 1) {
-          if (!(0, b.allSatisfy)(m, F_)) throw new Error("Quantifier variables must be constants");
-          return new ze(
-            F(
-              _.mk_quantifier_const_ex(
-                k,
+        function A_(i, e, h = 1) {
+          if (!(0, c.allSatisfy)(i, _t)) throw new Error("Quantifier variables must be constants");
+          return new ce(
+            E(
+              a.mk_quantifier_const_ex(
+                f,
                 !1,
-                w,
-                y_(""),
-                y_(""),
-                m.map((U) => U.ptr),
+                h,
+                Y(""),
+                Y(""),
+                i.map((T) => T.ptr),
                 [],
                 [],
-                o.ptr,
+                e.ptr,
               ),
             ),
           );
         }
-        function Yr(m, o) {
-          if (!(0, b.allSatisfy)(m, F_)) throw new Error("Quantifier variables must be constants");
-          return new Nr(
-            F(
-              _.mk_lambda_const(
-                k,
-                m.map((w) => w.ptr),
-                o.ptr,
+        function R_(i, e) {
+          if (!(0, c.allSatisfy)(i, _t)) throw new Error("Quantifier variables must be constants");
+          return new Fn(
+            E(
+              a.mk_lambda_const(
+                f,
+                i.map((h) => h.ptr),
+                e.ptr,
               ),
             ),
           );
         }
-        function oe(m) {
-          return ((m = R_(m)), G(m), (0, b.assert)(N_(m), "Int expression expected"), new d(F(_.mk_int2real(k, m.ast))));
+        function Yr(i) {
+          return ((i = J(i)), x(i), (0, c.assert)(at(i), "Int expression expected"), new G(E(a.mk_int2real(f, i.ast))));
         }
-        function br(m) {
-          return (i(m) || (m = q_.val(m)), G(m), (0, b.assert)(l(m), "Real expression expected"), new d(F(_.mk_real2int(k, m.ast))));
+        function T_(i) {
+          return (X(i) || (i = ot.val(i)), x(i), (0, c.assert)(o(i), "Real expression expected"), new G(E(a.mk_real2int(f, i.ast))));
         }
-        function Qr(m) {
-          return (i(m) || (m = q_.val(m)), G(m), (0, b.assert)(l(m), "Real expression expected"), new u_(F(_.mk_is_int(k, m.ast))));
+        function v_(i) {
+          return (X(i) || (i = ot.val(i)), x(i), (0, c.assert)(o(i), "Real expression expected"), new D(E(a.mk_is_int(f, i.ast))));
         }
-        function Ue(m) {
-          return (i(m) || (m = q_.val(m)), m.pow("1/2"));
+        function S_(i) {
+          return (X(i) || (i = ot.val(i)), i.pow("1/2"));
         }
-        function v_(m) {
-          return (i(m) || (m = q_.val(m)), m.pow("1/3"));
+        function I_(i) {
+          return (X(i) || (i = ot.val(i)), i.pow("1/3"));
         }
-        function Xr(m, o) {
-          return (G(m), new d(F(_.mk_bv2int(k, m.ast, o))));
+        function Z_(i, e) {
+          return (x(i), new G(E(a.mk_bv2int(f, i.ast, e))));
         }
-        function Je(m, o) {
+        function x_(i, e) {
           return (
-            E_(m)
-              ? (0, b.assert)(N_(m), "parameter must be an integer")
-              : ((0, b.assert)(typeof m != "number" || Number.isSafeInteger(m), "parameter must not have decimal places"), (m = C_.val(m))),
-            new f_(F(_.mk_int2bv(k, o, m.ast)))
+            Pt(i)
+              ? (0, c.assert)(at(i), "parameter must be an integer")
+              : ((0, c.assert)(typeof i != "number" || Number.isSafeInteger(i), "parameter must not have decimal places"), (i = mt.val(i))),
+            new C(E(a.mk_int2bv(f, e, i.ast)))
           );
         }
-        function dt(...m) {
-          return (G(...m), m.reduce((o, w) => new f_(F(_.mk_concat(k, o.ast, w.ast)))));
+        function N_(...i) {
+          return (x(...i), i.reduce((e, h) => new C(E(a.mk_concat(f, e.ast, h.ast)))));
         }
-        function vr(m, o, w) {
-          return (G(m, o, w), new xe(F(_.tactic_cond(k, m.ptr, o.ptr, w.ptr))));
+        function cn(i, e, h) {
+          return (x(i, e, h), new Jr(E(a.tactic_cond(f, i.ptr, e.ptr, h.ptr))));
         }
-        function X_(m, o) {
-          return new u_(F(_.mk_lt(k, m.ast, m.sort.cast(o).ast)));
+        function mn(i, e) {
+          return new D(E(a.mk_lt(f, i.ast, i.sort.cast(e).ast)));
         }
-        function yr(m, o) {
-          return new u_(F(_.mk_gt(k, m.ast, m.sort.cast(o).ast)));
+        function ln(i, e) {
+          return new D(E(a.mk_gt(f, i.ast, i.sort.cast(e).ast)));
         }
-        function ht(m, o) {
-          return new u_(F(_.mk_le(k, m.ast, m.sort.cast(o).ast)));
+        function fn(i, e) {
+          return new D(E(a.mk_le(f, i.ast, i.sort.cast(e).ast)));
         }
-        function _t(m, o) {
-          return new u_(F(_.mk_ge(k, m.ast, m.sort.cast(o).ast)));
+        function pn(i, e) {
+          return new D(E(a.mk_ge(f, i.ast, i.sort.cast(e).ast)));
         }
-        function De(m, o) {
-          return new u_(F(_.mk_bvult(k, m.ast, m.sort.cast(o).ast)));
+        function hn(i, e) {
+          return new D(E(a.mk_bvult(f, i.ast, i.sort.cast(e).ast)));
         }
-        function kr(m, o) {
-          return new u_(F(_.mk_bvugt(k, m.ast, m.sort.cast(o).ast)));
+        function bn(i, e) {
+          return new D(E(a.mk_bvugt(f, i.ast, i.sort.cast(e).ast)));
         }
-        function Er(m, o) {
-          return new u_(F(_.mk_bvule(k, m.ast, m.sort.cast(o).ast)));
+        function gn(i, e) {
+          return new D(E(a.mk_bvule(f, i.ast, i.sort.cast(e).ast)));
         }
-        function wr(m, o) {
-          return new u_(F(_.mk_bvuge(k, m.ast, m.sort.cast(o).ast)));
+        function On(i, e) {
+          return new D(E(a.mk_bvuge(f, i.ast, i.sort.cast(e).ast)));
         }
-        function Or(m, o) {
-          return new u_(F(_.mk_bvslt(k, m.ast, m.sort.cast(o).ast)));
+        function Pn(i, e) {
+          return new D(E(a.mk_bvslt(f, i.ast, i.sort.cast(e).ast)));
         }
-        function Pr(m, o) {
-          return new u_(F(_.mk_bvsgt(k, m.ast, m.sort.cast(o).ast)));
+        function yn(i, e) {
+          return new D(E(a.mk_bvsgt(f, i.ast, i.sort.cast(e).ast)));
         }
-        function Tr(m, o) {
-          return new u_(F(_.mk_bvsle(k, m.ast, m.sort.cast(o).ast)));
+        function En(i, e) {
+          return new D(E(a.mk_bvsle(f, i.ast, i.sort.cast(e).ast)));
         }
-        function xr(m, o) {
-          return new u_(F(_.mk_bvsge(k, m.ast, m.sort.cast(o).ast)));
+        function wn(i, e) {
+          return new D(E(a.mk_bvsge(f, i.ast, i.sort.cast(e).ast)));
         }
-        function Sr(m, o, w) {
-          return new f_(F(_.mk_extract(k, m, o, w.ast)));
+        function An(i, e, h) {
+          return new C(E(a.mk_extract(f, i, e, h.ast)));
         }
-        function bt(m, ...o) {
-          const w = o.map((i_, a_) => m.domain_n(a_).cast(i_));
-          if (w.length === 1) return h_(F(_.mk_select(k, m.ast, w[0].ast)));
-          const U = w.map((i_) => i_.ast);
-          return h_(F(_.mk_select_n(k, m.ast, U)));
+        function jr(i, ...e) {
+          const h = e.map((L, U) => i.domain_n(U).cast(L));
+          if (h.length === 1) return j(E(a.mk_select(f, i.ast, h[0].ast)));
+          const T = h.map((L) => L.ast);
+          return j(E(a.mk_select_n(f, i.ast, T)));
         }
-        function Bt(m, ...o) {
-          const w = o.map((i_, a_) => (a_ === o.length - 1 ? m.range().cast(i_) : m.domain_n(a_).cast(i_)));
-          if (w.length <= 1) throw new Error("Array store requires both index and value arguments");
-          if (w.length === 2) return h_(F(_.mk_store(k, m.ast, w[0].ast, w[1].ast)));
-          const U = w.slice(0, w.length - 1).map((i_) => i_.ast);
-          return h_(F(_.mk_store_n(k, m.ast, U, w[w.length - 1].ast)));
+        function Hr(i, ...e) {
+          const h = e.map((L, U) => (U === e.length - 1 ? i.range().cast(L) : i.domain_n(U).cast(L)));
+          if (h.length <= 1) throw new Error("Array store requires both index and value arguments");
+          if (h.length === 2) return j(E(a.mk_store(f, i.ast, h[0].ast, h[1].ast)));
+          const T = h.slice(0, h.length - 1).map((L) => L.ast);
+          return j(E(a.mk_store_n(f, i.ast, T, h[h.length - 1].ast)));
         }
-        function Ut(...m) {
-          return new se(
-            F(
-              _.mk_set_union(
-                k,
-                m.map((o) => o.ast),
+        function Rn(...i) {
+          return new Et(
+            E(
+              a.mk_set_union(
+                f,
+                i.map((e) => e.ast),
               ),
             ),
           );
         }
-        function Ar(...m) {
-          return new se(
-            F(
-              _.mk_set_intersect(
-                k,
-                m.map((o) => o.ast),
+        function Tn(...i) {
+          return new Et(
+            E(
+              a.mk_set_intersect(
+                f,
+                i.map((e) => e.ast),
               ),
             ),
           );
         }
-        function et(m, o) {
-          return new se(F(_.mk_set_difference(k, m.ast, o.ast)));
+        function vn(i, e) {
+          return new Et(E(a.mk_set_difference(f, i.ast, e.ast)));
         }
-        function Pe(m, o) {
-          const w = C_.sort().cast(o);
-          return new u_(F(_.mk_set_has_size(k, m.ast, w.ast)));
+        function Sn(i, e) {
+          const h = mt.sort().cast(e);
+          return new D(E(a.mk_set_has_size(f, i.ast, h.ast)));
         }
-        function g_(m, o) {
-          const w = m.elemSort().cast(o);
-          return new se(F(_.mk_set_add(k, m.ast, w.ast)));
+        function Wr(i, e) {
+          const h = i.elemSort().cast(e);
+          return new Et(E(a.mk_set_add(f, i.ast, h.ast)));
         }
-        function Rr(m, o) {
-          const w = m.elemSort().cast(o);
-          return new se(F(_.mk_set_del(k, m.ast, w.ast)));
+        function In(i, e) {
+          const h = i.elemSort().cast(e);
+          return new Et(E(a.mk_set_del(f, i.ast, h.ast)));
         }
-        function Dt(m) {
-          return new se(F(_.mk_set_complement(k, m.ast)));
+        function Zn(i) {
+          return new Et(E(a.mk_set_complement(f, i.ast)));
         }
-        function fe(m) {
-          return new se(F(_.mk_empty_set(k, m.ptr)));
+        function Xr(i) {
+          return new Et(E(a.mk_empty_set(f, i.ptr)));
         }
-        function Ct(m) {
-          return new se(F(_.mk_full_set(k, m.ptr)));
+        function d_(i) {
+          return new Et(E(a.mk_full_set(f, i.ptr)));
         }
-        function Ce(m, o) {
-          const w = o.elemSort().cast(m);
-          return new u_(F(_.mk_set_member(k, w.ast, o.ast)));
+        function xn(i, e) {
+          const h = e.elemSort().cast(i);
+          return new D(E(a.mk_set_member(f, h.ast, e.ast)));
         }
-        function zt(m, o) {
-          return new u_(F(_.mk_set_subset(k, m.ast, o.ast)));
+        function Nn(i, e) {
+          return new D(E(a.mk_set_subset(f, i.ast, e.ast)));
         }
-        class Te {
-          constructor(o) {
-            ((this.ptr = o), (this.ctx = w_));
-            const w = this.ast;
-            (_.inc_ref(k, w), B.register(this, () => _.dec_ref(k, w), this));
+        class Or {
+          constructor(e) {
+            ((this.ptr = e), (this.ctx = W));
+            const h = this.ast;
+            (a.inc_ref(f, h), S.register(this, () => a.dec_ref(f, h), this));
           }
           get ast() {
             return this.ptr;
           }
           id() {
-            return _.get_ast_id(k, this.ast);
+            return a.get_ast_id(f, this.ast);
           }
-          eqIdentity(o) {
-            return (G(o), F(_.is_eq_ast(k, this.ast, o.ast)));
+          eqIdentity(e) {
+            return (x(e), E(a.is_eq_ast(f, this.ast, e.ast)));
           }
-          neqIdentity(o) {
-            return (G(o), !this.eqIdentity(o));
+          neqIdentity(e) {
+            return (x(e), !this.eqIdentity(e));
           }
           sexpr() {
-            return _.ast_to_string(k, this.ast);
+            return a.ast_to_string(f, this.ast);
           }
           hash() {
-            return _.get_ast_hash(k, this.ast);
+            return a.get_ast_hash(f, this.ast);
           }
           toString() {
             return this.sexpr();
           }
         }
-        class Kr {
+        class B_ {
           get ptr() {
-            return (re(this._ptr), this._ptr);
+            return ($t(this._ptr), this._ptr);
           }
-          constructor(o = _.mk_solver(k)) {
-            this.ctx = w_;
-            let w;
-            (typeof o == "string" ? (w = F(_.mk_solver_for_logic(k, y_(o)))) : (w = o),
-              (this._ptr = w),
-              _.solver_inc_ref(k, w),
-              B.register(this, () => _.solver_dec_ref(k, w), this));
+          constructor(e = a.mk_solver(f)) {
+            this.ctx = W;
+            let h;
+            (typeof e == "string" ? (h = E(a.mk_solver_for_logic(f, Y(e)))) : (h = e),
+              (this._ptr = h),
+              a.solver_inc_ref(f, h),
+              S.register(this, () => a.solver_dec_ref(f, h), this));
           }
-          set(o, w) {
-            _.solver_set_params(k, this.ptr, Le(o, w));
+          set(e, h) {
+            a.solver_set_params(f, this.ptr, Yt(e, h));
           }
           push() {
-            _.solver_push(k, this.ptr);
+            a.solver_push(f, this.ptr);
           }
-          pop(o = 1) {
-            _.solver_pop(k, this.ptr, o);
+          pop(e = 1) {
+            a.solver_pop(f, this.ptr, e);
           }
           numScopes() {
-            return _.solver_get_num_scopes(k, this.ptr);
+            return a.solver_get_num_scopes(f, this.ptr);
           }
           reset() {
-            _.solver_reset(k, this.ptr);
+            a.solver_reset(f, this.ptr);
           }
-          add(...o) {
-            G_(o).forEach((w) => {
-              (G(w), F(_.solver_assert(k, this.ptr, w.ast)));
+          add(...e) {
+            kt(e).forEach((h) => {
+              (x(h), E(a.solver_assert(f, this.ptr, h.ast)));
             });
           }
-          addAndTrack(o, w) {
-            (typeof w == "string" && (w = D_.const(w)),
-              (0, b.assert)(F_(w), "Provided expression that is not a constant to addAndTrack"),
-              F(_.solver_assert_and_track(k, this.ptr, o.ast, w.ast)));
+          addAndTrack(e, h) {
+            (typeof h == "string" && (h = ct.const(h)),
+              (0, c.assert)(_t(h), "Provided expression that is not a constant to addAndTrack"),
+              E(a.solver_assert_and_track(f, this.ptr, e.ast, h.ast)));
           }
           assertions() {
-            return new Ze(F(_.solver_get_assertions(k, this.ptr)));
+            return new wt(E(a.solver_get_assertions(f, this.ptr)));
           }
-          async check(...o) {
-            const w = G_(o).map((i_) => (G(i_), i_.ast)),
-              U = await R.runExclusive(() => F(_.solver_check_assumptions(k, this.ptr, w)));
-            switch (U) {
-              case y.Z3_lbool.Z3_L_FALSE:
+          async check(...e) {
+            const h = kt(e).map((L) => (x(L), L.ast)),
+              T = await y.runExclusive(() => E(a.solver_check_assumptions(f, this.ptr, h)));
+            switch (T) {
+              case l.Z3_lbool.Z3_L_FALSE:
                 return "unsat";
-              case y.Z3_lbool.Z3_L_TRUE:
+              case l.Z3_lbool.Z3_L_TRUE:
                 return "sat";
-              case y.Z3_lbool.Z3_L_UNDEF:
+              case l.Z3_lbool.Z3_L_UNDEF:
                 return "unknown";
               default:
-                (0, b.assertExhaustive)(U);
+                (0, c.assertExhaustive)(T);
             }
           }
           model() {
-            return new tt(F(_.solver_get_model(k, this.ptr)));
+            return new Pr(E(a.solver_get_model(f, this.ptr)));
           }
           toString() {
-            return F(_.solver_to_string(k, this.ptr));
+            return E(a.solver_to_string(f, this.ptr));
           }
-          fromString(o) {
-            (_.solver_from_string(k, this.ptr, o), ne());
+          fromString(e) {
+            (a.solver_from_string(f, this.ptr, e), Qt());
           }
           release() {
-            (_.solver_dec_ref(k, this.ptr), (this._ptr = null), B.unregister(this));
+            (a.solver_dec_ref(f, this.ptr), (this._ptr = null), S.unregister(this));
           }
         }
-        class pe {
+        class L_ {
           get ptr() {
-            return (re(this._ptr), this._ptr);
+            return ($t(this._ptr), this._ptr);
           }
-          constructor(o = _.mk_optimize(k)) {
-            this.ctx = w_;
-            let w;
-            ((w = o), (this._ptr = w), _.optimize_inc_ref(k, w), B.register(this, () => _.optimize_dec_ref(k, w), this));
+          constructor(e = a.mk_optimize(f)) {
+            this.ctx = W;
+            let h;
+            ((h = e), (this._ptr = h), a.optimize_inc_ref(f, h), S.register(this, () => a.optimize_dec_ref(f, h), this));
           }
-          set(o, w) {
-            _.optimize_set_params(k, this.ptr, Le(o, w));
+          set(e, h) {
+            a.optimize_set_params(f, this.ptr, Yt(e, h));
           }
           push() {
-            _.optimize_push(k, this.ptr);
+            a.optimize_push(f, this.ptr);
           }
           pop() {
-            _.optimize_pop(k, this.ptr);
+            a.optimize_pop(f, this.ptr);
           }
-          add(...o) {
-            G_(o).forEach((w) => {
-              (G(w), F(_.optimize_assert(k, this.ptr, w.ast)));
+          add(...e) {
+            kt(e).forEach((h) => {
+              (x(h), E(a.optimize_assert(f, this.ptr, h.ast)));
             });
           }
-          addSoft(o, w, U = "") {
-            (x(w) && (w = `${w.numerator}/${w.denominator}`), F(_.optimize_assert_soft(k, this.ptr, o.ast, w.toString(), y_(U))));
+          addSoft(e, h, T = "") {
+            (O(h) && (h = `${h.numerator}/${h.denominator}`), E(a.optimize_assert_soft(f, this.ptr, e.ast, h.toString(), Y(T))));
           }
-          addAndTrack(o, w) {
-            (typeof w == "string" && (w = D_.const(w)),
-              (0, b.assert)(F_(w), "Provided expression that is not a constant to addAndTrack"),
-              F(_.optimize_assert_and_track(k, this.ptr, o.ast, w.ast)));
+          addAndTrack(e, h) {
+            (typeof h == "string" && (h = ct.const(h)),
+              (0, c.assert)(_t(h), "Provided expression that is not a constant to addAndTrack"),
+              E(a.optimize_assert_and_track(f, this.ptr, e.ast, h.ast)));
           }
           assertions() {
-            return new Ze(F(_.optimize_get_assertions(k, this.ptr)));
+            return new wt(E(a.optimize_get_assertions(f, this.ptr)));
           }
-          maximize(o) {
-            F(_.optimize_maximize(k, this.ptr, o.ast));
+          maximize(e) {
+            E(a.optimize_maximize(f, this.ptr, e.ast));
           }
-          minimize(o) {
-            F(_.optimize_minimize(k, this.ptr, o.ast));
+          minimize(e) {
+            E(a.optimize_minimize(f, this.ptr, e.ast));
           }
-          async check(...o) {
-            const w = G_(o).map((i_) => (G(i_), i_.ast)),
-              U = await R.runExclusive(() => F(_.optimize_check(k, this.ptr, w)));
-            switch (U) {
-              case y.Z3_lbool.Z3_L_FALSE:
+          async check(...e) {
+            const h = kt(e).map((L) => (x(L), L.ast)),
+              T = await y.runExclusive(() => E(a.optimize_check(f, this.ptr, h)));
+            switch (T) {
+              case l.Z3_lbool.Z3_L_FALSE:
                 return "unsat";
-              case y.Z3_lbool.Z3_L_TRUE:
+              case l.Z3_lbool.Z3_L_TRUE:
                 return "sat";
-              case y.Z3_lbool.Z3_L_UNDEF:
+              case l.Z3_lbool.Z3_L_UNDEF:
                 return "unknown";
               default:
-                (0, b.assertExhaustive)(U);
+                (0, c.assertExhaustive)(T);
             }
           }
           model() {
-            return new tt(F(_.optimize_get_model(k, this.ptr)));
+            return new Pr(E(a.optimize_get_model(f, this.ptr)));
           }
           toString() {
-            return F(_.optimize_to_string(k, this.ptr));
+            return E(a.optimize_to_string(f, this.ptr));
           }
-          fromString(o) {
-            (_.optimize_from_string(k, this.ptr, o), ne());
+          fromString(e) {
+            (a.optimize_from_string(f, this.ptr, e), Qt());
           }
           release() {
-            (_.optimize_dec_ref(k, this.ptr), (this._ptr = null), B.unregister(this));
+            (a.optimize_dec_ref(f, this.ptr), (this._ptr = null), S.unregister(this));
           }
         }
-        class tt {
+        class Pr {
           get ptr() {
-            return (re(this._ptr), this._ptr);
+            return ($t(this._ptr), this._ptr);
           }
-          constructor(o = _.mk_model(k)) {
-            ((this.ctx = w_), (this._ptr = o), _.model_inc_ref(k, o), B.register(this, () => _.model_dec_ref(k, o), this));
+          constructor(e = a.mk_model(f)) {
+            ((this.ctx = W), (this._ptr = e), a.model_inc_ref(f, e), S.register(this, () => a.model_dec_ref(f, e), this));
           }
           length() {
-            return _.model_get_num_consts(k, this.ptr) + _.model_get_num_funcs(k, this.ptr);
+            return a.model_get_num_consts(f, this.ptr) + a.model_get_num_funcs(f, this.ptr);
           }
           [Symbol.iterator]() {
             return this.values();
           }
           *entries() {
-            const o = this.length();
-            for (let w = 0; w < o; w++) yield [w, this.get(w)];
+            const e = this.length();
+            for (let h = 0; h < e; h++) yield [h, this.get(h)];
           }
           *keys() {
-            for (const [o] of this.entries()) yield o;
+            for (const [e] of this.entries()) yield e;
           }
           *values() {
-            for (const [, o] of this.entries()) yield o;
+            for (const [, e] of this.entries()) yield e;
           }
           decls() {
             return [...this.values()];
           }
           sexpr() {
-            return F(_.model_to_string(k, this.ptr));
+            return E(a.model_to_string(f, this.ptr));
           }
           toString() {
             return this.sexpr();
           }
-          eval(o, w = !1) {
-            G(o);
-            const U = F(_.model_eval(k, this.ptr, o.ast, w));
-            if (U === null) throw new t.Z3Error("Failed to evaluate expression in the model");
-            return h_(U);
+          eval(e, h = !1) {
+            x(e);
+            const T = E(a.model_eval(f, this.ptr, e.ast, h));
+            if (T === null) throw new t.Z3Error("Failed to evaluate expression in the model");
+            return j(T);
           }
-          get(o, w) {
-            if (((0, b.assert)(w === void 0 || typeof o == "number"), typeof o == "number")) {
-              const U = this.length();
-              if (o >= U) throw new RangeError(`expected index ${o} to be less than length ${U}`);
-              if (w === void 0) {
-                const a_ = F(_.model_get_num_consts(k, this.ptr));
-                return o < a_ ? new j_(F(_.model_get_const_decl(k, this.ptr, o))) : new j_(F(_.model_get_func_decl(k, this.ptr, o - a_)));
+          get(e, h) {
+            if (((0, c.assert)(h === void 0 || typeof e == "number"), typeof e == "number")) {
+              const T = this.length();
+              if (e >= T) throw new RangeError(`expected index ${e} to be less than length ${T}`);
+              if (h === void 0) {
+                const U = E(a.model_get_num_consts(f, this.ptr));
+                return e < U ? new st(E(a.model_get_const_decl(f, this.ptr, e))) : new st(E(a.model_get_func_decl(f, this.ptr, e - U)));
               }
-              if ((w < 0 && (w += U), w >= U)) throw new RangeError(`expected index ${w} to be less than length ${U}`);
-              const i_ = [];
-              for (let a_ = o; a_ < w; a_++) i_.push(this.get(a_));
-              return i_;
-            } else if ($(o) || (i(o) && F_(o))) {
-              const U = this.getInterp(o);
-              return ((0, b.assert)(U !== null), U);
-            } else if ($_(o)) return this.getUniverse(o);
-            (0, b.assert)(!1, "Number, declaration or constant expected");
+              if ((h < 0 && (h += T), h >= T)) throw new RangeError(`expected index ${h} to be less than length ${T}`);
+              const L = [];
+              for (let U = e; U < h; U++) L.push(this.get(U));
+              return L;
+            } else if (Ot(e) || (X(e) && _t(e))) {
+              const T = this.getInterp(e);
+              return ((0, c.assert)(T !== null), T);
+            } else if (xt(e)) return this.getUniverse(e);
+            (0, c.assert)(!1, "Number, declaration or constant expected");
           }
-          updateValue(o, w) {
-            if ((G(o), G(w), i(o) && (o = o.decl()), $(o) && o.arity() !== 0 && ke(w))) {
-              const U = this.addFuncInterp(o, w.elseValue());
-              for (let i_ = 0; i_ < w.numEntries(); i_++) {
-                const a_ = w.entry(i_),
-                  Se = a_.numArgs(),
-                  it = Fe.Array(Se).map((ge, M_) => a_.argValue(M_));
-                U.addEntry(it, a_.value());
+          updateValue(e, h) {
+            if ((x(e), x(h), X(e) && (e = e.decl()), Ot(e) && e.arity() !== 0 && Wt(h))) {
+              const T = this.addFuncInterp(e, h.elseValue());
+              for (let L = 0; L < h.numEntries(); L++) {
+                const U = h.entry(L),
+                  Ar = U.numArgs(),
+                  Rr = Ft.Array(Ar).map((At, nt) => U.argValue(nt));
+                T.addEntry(Rr, U.value());
               }
               return;
             }
-            if (!$(o) || o.arity() !== 0) throw new t.Z3Error("Expecting 0-ary function or constant expression");
-            if (!qe(w)) throw new t.Z3Error("Only func declarations can be assigned to func interpretations");
-            F(_.add_const_interp(k, this.ptr, o.ptr, w.ast));
+            if (!Ot(e) || e.arity() !== 0) throw new t.Z3Error("Expecting 0-ary function or constant expression");
+            if (!Ht(h)) throw new t.Z3Error("Only func declarations can be assigned to func interpretations");
+            E(a.add_const_interp(f, this.ptr, e.ptr, h.ast));
           }
-          addFuncInterp(o, w) {
-            const U = F(_.add_func_interp(k, this.ptr, o.ptr, o.range().cast(w).ptr));
-            return new jt(U);
+          addFuncInterp(e, h) {
+            const T = E(a.add_func_interp(f, this.ptr, e.ptr, e.range().cast(h).ptr));
+            return new Kr(T);
           }
-          getInterp(o) {
+          getInterp(e) {
             if (
-              ((0, b.assert)($(o) || F_(o), "Declaration expected"),
-              F_(o) && ((0, b.assert)(i(o)), (o = o.decl())),
-              (0, b.assert)($(o)),
-              o.arity() === 0)
+              ((0, c.assert)(Ot(e) || _t(e), "Declaration expected"),
+              _t(e) && ((0, c.assert)(X(e)), (e = e.decl())),
+              (0, c.assert)(Ot(e)),
+              e.arity() === 0)
             ) {
-              const w = F(_.model_get_const_interp(k, this.ptr, o.ptr));
-              return w === null ? null : h_(w);
+              const h = E(a.model_get_const_interp(f, this.ptr, e.ptr));
+              return h === null ? null : j(h);
             } else {
-              const w = F(_.model_get_func_interp(k, this.ptr, o.ptr));
-              return w === null ? null : new jt(w);
+              const h = E(a.model_get_func_interp(f, this.ptr, e.ptr));
+              return h === null ? null : new Kr(h);
             }
           }
-          getUniverse(o) {
-            return (G(o), new Ze(F(_.model_get_sort_universe(k, this.ptr, o.ptr))));
+          getUniverse(e) {
+            return (x(e), new wt(E(a.model_get_sort_universe(f, this.ptr, e.ptr))));
           }
           release() {
-            (_.model_dec_ref(k, this.ptr), (this._ptr = null), B.unregister(this));
+            (a.model_dec_ref(f, this.ptr), (this._ptr = null), S.unregister(this));
           }
         }
-        class m_ {
-          constructor(o) {
-            ((this.ptr = o), (this.ctx = w_), _.func_entry_inc_ref(k, o), B.register(this, () => _.func_entry_dec_ref(k, o), this));
+        class U_ {
+          constructor(e) {
+            ((this.ptr = e), (this.ctx = W), a.func_entry_inc_ref(f, e), S.register(this, () => a.func_entry_dec_ref(f, e), this));
           }
           numArgs() {
-            return F(_.func_entry_get_num_args(k, this.ptr));
+            return E(a.func_entry_get_num_args(f, this.ptr));
           }
-          argValue(o) {
-            return h_(F(_.func_entry_get_arg(k, this.ptr, o)));
+          argValue(e) {
+            return j(E(a.func_entry_get_arg(f, this.ptr, e)));
           }
           value() {
-            return h_(F(_.func_entry_get_value(k, this.ptr)));
+            return j(E(a.func_entry_get_value(f, this.ptr)));
           }
         }
-        class jt {
-          constructor(o) {
-            ((this.ptr = o), (this.ctx = w_), _.func_interp_inc_ref(k, o), B.register(this, () => _.func_interp_dec_ref(k, o), this));
+        class Kr {
+          constructor(e) {
+            ((this.ptr = e), (this.ctx = W), a.func_interp_inc_ref(f, e), S.register(this, () => a.func_interp_dec_ref(f, e), this));
           }
           elseValue() {
-            return h_(F(_.func_interp_get_else(k, this.ptr)));
+            return j(E(a.func_interp_get_else(f, this.ptr)));
           }
           numEntries() {
-            return F(_.func_interp_get_num_entries(k, this.ptr));
+            return E(a.func_interp_get_num_entries(f, this.ptr));
           }
           arity() {
-            return F(_.func_interp_get_arity(k, this.ptr));
+            return E(a.func_interp_get_arity(f, this.ptr));
           }
-          entry(o) {
-            return new m_(F(_.func_interp_get_entry(k, this.ptr, o)));
+          entry(e) {
+            return new U_(E(a.func_interp_get_entry(f, this.ptr, e)));
           }
-          addEntry(o, w) {
-            const U = new Ze();
-            for (const i_ of o) U.push(i_);
-            (G(U),
-              G(w),
-              (0, b.assert)(this.arity() === U.length(), "Number of arguments in entry doesn't match function arity"),
-              F(_.func_interp_add_entry(k, this.ptr, U.ptr, w.ptr)));
+          addEntry(e, h) {
+            const T = new wt();
+            for (const L of e) T.push(L);
+            (x(T),
+              x(h),
+              (0, c.assert)(this.arity() === T.length(), "Number of arguments in entry doesn't match function arity"),
+              E(a.func_interp_add_entry(f, this.ptr, T.ptr, h.ptr)));
           }
         }
-        class H_ extends Te {
+        class yt extends Or {
           get ast() {
-            return _.sort_to_ast(k, this.ptr);
+            return a.sort_to_ast(f, this.ptr);
           }
           kind() {
-            return _.get_sort_kind(k, this.ptr);
+            return a.get_sort_kind(f, this.ptr);
           }
-          subsort(o) {
-            return (G(o), !1);
+          subsort(e) {
+            return (x(e), !1);
           }
-          cast(o) {
-            return (G(o), (0, b.assert)(o.sort.eqIdentity(o.sort), "Sort mismatch"), o);
+          cast(e) {
+            return (x(e), (0, c.assert)(e.sort.eqIdentity(e.sort), "Sort mismatch"), e);
           }
           name() {
-            return ye(_.get_sort_name(k, this.ptr));
+            return Zt(a.get_sort_name(f, this.ptr));
           }
-          eqIdentity(o) {
-            return (G(o), F(_.is_eq_sort(k, this.ptr, o.ptr)));
+          eqIdentity(e) {
+            return (x(e), E(a.is_eq_sort(f, this.ptr, e.ptr)));
           }
-          neqIdentity(o) {
-            return !this.eqIdentity(o);
+          neqIdentity(e) {
+            return !this.eqIdentity(e);
           }
         }
-        class j_ extends Te {
+        class st extends Or {
           get ast() {
-            return _.func_decl_to_ast(k, this.ptr);
+            return a.func_decl_to_ast(f, this.ptr);
           }
           name() {
-            return ye(_.get_decl_name(k, this.ptr));
+            return Zt(a.get_decl_name(f, this.ptr));
           }
           arity() {
-            return _.get_arity(k, this.ptr);
+            return a.get_arity(f, this.ptr);
           }
-          domain(o) {
-            return ((0, b.assert)(o < this.arity(), "Index out of bounds"), c_(_.get_domain(k, this.ptr, o)));
+          domain(e) {
+            return ((0, c.assert)(e < this.arity(), "Index out of bounds"), pt(a.get_domain(f, this.ptr, e)));
           }
           range() {
-            return c_(_.get_range(k, this.ptr));
+            return pt(a.get_range(f, this.ptr));
           }
           kind() {
-            return _.get_decl_kind(k, this.ptr);
+            return a.get_decl_kind(f, this.ptr);
           }
           params() {
-            const o = _.get_decl_num_parameters(k, this.ptr),
-              w = [];
-            for (let U = 0; U < o; U++) {
-              const i_ = F(_.get_decl_parameter_kind(k, this.ptr, U));
-              switch (i_) {
-                case y.Z3_parameter_kind.Z3_PARAMETER_INT:
-                  w.push(F(_.get_decl_int_parameter(k, this.ptr, U)));
+            const e = a.get_decl_num_parameters(f, this.ptr),
+              h = [];
+            for (let T = 0; T < e; T++) {
+              const L = E(a.get_decl_parameter_kind(f, this.ptr, T));
+              switch (L) {
+                case l.Z3_parameter_kind.Z3_PARAMETER_INT:
+                  h.push(E(a.get_decl_int_parameter(f, this.ptr, T)));
                   break;
-                case y.Z3_parameter_kind.Z3_PARAMETER_DOUBLE:
-                  w.push(F(_.get_decl_double_parameter(k, this.ptr, U)));
+                case l.Z3_parameter_kind.Z3_PARAMETER_DOUBLE:
+                  h.push(E(a.get_decl_double_parameter(f, this.ptr, T)));
                   break;
-                case y.Z3_parameter_kind.Z3_PARAMETER_RATIONAL:
-                  w.push(F(_.get_decl_rational_parameter(k, this.ptr, U)));
+                case l.Z3_parameter_kind.Z3_PARAMETER_RATIONAL:
+                  h.push(E(a.get_decl_rational_parameter(f, this.ptr, T)));
                   break;
-                case y.Z3_parameter_kind.Z3_PARAMETER_SYMBOL:
-                  w.push(ye(F(_.get_decl_symbol_parameter(k, this.ptr, U))));
+                case l.Z3_parameter_kind.Z3_PARAMETER_SYMBOL:
+                  h.push(Zt(E(a.get_decl_symbol_parameter(f, this.ptr, T))));
                   break;
-                case y.Z3_parameter_kind.Z3_PARAMETER_SORT:
-                  w.push(new H_(F(_.get_decl_sort_parameter(k, this.ptr, U))));
+                case l.Z3_parameter_kind.Z3_PARAMETER_SORT:
+                  h.push(new yt(E(a.get_decl_sort_parameter(f, this.ptr, T))));
                   break;
-                case y.Z3_parameter_kind.Z3_PARAMETER_AST:
-                  w.push(new Y_(F(_.get_decl_ast_parameter(k, this.ptr, U))));
+                case l.Z3_parameter_kind.Z3_PARAMETER_AST:
+                  h.push(new ht(E(a.get_decl_ast_parameter(f, this.ptr, T))));
                   break;
-                case y.Z3_parameter_kind.Z3_PARAMETER_FUNC_DECL:
-                  w.push(new j_(F(_.get_decl_func_decl_parameter(k, this.ptr, U))));
+                case l.Z3_parameter_kind.Z3_PARAMETER_FUNC_DECL:
+                  h.push(new st(E(a.get_decl_func_decl_parameter(f, this.ptr, T))));
                   break;
-                case y.Z3_parameter_kind.Z3_PARAMETER_INTERNAL:
+                case l.Z3_parameter_kind.Z3_PARAMETER_INTERNAL:
                   break;
-                case y.Z3_parameter_kind.Z3_PARAMETER_ZSTRING:
+                case l.Z3_parameter_kind.Z3_PARAMETER_ZSTRING:
                   break;
                 default:
-                  (0, b.assertExhaustive)(i_);
+                  (0, c.assertExhaustive)(L);
               }
             }
-            return w;
+            return h;
           }
-          call(...o) {
+          call(...e) {
             return (
-              (0, b.assert)(o.length === this.arity(), `Incorrect number of arguments to ${this}`),
-              h_(
-                F(
-                  _.mk_app(
-                    k,
+              (0, c.assert)(e.length === this.arity(), `Incorrect number of arguments to ${this}`),
+              j(
+                E(
+                  a.mk_app(
+                    f,
                     this.ptr,
-                    o.map((w, U) => this.domain(U).cast(w).ast),
+                    e.map((h, T) => this.domain(T).cast(h).ast),
                   ),
                 ),
               )
             );
           }
         }
-        class Y_ extends Te {
+        class ht extends Or {
           get sort() {
-            return c_(_.get_sort(k, this.ast));
+            return pt(a.get_sort(f, this.ast));
           }
-          eq(o) {
-            return new u_(F(_.mk_eq(k, this.ast, R_(o).ast)));
+          eq(e) {
+            return new D(E(a.mk_eq(f, this.ast, J(e).ast)));
           }
-          neq(o) {
-            return new u_(
-              F(
-                _.mk_distinct(
-                  k,
-                  [this, o].map((w) => R_(w).ast),
+          neq(e) {
+            return new D(
+              E(
+                a.mk_distinct(
+                  f,
+                  [this, e].map((h) => J(h).ast),
                 ),
               ),
             );
@@ -11576,1106 +5453,1107 @@
             return this.decl().params();
           }
           decl() {
-            return ((0, b.assert)(I_(this), "Z3 application expected"), new j_(F(_.get_app_decl(k, F(_.to_app(k, this.ast))))));
+            return ((0, c.assert)(et(this), "Z3 application expected"), new st(E(a.get_app_decl(f, E(a.to_app(f, this.ast))))));
           }
           numArgs() {
-            return ((0, b.assert)(I_(this), "Z3 applicaiton expected"), F(_.get_app_num_args(k, F(_.to_app(k, this.ast)))));
+            return ((0, c.assert)(et(this), "Z3 applicaiton expected"), E(a.get_app_num_args(f, E(a.to_app(f, this.ast)))));
           }
-          arg(o) {
+          arg(e) {
             return (
-              (0, b.assert)(I_(this), "Z3 applicaiton expected"),
-              (0, b.assert)(o < this.numArgs(), `Invalid argument index - expected ${o} to be less than ${this.numArgs()}`),
-              h_(F(_.get_app_arg(k, F(_.to_app(k, this.ast)), o)))
+              (0, c.assert)(et(this), "Z3 applicaiton expected"),
+              (0, c.assert)(e < this.numArgs(), `Invalid argument index - expected ${e} to be less than ${this.numArgs()}`),
+              j(E(a.get_app_arg(f, E(a.to_app(f, this.ast)), e)))
             );
           }
           children() {
-            const o = this.numArgs();
-            if (I_(this)) {
-              const w = [];
-              for (let U = 0; U < o; U++) w.push(this.arg(U));
-              return w;
+            const e = this.numArgs();
+            if (et(this)) {
+              const h = [];
+              for (let T = 0; T < e; T++) h.push(this.arg(T));
+              return h;
             }
             return [];
           }
         }
-        class Jr {
-          constructor(o) {
-            ((this.ptr = o), (this.ctx = w_));
+        class F_ {
+          constructor(e) {
+            ((this.ptr = e), (this.ctx = W));
           }
         }
-        class Ir extends H_ {
-          cast(o) {
+        class dn extends yt {
+          cast(e) {
             return (
-              typeof o == "boolean" && (o = D_.val(o)),
-              (0, b.assert)(i(o), "true, false or Z3 Boolean expression expected."),
-              (0, b.assert)(this.eqIdentity(o.sort), "Value cannot be converted into a Z3 Boolean value"),
-              o
+              typeof e == "boolean" && (e = ct.val(e)),
+              (0, c.assert)(X(e), "true, false or Z3 Boolean expression expected."),
+              (0, c.assert)(this.eqIdentity(e.sort), "Value cannot be converted into a Z3 Boolean value"),
+              e
             );
           }
-          subsort(o) {
-            return (G(o.ctx), o instanceof J_);
+          subsort(e) {
+            return (x(e.ctx), e instanceof Jt);
           }
         }
-        class u_ extends Y_ {
+        class D extends ht {
           not() {
-            return Zt(this);
+            return Gr(this);
           }
-          and(o) {
-            return Lt(this, o);
+          and(e) {
+            return $r(this, e);
           }
-          or(o) {
-            return qt(this, o);
+          or(e) {
+            return Qr(this, e);
           }
-          xor(o) {
-            return p_(this, o);
+          xor(e) {
+            return Vr(this, e);
           }
-          implies(o) {
-            return Nt(this, o);
+          implies(e) {
+            return qr(this, e);
           }
-          iff(o) {
-            return Ke(this, o);
-          }
-        }
-        class K_ {
-          constructor(o) {
-            ((this.ptr = o), (this.ctx = w_));
+          iff(e) {
+            return zr(this, e);
           }
         }
-        class xe {
-          constructor(o) {
-            this.ctx = w_;
-            let w;
-            (typeof o == "string" ? (w = F(_.mk_tactic(k, o))) : (w = o),
-              (this.ptr = w),
-              _.tactic_inc_ref(k, w),
-              B.register(this, () => _.tactic_dec_ref(k, w), this));
+        class yr {
+          constructor(e) {
+            ((this.ptr = e), (this.ctx = W));
           }
         }
-        class J_ extends H_ {
-          cast(o) {
-            const w = h(this) ? "IntSort" : "RealSort";
-            if (i(o)) {
-              const U = o.sort;
-              if (E_(o)) {
-                if (this.eqIdentity(U)) return o;
-                if (h(U) && E(this)) return oe(o);
-                (0, b.assert)(!1, "Can't cast Real to IntSort without loss");
-              } else if (W_(o)) return h(this) ? W(o, 1, 0) : oe(W(o, 1, 0));
-              (0, b.assert)(!1, `Can't cast expression to ${w}`);
+        class Jr {
+          constructor(e) {
+            this.ctx = W;
+            let h;
+            (typeof e == "string" ? (h = E(a.mk_tactic(f, e))) : (h = e),
+              (this.ptr = h),
+              a.tactic_inc_ref(f, h),
+              S.register(this, () => a.tactic_dec_ref(f, h), this));
+          }
+        }
+        class Jt extends yt {
+          cast(e) {
+            const h = m(this) ? "IntSort" : "RealSort";
+            if (X(e)) {
+              const T = e.sort;
+              if (Pt(e)) {
+                if (this.eqIdentity(T)) return e;
+                if (m(T) && p(this)) return Yr(e);
+                (0, c.assert)(!1, "Can't cast Real to IntSort without loss");
+              } else if (ft(e)) return m(this) ? Cr(e, 1, 0) : Yr(Cr(e, 1, 0));
+              (0, c.assert)(!1, `Can't cast expression to ${h}`);
             } else {
-              if (typeof o != "boolean") return h(this) ? ((0, b.assert)(!x(o), "Can't cast fraction to IntSort"), C_.val(o)) : q_.val(o);
-              (0, b.assert)(!1, `Can't cast primitive to ${w}`);
+              if (typeof e != "boolean") return m(this) ? ((0, c.assert)(!O(e), "Can't cast fraction to IntSort"), mt.val(e)) : ot.val(e);
+              (0, c.assert)(!1, `Can't cast primitive to ${h}`);
             }
           }
         }
-        function _e(m, ...o) {
-          if (m instanceof f_) {
-            if (o.length !== 1) throw new Error("BitVec add only supports 2 arguments");
-            return new f_(F(_.mk_bvadd(k, m.ast, m.sort.cast(o[0]).ast)));
-          } else return ((0, b.assert)(m instanceof d), new d(F(_.mk_add(k, [m.ast].concat(o.map((w) => m.sort.cast(w).ast))))));
+        function te(i, ...e) {
+          if (i instanceof C) {
+            if (e.length !== 1) throw new Error("BitVec add only supports 2 arguments");
+            return new C(E(a.mk_bvadd(f, i.ast, i.sort.cast(e[0]).ast)));
+          } else return ((0, c.assert)(i instanceof G), new G(E(a.mk_add(f, [i.ast].concat(e.map((h) => i.sort.cast(h).ast))))));
         }
-        function Vt(m, ...o) {
-          if (m instanceof f_) {
-            if (o.length !== 1) throw new Error("BitVec sub only supports 2 arguments");
-            return new f_(F(_.mk_bvsub(k, m.ast, m.sort.cast(o[0]).ast)));
-          } else return ((0, b.assert)(m instanceof d), new d(F(_.mk_sub(k, [m.ast].concat(o.map((w) => m.sort.cast(w).ast))))));
+        function re(i, ...e) {
+          if (i instanceof C) {
+            if (e.length !== 1) throw new Error("BitVec sub only supports 2 arguments");
+            return new C(E(a.mk_bvsub(f, i.ast, i.sort.cast(e[0]).ast)));
+          } else return ((0, c.assert)(i instanceof G), new G(E(a.mk_sub(f, [i.ast].concat(e.map((h) => i.sort.cast(h).ast))))));
         }
-        function Gt(m, ...o) {
-          if (m instanceof f_) {
-            if (o.length !== 1) throw new Error("BitVec mul only supports 2 arguments");
-            return new f_(F(_.mk_bvmul(k, m.ast, m.sort.cast(o[0]).ast)));
-          } else return ((0, b.assert)(m instanceof d), new d(F(_.mk_mul(k, [m.ast].concat(o.map((w) => m.sort.cast(w).ast))))));
+        function ee(i, ...e) {
+          if (i instanceof C) {
+            if (e.length !== 1) throw new Error("BitVec mul only supports 2 arguments");
+            return new C(E(a.mk_bvmul(f, i.ast, i.sort.cast(e[0]).ast)));
+          } else return ((0, c.assert)(i instanceof G), new G(E(a.mk_mul(f, [i.ast].concat(e.map((h) => i.sort.cast(h).ast))))));
         }
-        function vt(m, o) {
-          return m instanceof f_
-            ? new f_(F(_.mk_bvsdiv(k, m.ast, m.sort.cast(o).ast)))
-            : ((0, b.assert)(m instanceof d), new d(F(_.mk_div(k, m.ast, m.sort.cast(o).ast))));
+        function ne(i, e) {
+          return i instanceof C
+            ? new C(E(a.mk_bvsdiv(f, i.ast, i.sort.cast(e).ast)))
+            : ((0, c.assert)(i instanceof G), new G(E(a.mk_div(f, i.ast, i.sort.cast(e).ast))));
         }
-        function Fr(m, o) {
-          return new f_(F(_.mk_bvudiv(k, m.ast, m.sort.cast(o).ast)));
+        function Bn(i, e) {
+          return new C(E(a.mk_bvudiv(f, i.ast, i.sort.cast(e).ast)));
         }
-        function yt(m) {
-          return m instanceof f_ ? new f_(F(_.mk_bvneg(k, m.ast))) : ((0, b.assert)(m instanceof d), new d(F(_.mk_unary_minus(k, m.ast))));
+        function _e(i) {
+          return i instanceof C ? new C(E(a.mk_bvneg(f, i.ast))) : ((0, c.assert)(i instanceof G), new G(E(a.mk_unary_minus(f, i.ast))));
         }
-        function $t(m, o) {
-          return m instanceof f_
-            ? new f_(F(_.mk_bvsrem(k, m.ast, m.sort.cast(o).ast)))
-            : ((0, b.assert)(m instanceof d), new d(F(_.mk_mod(k, m.ast, m.sort.cast(o).ast))));
+        function ie(i, e) {
+          return i instanceof C
+            ? new C(E(a.mk_bvsrem(f, i.ast, i.sort.cast(e).ast)))
+            : ((0, c.assert)(i instanceof G), new G(E(a.mk_mod(f, i.ast, i.sort.cast(e).ast))));
         }
-        class d extends Y_ {
-          add(o) {
-            return _e(this, o);
+        class G extends ht {
+          add(e) {
+            return te(this, e);
           }
-          mul(o) {
-            return Gt(this, o);
+          mul(e) {
+            return ee(this, e);
           }
-          sub(o) {
-            return Vt(this, o);
+          sub(e) {
+            return re(this, e);
           }
-          pow(o) {
-            return new d(F(_.mk_power(k, this.ast, this.sort.cast(o).ast)));
+          pow(e) {
+            return new G(E(a.mk_power(f, this.ast, this.sort.cast(e).ast)));
           }
-          div(o) {
-            return vt(this, o);
+          div(e) {
+            return ne(this, e);
           }
-          mod(o) {
-            return $t(this, o);
+          mod(e) {
+            return ie(this, e);
           }
           neg() {
-            return yt(this);
+            return _e(this);
           }
-          le(o) {
-            return ht(this, o);
+          le(e) {
+            return fn(this, e);
           }
-          lt(o) {
-            return X_(this, o);
+          lt(e) {
+            return mn(this, e);
           }
-          gt(o) {
-            return yr(this, o);
+          gt(e) {
+            return ln(this, e);
           }
-          ge(o) {
-            return _t(this, o);
+          ge(e) {
+            return pn(this, e);
           }
         }
-        class T_ extends d {
+        class tr extends G {
           value() {
             return BigInt(this.asString());
           }
           asString() {
-            return _.get_numeral_string(k, this.ast);
+            return a.get_numeral_string(f, this.ast);
           }
           asBinary() {
-            return _.get_numeral_binary_string(k, this.ast);
+            return a.get_numeral_binary_string(f, this.ast);
           }
         }
-        class kt extends d {
+        class oe extends G {
           value() {
             return { numerator: this.numerator().value(), denominator: this.denominator().value() };
           }
           numerator() {
-            return new T_(_.get_numerator(k, this.ast));
+            return new tr(a.get_numerator(f, this.ast));
           }
           denominator() {
-            return new T_(_.get_denominator(k, this.ast));
+            return new tr(a.get_denominator(f, this.ast));
           }
           asNumber() {
-            const { numerator: o, denominator: w } = this.value(),
-              U = o / w;
-            return Number(U) + Number(o - U * w) / Number(w);
+            const { numerator: e, denominator: h } = this.value(),
+              T = e / h;
+            return Number(T) + Number(e - T * h) / Number(h);
           }
-          asDecimal(o = Number.parseInt(j("precision") ?? I.toString())) {
-            return _.get_numeral_decimal_string(k, this.ast, o);
+          asDecimal(e = Number.parseInt(Z("precision") ?? P.toString())) {
+            return a.get_numeral_decimal_string(f, this.ast, e);
           }
           asString() {
-            return _.get_numeral_string(k, this.ast);
+            return a.get_numeral_string(f, this.ast);
           }
         }
-        class Et extends H_ {
+        class se extends yt {
           size() {
-            return _.get_bv_sort_size(k, this.ptr);
+            return a.get_bv_sort_size(f, this.ptr);
           }
-          subsort(o) {
-            return N(o) && this.size() < o.size();
+          subsort(e) {
+            return w(e) && this.size() < e.size();
           }
-          cast(o) {
-            return i(o) ? (G(o), o) : ((0, b.assert)(!x(o), "Can't convert rational to BitVec"), we.val(o, this.size()));
+          cast(e) {
+            return X(e) ? (x(e), e) : ((0, c.assert)(!O(e), "Can't convert rational to BitVec"), dt.val(e, this.size()));
           }
         }
-        class f_ extends Y_ {
+        class C extends ht {
           size() {
             return this.sort.size();
           }
-          add(o) {
-            return _e(this, o);
+          add(e) {
+            return te(this, e);
           }
-          mul(o) {
-            return Gt(this, o);
+          mul(e) {
+            return ee(this, e);
           }
-          sub(o) {
-            return Vt(this, o);
+          sub(e) {
+            return re(this, e);
           }
-          sdiv(o) {
-            return vt(this, o);
+          sdiv(e) {
+            return ne(this, e);
           }
-          udiv(o) {
-            return Fr(this, o);
+          udiv(e) {
+            return Bn(this, e);
           }
-          smod(o) {
-            return $t(this, o);
+          smod(e) {
+            return ie(this, e);
           }
-          urem(o) {
-            return new f_(F(_.mk_bvurem(k, this.ast, this.sort.cast(o).ast)));
+          urem(e) {
+            return new C(E(a.mk_bvurem(f, this.ast, this.sort.cast(e).ast)));
           }
-          srem(o) {
-            return new f_(F(_.mk_bvsrem(k, this.ast, this.sort.cast(o).ast)));
+          srem(e) {
+            return new C(E(a.mk_bvsrem(f, this.ast, this.sort.cast(e).ast)));
           }
           neg() {
-            return yt(this);
+            return _e(this);
           }
-          or(o) {
-            return new f_(F(_.mk_bvor(k, this.ast, this.sort.cast(o).ast)));
+          or(e) {
+            return new C(E(a.mk_bvor(f, this.ast, this.sort.cast(e).ast)));
           }
-          and(o) {
-            return new f_(F(_.mk_bvand(k, this.ast, this.sort.cast(o).ast)));
+          and(e) {
+            return new C(E(a.mk_bvand(f, this.ast, this.sort.cast(e).ast)));
           }
-          nand(o) {
-            return new f_(F(_.mk_bvnand(k, this.ast, this.sort.cast(o).ast)));
+          nand(e) {
+            return new C(E(a.mk_bvnand(f, this.ast, this.sort.cast(e).ast)));
           }
-          xor(o) {
-            return new f_(F(_.mk_bvxor(k, this.ast, this.sort.cast(o).ast)));
+          xor(e) {
+            return new C(E(a.mk_bvxor(f, this.ast, this.sort.cast(e).ast)));
           }
-          xnor(o) {
-            return new f_(F(_.mk_bvxnor(k, this.ast, this.sort.cast(o).ast)));
+          xnor(e) {
+            return new C(E(a.mk_bvxnor(f, this.ast, this.sort.cast(e).ast)));
           }
-          shr(o) {
-            return new f_(F(_.mk_bvashr(k, this.ast, this.sort.cast(o).ast)));
+          shr(e) {
+            return new C(E(a.mk_bvashr(f, this.ast, this.sort.cast(e).ast)));
           }
-          lshr(o) {
-            return new f_(F(_.mk_bvlshr(k, this.ast, this.sort.cast(o).ast)));
+          lshr(e) {
+            return new C(E(a.mk_bvlshr(f, this.ast, this.sort.cast(e).ast)));
           }
-          shl(o) {
-            return new f_(F(_.mk_bvshl(k, this.ast, this.sort.cast(o).ast)));
+          shl(e) {
+            return new C(E(a.mk_bvshl(f, this.ast, this.sort.cast(e).ast)));
           }
-          rotateRight(o) {
-            return new f_(F(_.mk_ext_rotate_right(k, this.ast, this.sort.cast(o).ast)));
+          rotateRight(e) {
+            return new C(E(a.mk_ext_rotate_right(f, this.ast, this.sort.cast(e).ast)));
           }
-          rotateLeft(o) {
-            return new f_(F(_.mk_ext_rotate_left(k, this.ast, this.sort.cast(o).ast)));
+          rotateLeft(e) {
+            return new C(E(a.mk_ext_rotate_left(f, this.ast, this.sort.cast(e).ast)));
           }
           not() {
-            return new f_(F(_.mk_bvnot(k, this.ast)));
+            return new C(E(a.mk_bvnot(f, this.ast)));
           }
-          extract(o, w) {
-            return Sr(o, w, this);
+          extract(e, h) {
+            return An(e, h, this);
           }
-          signExt(o) {
-            return new f_(F(_.mk_sign_ext(k, o, this.ast)));
+          signExt(e) {
+            return new C(E(a.mk_sign_ext(f, e, this.ast)));
           }
-          zeroExt(o) {
-            return new f_(F(_.mk_zero_ext(k, o, this.ast)));
+          zeroExt(e) {
+            return new C(E(a.mk_zero_ext(f, e, this.ast)));
           }
-          repeat(o) {
-            return new f_(F(_.mk_repeat(k, o, this.ast)));
+          repeat(e) {
+            return new C(E(a.mk_repeat(f, e, this.ast)));
           }
-          sle(o) {
-            return Tr(this, o);
+          sle(e) {
+            return En(this, e);
           }
-          ule(o) {
-            return Er(this, o);
+          ule(e) {
+            return gn(this, e);
           }
-          slt(o) {
-            return Or(this, o);
+          slt(e) {
+            return Pn(this, e);
           }
-          ult(o) {
-            return De(this, o);
+          ult(e) {
+            return hn(this, e);
           }
-          sge(o) {
-            return xr(this, o);
+          sge(e) {
+            return wn(this, e);
           }
-          uge(o) {
-            return wr(this, o);
+          uge(e) {
+            return On(this, e);
           }
-          sgt(o) {
-            return Pr(this, o);
+          sgt(e) {
+            return yn(this, e);
           }
-          ugt(o) {
-            return kr(this, o);
+          ugt(e) {
+            return bn(this, e);
           }
           redAnd() {
-            return new f_(F(_.mk_bvredand(k, this.ast)));
+            return new C(E(a.mk_bvredand(f, this.ast)));
           }
           redOr() {
-            return new f_(F(_.mk_bvredor(k, this.ast)));
+            return new C(E(a.mk_bvredor(f, this.ast)));
           }
-          addNoOverflow(o, w) {
-            return new u_(F(_.mk_bvadd_no_overflow(k, this.ast, this.sort.cast(o).ast, w)));
+          addNoOverflow(e, h) {
+            return new D(E(a.mk_bvadd_no_overflow(f, this.ast, this.sort.cast(e).ast, h)));
           }
-          addNoUnderflow(o) {
-            return new u_(F(_.mk_bvadd_no_underflow(k, this.ast, this.sort.cast(o).ast)));
+          addNoUnderflow(e) {
+            return new D(E(a.mk_bvadd_no_underflow(f, this.ast, this.sort.cast(e).ast)));
           }
-          subNoOverflow(o) {
-            return new u_(F(_.mk_bvsub_no_overflow(k, this.ast, this.sort.cast(o).ast)));
+          subNoOverflow(e) {
+            return new D(E(a.mk_bvsub_no_overflow(f, this.ast, this.sort.cast(e).ast)));
           }
-          subNoUndeflow(o, w) {
-            return new u_(F(_.mk_bvsub_no_underflow(k, this.ast, this.sort.cast(o).ast, w)));
+          subNoUndeflow(e, h) {
+            return new D(E(a.mk_bvsub_no_underflow(f, this.ast, this.sort.cast(e).ast, h)));
           }
-          sdivNoOverflow(o) {
-            return new u_(F(_.mk_bvsdiv_no_overflow(k, this.ast, this.sort.cast(o).ast)));
+          sdivNoOverflow(e) {
+            return new D(E(a.mk_bvsdiv_no_overflow(f, this.ast, this.sort.cast(e).ast)));
           }
-          mulNoOverflow(o, w) {
-            return new u_(F(_.mk_bvmul_no_overflow(k, this.ast, this.sort.cast(o).ast, w)));
+          mulNoOverflow(e, h) {
+            return new D(E(a.mk_bvmul_no_overflow(f, this.ast, this.sort.cast(e).ast, h)));
           }
-          mulNoUndeflow(o) {
-            return new u_(F(_.mk_bvmul_no_underflow(k, this.ast, this.sort.cast(o).ast)));
+          mulNoUndeflow(e) {
+            return new D(E(a.mk_bvmul_no_underflow(f, this.ast, this.sort.cast(e).ast)));
           }
           negNoOverflow() {
-            return new u_(F(_.mk_bvneg_no_overflow(k, this.ast)));
+            return new D(E(a.mk_bvneg_no_overflow(f, this.ast)));
           }
         }
-        class Wt extends f_ {
+        class ue extends C {
           value() {
             return BigInt(this.asString());
           }
           asSignedValue() {
-            let o = this.value();
-            const w = BigInt(this.size());
-            return (o >= 2n ** (w - 1n) && (o = o - 2n ** w), o < (-2n) ** (w - 1n) && (o = o + 2n ** w), o);
+            let e = this.value();
+            const h = BigInt(this.size());
+            return (e >= 2n ** (h - 1n) && (e = e - 2n ** h), e < (-2n) ** (h - 1n) && (e = e + 2n ** h), e);
           }
           asString() {
-            return _.get_numeral_string(k, this.ast);
+            return a.get_numeral_string(f, this.ast);
           }
           asBinaryString() {
-            return _.get_numeral_binary_string(k, this.ast);
+            return a.get_numeral_binary_string(f, this.ast);
           }
         }
-        class wt extends H_ {
+        class Er extends yt {
           domain() {
-            return c_(F(_.get_array_sort_domain(k, this.ptr)));
+            return pt(E(a.get_array_sort_domain(f, this.ptr)));
           }
-          domain_n(o) {
-            return c_(F(_.get_array_sort_domain_n(k, this.ptr, o)));
+          domain_n(e) {
+            return pt(E(a.get_array_sort_domain_n(f, this.ptr, e)));
           }
           range() {
-            return c_(F(_.get_array_sort_range(k, this.ptr)));
+            return pt(E(a.get_array_sort_range(f, this.ptr)));
           }
         }
-        class rt extends Y_ {
+        class wr extends ht {
           domain() {
             return this.sort.domain();
           }
-          domain_n(o) {
-            return this.sort.domain_n(o);
+          domain_n(e) {
+            return this.sort.domain_n(e);
           }
           range() {
             return this.sort.range();
           }
-          select(...o) {
-            return bt(this, ...o);
+          select(...e) {
+            return jr(this, ...e);
           }
-          store(...o) {
-            return Bt(this, ...o);
+          store(...e) {
+            return Hr(this, ...e);
           }
         }
-        class se extends Y_ {
+        class Et extends ht {
           elemSort() {
             return this.sort.domain();
           }
-          union(...o) {
-            return Ut(this, ...o);
+          union(...e) {
+            return Rn(this, ...e);
           }
-          intersect(...o) {
-            return Ar(this, ...o);
+          intersect(...e) {
+            return Tn(this, ...e);
           }
-          diff(o) {
-            return et(this, o);
+          diff(e) {
+            return vn(this, e);
           }
-          hasSize(o) {
-            return Pe(this, o);
+          hasSize(e) {
+            return Sn(this, e);
           }
-          add(o) {
-            return g_(this, o);
+          add(e) {
+            return Wr(this, e);
           }
-          del(o) {
-            return Rr(this, o);
+          del(e) {
+            return In(this, e);
           }
           complement() {
-            return Dt(this);
+            return Zn(this);
           }
-          contains(o) {
-            return Ce(o, this);
+          contains(e) {
+            return xn(e, this);
           }
-          subsetOf(o) {
-            return zt(this, o);
+          subsetOf(e) {
+            return Nn(this, e);
           }
         }
-        class Ht {
-          constructor(o, w) {
-            ((this.constructors = []), (this.ctx = o), (this.name = w));
+        class Ln {
+          constructor(e, h) {
+            ((this.constructors = []), (this.ctx = e), (this.name = h));
           }
-          declare(o, ...w) {
-            return (this.constructors.push([o, w]), this);
+          declare(e, ...h) {
+            return (this.constructors.push([e, h]), this);
           }
           create() {
-            return nt(this)[0];
+            return Un(this)[0];
           }
         }
-        class Yt extends H_ {
+        class M_ extends yt {
           numConstructors() {
-            return _.get_datatype_sort_num_constructors(k, this.ptr);
+            return a.get_datatype_sort_num_constructors(f, this.ptr);
           }
-          constructorDecl(o) {
-            const w = _.get_datatype_sort_constructor(k, this.ptr, o);
-            return new j_(w);
+          constructorDecl(e) {
+            const h = a.get_datatype_sort_constructor(f, this.ptr, e);
+            return new st(h);
           }
-          recognizer(o) {
-            const w = _.get_datatype_sort_recognizer(k, this.ptr, o);
-            return new j_(w);
+          recognizer(e) {
+            const h = a.get_datatype_sort_recognizer(f, this.ptr, e);
+            return new st(h);
           }
-          accessor(o, w) {
-            const U = _.get_datatype_sort_constructor_accessor(k, this.ptr, o, w);
-            return new j_(U);
+          accessor(e, h) {
+            const T = a.get_datatype_sort_constructor_accessor(f, this.ptr, e, h);
+            return new st(T);
           }
-          cast(o) {
-            if (i(o)) return ((0, b.assert)(this.eqIdentity(o.sort), "Value cannot be converted to this datatype"), o);
+          cast(e) {
+            if (X(e)) return ((0, c.assert)(this.eqIdentity(e.sort), "Value cannot be converted to this datatype"), e);
             throw new Error("Cannot coerce value to datatype expression");
           }
-          subsort(o) {
-            return (G(o.ctx), this.eqIdentity(o));
+          subsort(e) {
+            return (x(e.ctx), this.eqIdentity(e));
           }
         }
-        function nt(...m) {
-          if (m.length === 0) throw new Error("At least one datatype must be provided");
-          const o = m[0].ctx;
-          for (const a_ of m) if (a_.ctx !== o) throw new Error("All datatypes must be from the same context");
-          const w = m.map((a_) => a_.name),
-            U = [],
-            i_ = [];
+        function Un(...i) {
+          if (i.length === 0) throw new Error("At least one datatype must be provided");
+          const e = i[0].ctx;
+          for (const U of i) if (U.ctx !== e) throw new Error("All datatypes must be from the same context");
+          const h = i.map((U) => U.name),
+            T = [],
+            L = [];
           try {
-            for (const ge of m) {
-              const M_ = [];
-              for (const [de, Ae] of ge.constructors) {
-                const Ot = [],
-                  Re = [],
-                  Ie = [];
-                for (const [ot, Pt] of Ae)
-                  if ((Ot.push(ot), Pt instanceof Ht)) {
-                    const Lr = m.indexOf(Pt);
-                    if (Lr === -1) throw new Error(`Referenced datatype "${Pt.name}" not found in datatypes being created`);
-                    (Re.push(null), Ie.push(Lr));
-                  } else (Re.push(Pt.ptr), Ie.push(0));
-                const at = _.mk_constructor(
-                  k,
-                  _.mk_string_symbol(k, de),
-                  _.mk_string_symbol(k, `is_${de}`),
-                  Ot.map((ot) => _.mk_string_symbol(k, ot)),
-                  Re,
-                  Ie,
+            for (const At of i) {
+              const nt = [];
+              for (const [Rt, Bt] of At.constructors) {
+                const Tr = [],
+                  Lt = [],
+                  Ut = [];
+                for (const [er, vr] of Bt)
+                  if ((Tr.push(er), vr instanceof Ln)) {
+                    const Mn = i.indexOf(vr);
+                    if (Mn === -1) throw new Error(`Referenced datatype "${vr.name}" not found in datatypes being created`);
+                    (Lt.push(null), Ut.push(Mn));
+                  } else (Lt.push(vr.ptr), Ut.push(0));
+                const rr = a.mk_constructor(
+                  f,
+                  a.mk_string_symbol(f, Rt),
+                  a.mk_string_symbol(f, `is_${Rt}`),
+                  Tr.map((er) => a.mk_string_symbol(f, er)),
+                  Lt,
+                  Ut,
                 );
-                (M_.push(at), i_.push(at));
+                (nt.push(rr), L.push(rr));
               }
-              const Xt = _.mk_constructor_list(k, M_);
-              U.push(Xt);
+              const me = a.mk_constructor_list(f, nt);
+              T.push(me);
             }
-            const a_ = w.map((ge) => _.mk_string_symbol(k, ge)),
-              Se = _.mk_datatypes(k, a_, U),
-              it = [];
-            for (let ge = 0; ge < Se.length; ge++) {
-              const M_ = new Yt(Se[ge]),
-                Xt = M_.numConstructors();
-              for (let de = 0; de < Xt; de++) {
-                const Ae = M_.constructorDecl(de),
-                  Ot = M_.recognizer(de),
-                  Re = Ae.name().toString();
-                (Ae.arity() === 0 ? (M_[Re] = Ae.call()) : (M_[Re] = Ae), (M_[`is_${Re}`] = Ot));
-                for (let Ie = 0; Ie < Ae.arity(); Ie++) {
-                  const at = M_.accessor(de, Ie),
-                    ot = at.name().toString();
-                  M_[ot] = at;
+            const U = h.map((At) => a.mk_string_symbol(f, At)),
+              Ar = a.mk_datatypes(f, U, T),
+              Rr = [];
+            for (let At = 0; At < Ar.length; At++) {
+              const nt = new M_(Ar[At]),
+                me = nt.numConstructors();
+              for (let Rt = 0; Rt < me; Rt++) {
+                const Bt = nt.constructorDecl(Rt),
+                  Tr = nt.recognizer(Rt),
+                  Lt = Bt.name().toString();
+                (Bt.arity() === 0 ? (nt[Lt] = Bt.call()) : (nt[Lt] = Bt), (nt[`is_${Lt}`] = Tr));
+                for (let Ut = 0; Ut < Bt.arity(); Ut++) {
+                  const rr = nt.accessor(Rt, Ut),
+                    er = rr.name().toString();
+                  nt[er] = rr;
                 }
               }
-              it.push(M_);
+              Rr.push(nt);
             }
-            return it;
+            return Rr;
           } finally {
-            for (const a_ of i_) _.del_constructor(k, a_);
-            for (const a_ of U) _.del_constructor_list(k, a_);
+            for (const U of L) a.del_constructor(f, U);
+            for (const U of T) a.del_constructor_list(f, U);
           }
         }
-        class Qt extends Y_ {
+        class ae extends ht {
           is_forall() {
-            return _.is_quantifier_forall(k, this.ast);
+            return a.is_quantifier_forall(f, this.ast);
           }
           is_exists() {
-            return _.is_quantifier_exists(k, this.ast);
+            return a.is_quantifier_exists(f, this.ast);
           }
           is_lambda() {
-            return _.is_lambda(k, this.ast);
+            return a.is_lambda(f, this.ast);
           }
           weight() {
-            return _.get_quantifier_weight(k, this.ast);
+            return a.get_quantifier_weight(f, this.ast);
           }
           num_patterns() {
-            return _.get_quantifier_num_patterns(k, this.ast);
+            return a.get_quantifier_num_patterns(f, this.ast);
           }
-          pattern(o) {
-            return new Jr(F(_.get_quantifier_pattern_ast(k, this.ast, o)));
+          pattern(e) {
+            return new F_(E(a.get_quantifier_pattern_ast(f, this.ast, e)));
           }
           num_no_patterns() {
-            return _.get_quantifier_num_no_patterns(k, this.ast);
+            return a.get_quantifier_num_no_patterns(f, this.ast);
           }
-          no_pattern(o) {
-            return h_(F(_.get_quantifier_no_pattern_ast(k, this.ast, o)));
+          no_pattern(e) {
+            return j(E(a.get_quantifier_no_pattern_ast(f, this.ast, e)));
           }
           body() {
-            return h_(F(_.get_quantifier_body(k, this.ast)));
+            return j(E(a.get_quantifier_body(f, this.ast)));
           }
           num_vars() {
-            return _.get_quantifier_num_bound(k, this.ast);
+            return a.get_quantifier_num_bound(f, this.ast);
           }
-          var_name(o) {
-            return ye(_.get_quantifier_bound_name(k, this.ast, o));
+          var_name(e) {
+            return Zt(a.get_quantifier_bound_name(f, this.ast, e));
           }
-          var_sort(o) {
-            return c_(F(_.get_quantifier_bound_sort(k, this.ast, o)));
+          var_sort(e) {
+            return pt(E(a.get_quantifier_bound_sort(f, this.ast, e)));
           }
           children() {
             return [this.body()];
           }
         }
-        class ze extends Qt {
+        class ce extends ae {
           not() {
-            return Zt(this);
+            return Gr(this);
           }
-          and(o) {
-            return Lt(this, o);
+          and(e) {
+            return $r(this, e);
           }
-          or(o) {
-            return qt(this, o);
+          or(e) {
+            return Qr(this, e);
           }
-          xor(o) {
-            return p_(this, o);
+          xor(e) {
+            return Vr(this, e);
           }
-          implies(o) {
-            return Nt(this, o);
+          implies(e) {
+            return qr(this, e);
           }
-          iff(o) {
-            return Ke(this, o);
+          iff(e) {
+            return zr(this, e);
           }
         }
-        class Nr extends Qt {
+        class Fn extends ae {
           domain() {
             return this.sort.domain();
           }
-          domain_n(o) {
-            return this.sort.domain_n(o);
+          domain_n(e) {
+            return this.sort.domain_n(e);
           }
           range() {
             return this.sort.range();
           }
-          select(...o) {
-            return bt(this, ...o);
+          select(...e) {
+            return jr(this, ...e);
           }
-          store(...o) {
-            return Bt(this, ...o);
+          store(...e) {
+            return Hr(this, ...e);
           }
         }
-        class Ze {
-          constructor(o = _.mk_ast_vector(k)) {
-            ((this.ptr = o), (this.ctx = w_), _.ast_vector_inc_ref(k, o), B.register(this, () => _.ast_vector_dec_ref(k, o), this));
+        class wt {
+          constructor(e = a.mk_ast_vector(f)) {
+            ((this.ptr = e), (this.ctx = W), a.ast_vector_inc_ref(f, e), S.register(this, () => a.ast_vector_dec_ref(f, e), this));
           }
           length() {
-            return _.ast_vector_size(k, this.ptr);
+            return a.ast_vector_size(f, this.ptr);
           }
           [Symbol.iterator]() {
             return this.values();
           }
           *entries() {
-            const o = this.length();
-            for (let w = 0; w < o; w++) yield [w, this.get(w)];
+            const e = this.length();
+            for (let h = 0; h < e; h++) yield [h, this.get(h)];
           }
           *keys() {
-            for (let [o] of this.entries()) yield o;
+            for (let [e] of this.entries()) yield e;
           }
           *values() {
-            for (let [, o] of this.entries()) yield o;
+            for (let [, e] of this.entries()) yield e;
           }
-          get(o, w) {
-            const U = this.length();
-            if ((o < 0 && (o += U), o >= U)) throw new RangeError(`expected from index ${o} to be less than length ${U}`);
-            if (w === void 0) return V_(F(_.ast_vector_get(k, this.ptr, o)));
-            if ((w < 0 && (w += U), w >= U)) throw new RangeError(`expected to index ${w} to be less than length ${U}`);
-            const i_ = [];
-            for (let a_ = o; a_ < w; a_++) i_.push(V_(F(_.ast_vector_get(k, this.ptr, a_))));
-            return i_;
+          get(e, h) {
+            const T = this.length();
+            if ((e < 0 && (e += T), e >= T)) throw new RangeError(`expected from index ${e} to be less than length ${T}`);
+            if (h === void 0) return jt(E(a.ast_vector_get(f, this.ptr, e)));
+            if ((h < 0 && (h += T), h >= T)) throw new RangeError(`expected to index ${h} to be less than length ${T}`);
+            const L = [];
+            for (let U = e; U < h; U++) L.push(jt(E(a.ast_vector_get(f, this.ptr, U))));
+            return L;
           }
-          set(o, w) {
-            if ((G(w), o >= this.length())) throw new RangeError(`expected index ${o} to be less than length ${this.length()}`);
-            F(_.ast_vector_set(k, this.ptr, o, w.ast));
+          set(e, h) {
+            if ((x(h), e >= this.length())) throw new RangeError(`expected index ${e} to be less than length ${this.length()}`);
+            E(a.ast_vector_set(f, this.ptr, e, h.ast));
           }
-          push(o) {
-            (G(o), F(_.ast_vector_push(k, this.ptr, o.ast)));
+          push(e) {
+            (x(e), E(a.ast_vector_push(f, this.ptr, e.ast)));
           }
-          resize(o) {
-            F(_.ast_vector_resize(k, this.ptr, o));
+          resize(e) {
+            E(a.ast_vector_resize(f, this.ptr, e));
           }
-          has(o) {
-            G(o);
-            for (const w of this.values()) if (w.eqIdentity(o)) return !0;
+          has(e) {
+            x(e);
+            for (const h of this.values()) if (h.eqIdentity(e)) return !0;
             return !1;
           }
           sexpr() {
-            return F(_.ast_vector_to_string(k, this.ptr));
+            return E(a.ast_vector_to_string(f, this.ptr));
           }
         }
-        class _n {
-          constructor(o = _.mk_ast_map(k)) {
-            ((this.ptr = o), (this.ctx = w_), _.ast_map_inc_ref(k, o), B.register(this, () => _.ast_map_dec_ref(k, o), this));
+        class D_ {
+          constructor(e = a.mk_ast_map(f)) {
+            ((this.ptr = e), (this.ctx = W), a.ast_map_inc_ref(f, e), S.register(this, () => a.ast_map_dec_ref(f, e), this));
           }
           [Symbol.iterator]() {
             return this.entries();
           }
           get size() {
-            return _.ast_map_size(k, this.ptr);
+            return a.ast_map_size(f, this.ptr);
           }
           *entries() {
-            for (const o of this.keys()) yield [o, this.get(o)];
+            for (const e of this.keys()) yield [e, this.get(e)];
           }
           keys() {
-            return new Ze(_.ast_map_keys(k, this.ptr));
+            return new wt(a.ast_map_keys(f, this.ptr));
           }
           *values() {
-            for (const [o, w] of this.entries()) yield w;
+            for (const [e, h] of this.entries()) yield h;
           }
-          get(o) {
-            return V_(F(_.ast_map_find(k, this.ptr, o.ast)));
+          get(e) {
+            return jt(E(a.ast_map_find(f, this.ptr, e.ast)));
           }
-          set(o, w) {
-            F(_.ast_map_insert(k, this.ptr, o.ast, w.ast));
+          set(e, h) {
+            E(a.ast_map_insert(f, this.ptr, e.ast, h.ast));
           }
-          delete(o) {
-            F(_.ast_map_erase(k, this.ptr, o.ast));
+          delete(e) {
+            E(a.ast_map_erase(f, this.ptr, e.ast));
           }
           clear() {
-            F(_.ast_map_reset(k, this.ptr));
+            E(a.ast_map_reset(f, this.ptr));
           }
-          has(o) {
-            return F(_.ast_map_contains(k, this.ptr, o.ast));
+          has(e) {
+            return E(a.ast_map_contains(f, this.ptr, e.ast));
           }
           sexpr() {
-            return F(_.ast_map_to_string(k, this.ptr));
+            return E(a.ast_map_to_string(f, this.ptr));
           }
         }
-        function je(m, ...o) {
-          G(m);
-          const w = [],
-            U = [];
-          for (const [i_, a_] of o) (G(i_), G(a_), w.push(i_.ast), U.push(a_.ast));
-          return h_(F(_.substitute(k, m.ast, w, U)));
+        function k_(i, ...e) {
+          x(i);
+          const h = [],
+            T = [];
+          for (const [L, U] of e) (x(L), x(U), h.push(L.ast), T.push(U.ast));
+          return j(E(a.substitute(f, i.ast, h, T)));
         }
-        function en(m) {
-          const o = [],
-            w = [],
-            U = [],
-            i_ = [],
-            a_ = new Ze(F(_.parse_smtlib2_string(k, m, o, w, U, i_)));
-          if (a_.length() !== 1) throw new Error("Expected exactly one AST. Instead got " + a_.length() + ": " + a_.sexpr());
-          return a_.get(0);
+        function C_(i) {
+          const e = [],
+            h = [],
+            T = [],
+            L = [],
+            U = new wt(E(a.parse_smtlib2_string(f, i, e, h, T, L)));
+          if (U.length() !== 1) throw new Error("Expected exactly one AST. Instead got " + U.length() + ": " + U.sexpr());
+          return U.get(0);
         }
-        const w_ = {
-          ptr: k,
-          name: r_,
-          Solver: Kr,
-          Optimize: pe,
-          Model: tt,
-          Tactic: xe,
-          AstVector: Ze,
-          AstMap: _n,
-          interrupt: C,
-          isModel: ce,
-          isAst: qe,
-          isSort: $_,
-          isFuncDecl: $,
-          isFuncInterp: ke,
-          isApp: I_,
-          isConst: F_,
-          isExpr: i,
-          isVar: lt,
-          isAppOf: U_,
-          isBool: W_,
-          isTrue: le,
-          isFalse: It,
-          isAnd: Ye,
-          isOr: Ee,
-          isImplies: mt,
-          isNot: ft,
-          isEq: Qe,
-          isDistinct: me,
-          isQuantifier: A_,
-          isArith: E_,
-          isArithSort: ae,
-          isInt: N_,
-          isIntVal: P_,
-          isIntSort: h,
-          isReal: l,
-          isRealVal: f,
-          isRealSort: E,
-          isBitVecSort: N,
-          isBitVec: L,
-          isBitVecVal: D,
-          isArraySort: l_,
-          isArray: k_,
-          isConstArray: t_,
-          isProbe: n,
-          isTactic: Z_,
-          isAstVector: mr,
-          eqIdentity: Gr,
-          getVarIndex: $r,
-          from: R_,
-          solve: Wr,
-          Sort: pr,
-          Function: Zr,
-          RecFunc: gr,
-          Bool: D_,
-          Int: C_,
-          Real: q_,
-          BitVec: we,
-          Array: Me,
-          Set: Xe,
-          Datatype: pt,
-          If: W,
-          Distinct: H,
-          Const: Be,
-          Consts: z_,
-          FreshConst: Ft,
-          Var: dr,
-          Implies: Nt,
-          Iff: Ke,
-          Eq: Oe,
-          Xor: p_,
-          Not: Zt,
-          And: Lt,
-          Or: qt,
-          PbEq: hr,
-          PbGe: gt,
-          PbLe: Q,
-          ForAll: Hr,
-          Exists: Mt,
-          Lambda: Yr,
-          ToReal: oe,
-          ToInt: br,
-          IsInt: Qr,
-          Sqrt: Ue,
-          Cbrt: v_,
-          BV2Int: Xr,
-          Int2BV: Je,
-          Concat: dt,
-          Cond: vr,
-          LT: X_,
-          GT: yr,
-          LE: ht,
-          GE: _t,
-          ULT: De,
-          UGT: kr,
-          ULE: Er,
-          UGE: wr,
-          SLT: Or,
-          SGT: Pr,
-          SLE: Tr,
-          SGE: xr,
-          Sum: _e,
-          Sub: Vt,
-          Product: Gt,
-          Div: vt,
-          BUDiv: Fr,
-          Neg: yt,
-          Mod: $t,
-          Select: bt,
-          Store: Bt,
-          Extract: Sr,
-          substitute: je,
-          simplify: fr,
-          ast_from_string: en,
-          SetUnion: Ut,
-          SetIntersect: Ar,
-          SetDifference: et,
-          SetHasSize: Pe,
-          SetAdd: g_,
-          SetDel: Rr,
-          SetComplement: Dt,
-          EmptySet: fe,
-          FullSet: Ct,
-          isMember: Ce,
-          isSubset: zt,
+        const W = {
+          ptr: f,
+          name: B,
+          Solver: B_,
+          Optimize: L_,
+          Model: Pr,
+          Tactic: Jr,
+          AstVector: wt,
+          AstMap: D_,
+          interrupt: tt,
+          isModel: hr,
+          isAst: Ht,
+          isSort: xt,
+          isFuncDecl: Ot,
+          isFuncInterp: Wt,
+          isApp: et,
+          isConst: _t,
+          isExpr: X,
+          isVar: br,
+          isAppOf: it,
+          isBool: ft,
+          isTrue: Nt,
+          isFalse: Lr,
+          isAnd: Ur,
+          isOr: Xt,
+          isImplies: Fr,
+          isNot: Mr,
+          isEq: gr,
+          isDistinct: Ct,
+          isQuantifier: ut,
+          isArith: Pt,
+          isArithSort: Dr,
+          isInt: at,
+          isIntVal: kr,
+          isIntSort: m,
+          isReal: o,
+          isRealVal: s,
+          isRealSort: p,
+          isBitVecSort: w,
+          isBitVec: R,
+          isBitVecVal: v,
+          isArraySort: k,
+          isArray: $,
+          isConstArray: V,
+          isProbe: z,
+          isTactic: q,
+          isAstVector: sn,
+          eqIdentity: o_,
+          getVarIndex: s_,
+          from: J,
+          solve: u_,
+          Sort: c_,
+          Function: m_,
+          RecFunc: l_,
+          Bool: ct,
+          Int: mt,
+          Real: ot,
+          BitVec: dt,
+          Array: Kt,
+          Set: un,
+          Datatype: f_,
+          If: Cr,
+          Distinct: p_,
+          Const: an,
+          Consts: h_,
+          FreshConst: b_,
+          Var: g_,
+          Implies: qr,
+          Iff: zr,
+          Eq: O_,
+          Xor: Vr,
+          Not: Gr,
+          And: $r,
+          Or: Qr,
+          PbEq: P_,
+          PbGe: y_,
+          PbLe: E_,
+          ForAll: w_,
+          Exists: A_,
+          Lambda: R_,
+          ToReal: Yr,
+          ToInt: T_,
+          IsInt: v_,
+          Sqrt: S_,
+          Cbrt: I_,
+          BV2Int: Z_,
+          Int2BV: x_,
+          Concat: N_,
+          Cond: cn,
+          LT: mn,
+          GT: ln,
+          LE: fn,
+          GE: pn,
+          ULT: hn,
+          UGT: bn,
+          ULE: gn,
+          UGE: On,
+          SLT: Pn,
+          SGT: yn,
+          SLE: En,
+          SGE: wn,
+          Sum: te,
+          Sub: re,
+          Product: ee,
+          Div: ne,
+          BUDiv: Bn,
+          Neg: _e,
+          Mod: ie,
+          Select: jr,
+          Store: Hr,
+          Extract: An,
+          substitute: k_,
+          simplify: a_,
+          ast_from_string: C_,
+          SetUnion: Rn,
+          SetIntersect: Tn,
+          SetDifference: vn,
+          SetHasSize: Sn,
+          SetAdd: Wr,
+          SetDel: In,
+          SetComplement: Zn,
+          EmptySet: Xr,
+          FullSet: d_,
+          isMember: xn,
+          isSubset: Nn,
         };
-        return (B.register(w_, () => _.del_context(k)), w_);
+        return (S.register(W, () => a.del_context(f)), W);
       }
       return {
-        enableTrace: a,
-        disableTrace: V,
-        getVersion: s_,
-        getVersionString: M,
-        getFullVersion: K,
-        openLog: u,
-        appendLog: c,
-        getParam: j,
-        setParam: Z,
+        enableTrace: r,
+        disableTrace: d,
+        getVersion: M,
+        getVersionString: I,
+        getFullVersion: N,
+        openLog: _,
+        appendLog: n,
+        getParam: Z,
+        setParam: u,
         resetParams: A,
-        Context: o_,
+        Context: F,
       };
     }
-    return tr;
+    return _r;
   }
-  var ai;
-  function zi() {
+  var _n;
+  function Wn() {
     return (
-      ai ||
-        ((ai = 1),
-        (function (T) {
-          var y =
-              ($e && $e.__createBinding) ||
+      _n ||
+        ((_n = 1),
+        (function (g) {
+          var l =
+              (vt && vt.__createBinding) ||
               (Object.create
-                ? function (b, I, R, x) {
-                    x === void 0 && (x = R);
-                    var P = Object.getOwnPropertyDescriptor(I, R);
-                    ((!P || ("get" in P ? !I.__esModule : P.writable || P.configurable)) &&
-                      (P = {
+                ? function (c, P, y, O) {
+                    O === void 0 && (O = y);
+                    var b = Object.getOwnPropertyDescriptor(P, y);
+                    ((!b || ("get" in b ? !P.__esModule : b.writable || b.configurable)) &&
+                      (b = {
                         enumerable: !0,
                         get: function () {
-                          return I[R];
+                          return P[y];
                         },
                       }),
-                      Object.defineProperty(b, x, P));
+                      Object.defineProperty(c, O, b));
                   }
-                : function (b, I, R, x) {
-                    (x === void 0 && (x = R), (b[x] = I[R]));
+                : function (c, P, y, O) {
+                    (O === void 0 && (O = y), (c[O] = P[y]));
                   }),
             t =
-              ($e && $e.__exportStar) ||
-              function (b, I) {
-                for (var R in b) R !== "default" && !Object.prototype.hasOwnProperty.call(I, R) && y(I, b, R);
+              (vt && vt.__exportStar) ||
+              function (c, P) {
+                for (var y in c) y !== "default" && !Object.prototype.hasOwnProperty.call(P, y) && l(P, c, y);
               };
-          (Object.defineProperty(T, "__esModule", { value: !0 }), t(Ci(), T), t(lr(), T));
-        })($e)),
-      $e
+          (Object.defineProperty(g, "__esModule", { value: !0 }), t(Hn(), g), t(fr(), g));
+        })(vt)),
+      vt
     );
   }
-  var oi;
-  function ji() {
+  var on;
+  function Xn() {
     return (
-      oi ||
-        ((oi = 1),
-        (function (T) {
-          var y =
-              (Ge && Ge.__createBinding) ||
+      on ||
+        ((on = 1),
+        (function (g) {
+          var l =
+              (Tt && Tt.__createBinding) ||
               (Object.create
-                ? function (P, _, B, a) {
-                    a === void 0 && (a = B);
-                    var V = Object.getOwnPropertyDescriptor(_, B);
-                    ((!V || ("get" in V ? !_.__esModule : V.writable || V.configurable)) &&
-                      (V = {
+                ? function (O, b, a, S) {
+                    S === void 0 && (S = a);
+                    var r = Object.getOwnPropertyDescriptor(b, a);
+                    ((!r || ("get" in r ? !b.__esModule : r.writable || r.configurable)) &&
+                      (r = {
                         enumerable: !0,
                         get: function () {
-                          return _[B];
+                          return b[a];
                         },
                       }),
-                      Object.defineProperty(P, a, V));
+                      Object.defineProperty(O, S, r));
                   }
-                : function (P, _, B, a) {
-                    (a === void 0 && (a = B), (P[a] = _[B]));
+                : function (O, b, a, S) {
+                    (S === void 0 && (S = a), (O[S] = b[a]));
                   }),
             t =
-              (Ge && Ge.__exportStar) ||
-              function (P, _) {
-                for (var B in P) B !== "default" && !Object.prototype.hasOwnProperty.call(_, B) && y(_, P, B);
+              (Tt && Tt.__exportStar) ||
+              function (O, b) {
+                for (var a in O) a !== "default" && !Object.prototype.hasOwnProperty.call(b, a) && l(b, O, a);
               };
-          (Object.defineProperty(T, "__esModule", { value: !0 }), (T.init = x));
-          const b = Fi(),
-            I = zi(),
-            R = ti();
-          (t(lr(), T), t(Jn(), T));
-          async function x() {
-            const P = await (0, R.init)(b),
-              _ = (0, I.createApi)(P.Z3);
-            return { ...P, ..._ };
+          (Object.defineProperty(g, "__esModule", { value: !0 }), (g.init = y));
+          const c = Wn(),
+            P = tn();
+          (t(fr(), g), t(Xe(), g));
+          async function y() {
+            const O = Ft.initZ3;
+            if (O === void 0) throw new Error("initZ3 was not imported correctly. Please consult documentation on how to load Z3 in browser");
+            const b = await (0, P.init)(O),
+              a = (0, c.createApi)(b.Z3);
+            return { ...b, ...a };
           }
-        })(Ge)),
-      Ge
+        })(Tt)),
+      Tt
     );
   }
-  var jr = ji();
-  class Vr extends Error {
-    constructor(y) {
-      ((y = y === void 0 ? "Cannot solve state. Unable to make accurate predictions." : y),
-        super(y),
+  var dr = Xn();
+  class Br extends Error {
+    constructor(l) {
+      ((l = l === void 0 ? "Cannot solve state. Unable to make accurate predictions." : l),
+        super(l),
         (this.name = "UnsatError"),
         Object.setPrototypeOf(this, new.target.prototype));
     }
   }
-  class Vi extends Error {
-    constructor(y) {
-      (super(y), (this.name = "InsufficientSequenceLengthError"), Object.setPrototypeOf(this, new.target.prototype));
+  class Kn extends Error {
+    constructor(l) {
+      (super(l), (this.name = "InsufficientSequenceLengthError"), Object.setPrototypeOf(this, new.target.prototype));
     }
   }
-  function te(T) {
-    return T & 0xffffffffffffffffn;
+  function lt(g) {
+    return g & 0xffffffffffffffffn;
   }
-  class ve {
+  class gt {
     constructor() {}
-    static symbolic(y) {
-      let t = y[0];
-      ((t = t.xor(t.shl(23))), (t = t.xor(t.lshr(17))), (t = t.xor(y[1])), (t = t.xor(y[1].lshr(26))), (y[0] = y[1]), (y[1] = t));
+    static symbolic(l) {
+      let t = l[0];
+      ((t = t.xor(t.shl(23))), (t = t.xor(t.lshr(17))), (t = t.xor(l[1])), (t = t.xor(l[1].lshr(26))), (l[0] = l[1]), (l[1] = t));
     }
-    static symbolicArithmeticShiftRight(y) {
-      let t = y[0];
-      ((t = t.xor(t.shl(23))), (t = t.xor(t.shr(17))), (t = t.xor(y[1])), (t = t.xor(y[1].shr(26))), (y[0] = y[1]), (y[1] = t));
+    static symbolicArithmeticShiftRight(l) {
+      let t = l[0];
+      ((t = t.xor(t.shl(23))), (t = t.xor(t.shr(17))), (t = t.xor(l[1])), (t = t.xor(l[1].shr(26))), (l[0] = l[1]), (l[1] = t));
     }
-    static concreteBackwards(y) {
-      let t = y[1] ^ (y[0] >> 26n) ^ y[0];
-      ((t = te(t ^ (t >> 17n) ^ (t >> 34n) ^ (t >> 51n))), (t = te(t ^ (t << 23n) ^ (t << 46n))), (y[1] = y[0]), (y[0] = t));
+    static concreteBackwards(l) {
+      let t = l[1] ^ (l[0] >> 26n) ^ l[0];
+      ((t = lt(t ^ (t >> 17n) ^ (t >> 34n) ^ (t >> 51n))), (t = lt(t ^ (t << 23n) ^ (t << 46n))), (l[1] = l[0]), (l[0] = t));
     }
-    static concrete(y) {
-      let t = y[0];
-      ((t ^= te(t << 23n)), (t ^= te(t >> 17n)), (t ^= y[1]), (t ^= te(y[1] >> 26n)), (y[0] = y[1]), (y[1] = t));
+    static concrete(l) {
+      let t = l[0];
+      ((t ^= lt(t << 23n)), (t ^= lt(t >> 17n)), (t ^= l[1]), (t ^= lt(l[1] >> 26n)), (l[0] = l[1]), (l[1] = t));
     }
-    static concreteArithmeticShiftRight(y) {
-      let t = te(y[0]);
-      ((t ^= te(t << 23n)), (t ^= this.#t(t, 17n)), (t ^= y[1]), (t ^= this.#t(y[1], 26n)), (y[0] = y[1]), (y[1] = te(t)));
+    static concreteArithmeticShiftRight(l) {
+      let t = lt(l[0]);
+      ((t ^= lt(t << 23n)), (t ^= this.#e(t, 17n)), (t ^= l[1]), (t ^= this.#e(l[1], 26n)), (l[0] = l[1]), (l[1] = lt(t)));
     }
-    static #t(y, t) {
-      const b = te(y >> t);
-      if ((y & (1n << 63n)) === 0n) return b;
-      const R = ((1n << t) - 1n) << (64n - t);
-      return b | R;
-    }
-  }
-  class Gi {
-    #t = Math.pow(2, 53);
-    #_ = [0n, 0n];
-    constructor(y) {
-      this.sequence = y;
-    }
-    async predictNext() {
-      this.#_[0] === 0n && this.#_[1] === 0n && (await this.#e());
-      const y = this.#n(this.#_[0]);
-      return (ve.concreteBackwards(this.#_), y);
-    }
-    async #e() {
-      try {
-        const { Context: y } = await jr.init(),
-          t = y("main"),
-          b = new t.Solver(),
-          I = t.BitVec.const("ss0", 64),
-          R = t.BitVec.const("ss1", 64),
-          x = [I, R],
-          P = [...this.sequence].reverse();
-        for (const B of P) {
-          ve.symbolic(x);
-          const a = this.#r(B);
-          b.add(x[0].lshr(11).eq(t.BitVec.val(a, 64)));
-        }
-        if ((await b.check()) !== "sat") throw new Vr();
-        const _ = b.model();
-        this.#_ = [_.get(I).value(), _.get(R).value()];
-      } catch (y) {
-        return Promise.reject(y);
-      }
-    }
-    #r(y) {
-      const t = Math.floor(y * this.#t);
-      return BigInt(t);
-    }
-    #n(y) {
-      return Number(y >> 11n) / this.#t;
+    static #e(l, t) {
+      const c = lt(l >> t);
+      if ((l & (1n << 63n)) === 0n) return c;
+      const y = ((1n << t) - 1n) << (64n - t);
+      return c | y;
     }
   }
-  class $i {
-    #t = 0x1fffffffffffffn;
-    #_ = Math.pow(2, 53);
-    #e = [0n, 0n];
-    constructor(y) {
-      this.sequence = y;
+  class Jn {
+    #e = Math.pow(2, 53);
+    #t = [0n, 0n];
+    constructor(l) {
+      this.sequence = l;
     }
     async predictNext() {
-      return (this.#e[0] === 0n && this.#e[1] === 0n && (await this.#r()), ve.concrete(this.#e), this.#i(te(this.#e[0] + this.#e[1])));
+      this.#t[0] === 0n && this.#t[1] === 0n && (await this.#r());
+      const l = this.#_(this.#t[0]);
+      return (gt.concreteBackwards(this.#t), l);
     }
     async #r() {
       try {
-        const { Context: y } = await jr.init(),
-          t = y("main"),
-          b = new t.Solver(),
-          I = t.BitVec.const("ss0", 64),
-          R = t.BitVec.const("ss1", 64),
-          x = [I, R];
-        for (const B of this.sequence) {
-          ve.symbolic(x);
-          const a = this.#n(B),
-            V = x[0].add(x[1]).and(t.BitVec.val(this.#t, 64));
-          b.add(V.eq(t.BitVec.val(a, 64)));
+        const { Context: l } = await dr.init(),
+          t = l("main"),
+          c = new t.Solver(),
+          P = t.BitVec.const("ss0", 64),
+          y = t.BitVec.const("ss1", 64),
+          O = [P, y],
+          b = [...this.sequence].reverse();
+        for (const S of b) {
+          gt.symbolic(O);
+          const r = this.#n(S);
+          c.add(O[0].lshr(11).eq(t.BitVec.val(r, 64)));
         }
-        if ((await b.check()) !== "sat") throw new Vr();
-        const P = b.model(),
-          _ = [P.get(I).value(), P.get(R).value()];
-        for (const B of this.sequence) ve.concrete(_);
-        this.#e = _;
-      } catch (y) {
-        return Promise.reject(y);
+        if ((await c.check()) !== "sat") throw new Br();
+        const a = c.model();
+        this.#t = [a.get(P).value(), a.get(y).value()];
+      } catch (l) {
+        return Promise.reject(l);
       }
     }
-    #n(y) {
-      return BigInt(Math.floor(y * this.#_));
+    #n(l) {
+      const t = Math.floor(l * this.#e);
+      return BigInt(t);
     }
-    #i(y) {
-      return Number(y & this.#t) / this.#_;
+    #_(l) {
+      return Number(l >> 11n) / this.#e;
     }
   }
-  class Wi {
-    #t = 6;
-    #_ = [0n, 0n];
-    #e;
+  class t_ {
+    #e = 0x1fffffffffffffn;
+    #t = Math.pow(2, 53);
+    #r = [0n, 0n];
+    constructor(l) {
+      this.sequence = l;
+    }
+    async predictNext() {
+      return (this.#r[0] === 0n && this.#r[1] === 0n && (await this.#n()), gt.concrete(this.#r), this.#i(lt(this.#r[0] + this.#r[1])));
+    }
+    async #n() {
+      try {
+        const { Context: l } = await dr.init(),
+          t = l("main"),
+          c = new t.Solver(),
+          P = t.BitVec.const("ss0", 64),
+          y = t.BitVec.const("ss1", 64),
+          O = [P, y];
+        for (const S of this.sequence) {
+          gt.symbolic(O);
+          const r = this.#_(S),
+            d = O[0].add(O[1]).and(t.BitVec.val(this.#e, 64));
+          c.add(d.eq(t.BitVec.val(r, 64)));
+        }
+        if ((await c.check()) !== "sat") throw new Br();
+        const b = c.model(),
+          a = [b.get(P).value(), b.get(y).value()];
+        for (const S of this.sequence) gt.concrete(a);
+        this.#r = a;
+      } catch (l) {
+        return Promise.reject(l);
+      }
+    }
+    #_(l) {
+      return BigInt(Math.floor(l * this.#t));
+    }
+    #i(l) {
+      return Number(l & this.#e) / this.#t;
+    }
+  }
+  class r_ {
+    #e = 6;
+    #t = [0n, 0n];
     #r;
-    #n = 0x1fffffffffffffn;
+    #n;
+    #_ = 0x1fffffffffffffn;
     #i = Math.pow(2, 53);
-    constructor(y) {
-      if (y.length < this.#t) throw new Vi(`sequence length must be >= 6 : got ${y.length}`);
-      ((this.#e = (t) => ve.symbolicArithmeticShiftRight(t)), (this.#r = (t) => ve.concreteArithmeticShiftRight(t)), (this.sequence = y));
+    constructor(l) {
+      if (l.length < this.#e) throw new Kn(`sequence length must be >= 6 : got ${l.length}`);
+      ((this.#r = (t) => gt.symbolicArithmeticShiftRight(t)), (this.#n = (t) => gt.concreteArithmeticShiftRight(t)), (this.sequence = l));
     }
     async predictNext() {
       return (
-        this.#_[0] === 0n &&
-          this.#_[1] === 0n &&
-          (await this.#o(
-            () => this.#a(),
-            () => ((this.#e = (y) => ve.symbolic(y)), (this.#r = (y) => ve.concrete(y)), this.#a()),
+        this.#t[0] === 0n &&
+          this.#t[1] === 0n &&
+          (await this.#s(
+            () => this.#o(),
+            () => ((this.#r = (l) => gt.symbolic(l)), (this.#n = (l) => gt.concrete(l)), this.#o()),
           )),
-        this.#r(this.#_),
-        this.#u(te(this.#_[0] + this.#_[1]))
+        this.#n(this.#t),
+        this.#a(lt(this.#t[0] + this.#t[1]))
       );
     }
-    async #o(y, t) {
+    async #s(l, t) {
       try {
-        return await y();
+        return await l();
       } catch {
         return await t();
       }
     }
-    async #a() {
+    async #o() {
       try {
-        const { Context: y } = await jr.init(),
-          t = y("main"),
-          b = new t.Solver(),
-          I = t.BitVec.const("ss0", 64),
-          R = t.BitVec.const("ss1", 64),
-          x = [I, R];
-        for (const B of this.sequence) {
-          this.#e(x);
-          const a = this.#s(B),
-            V = x[0].add(x[1]).and(t.BitVec.val(this.#n, 64));
-          b.add(V.eq(t.BitVec.val(a, 64)));
+        const { Context: l } = await dr.init(),
+          t = l("main"),
+          c = new t.Solver(),
+          P = t.BitVec.const("ss0", 64),
+          y = t.BitVec.const("ss1", 64),
+          O = [P, y];
+        for (const S of this.sequence) {
+          this.#r(O);
+          const r = this.#u(S),
+            d = O[0].add(O[1]).and(t.BitVec.val(this.#_, 64));
+          c.add(d.eq(t.BitVec.val(r, 64)));
         }
-        if ((await b.check()) !== "sat") throw new Vr();
-        const P = b.model(),
-          _ = [P.get(I).value(), P.get(R).value()];
-        for (const B of this.sequence) this.#r(_);
-        this.#_ = _;
-      } catch (y) {
-        return Promise.reject(y);
+        if ((await c.check()) !== "sat") throw new Br();
+        const b = c.model(),
+          a = [b.get(P).value(), b.get(y).value()];
+        for (const S of this.sequence) this.#n(a);
+        this.#t = a;
+      } catch (l) {
+        return Promise.reject(l);
       }
     }
-    #s(y) {
-      return BigInt(Math.floor(y * this.#i));
+    #u(l) {
+      return BigInt(Math.floor(l * this.#i));
     }
-    #u(y) {
-      return Number(y & this.#n) / this.#i;
+    #a(l) {
+      return Number(l & this.#_) / this.#i;
     }
   }
-  const Hi = { firefox: (T) => new $i(T), chrome: (T) => new Gi(T), safari: (T) => new Wi(T) },
-    { firefox: Yi, safari: Qi, chrome: Xi } = Hi;
+  const e_ = { firefox: (g) => new t_(g), chrome: (g) => new Jn(g), safari: (g) => new r_(g) },
+    { firefox: n_, safari: __, chrome: i_ } = e_;
   return {
-    firefox: Yi,
-    safari: Qi,
-    chrome: Xi,
+    firefox: n_,
+    safari: __,
+    chrome: i_,
     init: async () => {
-      window.Buffer = Ii.Buffer;
+      window.Buffer = qn.Buffer;
     },
   };
 });
