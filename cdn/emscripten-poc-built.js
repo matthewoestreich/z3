@@ -1,15 +1,10 @@
 // This code implements the `-sMODULARIZE` settings by taking the generated
 // JS program code (INNER_JS_CODE) and wrapping it in a factory function.
 
-// Single threaded MINIMAL_RUNTIME programs do not need access to
-// document.currentScript, so a simple export declaration is enough.
-var emscriptenPOC = (() => {
-  // When MODULARIZE this JS may be executed later,
-  // after document.currentScript is gone, so we save it.
-  // In EXPORT_ES6 mode we can just use 'import.meta.url'.
-  var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;
-  return async function(moduleArg = {}) {
-    var moduleRtn;
+// When targetting node and ES6 we use `await import ..` in the generated code
+// so the outer function needs to be marked as async.
+async function emscriptenPOC(moduleArg = {}) {
+  var moduleRtn;
 
 // include: shell.js
 // The Module object: Our interface to the outside world. We import
@@ -47,6 +42,10 @@ var ENVIRONMENT_IS_NODE = typeof process == "object" && process.versions?.node &
 var ENVIRONMENT_IS_PTHREAD = ENVIRONMENT_IS_WORKER && self.name?.startsWith("em-pthread");
 
 if (ENVIRONMENT_IS_NODE) {
+  // When building an ES module `require` is not normally available.
+  // We need to use `createRequire()` to construct the require()` function.
+  const {createRequire} = await import("module");
+  /** @suppress{duplicate} */ var require = createRequire(import.meta.url);
   var worker_threads = require("worker_threads");
   global.Worker = worker_threads.Worker;
   ENVIRONMENT_IS_WORKER = !worker_threads.isMainThread;
@@ -65,12 +64,7 @@ var quit_ = (status, toThrow) => {
   throw toThrow;
 };
 
-if (typeof __filename != "undefined") {
-  // Node
-  _scriptName = __filename;
-} else if (ENVIRONMENT_IS_WORKER) {
-  _scriptName = self.location.href;
-}
+var _scriptName = import.meta.url;
 
 // `/` should be present at the end if `scriptDirectory` is not empty
 var scriptDirectory = "";
@@ -89,7 +83,9 @@ if (ENVIRONMENT_IS_NODE) {
   // These modules will usually be used on Node.js. Load them eagerly to avoid
   // the complexity of lazy-loading.
   var fs = require("fs");
-  scriptDirectory = __dirname + "/";
+  if (_scriptName.startsWith("file:")) {
+    scriptDirectory = require("path").dirname(require("url").fileURLToPath(_scriptName)) + "/";
+  }
   // include: node_shell_read.js
   readBinary = filename => {
     // We need to re-wrap `file://` strings to URLs.
@@ -477,7 +473,11 @@ function postRun() {
 var wasmBinaryFile;
 
 function findWasmBinary() {
-  return locateFile("emscripten-poc-built.wasm");
+  if (Module["locateFile"]) {
+    return locateFile("emscripten-poc-built.wasm");
+  }
+  // Use bundler-friendly `new URL(..., import.meta.url)` pattern; works in browsers too.
+  return new URL("emscripten-poc-built.wasm", import.meta.url).href;
 }
 
 function getBinarySync(file) {
@@ -913,16 +913,28 @@ var PThread = {
   },
   allocateUnusedWorker() {
     var worker;
-    var pthreadMainJs = _scriptName;
-    // We can't use makeModuleReceiveWithVar here since we want to also
-    // call URL.createObjectURL on the mainScriptUrlOrBlob.
+    // If we're using module output, use bundler-friendly pattern.
     if (Module["mainScriptUrlOrBlob"]) {
-      pthreadMainJs = Module["mainScriptUrlOrBlob"];
+      var pthreadMainJs = Module["mainScriptUrlOrBlob"];
       if (typeof pthreadMainJs != "string") {
         pthreadMainJs = URL.createObjectURL(pthreadMainJs);
       }
-    }
-    worker = new Worker(pthreadMainJs, {
+      worker = new Worker(pthreadMainJs, {
+        "type": "module",
+        // This is the way that we signal to the node worker that it is hosting
+        // a pthread.
+        "workerData": "em-pthread",
+        // This is the way that we signal to the Web Worker that it is hosting
+        // a pthread.
+        "name": "em-pthread"
+      });
+    } else // We need to generate the URL with import.meta.url as the base URL of the JS file
+    // instead of just using new URL(import.meta.url) because bundler's only recognize
+    // the first case in their bundling step. The latter ends up producing an invalid
+    // URL to import from the server (e.g., for webpack the file:// path).
+    // See https://github.com/webpack/webpack/issues/12638
+    worker = new Worker(new URL("emscripten-poc-built.js", import.meta.url), {
+      "type": "module",
       // This is the way that we signal to the node worker that it is hosting
       // a pthread.
       "workerData": "em-pthread",
@@ -1535,18 +1547,11 @@ if (runtimeInitialized) {
 }
 
 
-    return moduleRtn;
-  };
-})();
+  return moduleRtn;
+}
 
 // Export using a UMD style export, or ES6 exports if selected
-if (typeof exports === 'object' && typeof module === 'object') {
-  module.exports = emscriptenPOC;
-  // This default export looks redundant, but it allows TS to import this
-  // commonjs style module.
-  module.exports.default = emscriptenPOC;
-} else if (typeof define === 'function' && define['amd'])
-  define([], () => emscriptenPOC);
+export default emscriptenPOC;
 
 // Create code for detecting if we are running in a pthread.
 // Normally this detection is done when the module is itself run but
@@ -1555,7 +1560,7 @@ if (typeof exports === 'object' && typeof module === 'object') {
 var isPthread = globalThis.self?.name?.startsWith('em-pthread');
 // In order to support both web and node we also need to detect node here.
 var isNode = typeof process == 'object' && process.versions?.node && process.type != 'renderer';
-if (isNode) isPthread = require('worker_threads').workerData === 'em-pthread'
+if (isNode) isPthread = (await import('worker_threads')).workerData === 'em-pthread'
 
 isPthread && emscriptenPOC();
 
