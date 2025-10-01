@@ -57,16 +57,7 @@ var emscriptenPOC = (() => {
 
 		// --pre-jses are emitted after the Module integration code, so that they can
 		// refer to Module (if they choose; they can also define Module)
-		Module["locateFile"] = (path, prefix) => {
-			console.log({ step: "locateFile", path, prefix });
-			if (path.endsWith(".wasm")) {
-				//const returning = "emscripten-poc-built.wasm";
-				const returning = "https://z3-tawny.vercel.app/emscripten-poc-built.wasm";
-				return returning;
-			}
-			return prefix + path;
-		};
-    
+
 		var arguments_ = [];
 
 		var thisProgram = "./this.program";
