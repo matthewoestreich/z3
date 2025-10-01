@@ -585,6 +585,7 @@ async function createWasm() {
     return receiveInstance(instance, wasmModule);
   }
   wasmBinaryFile ??= findWasmBinary();
+  console.log({ wasmBinary, wasmBinaryFile, info });
   var result = await instantiateAsync(wasmBinary, wasmBinaryFile, info);
   var exports = receiveInstantiationResult(result);
   return exports;
@@ -918,7 +919,6 @@ var PThread = {
     // call URL.createObjectURL on the mainScriptUrlOrBlob.
     if (Module["mainScriptUrlOrBlob"]) {
       pthreadMainJs = Module["mainScriptUrlOrBlob"];
-      console.log({pthreadMainJs});
       if (typeof pthreadMainJs != "string") {
         pthreadMainJs = URL.createObjectURL(pthreadMainJs);
       }
@@ -931,7 +931,6 @@ var PThread = {
       // a pthread.
       "name": "em-pthread"
     });
-    console.log({ worker });
     PThread.unusedWorkers.push(worker);
   },
   getNewWorker() {
