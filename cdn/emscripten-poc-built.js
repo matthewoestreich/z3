@@ -57,6 +57,10 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
+// include: pre-js.js
+Module["mainScriptUrlOrBlob"] = "https://z3-tawny.vercel.app/emscripten-poc-built.js";
+
+// end include: pre-js.js
 var arguments_ = [];
 
 var thisProgram = "./this.program";
