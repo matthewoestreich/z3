@@ -11,7 +11,7 @@ const { redText, blueText, greenText, yellowText } = require("./consoleColors");
 try {
   const src = path.resolve(__dirname, "../src/api/js/build/browser");
   const dest = path.resolve(__dirname, "../cdn");
-  const distDest = path.resolve(__dirname, "../dist/browser");
+  const distDest = path.resolve(__dirname, "../dist/build/browser");
   console.log(blueText(`\n[INFO][postbuild.browser.js] Copying built files\n\tFROM: ${src}\n\tTO: '${dest}'`));
   fs.cpSync(src, dest, { recursive: true });
   console.log(blueText(`\n[INFO][postbuild.browser.js] Copying built files\n\tFROM: ${src}\n\tTO: '${distDest}'`));
@@ -22,7 +22,7 @@ try {
 
 /**
  * 
- * STEP 2. Copy vercel.json into CDN folder
+ * STEP 2. Copy vercel.json into "~/cdn" folder from "~/jsrp/vercel.json"
  * 
  */
 

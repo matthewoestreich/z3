@@ -1,10 +1,10 @@
 {
   "name": "z3-solver-jsrp",
-  "version": "4.15.4",
+  "version": "4.15.3-republish.1",
   "description": "z3-solver fork used in js-randomness-predictor",
-  "browser": "dist/build/browser.js",
-  "main": "dist/build/node.js",
-  "types": "dist/build/node.d.ts",
+  "browser": "dist/build/browser/browser.js",
+  "main": "dist/build/server/node.js",
+  "types": "dist/build/server/node.d.ts",
   "files": [
     "dist",
     "README.md",
@@ -17,8 +17,8 @@
   "scripts": {
     "prepublishOnly": "npm run build:server && npm run build:browser",
     "install:js": "cd src/api/js && npm install",
-    "build:server": "rm -rf dist && npm run server:prebuild && npm --prefix ./src/api/js run build:server:src:api:js && npm run server:postbuild",
-    "build:browser": "npm run browser:prebuild && npm --prefix ./src/api/js run build:browser:src:api:js && npm run browser:postbuild",
+    "build:server": "rm -rf dist/build/server && npm run server:prebuild && npm --prefix ./src/api/js run build:server:src:api:js && npm run server:postbuild",
+    "build:browser": "rm -rf dist/build/browser && rm -rf cdn && npm run browser:prebuild && npm --prefix ./src/api/js run build:browser:src:api:js && npm run browser:postbuild",
     "browser:prebuild": "node jsrp/prebuild.browser.js",
     "browser:postbuild": "node jsrp/postbuild.browser.js",
     "server:prebuild": "node jsrp/prebuild.server.js",
