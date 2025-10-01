@@ -1,16 +1,3 @@
-// This code implements the `-sMODULARIZE` settings by taking the generated
-// JS program code (INNER_JS_CODE) and wrapping it in a factory function.
-
-// Single threaded MINIMAL_RUNTIME programs do not need access to
-// document.currentScript, so a simple export declaration is enough.
-var emscriptenPOC = (() => {
-  // When MODULARIZE this JS may be executed later,
-  // after document.currentScript is gone, so we save it.
-  // In EXPORT_ES6 mode we can just use 'import.meta.url'.
-  var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;
-  return async function(moduleArg = {}) {
-    var moduleRtn;
-
 // include: shell.js
 // The Module object: Our interface to the outside world. We import
 // and export values on it. There are various ways Module can be used:
@@ -25,7 +12,7 @@ var emscriptenPOC = (() => {
 // after the generated code, you will need to define   var Module = {};
 // before the code. Then that object will be used in the code, and you
 // can continue to use Module afterwards as well.
-var Module = moduleArg;
+var Module = typeof emscriptenPOC != "undefined" ? emscriptenPOC : {};
 
 // Determine the runtime environment we are in. You can customize this by
 // setting the ENVIRONMENT setting at compile time (see settings.js).
@@ -57,10 +44,6 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: pre-js.js
-Module["mainScriptUrlOrBlob"] = "./build/emscripten-poc-built.js";
-
-// end include: pre-js.js
 var arguments_ = [];
 
 var thisProgram = "./this.program";
@@ -68,6 +51,10 @@ var thisProgram = "./this.program";
 var quit_ = (status, toThrow) => {
   throw toThrow;
 };
+
+// In MODULARIZE mode _scriptName needs to be captured already at the very top of the page immediately when the page is parsed, so it is generated there
+// before the page load. In non-MODULARIZE modes generate it here.
+var _scriptName = typeof document != "undefined" ? document.currentScript?.src : undefined;
 
 if (typeof __filename != "undefined") {
   // Node
@@ -112,6 +99,10 @@ if (ENVIRONMENT_IS_NODE) {
     thisProgram = process.argv[1].replace(/\\/g, "/");
   }
   arguments_ = process.argv.slice(2);
+  // MODULARIZE will export the module in the proper place outside, we don't need to export here
+  if (typeof module != "undefined") {
+    module["exports"] = Module;
+  }
   quit_ = (status, toThrow) => {
     process.exitCode = status;
     throw toThrow;
@@ -230,8 +221,6 @@ var EXITSTATUS;
 // end include: runtime_exceptions.js
 // include: runtime_debug.js
 // end include: runtime_debug.js
-var readyPromiseResolve, readyPromiseReject;
-
 if (ENVIRONMENT_IS_NODE && (ENVIRONMENT_IS_PTHREAD)) {
   // Create as web-worker-like an environment as we can.
   var parentPort = worker_threads["parentPort"];
@@ -471,7 +460,6 @@ function postRun() {
   // though it can.
   // TODO(https://github.com/google/closure-compiler/pull/3913): Remove if/when upstream closure gets fixed.
   /** @suppress {checkTypes} */ var e = new WebAssembly.RuntimeError(what);
-  readyPromiseReject?.(e);
   // Throw the error whether or not MODULARIZE is set because abort is used
   // in code paths apart from instantiation where an exception is expected
   // to be thrown when abort is called.
@@ -560,8 +548,10 @@ async function createWasm() {
     // We now have the Wasm module loaded up, keep a reference to the compiled module so we can post it to the workers.
     wasmModule = module;
     assignWasmExports(wasmExports);
+    removeRunDependency("wasm-instantiate");
     return wasmExports;
   }
+  addRunDependency("wasm-instantiate");
   // Prefer streaming instantiation if available.
   function receiveInstantiationResult(result) {
     // 'result' is a ResultObject object which has both the module and instance.
@@ -1477,7 +1467,6 @@ function run() {
     return;
   }
   if ((ENVIRONMENT_IS_PTHREAD)) {
-    readyPromiseResolve?.(Module);
     initRuntime();
     return;
   }
@@ -1494,7 +1483,6 @@ function run() {
     if (ABORT) return;
     initRuntime();
     preMain();
-    readyPromiseResolve?.(Module);
     Module["onRuntimeInitialized"]?.();
     var noInitialRun = Module["noInitialRun"] || false;
     if (!noInitialRun) callMain();
@@ -1516,50 +1504,8 @@ var wasmExports;
 if ((!(ENVIRONMENT_IS_PTHREAD))) {
   // Call createWasm on startup if we are the main thread.
   // Worker threads call this once they receive the module via postMessage
-  // In modularize mode the generated code is within a factory function so we
-  // can use await here (since it's not top-level-await).
-  wasmExports = await (createWasm());
+  // With async instantation wasmExports is assigned asynchronously when the
+  // instance is received.
+  createWasm();
   run();
 }
-
-// end include: postamble.js
-// include: postamble_modularize.js
-// In MODULARIZE mode we wrap the generated code in a factory function
-// and return either the Module itself, or a promise of the module.
-// We assign to the `moduleRtn` global here and configure closure to see
-// this as and extern so it won't get minified.
-if (runtimeInitialized) {
-  moduleRtn = Module;
-} else {
-  // Set up the promise that indicates the Module is initialized
-  moduleRtn = new Promise((resolve, reject) => {
-    readyPromiseResolve = resolve;
-    readyPromiseReject = reject;
-  });
-}
-
-
-    return moduleRtn;
-  };
-})();
-
-// Export using a UMD style export, or ES6 exports if selected
-if (typeof exports === 'object' && typeof module === 'object') {
-  module.exports = emscriptenPOC;
-  // This default export looks redundant, but it allows TS to import this
-  // commonjs style module.
-  module.exports.default = emscriptenPOC;
-} else if (typeof define === 'function' && define['amd'])
-  define([], () => emscriptenPOC);
-
-// Create code for detecting if we are running in a pthread.
-// Normally this detection is done when the module is itself run but
-// when running in MODULARIZE mode we need use this to know if we should
-// run the module constructor on startup (true only for pthreads).
-var isPthread = globalThis.self?.name?.startsWith('em-pthread');
-// In order to support both web and node we also need to detect node here.
-var isNode = typeof process == 'object' && process.versions?.node && process.type != 'renderer';
-if (isNode) isPthread = require('worker_threads').workerData === 'em-pthread'
-
-isPthread && emscriptenPOC();
-
