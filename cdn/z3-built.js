@@ -65,47 +65,46 @@ if (ENVIRONMENT_IS_NODE) {
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
 // include: src/low-level/async-wrapper.js
-// this wrapper works with async-fns to provide promise-based off-thread versions of some functions
-// It's prepended directly by emscripten to the resulting z3-built.js
+// This runs before the main Emscripten module
+var Module = Module || {};
 
-let threadTimeouts = [];
-
-let capability = null;
-function resolve_async(val) {
-  // setTimeout is a workaround for https://github.com/emscripten-core/emscripten/issues/15900
-  if (capability == null) {
-    return;
+Module.locateFile = function(path) {
+  if (path.endsWith('.wasm')) {
+    // Fetch the WASM from your CDN automatically
+    return 'https://z3-tawny.vercel.app/z3-built.wasm';
   }
-  let cap = capability;
-  capability = null;
-
-  setTimeout(() => {
-    cap.resolve(val);
-  }, 0);
-}
-
-function reject_async(val) {
-  if (capability == null) {
-    return;
-  }
-  let cap = capability;
-  capability = null;
-
-  setTimeout(() => {
-    cap.reject(val);
-  }, 0);
-}
-
-Module.async_call = function (f, ...args) {
-  if (capability !== null) {
-    throw new Error(`you can't execute multiple async functions at the same time; let the previous one finish first`);
-  }
-  let promise = new Promise((resolve, reject) => {
-    capability = { resolve, reject };
-  });
-  f(...args);
-  return promise;
+  return path;
 };
+
+// Wrap everything in a global IIFE
+(function() {
+  // Save the original factory exported by Emscripten
+  var originalInit = window.initZ3;
+
+  if (!originalInit) {
+    console.warn('initZ3 not found — make sure z3-built.js is included first');
+    return;
+  }
+
+  // Auto-initialize module
+  window.Z3 = {
+    ready: originalInit().then(function(z3Module) {
+      // Optionally attach low-level and high-level APIs here
+      // If you already have initWrapper and createApi in your fork
+      if (window.initWrapper && window.createApi) {
+        return window.initWrapper(() => z3Module).then(function(lowLevel) {
+          var highLevel = window.createApi(lowLevel.Z3);
+          var fullAPI = Object.assign({}, lowLevel, highLevel);
+          window.Z3.module = fullAPI; // attach to global
+          return fullAPI;
+        });
+      }
+      // Otherwise just attach the raw module
+      window.Z3.module = z3Module;
+      return z3Module;
+    }),
+  };
+})();
 // end include: src/low-level/async-wrapper.js
 
 
@@ -236,7 +235,7 @@ if (ENVIRONMENT_IS_WORKER) {
         xhr.send(null);
       });
     }
-    var response = await fetch(url, { credentials: "omit", mode: "cors" });
+    var response = await fetch(url, { credentials: 'same-origin' });
     if (response.ok) {
       return response.arrayBuffer();
     }
@@ -893,7 +892,7 @@ async function instantiateAsync(binary, binaryFile, imports) {
       && !ENVIRONMENT_IS_NODE
      ) {
     try {
-      var response = fetch(binaryFile, { credentials: "omit", mode: "cors" });
+      var response = fetch(binaryFile, { credentials: 'same-origin' });
       var instantiationResult = await WebAssembly.instantiateStreaming(response, imports);
       return instantiationResult;
     } catch (reason) {
@@ -1338,13 +1337,10 @@ async function createWasm() {
         // We can't use makeModuleReceiveWithVar here since we want to also
         // call URL.createObjectURL on the mainScriptUrlOrBlob.
         if (Module['mainScriptUrlOrBlob']) {
-          console.log("Module['mainScriptUrlOrBlob] is true", { "Module['mainScriptUrlOrBlob]": Module['mainScriptUrlOrBlob'] });
           pthreadMainJs = Module['mainScriptUrlOrBlob'];
           if (typeof pthreadMainJs != 'string') {
             pthreadMainJs = URL.createObjectURL(pthreadMainJs);
           }
-        } else {
-          console.log("Module['mainScriptUrlOrBlob] is false", { "Module['mainScriptUrlOrBlob]": Module['mainScriptUrlOrBlob'] });
         }
         worker = new Worker(pthreadMainJs, {
           // This is the way that we signal to the node worker that it is hosting
