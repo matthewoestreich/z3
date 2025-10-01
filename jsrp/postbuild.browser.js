@@ -4,17 +4,20 @@ const { redText, blueText, greenText, yellowText } = require("./consoleColors");
 
 /**
  * 
- * STEP 1. Copy built js files (from "src/api/js/build") to project root (to "/dist/build/browser")
+ * STEP 1. Copy built js files (from "src/api/js/build") to project root (to "/dist/build/browser") and to cdn (<at_project_root>/cdn)
  * 
  */
 
 try {
   const src = path.resolve(__dirname, "../src/api/js/build/browser");
   const dest = path.resolve(__dirname, "../cdn");
+  const distDest = path.resolve(__dirname, "../dist/browser");
   console.log(blueText(`\n[INFO][postbuild.browser.js] Copying built files\n\tFROM: ${src}\n\tTO: '${dest}'`));
   fs.cpSync(src, dest, { recursive: true });
+  console.log(blueText(`\n[INFO][postbuild.browser.js] Copying built files\n\tFROM: ${src}\n\tTO: '${distDest}'`));
+  fs.cpSync(src, distDest, { recursive: true });
 } catch (e) {
-  console.log(redText("\n[ERROR][postbuild.browser.js] Something went wrong copying built js file into dest! src=", src, "dest=", dest, e.message));
+  console.log(redText("\n[ERROR][postbuild.browser.js] Something went wrong copying built js file into 'dist/browser' or '/cdn'!", e.message));
 }
 
 /**
