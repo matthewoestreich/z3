@@ -1,15 +1,10 @@
-// This code implements the `-sMODULARIZE` settings by taking the generated
-// JS program code (INNER_JS_CODE) and wrapping it in a factory function.
 
-// Single threaded MINIMAL_RUNTIME programs do not need access to
-// document.currentScript, so a simple export declaration is enough.
 var initZ3 = (() => {
-  // When MODULARIZE this JS may be executed later,
-  // after document.currentScript is gone, so we save it.
-  // In EXPORT_ES6 mode we can just use 'import.meta.url'.
   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;
-  return async function(moduleArg = {}) {
-    var moduleRtn;
+  if (typeof __filename != 'undefined') _scriptName = _scriptName || __filename;
+  return (
+function(moduleArg = {}) {
+  var moduleRtn;
 
 // include: shell.js
 // The Module object: Our interface to the outside world. We import
@@ -27,6 +22,21 @@ var initZ3 = (() => {
 // can continue to use Module afterwards as well.
 var Module = moduleArg;
 
+// Set up the promise that indicates the Module is initialized
+var readyPromiseResolve, readyPromiseReject;
+var readyPromise = new Promise((resolve, reject) => {
+  readyPromiseResolve = resolve;
+  readyPromiseReject = reject;
+});
+["_malloc","_free","_set_throwy_error_handler","_set_noop_error_handler","_async_Z3_eval_smtlib2_string","_async_Z3_simplify","_async_Z3_simplify_ex","_async_Z3_solver_check","_async_Z3_solver_check_assumptions","_async_Z3_solver_cube","_async_Z3_solver_get_consequences","_async_Z3_tactic_apply","_async_Z3_tactic_apply_ex","_async_Z3_optimize_check","_async_Z3_algebraic_roots","_async_Z3_algebraic_eval","_async_Z3_fixedpoint_query","_async_Z3_fixedpoint_query_relations","_async_Z3_fixedpoint_query_from_lvl","_async_Z3_polynomial_subresultants","_Z3_global_param_set","_Z3_global_param_reset_all","_Z3_global_param_get","_Z3_mk_config","_Z3_del_config","_Z3_set_param_value","_Z3_mk_context","_Z3_mk_context_rc","_Z3_del_context","_Z3_inc_ref","_Z3_dec_ref","_Z3_update_param_value","_Z3_get_global_param_descrs","_Z3_interrupt","_Z3_enable_concurrent_dec_ref","_Z3_mk_params","_Z3_params_inc_ref","_Z3_params_dec_ref","_Z3_params_set_bool","_Z3_params_set_uint","_Z3_params_set_double","_Z3_params_set_symbol","_Z3_params_to_string","_Z3_params_validate","_Z3_param_descrs_inc_ref","_Z3_param_descrs_dec_ref","_Z3_param_descrs_get_kind","_Z3_param_descrs_size","_Z3_param_descrs_get_name","_Z3_param_descrs_get_documentation","_Z3_param_descrs_to_string","_Z3_mk_int_symbol","_Z3_mk_string_symbol","_Z3_mk_uninterpreted_sort","_Z3_mk_type_variable","_Z3_mk_bool_sort","_Z3_mk_int_sort","_Z3_mk_real_sort","_Z3_mk_bv_sort","_Z3_mk_finite_domain_sort","_Z3_mk_array_sort","_Z3_mk_array_sort_n","_Z3_mk_tuple_sort","_Z3_mk_enumeration_sort","_Z3_mk_list_sort","_Z3_mk_constructor","_Z3_constructor_num_fields","_Z3_del_constructor","_Z3_mk_datatype","_Z3_mk_datatype_sort","_Z3_mk_constructor_list","_Z3_del_constructor_list","_Z3_mk_datatypes","_Z3_query_constructor","_Z3_mk_func_decl","_Z3_mk_app","_Z3_mk_const","_Z3_mk_fresh_func_decl","_Z3_mk_fresh_const","_Z3_mk_rec_func_decl","_Z3_add_rec_def","_Z3_mk_true","_Z3_mk_false","_Z3_mk_eq","_Z3_mk_distinct","_Z3_mk_not","_Z3_mk_ite","_Z3_mk_iff","_Z3_mk_implies","_Z3_mk_xor","_Z3_mk_and","_Z3_mk_or","_Z3_mk_add","_Z3_mk_mul","_Z3_mk_sub","_Z3_mk_unary_minus","_Z3_mk_div","_Z3_mk_mod","_Z3_mk_rem","_Z3_mk_power","_Z3_mk_abs","_Z3_mk_lt","_Z3_mk_le","_Z3_mk_gt","_Z3_mk_ge","_Z3_mk_divides","_Z3_mk_int2real","_Z3_mk_real2int","_Z3_mk_is_int","_Z3_mk_bvnot","_Z3_mk_bvredand","_Z3_mk_bvredor","_Z3_mk_bvand","_Z3_mk_bvor","_Z3_mk_bvxor","_Z3_mk_bvnand","_Z3_mk_bvnor","_Z3_mk_bvxnor","_Z3_mk_bvneg","_Z3_mk_bvadd","_Z3_mk_bvsub","_Z3_mk_bvmul","_Z3_mk_bvudiv","_Z3_mk_bvsdiv","_Z3_mk_bvurem","_Z3_mk_bvsrem","_Z3_mk_bvsmod","_Z3_mk_bvult","_Z3_mk_bvslt","_Z3_mk_bvule","_Z3_mk_bvsle","_Z3_mk_bvuge","_Z3_mk_bvsge","_Z3_mk_bvugt","_Z3_mk_bvsgt","_Z3_mk_concat","_Z3_mk_extract","_Z3_mk_sign_ext","_Z3_mk_zero_ext","_Z3_mk_repeat","_Z3_mk_bit2bool","_Z3_mk_bvshl","_Z3_mk_bvlshr","_Z3_mk_bvashr","_Z3_mk_rotate_left","_Z3_mk_rotate_right","_Z3_mk_ext_rotate_left","_Z3_mk_ext_rotate_right","_Z3_mk_int2bv","_Z3_mk_bv2int","_Z3_mk_bvadd_no_overflow","_Z3_mk_bvadd_no_underflow","_Z3_mk_bvsub_no_overflow","_Z3_mk_bvsub_no_underflow","_Z3_mk_bvsdiv_no_overflow","_Z3_mk_bvneg_no_overflow","_Z3_mk_bvmul_no_overflow","_Z3_mk_bvmul_no_underflow","_Z3_mk_select","_Z3_mk_select_n","_Z3_mk_store","_Z3_mk_store_n","_Z3_mk_const_array","_Z3_mk_map","_Z3_mk_array_default","_Z3_mk_as_array","_Z3_mk_set_has_size","_Z3_mk_set_sort","_Z3_mk_empty_set","_Z3_mk_full_set","_Z3_mk_set_add","_Z3_mk_set_del","_Z3_mk_set_union","_Z3_mk_set_intersect","_Z3_mk_set_difference","_Z3_mk_set_complement","_Z3_mk_set_member","_Z3_mk_set_subset","_Z3_mk_array_ext","_Z3_mk_numeral","_Z3_mk_real","_Z3_mk_real_int64","_Z3_mk_int","_Z3_mk_unsigned_int","_Z3_mk_int64","_Z3_mk_unsigned_int64","_Z3_mk_bv_numeral","_Z3_mk_seq_sort","_Z3_is_seq_sort","_Z3_get_seq_sort_basis","_Z3_mk_re_sort","_Z3_is_re_sort","_Z3_get_re_sort_basis","_Z3_mk_string_sort","_Z3_mk_char_sort","_Z3_is_string_sort","_Z3_is_char_sort","_Z3_mk_string","_Z3_mk_lstring","_Z3_mk_u32string","_Z3_is_string","_Z3_get_string","_Z3_get_lstring","_Z3_get_string_length","_Z3_get_string_contents","_Z3_mk_seq_empty","_Z3_mk_seq_unit","_Z3_mk_seq_concat","_Z3_mk_seq_prefix","_Z3_mk_seq_suffix","_Z3_mk_seq_contains","_Z3_mk_str_lt","_Z3_mk_str_le","_Z3_mk_seq_extract","_Z3_mk_seq_replace","_Z3_mk_seq_at","_Z3_mk_seq_nth","_Z3_mk_seq_length","_Z3_mk_seq_index","_Z3_mk_seq_last_index","_Z3_mk_seq_map","_Z3_mk_seq_mapi","_Z3_mk_seq_foldl","_Z3_mk_seq_foldli","_Z3_mk_str_to_int","_Z3_mk_int_to_str","_Z3_mk_string_to_code","_Z3_mk_string_from_code","_Z3_mk_ubv_to_str","_Z3_mk_sbv_to_str","_Z3_mk_seq_to_re","_Z3_mk_seq_in_re","_Z3_mk_re_plus","_Z3_mk_re_star","_Z3_mk_re_option","_Z3_mk_re_union","_Z3_mk_re_concat","_Z3_mk_re_range","_Z3_mk_re_allchar","_Z3_mk_re_loop","_Z3_mk_re_power","_Z3_mk_re_intersect","_Z3_mk_re_complement","_Z3_mk_re_diff","_Z3_mk_re_empty","_Z3_mk_re_full","_Z3_mk_char","_Z3_mk_char_le","_Z3_mk_char_to_int","_Z3_mk_char_to_bv","_Z3_mk_char_from_bv","_Z3_mk_char_is_digit","_Z3_mk_linear_order","_Z3_mk_partial_order","_Z3_mk_piecewise_linear_order","_Z3_mk_tree_order","_Z3_mk_transitive_closure","_Z3_mk_pattern","_Z3_mk_bound","_Z3_mk_forall","_Z3_mk_exists","_Z3_mk_quantifier","_Z3_mk_quantifier_ex","_Z3_mk_forall_const","_Z3_mk_exists_const","_Z3_mk_quantifier_const","_Z3_mk_quantifier_const_ex","_Z3_mk_lambda","_Z3_mk_lambda_const","_Z3_get_symbol_kind","_Z3_get_symbol_int","_Z3_get_symbol_string","_Z3_get_sort_name","_Z3_get_sort_id","_Z3_sort_to_ast","_Z3_is_eq_sort","_Z3_get_sort_kind","_Z3_get_bv_sort_size","_Z3_get_finite_domain_sort_size","_Z3_get_array_arity","_Z3_get_array_sort_domain","_Z3_get_array_sort_domain_n","_Z3_get_array_sort_range","_Z3_get_tuple_sort_mk_decl","_Z3_get_tuple_sort_num_fields","_Z3_get_tuple_sort_field_decl","_Z3_is_recursive_datatype_sort","_Z3_get_datatype_sort_num_constructors","_Z3_get_datatype_sort_constructor","_Z3_get_datatype_sort_recognizer","_Z3_get_datatype_sort_constructor_accessor","_Z3_datatype_update_field","_Z3_get_relation_arity","_Z3_get_relation_column","_Z3_mk_atmost","_Z3_mk_atleast","_Z3_mk_pble","_Z3_mk_pbge","_Z3_mk_pbeq","_Z3_func_decl_to_ast","_Z3_is_eq_func_decl","_Z3_get_func_decl_id","_Z3_get_decl_name","_Z3_get_decl_kind","_Z3_get_domain_size","_Z3_get_arity","_Z3_get_domain","_Z3_get_range","_Z3_get_decl_num_parameters","_Z3_get_decl_parameter_kind","_Z3_get_decl_int_parameter","_Z3_get_decl_double_parameter","_Z3_get_decl_symbol_parameter","_Z3_get_decl_sort_parameter","_Z3_get_decl_ast_parameter","_Z3_get_decl_func_decl_parameter","_Z3_get_decl_rational_parameter","_Z3_app_to_ast","_Z3_get_app_decl","_Z3_get_app_num_args","_Z3_get_app_arg","_Z3_is_eq_ast","_Z3_get_ast_id","_Z3_get_ast_hash","_Z3_get_sort","_Z3_is_well_sorted","_Z3_get_bool_value","_Z3_get_ast_kind","_Z3_is_app","_Z3_is_ground","_Z3_get_depth","_Z3_is_numeral_ast","_Z3_is_algebraic_number","_Z3_to_app","_Z3_to_func_decl","_Z3_get_numeral_string","_Z3_get_numeral_binary_string","_Z3_get_numeral_decimal_string","_Z3_get_numeral_double","_Z3_get_numerator","_Z3_get_denominator","_Z3_get_numeral_small","_Z3_get_numeral_int","_Z3_get_numeral_uint","_Z3_get_numeral_uint64","_Z3_get_numeral_int64","_Z3_get_numeral_rational_int64","_Z3_get_algebraic_number_lower","_Z3_get_algebraic_number_upper","_Z3_pattern_to_ast","_Z3_get_pattern_num_terms","_Z3_get_pattern","_Z3_get_index_value","_Z3_is_quantifier_forall","_Z3_is_quantifier_exists","_Z3_is_lambda","_Z3_get_quantifier_weight","_Z3_get_quantifier_skolem_id","_Z3_get_quantifier_id","_Z3_get_quantifier_num_patterns","_Z3_get_quantifier_pattern_ast","_Z3_get_quantifier_num_no_patterns","_Z3_get_quantifier_no_pattern_ast","_Z3_get_quantifier_num_bound","_Z3_get_quantifier_bound_name","_Z3_get_quantifier_bound_sort","_Z3_get_quantifier_body","_Z3_simplify","_Z3_simplify_ex","_Z3_simplify_get_help","_Z3_simplify_get_param_descrs","_Z3_update_term","_Z3_substitute","_Z3_substitute_vars","_Z3_substitute_funs","_Z3_translate","_Z3_mk_model","_Z3_model_inc_ref","_Z3_model_dec_ref","_Z3_model_eval","_Z3_model_get_const_interp","_Z3_model_has_interp","_Z3_model_get_func_interp","_Z3_model_get_num_consts","_Z3_model_get_const_decl","_Z3_model_get_num_funcs","_Z3_model_get_func_decl","_Z3_model_get_num_sorts","_Z3_model_get_sort","_Z3_model_get_sort_universe","_Z3_model_translate","_Z3_is_as_array","_Z3_get_as_array_func_decl","_Z3_add_func_interp","_Z3_add_const_interp","_Z3_func_interp_inc_ref","_Z3_func_interp_dec_ref","_Z3_func_interp_get_num_entries","_Z3_func_interp_get_entry","_Z3_func_interp_get_else","_Z3_func_interp_set_else","_Z3_func_interp_get_arity","_Z3_func_interp_add_entry","_Z3_func_entry_inc_ref","_Z3_func_entry_dec_ref","_Z3_func_entry_get_value","_Z3_func_entry_get_num_args","_Z3_func_entry_get_arg","_Z3_open_log","_Z3_append_log","_Z3_close_log","_Z3_toggle_warning_messages","_Z3_set_ast_print_mode","_Z3_ast_to_string","_Z3_pattern_to_string","_Z3_sort_to_string","_Z3_func_decl_to_string","_Z3_model_to_string","_Z3_benchmark_to_smtlib_string","_Z3_parse_smtlib2_string","_Z3_parse_smtlib2_file","_Z3_eval_smtlib2_string","_Z3_mk_parser_context","_Z3_parser_context_inc_ref","_Z3_parser_context_dec_ref","_Z3_parser_context_add_sort","_Z3_parser_context_add_decl","_Z3_parser_context_from_string","_Z3_get_error_code","_Z3_set_error","_Z3_get_error_msg","_Z3_get_version","_Z3_get_full_version","_Z3_enable_trace","_Z3_disable_trace","_Z3_reset_memory","_Z3_finalize_memory","_Z3_mk_goal","_Z3_goal_inc_ref","_Z3_goal_dec_ref","_Z3_goal_precision","_Z3_goal_assert","_Z3_goal_inconsistent","_Z3_goal_depth","_Z3_goal_reset","_Z3_goal_size","_Z3_goal_formula","_Z3_goal_num_exprs","_Z3_goal_is_decided_sat","_Z3_goal_is_decided_unsat","_Z3_goal_translate","_Z3_goal_convert_model","_Z3_goal_to_string","_Z3_goal_to_dimacs_string","_Z3_mk_tactic","_Z3_tactic_inc_ref","_Z3_tactic_dec_ref","_Z3_mk_probe","_Z3_probe_inc_ref","_Z3_probe_dec_ref","_Z3_tactic_and_then","_Z3_tactic_or_else","_Z3_tactic_par_or","_Z3_tactic_par_and_then","_Z3_tactic_try_for","_Z3_tactic_when","_Z3_tactic_cond","_Z3_tactic_repeat","_Z3_tactic_skip","_Z3_tactic_fail","_Z3_tactic_fail_if","_Z3_tactic_fail_if_not_decided","_Z3_tactic_using_params","_Z3_mk_simplifier","_Z3_simplifier_inc_ref","_Z3_simplifier_dec_ref","_Z3_solver_add_simplifier","_Z3_simplifier_and_then","_Z3_simplifier_using_params","_Z3_get_num_simplifiers","_Z3_get_simplifier_name","_Z3_simplifier_get_help","_Z3_simplifier_get_param_descrs","_Z3_simplifier_get_descr","_Z3_probe_const","_Z3_probe_lt","_Z3_probe_gt","_Z3_probe_le","_Z3_probe_ge","_Z3_probe_eq","_Z3_probe_and","_Z3_probe_or","_Z3_probe_not","_Z3_get_num_tactics","_Z3_get_tactic_name","_Z3_get_num_probes","_Z3_get_probe_name","_Z3_tactic_get_help","_Z3_tactic_get_param_descrs","_Z3_tactic_get_descr","_Z3_probe_get_descr","_Z3_probe_apply","_Z3_tactic_apply","_Z3_tactic_apply_ex","_Z3_apply_result_inc_ref","_Z3_apply_result_dec_ref","_Z3_apply_result_to_string","_Z3_apply_result_get_num_subgoals","_Z3_apply_result_get_subgoal","_Z3_mk_solver","_Z3_mk_simple_solver","_Z3_mk_solver_for_logic","_Z3_mk_solver_from_tactic","_Z3_solver_translate","_Z3_solver_import_model_converter","_Z3_solver_get_help","_Z3_solver_get_param_descrs","_Z3_solver_set_params","_Z3_solver_inc_ref","_Z3_solver_dec_ref","_Z3_solver_interrupt","_Z3_solver_push","_Z3_solver_pop","_Z3_solver_reset","_Z3_solver_get_num_scopes","_Z3_solver_assert","_Z3_solver_assert_and_track","_Z3_solver_from_file","_Z3_solver_from_string","_Z3_solver_get_assertions","_Z3_solver_get_units","_Z3_solver_get_trail","_Z3_solver_get_non_units","_Z3_solver_get_levels","_Z3_solver_congruence_root","_Z3_solver_congruence_next","_Z3_solver_congruence_explain","_Z3_solver_solve_for","_Z3_solver_register_on_clause","_Z3_solver_propagate_init","_Z3_solver_propagate_fixed","_Z3_solver_propagate_final","_Z3_solver_propagate_eq","_Z3_solver_propagate_diseq","_Z3_solver_propagate_created","_Z3_solver_propagate_decide","_Z3_solver_propagate_on_binding","_Z3_solver_next_split","_Z3_solver_propagate_declare","_Z3_solver_propagate_register","_Z3_solver_propagate_register_cb","_Z3_solver_propagate_consequence","_Z3_solver_set_initial_value","_Z3_solver_check","_Z3_solver_check_assumptions","_Z3_get_implied_equalities","_Z3_solver_get_consequences","_Z3_solver_cube","_Z3_solver_get_model","_Z3_solver_get_proof","_Z3_solver_get_unsat_core","_Z3_solver_get_reason_unknown","_Z3_solver_get_statistics","_Z3_solver_to_string","_Z3_solver_to_dimacs_string","_Z3_stats_to_string","_Z3_stats_inc_ref","_Z3_stats_dec_ref","_Z3_stats_size","_Z3_stats_get_key","_Z3_stats_is_uint","_Z3_stats_is_double","_Z3_stats_get_uint_value","_Z3_stats_get_double_value","_Z3_get_estimated_alloc_size","_Z3_algebraic_is_value","_Z3_algebraic_is_pos","_Z3_algebraic_is_neg","_Z3_algebraic_is_zero","_Z3_algebraic_sign","_Z3_algebraic_add","_Z3_algebraic_sub","_Z3_algebraic_mul","_Z3_algebraic_div","_Z3_algebraic_root","_Z3_algebraic_power","_Z3_algebraic_lt","_Z3_algebraic_gt","_Z3_algebraic_le","_Z3_algebraic_ge","_Z3_algebraic_eq","_Z3_algebraic_neq","_Z3_algebraic_roots","_Z3_algebraic_eval","_Z3_algebraic_get_poly","_Z3_algebraic_get_i","_Z3_mk_ast_vector","_Z3_ast_vector_inc_ref","_Z3_ast_vector_dec_ref","_Z3_ast_vector_size","_Z3_ast_vector_get","_Z3_ast_vector_set","_Z3_ast_vector_resize","_Z3_ast_vector_push","_Z3_ast_vector_translate","_Z3_ast_vector_to_string","_Z3_mk_ast_map","_Z3_ast_map_inc_ref","_Z3_ast_map_dec_ref","_Z3_ast_map_contains","_Z3_ast_map_find","_Z3_ast_map_insert","_Z3_ast_map_erase","_Z3_ast_map_reset","_Z3_ast_map_size","_Z3_ast_map_keys","_Z3_ast_map_to_string","_Z3_mk_fixedpoint","_Z3_fixedpoint_inc_ref","_Z3_fixedpoint_dec_ref","_Z3_fixedpoint_add_rule","_Z3_fixedpoint_add_fact","_Z3_fixedpoint_assert","_Z3_fixedpoint_query","_Z3_fixedpoint_query_relations","_Z3_fixedpoint_get_answer","_Z3_fixedpoint_get_reason_unknown","_Z3_fixedpoint_update_rule","_Z3_fixedpoint_get_num_levels","_Z3_fixedpoint_get_cover_delta","_Z3_fixedpoint_add_cover","_Z3_fixedpoint_get_statistics","_Z3_fixedpoint_register_relation","_Z3_fixedpoint_set_predicate_representation","_Z3_fixedpoint_get_rules","_Z3_fixedpoint_get_assertions","_Z3_fixedpoint_set_params","_Z3_fixedpoint_get_help","_Z3_fixedpoint_get_param_descrs","_Z3_fixedpoint_to_string","_Z3_fixedpoint_from_string","_Z3_fixedpoint_from_file","_Z3_mk_fpa_rounding_mode_sort","_Z3_mk_fpa_round_nearest_ties_to_even","_Z3_mk_fpa_rne","_Z3_mk_fpa_round_nearest_ties_to_away","_Z3_mk_fpa_rna","_Z3_mk_fpa_round_toward_positive","_Z3_mk_fpa_rtp","_Z3_mk_fpa_round_toward_negative","_Z3_mk_fpa_rtn","_Z3_mk_fpa_round_toward_zero","_Z3_mk_fpa_rtz","_Z3_mk_fpa_sort","_Z3_mk_fpa_sort_half","_Z3_mk_fpa_sort_16","_Z3_mk_fpa_sort_single","_Z3_mk_fpa_sort_32","_Z3_mk_fpa_sort_double","_Z3_mk_fpa_sort_64","_Z3_mk_fpa_sort_quadruple","_Z3_mk_fpa_sort_128","_Z3_mk_fpa_nan","_Z3_mk_fpa_inf","_Z3_mk_fpa_zero","_Z3_mk_fpa_fp","_Z3_mk_fpa_numeral_float","_Z3_mk_fpa_numeral_double","_Z3_mk_fpa_numeral_int","_Z3_mk_fpa_numeral_int_uint","_Z3_mk_fpa_numeral_int64_uint64","_Z3_mk_fpa_abs","_Z3_mk_fpa_neg","_Z3_mk_fpa_add","_Z3_mk_fpa_sub","_Z3_mk_fpa_mul","_Z3_mk_fpa_div","_Z3_mk_fpa_fma","_Z3_mk_fpa_sqrt","_Z3_mk_fpa_rem","_Z3_mk_fpa_round_to_integral","_Z3_mk_fpa_min","_Z3_mk_fpa_max","_Z3_mk_fpa_leq","_Z3_mk_fpa_lt","_Z3_mk_fpa_geq","_Z3_mk_fpa_gt","_Z3_mk_fpa_eq","_Z3_mk_fpa_is_normal","_Z3_mk_fpa_is_subnormal","_Z3_mk_fpa_is_zero","_Z3_mk_fpa_is_infinite","_Z3_mk_fpa_is_nan","_Z3_mk_fpa_is_negative","_Z3_mk_fpa_is_positive","_Z3_mk_fpa_to_fp_bv","_Z3_mk_fpa_to_fp_float","_Z3_mk_fpa_to_fp_real","_Z3_mk_fpa_to_fp_signed","_Z3_mk_fpa_to_fp_unsigned","_Z3_mk_fpa_to_ubv","_Z3_mk_fpa_to_sbv","_Z3_mk_fpa_to_real","_Z3_fpa_get_ebits","_Z3_fpa_get_sbits","_Z3_fpa_is_numeral_nan","_Z3_fpa_is_numeral_inf","_Z3_fpa_is_numeral_zero","_Z3_fpa_is_numeral_normal","_Z3_fpa_is_numeral_subnormal","_Z3_fpa_is_numeral_positive","_Z3_fpa_is_numeral_negative","_Z3_fpa_get_numeral_sign_bv","_Z3_fpa_get_numeral_significand_bv","_Z3_fpa_get_numeral_sign","_Z3_fpa_get_numeral_significand_string","_Z3_fpa_get_numeral_significand_uint64","_Z3_fpa_get_numeral_exponent_string","_Z3_fpa_get_numeral_exponent_int64","_Z3_fpa_get_numeral_exponent_bv","_Z3_mk_fpa_to_ieee_bv","_Z3_mk_fpa_to_fp_int_real","_Z3_mk_optimize","_Z3_optimize_inc_ref","_Z3_optimize_dec_ref","_Z3_optimize_assert","_Z3_optimize_assert_and_track","_Z3_optimize_assert_soft","_Z3_optimize_maximize","_Z3_optimize_minimize","_Z3_optimize_push","_Z3_optimize_pop","_Z3_optimize_set_initial_value","_Z3_optimize_check","_Z3_optimize_get_reason_unknown","_Z3_optimize_get_model","_Z3_optimize_get_unsat_core","_Z3_optimize_set_params","_Z3_optimize_get_param_descrs","_Z3_optimize_get_lower","_Z3_optimize_get_upper","_Z3_optimize_get_lower_as_vector","_Z3_optimize_get_upper_as_vector","_Z3_optimize_to_string","_Z3_optimize_from_string","_Z3_optimize_from_file","_Z3_optimize_get_help","_Z3_optimize_get_statistics","_Z3_optimize_get_assertions","_Z3_optimize_get_objectives","_Z3_polynomial_subresultants","_Z3_rcf_del","_Z3_rcf_mk_rational","_Z3_rcf_mk_small_int","_Z3_rcf_mk_pi","_Z3_rcf_mk_e","_Z3_rcf_mk_infinitesimal","_Z3_rcf_mk_roots","_Z3_rcf_add","_Z3_rcf_sub","_Z3_rcf_mul","_Z3_rcf_div","_Z3_rcf_neg","_Z3_rcf_inv","_Z3_rcf_power","_Z3_rcf_lt","_Z3_rcf_gt","_Z3_rcf_le","_Z3_rcf_ge","_Z3_rcf_eq","_Z3_rcf_neq","_Z3_rcf_num_to_string","_Z3_rcf_num_to_decimal_string","_Z3_rcf_get_numerator_denominator","_Z3_rcf_is_rational","_Z3_rcf_is_algebraic","_Z3_rcf_is_infinitesimal","_Z3_rcf_is_transcendental","_Z3_rcf_extension_index","_Z3_rcf_transcendental_name","_Z3_rcf_infinitesimal_name","_Z3_rcf_num_coefficients","_Z3_rcf_coefficient","_Z3_rcf_interval","_Z3_rcf_num_sign_conditions","_Z3_rcf_sign_condition_sign","_Z3_rcf_num_sign_condition_coefficients","_Z3_rcf_sign_condition_coefficient","_Z3_fixedpoint_query_from_lvl","_Z3_fixedpoint_get_ground_sat_answer","_Z3_fixedpoint_get_rules_along_trace","_Z3_fixedpoint_get_rule_names_along_trace","_Z3_fixedpoint_add_invariant","_Z3_fixedpoint_get_reachable","_Z3_qe_model_project","_Z3_qe_model_project_skolem","_Z3_qe_model_project_with_witness","_Z3_model_extrapolate","_Z3_qe_lite","getExceptionMessage","incrementExceptionRefcount","decrementExceptionRefcount","___indirect_function_table","onRuntimeInitialized"].forEach((prop) => {
+  if (!Object.getOwnPropertyDescriptor(readyPromise, prop)) {
+    Object.defineProperty(readyPromise, prop, {
+      get: () => abort('You are getting ' + prop + ' on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js'),
+      set: () => abort('You are setting ' + prop + ' on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js'),
+    });
+  }
+});
+
 // Determine the runtime environment we are in. You can customize this by
 // setting the ENVIRONMENT setting at compile time (see settings.js).
 
@@ -35,7 +45,7 @@ var ENVIRONMENT_IS_WEB = typeof window == 'object';
 var ENVIRONMENT_IS_WORKER = typeof WorkerGlobalScope != 'undefined';
 // N.b. Electron.js environment is simultaneously a NODE-environment, but
 // also a web environment.
-var ENVIRONMENT_IS_NODE = typeof process == 'object' && process.versions?.node && process.type != 'renderer';
+var ENVIRONMENT_IS_NODE = typeof process == 'object' && typeof process.versions == 'object' && typeof process.versions.node == 'string' && process.type != 'renderer';
 var ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONMENT_IS_WORKER;
 
 // Three configurations we can be running in:
@@ -53,6 +63,10 @@ if (ENVIRONMENT_IS_PTHREAD) {
 }
 
 if (ENVIRONMENT_IS_NODE) {
+  // `require()` is no-op in an ESM module, use `createRequire()` to construct
+  // the require()` function.  This is only necessary for multi-environment
+  // builds, `-sENVIRONMENT=node` emits a static import declaration instead.
+  // TODO: Swap all `require()`'s with `import()`'s?
 
   var worker_threads = require('worker_threads');
   global.Worker = worker_threads.Worker;
@@ -64,7 +78,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: src/low-level/async-wrapper.js
+// include: /home/runner/work/z3/z3/src/api/js/src/low-level/async-wrapper.js
 // this wrapper works with async-fns to provide promise-based off-thread versions of some functions
 // It's prepended directly by emscripten to the resulting z3-built.js
 
@@ -106,21 +120,21 @@ Module.async_call = function (f, ...args) {
   f(...args);
   return promise;
 };
-// end include: src/low-level/async-wrapper.js
+// end include: /home/runner/work/z3/z3/src/api/js/src/low-level/async-wrapper.js
 
+
+// Sometimes an existing Module object exists with properties
+// meant to overwrite the default module functionality. Here
+// we collect those properties and reapply _after_ we configure
+// the current environment's defaults to avoid having to be so
+// defensive during initialization.
+var moduleOverrides = Object.assign({}, Module);
 
 var arguments_ = [];
 var thisProgram = './this.program';
 var quit_ = (status, toThrow) => {
   throw toThrow;
 };
-
-if (typeof __filename != 'undefined') { // Node
-  _scriptName = __filename;
-} else
-if (ENVIRONMENT_IS_WORKER) {
-  _scriptName = self.location.href;
-}
 
 // `/` should be present at the end if `scriptDirectory` is not empty
 var scriptDirectory = '';
@@ -135,44 +149,51 @@ function locateFile(path) {
 var readAsync, readBinary;
 
 if (ENVIRONMENT_IS_NODE) {
-  const isNode = typeof process == 'object' && process.versions?.node && process.type != 'renderer';
-  if (!isNode) throw new Error('not compiled for this environment (did you build to HTML and try to run it not on the web, or set ENVIRONMENT to something - like node - and run it someplace else - like on the web?)');
+  if (typeof process == 'undefined' || !process.release || process.release.name !== 'node') throw new Error('not compiled for this environment (did you build to HTML and try to run it not on the web, or set ENVIRONMENT to something - like node - and run it someplace else - like on the web?)');
 
   var nodeVersion = process.versions.node;
   var numericVersion = nodeVersion.split('.').slice(0, 3);
   numericVersion = (numericVersion[0] * 10000) + (numericVersion[1] * 100) + (numericVersion[2].split('-')[0] * 1);
-  if (numericVersion < 160400) {
-    throw new Error('This emscripten-generated code requires node v16.04.4.0 (detected v' + nodeVersion + ')');
+  var minVersion = 160000;
+  if (numericVersion < 160000) {
+    throw new Error('This emscripten-generated code requires node v16.0.0 (detected v' + nodeVersion + ')');
   }
 
   // These modules will usually be used on Node.js. Load them eagerly to avoid
   // the complexity of lazy-loading.
   var fs = require('fs');
+  var nodePath = require('path');
 
   scriptDirectory = __dirname + '/';
 
 // include: node_shell_read.js
 readBinary = (filename) => {
-  // We need to re-wrap `file://` strings to URLs.
-  filename = isFileURI(filename) ? new URL(filename) : filename;
+  // We need to re-wrap `file://` strings to URLs. Normalizing isn't
+  // necessary in that case, the path should already be absolute.
+  filename = isFileURI(filename) ? new URL(filename) : nodePath.normalize(filename);
   var ret = fs.readFileSync(filename);
-  assert(Buffer.isBuffer(ret));
+  assert(ret.buffer);
   return ret;
 };
 
-readAsync = async (filename, binary = true) => {
+readAsync = (filename, binary = true) => {
   // See the comment in the `readBinary` function.
-  filename = isFileURI(filename) ? new URL(filename) : filename;
-  var ret = fs.readFileSync(filename, binary ? undefined : 'utf8');
-  assert(binary ? Buffer.isBuffer(ret) : typeof ret == 'string');
-  return ret;
+  filename = isFileURI(filename) ? new URL(filename) : nodePath.normalize(filename);
+  return new Promise((resolve, reject) => {
+    fs.readFile(filename, binary ? undefined : 'utf8', (err, data) => {
+      if (err) reject(err);
+      else resolve(binary ? data.buffer : data);
+    });
+  });
 };
 // end include: node_shell_read.js
-  if (process.argv.length > 1) {
+  if (!Module['thisProgram'] && process.argv.length > 1) {
     thisProgram = process.argv[1].replace(/\\/g, '/');
   }
 
   arguments_ = process.argv.slice(2);
+
+  // MODULARIZE will export the module in the proper place outside, we don't need to export here
 
   quit_ = (status, toThrow) => {
     process.exitCode = status;
@@ -182,8 +203,7 @@ readAsync = async (filename, binary = true) => {
 } else
 if (ENVIRONMENT_IS_SHELL) {
 
-  const isNode = typeof process == 'object' && process.versions?.node && process.type != 'renderer';
-  if (isNode || typeof window == 'object' || typeof WorkerGlobalScope != 'undefined') throw new Error('not compiled for this environment (did you build to HTML and try to run it not on the web, or set ENVIRONMENT to something - like node - and run it someplace else - like on the web?)');
+  if ((typeof process == 'object' && typeof require === 'function') || typeof window == 'object' || typeof WorkerGlobalScope != 'undefined') throw new Error('not compiled for this environment (did you build to HTML and try to run it not on the web, or set ENVIRONMENT to something - like node - and run it someplace else - like on the web?)');
 
 } else
 
@@ -191,11 +211,26 @@ if (ENVIRONMENT_IS_SHELL) {
 // Node.js workers are detected as a combination of ENVIRONMENT_IS_WORKER and
 // ENVIRONMENT_IS_NODE.
 if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
-  try {
-    scriptDirectory = new URL('.', _scriptName).href; // includes trailing slash
-  } catch {
-    // Must be a `blob:` or `data:` URL (e.g. `blob:http://site.com/etc/etc`), we cannot
-    // infer anything from them.
+  if (ENVIRONMENT_IS_WORKER) { // Check worker, not web, since window could be polyfilled
+    scriptDirectory = self.location.href;
+  } else if (typeof document != 'undefined' && document.currentScript) { // web
+    scriptDirectory = document.currentScript.src;
+  }
+  // When MODULARIZE, this JS may be executed later, after document.currentScript
+  // is gone, so we saved it, and we use it here instead of any other info.
+  if (_scriptName) {
+    scriptDirectory = _scriptName;
+  }
+  // blob urls look like blob:http://site.com/etc/etc and we cannot infer anything from them.
+  // otherwise, slice off the final part of the url to find the script directory.
+  // if scriptDirectory does not contain a slash, lastIndexOf will return -1,
+  // and scriptDirectory will correctly be replaced with an empty string.
+  // If scriptDirectory contains a query (starting with ?) or a fragment (starting with #),
+  // they are removed because they could contain a slash.
+  if (scriptDirectory.startsWith('blob:')) {
+    scriptDirectory = '';
+  } else {
+    scriptDirectory = scriptDirectory.substr(0, scriptDirectory.replace(/[?#].*/, '').lastIndexOf('/')+1);
   }
 
   if (!(typeof window == 'object' || typeof WorkerGlobalScope != 'undefined')) throw new Error('not compiled for this environment (did you build to HTML and try to run it not on the web, or set ENVIRONMENT to something - like node - and run it someplace else - like on the web?)');
@@ -215,7 +250,7 @@ if (ENVIRONMENT_IS_WORKER) {
     };
   }
 
-  readAsync = async (url) => {
+  readAsync = (url) => {
     // Fetch has some additional restrictions over XHR, like it can't be used on a file:// url.
     // See https://github.com/github/fetch/pull/92#issuecomment-140665932
     // Cordova or Electron apps are typically loaded from a file:// url.
@@ -236,11 +271,13 @@ if (ENVIRONMENT_IS_WORKER) {
         xhr.send(null);
       });
     }
-    var response = await fetch(url, { credentials: 'same-origin' });
-    if (response.ok) {
-      return response.arrayBuffer();
-    }
-    throw new Error(response.status + ' : ' + response.url);
+    return fetch(url, { credentials: 'same-origin' })
+      .then((response) => {
+        if (response.ok) {
+          return response.arrayBuffer();
+        }
+        return Promise.reject(new Error(response.status + ' : ' + response.url));
+      })
   };
 // end include: web_or_worker_shell_read.js
   }
@@ -258,14 +295,43 @@ if (ENVIRONMENT_IS_WORKER) {
 var defaultPrint = console.log.bind(console);
 var defaultPrintErr = console.error.bind(console);
 if (ENVIRONMENT_IS_NODE) {
-  var utils = require('util');
-  var stringify = (a) => typeof a == 'object' ? utils.inspect(a) : a;
-  defaultPrint = (...args) => fs.writeSync(1, args.map(stringify).join(' ') + '\n');
-  defaultPrintErr = (...args) => fs.writeSync(2, args.map(stringify).join(' ') + '\n');
+  defaultPrint = (...args) => fs.writeSync(1, args.join(' ') + '\n');
+  defaultPrintErr = (...args) => fs.writeSync(2, args.join(' ') + '\n');
 }
-var out = defaultPrint;
-var err = defaultPrintErr;
+var out = Module['print'] || defaultPrint;
+var err = Module['printErr'] || defaultPrintErr;
 
+// Merge back in the overrides
+Object.assign(Module, moduleOverrides);
+// Free the object hierarchy contained in the overrides, this lets the GC
+// reclaim data used.
+moduleOverrides = null;
+checkIncomingModuleAPI();
+
+// Emit code to handle expected values on the Module object. This applies Module.x
+// to the proper local x. This has two benefits: first, we only emit it if it is
+// expected to arrive, and second, by using a local everywhere else that can be
+// minified.
+
+if (Module['arguments']) arguments_ = Module['arguments'];legacyModuleProp('arguments', 'arguments_');
+
+if (Module['thisProgram']) thisProgram = Module['thisProgram'];legacyModuleProp('thisProgram', 'thisProgram');
+
+// perform assertions in shell.js after we set up out() and err(), as otherwise if an assertion fails it cannot print the message
+// Assertions on removed incoming Module JS APIs.
+assert(typeof Module['memoryInitializerPrefixURL'] == 'undefined', 'Module.memoryInitializerPrefixURL option was removed, use Module.locateFile instead');
+assert(typeof Module['pthreadMainPrefixURL'] == 'undefined', 'Module.pthreadMainPrefixURL option was removed, use Module.locateFile instead');
+assert(typeof Module['cdInitializerPrefixURL'] == 'undefined', 'Module.cdInitializerPrefixURL option was removed, use Module.locateFile instead');
+assert(typeof Module['filePackagePrefixURL'] == 'undefined', 'Module.filePackagePrefixURL option was removed, use Module.locateFile instead');
+assert(typeof Module['read'] == 'undefined', 'Module.read option was removed');
+assert(typeof Module['readAsync'] == 'undefined', 'Module.readAsync option was removed (modify readAsync in JS)');
+assert(typeof Module['readBinary'] == 'undefined', 'Module.readBinary option was removed (modify readBinary in JS)');
+assert(typeof Module['setWindowTitle'] == 'undefined', 'Module.setWindowTitle option was removed (modify emscripten_set_window_title in JS)');
+assert(typeof Module['TOTAL_MEMORY'] == 'undefined', 'Module.TOTAL_MEMORY has been renamed Module.INITIAL_MEMORY');
+legacyModuleProp('asm', 'wasmExports');
+legacyModuleProp('readAsync', 'readAsync');
+legacyModuleProp('readBinary', 'readBinary');
+legacyModuleProp('setWindowTitle', 'setWindowTitle');
 var IDBFS = 'IDBFS is no longer included by default; build with -lidbfs.js';
 var PROXYFS = 'PROXYFS is no longer included by default; build with -lproxyfs.js';
 var WORKERFS = 'WORKERFS is no longer included by default; build with -lworkerfs.js';
@@ -276,8 +342,6 @@ var OPFS = 'OPFS is no longer included by default; build with -lopfs.js';
 
 var NODEFS = 'NODEFS is no longer included by default; build with -lnodefs.js';
 
-// perform assertions in shell.js after we set up out() and err(), as otherwise
-// if an assertion fails it cannot print the message
 assert(
   ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER || ENVIRONMENT_IS_NODE, 'Pthreads do not work in this environment yet (need Web Workers, or an alternative to them)');
 
@@ -296,13 +360,15 @@ assert(!ENVIRONMENT_IS_SHELL, 'shell environment detected but not enabled at bui
 // An online HTML version (which may be of a different version of Emscripten)
 //    is up at http://kripken.github.io/emscripten-site/docs/api_reference/preamble.js.html
 
-var wasmBinary;
+var wasmBinary = Module['wasmBinary'];legacyModuleProp('wasmBinary', 'wasmBinary');
 
 if (typeof WebAssembly != 'object') {
   err('no native wasm support detected');
 }
 
 // Wasm globals
+
+var wasmMemory;
 
 // For sending to workers.
 var wasmModule;
@@ -334,13 +400,232 @@ function assert(condition, text) {
 // We used to include malloc/free by default in the past. Show a helpful error in
 // builds with assertions.
 
-/**
- * Indicates whether filename is delivered via file protocol (as opposed to http/https)
- * @noinline
- */
-var isFileURI = (filename) => filename.startsWith('file://');
+// Memory management
 
-// include: runtime_common.js
+var HEAP,
+/** @type {!Int8Array} */
+  HEAP8,
+/** @type {!Uint8Array} */
+  HEAPU8,
+/** @type {!Int16Array} */
+  HEAP16,
+/** @type {!Uint16Array} */
+  HEAPU16,
+/** @type {!Int32Array} */
+  HEAP32,
+/** @type {!Uint32Array} */
+  HEAPU32,
+/** @type {!Float32Array} */
+  HEAPF32,
+/* BigInt64Array type is not correctly defined in closure
+/** not-@type {!BigInt64Array} */
+  HEAP64,
+/* BigUint64Array type is not correctly defined in closure
+/** not-t@type {!BigUint64Array} */
+  HEAPU64,
+/** @type {!Float64Array} */
+  HEAPF64;
+
+// include: runtime_shared.js
+function updateMemoryViews() {
+  var b = wasmMemory.buffer;
+  Module['HEAP8'] = HEAP8 = new Int8Array(b);
+  Module['HEAP16'] = HEAP16 = new Int16Array(b);
+  Module['HEAPU8'] = HEAPU8 = new Uint8Array(b);
+  Module['HEAPU16'] = HEAPU16 = new Uint16Array(b);
+  Module['HEAP32'] = HEAP32 = new Int32Array(b);
+  Module['HEAPU32'] = HEAPU32 = new Uint32Array(b);
+  Module['HEAPF32'] = HEAPF32 = new Float32Array(b);
+  Module['HEAPF64'] = HEAPF64 = new Float64Array(b);
+  Module['HEAP64'] = HEAP64 = new BigInt64Array(b);
+  Module['HEAPU64'] = HEAPU64 = new BigUint64Array(b);
+}
+
+// end include: runtime_shared.js
+// include: runtime_pthread.js
+// Pthread Web Worker handling code.
+// This code runs only on pthread web workers and handles pthread setup
+// and communication with the main thread via postMessage.
+
+// Unique ID of the current pthread worker (zero on non-pthread-workers
+// including the main thread).
+var workerID = 0;
+
+if (ENVIRONMENT_IS_PTHREAD) {
+  var wasmModuleReceived;
+
+  // Node.js support
+  if (ENVIRONMENT_IS_NODE) {
+    // Create as web-worker-like an environment as we can.
+
+    var parentPort = worker_threads['parentPort'];
+    parentPort.on('message', (msg) => onmessage({ data: msg }));
+
+    Object.assign(globalThis, {
+      self: global,
+      postMessage: (msg) => parentPort.postMessage(msg),
+    });
+  }
+
+  // Thread-local guard variable for one-time init of the JS state
+  var initializedJS = false;
+
+  function threadPrintErr(...args) {
+    var text = args.join(' ');
+    // See https://github.com/emscripten-core/emscripten/issues/14804
+    if (ENVIRONMENT_IS_NODE) {
+      fs.writeSync(2, text + '\n');
+      return;
+    }
+    console.error(text);
+  }
+
+  if (!Module['printErr'])
+    err = threadPrintErr;
+  dbg = threadPrintErr;
+  function threadAlert(...args) {
+    var text = args.join(' ');
+    postMessage({cmd: 'alert', text, threadId: _pthread_self()});
+  }
+  self.alert = threadAlert;
+
+  // Turn unhandled rejected promises into errors so that the main thread will be
+  // notified about them.
+  self.onunhandledrejection = (e) => { throw e.reason || e; };
+
+   function handleMessage(e) {
+    try {
+      var msgData = e['data'];
+      //dbg('msgData: ' + Object.keys(msgData));
+      var cmd = msgData.cmd;
+      if (cmd === 'load') { // Preload command that is called once per worker to parse and load the Emscripten code.
+        workerID = msgData.workerID;
+
+        // Until we initialize the runtime, queue up any further incoming messages.
+        let messageQueue = [];
+        self.onmessage = (e) => messageQueue.push(e);
+
+        // And add a callback for when the runtime is initialized.
+        self.startWorker = (instance) => {
+          // Notify the main thread that this thread has loaded.
+          postMessage({ cmd: 'loaded' });
+          // Process any messages that were queued before the thread was ready.
+          for (let msg of messageQueue) {
+            handleMessage(msg);
+          }
+          // Restore the real message handler.
+          self.onmessage = handleMessage;
+        };
+
+        // Use `const` here to ensure that the variable is scoped only to
+        // that iteration, allowing safe reference from a closure.
+        for (const handler of msgData.handlers) {
+          // The the main module has a handler for a certain even, but no
+          // handler exists on the pthread worker, then proxy that handler
+          // back to the main thread.
+          if (!Module[handler] || Module[handler].proxy) {
+            Module[handler] = (...args) => {
+              postMessage({ cmd: 'callHandler', handler, args: args });
+            }
+            // Rebind the out / err handlers if needed
+            if (handler == 'print') out = Module[handler];
+            if (handler == 'printErr') err = Module[handler];
+          }
+        }
+
+        wasmMemory = msgData.wasmMemory;
+        updateMemoryViews();
+
+        wasmModuleReceived(msgData.wasmModule);
+      } else if (cmd === 'run') {
+        assert(msgData.pthread_ptr);
+        // Call inside JS module to set up the stack frame for this pthread in JS module scope.
+        // This needs to be the first thing that we do, as we cannot call to any C/C++ functions
+        // until the thread stack is initialized.
+        establishStackSpace(msgData.pthread_ptr);
+
+        // Pass the thread address to wasm to store it for fast access.
+        __emscripten_thread_init(msgData.pthread_ptr, /*is_main=*/0, /*is_runtime=*/0, /*can_block=*/1, 0, 0);
+
+        PThread.receiveObjectTransfer(msgData);
+        PThread.threadInitTLS();
+
+        // Await mailbox notifications with `Atomics.waitAsync` so we can start
+        // using the fast `Atomics.notify` notification path.
+        __emscripten_thread_mailbox_await(msgData.pthread_ptr);
+
+        if (!initializedJS) {
+          initializedJS = true;
+        }
+
+        try {
+           invokeEntryPoint(msgData.start_routine, msgData.arg);
+        } catch(ex) {
+          if (ex != 'unwind') {
+            // The pthread "crashed".  Do not call `_emscripten_thread_exit` (which
+            // would make this thread joinable).  Instead, re-throw the exception
+            // and let the top level handler propagate it back to the main thread.
+            throw ex;
+          }
+        }
+      } else if (msgData.target === 'setimmediate') {
+        // no-op
+      } else if (cmd === 'checkMailbox') {
+        if (initializedJS) {
+          checkMailbox();
+        }
+      } else if (cmd) {
+        // The received message looks like something that should be handled by this message
+        // handler, (since there is a cmd field present), but is not one of the
+        // recognized commands:
+        err(`worker: received unknown command ${cmd}`);
+        err(msgData);
+      }
+    } catch(ex) {
+      err(`worker: onmessage() captured an uncaught exception: ${ex}`);
+      if (ex?.stack) err(ex.stack);
+      __emscripten_thread_crashed();
+      throw ex;
+    }
+  };
+
+  self.onmessage = handleMessage;
+
+} // ENVIRONMENT_IS_PTHREAD
+// end include: runtime_pthread.js
+assert(!Module['STACK_SIZE'], 'STACK_SIZE can no longer be set at runtime.  Use -sSTACK_SIZE at link time')
+
+assert(typeof Int32Array != 'undefined' && typeof Float64Array !== 'undefined' && Int32Array.prototype.subarray != undefined && Int32Array.prototype.set != undefined,
+       'JS engine does not provide full typed array support');
+
+// In non-standalone/normal mode, we create the memory here.
+// include: runtime_init_memory.js
+// Create the wasm memory. (Note: this only applies if IMPORTED_MEMORY is defined)
+
+// check for full engine support (use string 'subarray' to avoid closure compiler confusion)
+
+if (!ENVIRONMENT_IS_PTHREAD) {
+
+  if (Module['wasmMemory']) {
+    wasmMemory = Module['wasmMemory'];
+  } else
+  {
+    var INITIAL_MEMORY = Module['INITIAL_MEMORY'] || 2147483648;legacyModuleProp('INITIAL_MEMORY', 'INITIAL_MEMORY');
+
+    assert(INITIAL_MEMORY >= 20971520, 'INITIAL_MEMORY should be larger than STACK_SIZE, was ' + INITIAL_MEMORY + '! (STACK_SIZE=' + 20971520 + ')');
+    /** @suppress {checkTypes} */
+    wasmMemory = new WebAssembly.Memory({
+      'initial': INITIAL_MEMORY / 65536,
+      'maximum': INITIAL_MEMORY / 65536,
+      'shared': true,
+    });
+  }
+
+  updateMemoryViews();
+}
+
+// end include: runtime_init_memory.js
+
 // include: runtime_stack_check.js
 // Initializes the stack cookie. Called at the startup of main and at the startup of each thread in pthreads mode.
 function writeStackCookie() {
@@ -379,360 +664,12 @@ function checkStackCookie() {
   }
 }
 // end include: runtime_stack_check.js
-// include: runtime_exceptions.js
-// Base Emscripten EH error class
-class EmscriptenEH extends Error {}
-
-class EmscriptenSjLj extends EmscriptenEH {}
-
-class CppException extends EmscriptenEH {
-  constructor(excPtr) {
-    super(excPtr);
-    this.excPtr = excPtr;
-    const excInfo = getExceptionMessage(excPtr);
-    this.name = excInfo[0];
-    this.message = excInfo[1];
-  }
-}
-// end include: runtime_exceptions.js
-// include: runtime_debug.js
-var runtimeDebug = true; // Switch to false at runtime to disable logging at the right times
-
-// Used by XXXXX_DEBUG settings to output debug messages.
-function dbg(...args) {
-  if (!runtimeDebug && typeof runtimeDebug != 'undefined') return;
-  // Avoid using the console for debugging in multi-threaded node applications
-  // See https://github.com/emscripten-core/emscripten/issues/14804
-  if (ENVIRONMENT_IS_NODE) {
-    // TODO(sbc): Unify with err/out implementation in shell.sh.
-    var fs = require('fs');
-    var utils = require('util');
-    var stringify = (a) => typeof a == 'object' ? utils.inspect(a) : a;
-    fs.writeSync(2, args.map(stringify).join(' ') + '\n');
-  } else
-  // TODO(sbc): Make this configurable somehow.  Its not always convenient for
-  // logging to show up as warnings.
-  console.warn(...args);
-}
-
-// Endianness check
-(() => {
-  var h16 = new Int16Array(1);
-  var h8 = new Int8Array(h16.buffer);
-  h16[0] = 0x6373;
-  if (h8[0] !== 0x73 || h8[1] !== 0x63) abort('Runtime error: expected the system to be little-endian! (Run with -sSUPPORT_BIG_ENDIAN to bypass)');
-})();
-
-function consumedModuleProp(prop) {
-  if (!Object.getOwnPropertyDescriptor(Module, prop)) {
-    Object.defineProperty(Module, prop, {
-      configurable: true,
-      set() {
-        abort(`Attempt to set \`Module.${prop}\` after it has already been processed.  This can happen, for example, when code is injected via '--post-js' rather than '--pre-js'`);
-
-      }
-    });
-  }
-}
-
-function makeInvalidEarlyAccess(name) {
-  return () => assert(false, `call to '${name}' via reference taken before Wasm module initialization`);
-
-}
-
-function ignoredModuleProp(prop) {
-  if (Object.getOwnPropertyDescriptor(Module, prop)) {
-    abort(`\`Module.${prop}\` was supplied but \`${prop}\` not included in INCOMING_MODULE_JS_API`);
-  }
-}
-
-// forcing the filesystem exports a few things by default
-function isExportedByForceFilesystem(name) {
-  return name === 'FS_createPath' ||
-         name === 'FS_createDataFile' ||
-         name === 'FS_createPreloadedFile' ||
-         name === 'FS_preloadFile' ||
-         name === 'FS_unlink' ||
-         name === 'addRunDependency' ||
-         // The old FS has some functionality that WasmFS lacks.
-         name === 'FS_createLazyFile' ||
-         name === 'FS_createDevice' ||
-         name === 'removeRunDependency';
-}
-
-function missingLibrarySymbol(sym) {
-
-  // Any symbol that is not included from the JS library is also (by definition)
-  // not exported on the Module object.
-  unexportedRuntimeSymbol(sym);
-}
-
-function unexportedRuntimeSymbol(sym) {
-  if (ENVIRONMENT_IS_PTHREAD) {
-    return;
-  }
-  if (!Object.getOwnPropertyDescriptor(Module, sym)) {
-    Object.defineProperty(Module, sym, {
-      configurable: true,
-      get() {
-        var msg = `'${sym}' was not exported. add it to EXPORTED_RUNTIME_METHODS (see the Emscripten FAQ)`;
-        if (isExportedByForceFilesystem(sym)) {
-          msg += '. Alternatively, forcing filesystem support (-sFORCE_FILESYSTEM) can export this for you';
-        }
-        abort(msg);
-      }
-    });
-  }
-}
-
-/**
- * Override `err`/`out`/`dbg` to report thread / worker information
- */
-function initWorkerLogging() {
-  function getLogPrefix() {
-    var t = 0;
-    if (runtimeInitialized && typeof _pthread_self != 'undefined'
-    ) {
-      t = _pthread_self();
-    }
-    return `w:${workerID},t:${ptrToString(t)}:`;
-  }
-
-  // Prefix all dbg() messages with the calling thread info.
-  var origDbg = dbg;
-  dbg = (...args) => origDbg(getLogPrefix(), ...args);
-}
-
-initWorkerLogging();
-
-// end include: runtime_debug.js
-var readyPromiseResolve, readyPromiseReject;
-
-if (ENVIRONMENT_IS_NODE && (ENVIRONMENT_IS_PTHREAD)) {
-  // Create as web-worker-like an environment as we can.
-  var parentPort = worker_threads['parentPort'];
-  parentPort.on('message', (msg) => global.onmessage?.({ data: msg }));
-  Object.assign(globalThis, {
-    self: global,
-    postMessage: (msg) => parentPort['postMessage'](msg),
-  });
-  // Node.js Workers do not pass postMessage()s and uncaught exception events to the parent
-  // thread necessarily in the same order where they were generated in sequential program order.
-  // See https://github.com/nodejs/node/issues/59617
-  // To remedy this, capture all uncaughtExceptions in the Worker, and sequentialize those over
-  // to the same postMessage pipe that other messages use.
-  process.on("uncaughtException", (err) => {
-    postMessage({ cmd: 'uncaughtException', error: err });
-    // Also shut down the Worker to match the same semantics as if this uncaughtException
-    // handler was not registered.
-    // (n.b. this will not shut down the whole Node.js app process, but just the Worker)
-    process.exit(1);
-  });
-}
-
-// include: runtime_pthread.js
-// Pthread Web Worker handling code.
-// This code runs only on pthread web workers and handles pthread setup
-// and communication with the main thread via postMessage.
-
-// Unique ID of the current pthread worker (zero on non-pthread-workers
-// including the main thread).
-var workerID = 0;
-
-var startWorker;
-
-if (ENVIRONMENT_IS_PTHREAD) {
-  // Thread-local guard variable for one-time init of the JS state
-  var initializedJS = false;
-
-  // Turn unhandled rejected promises into errors so that the main thread will be
-  // notified about them.
-  self.onunhandledrejection = (e) => { throw e.reason || e; };
-
-  function handleMessage(e) {
-    try {
-      var msgData = e['data'];
-      //dbg('msgData: ' + Object.keys(msgData));
-      var cmd = msgData.cmd;
-      if (cmd === 'load') { // Preload command that is called once per worker to parse and load the Emscripten code.
-        workerID = msgData.workerID;
-
-        // Until we initialize the runtime, queue up any further incoming messages.
-        let messageQueue = [];
-        self.onmessage = (e) => messageQueue.push(e);
-
-        // And add a callback for when the runtime is initialized.
-        startWorker = () => {
-          // Notify the main thread that this thread has loaded.
-          postMessage({ cmd: 'loaded' });
-          // Process any messages that were queued before the thread was ready.
-          for (let msg of messageQueue) {
-            handleMessage(msg);
-          }
-          // Restore the real message handler.
-          self.onmessage = handleMessage;
-        };
-
-        // Use `const` here to ensure that the variable is scoped only to
-        // that iteration, allowing safe reference from a closure.
-        for (const handler of msgData.handlers) {
-          // The the main module has a handler for a certain even, but no
-          // handler exists on the pthread worker, then proxy that handler
-          // back to the main thread.
-          if (!Module[handler] || Module[handler].proxy) {
-            Module[handler] = (...args) => {
-              postMessage({ cmd: 'callHandler', handler, args: args });
-            }
-            // Rebind the out / err handlers if needed
-            if (handler == 'print') out = Module[handler];
-            if (handler == 'printErr') err = Module[handler];
-          }
-        }
-
-        wasmMemory = msgData.wasmMemory;
-        updateMemoryViews();
-
-        wasmModule = msgData.wasmModule;
-        createWasm();
-        run();
-      } else if (cmd === 'run') {
-        assert(msgData.pthread_ptr);
-        // Call inside JS module to set up the stack frame for this pthread in JS module scope.
-        // This needs to be the first thing that we do, as we cannot call to any C/C++ functions
-        // until the thread stack is initialized.
-        establishStackSpace(msgData.pthread_ptr);
-
-        // Pass the thread address to wasm to store it for fast access.
-        __emscripten_thread_init(msgData.pthread_ptr, /*is_main=*/0, /*is_runtime=*/0, /*can_block=*/1, 0, 0);
-
-        PThread.threadInitTLS();
-
-        // Await mailbox notifications with `Atomics.waitAsync` so we can start
-        // using the fast `Atomics.notify` notification path.
-        __emscripten_thread_mailbox_await(msgData.pthread_ptr);
-
-        if (!initializedJS) {
-          initializedJS = true;
-        }
-
-        try {
-          invokeEntryPoint(msgData.start_routine, msgData.arg);
-        } catch(ex) {
-          if (ex != 'unwind') {
-            // The pthread "crashed".  Do not call `_emscripten_thread_exit` (which
-            // would make this thread joinable).  Instead, re-throw the exception
-            // and let the top level handler propagate it back to the main thread.
-            throw ex;
-          }
-        }
-      } else if (msgData.target === 'setimmediate') {
-        // no-op
-      } else if (cmd === 'checkMailbox') {
-        if (initializedJS) {
-          checkMailbox();
-        }
-      } else if (cmd) {
-        // The received message looks like something that should be handled by this message
-        // handler, (since there is a cmd field present), but is not one of the
-        // recognized commands:
-        err(`worker: received unknown command ${cmd}`);
-        err(msgData);
-      }
-    } catch(ex) {
-      err(`worker: onmessage() captured an uncaught exception: ${ex}`);
-      if (ex?.stack) err(ex.stack);
-      __emscripten_thread_crashed();
-      throw ex;
-    }
-  };
-
-  self.onmessage = handleMessage;
-
-} // ENVIRONMENT_IS_PTHREAD
-// end include: runtime_pthread.js
-// Memory management
-
-var wasmMemory;
-
-var
-/** @type {!Int8Array} */
-  HEAP8,
-/** @type {!Uint8Array} */
-  HEAPU8,
-/** @type {!Int16Array} */
-  HEAP16,
-/** @type {!Uint16Array} */
-  HEAPU16,
-/** @type {!Int32Array} */
-  HEAP32,
-/** @type {!Uint32Array} */
-  HEAPU32,
-/** @type {!Float32Array} */
-  HEAPF32,
-/** @type {!Float64Array} */
-  HEAPF64;
-
-// BigInt64Array type is not correctly defined in closure
-var
-/** not-@type {!BigInt64Array} */
-  HEAP64,
-/* BigUint64Array type is not correctly defined in closure
-/** not-@type {!BigUint64Array} */
-  HEAPU64;
+var __ATPRERUN__  = []; // functions called before the runtime is initialized
+var __ATINIT__    = []; // functions called during startup
+var __ATEXIT__    = []; // functions called during shutdown
+var __ATPOSTRUN__ = []; // functions called after the main() is called
 
 var runtimeInitialized = false;
-
-
-
-function updateMemoryViews() {
-  var b = wasmMemory.buffer;
-  HEAP8 = new Int8Array(b);
-  HEAP16 = new Int16Array(b);
-  HEAPU8 = new Uint8Array(b);
-  HEAPU16 = new Uint16Array(b);
-  HEAP32 = new Int32Array(b);
-  Module['HEAPU32'] = HEAPU32 = new Uint32Array(b);
-  HEAPF32 = new Float32Array(b);
-  HEAPF64 = new Float64Array(b);
-  HEAP64 = new BigInt64Array(b);
-  HEAPU64 = new BigUint64Array(b);
-}
-
-// In non-standalone/normal mode, we create the memory here.
-// include: runtime_init_memory.js
-// Create the wasm memory. (Note: this only applies if IMPORTED_MEMORY is defined)
-
-// check for full engine support (use string 'subarray' to avoid closure compiler confusion)
-
-function initMemory() {
-
-  if ((ENVIRONMENT_IS_PTHREAD)) { return }
-
-  if (Module['wasmMemory']) {
-    wasmMemory = Module['wasmMemory'];
-  } else
-  {
-    var INITIAL_MEMORY = Module['INITIAL_MEMORY'] || 2147483648;
-
-    assert(INITIAL_MEMORY >= 20971520, 'INITIAL_MEMORY should be larger than STACK_SIZE, was ' + INITIAL_MEMORY + '! (STACK_SIZE=' + 20971520 + ')');
-    /** @suppress {checkTypes} */
-    wasmMemory = new WebAssembly.Memory({
-      'initial': INITIAL_MEMORY / 65536,
-      'maximum': INITIAL_MEMORY / 65536,
-      'shared': true,
-    });
-  }
-
-  updateMemoryViews();
-}
-
-// end include: runtime_init_memory.js
-
-// include: memoryprofiler.js
-// end include: memoryprofiler.js
-// end include: runtime_common.js
-assert(typeof Int32Array != 'undefined' && typeof Float64Array !== 'undefined' && Int32Array.prototype.subarray != undefined && Int32Array.prototype.set != undefined,
-       'JS engine does not provide full typed array support');
 
 function preRun() {
   assert(!ENVIRONMENT_IS_PTHREAD); // PThreads reuse the runtime from the main thread.
@@ -742,35 +679,29 @@ function preRun() {
       addOnPreRun(Module['preRun'].shift());
     }
   }
-  consumedModuleProp('preRun');
-  // Begin ATPRERUNS hooks
-  callRuntimeCallbacks(onPreRuns);
-  // End ATPRERUNS hooks
+  callRuntimeCallbacks(__ATPRERUN__);
 }
 
 function initRuntime() {
   assert(!runtimeInitialized);
   runtimeInitialized = true;
 
-  if (ENVIRONMENT_IS_PTHREAD) return startWorker();
+  if (ENVIRONMENT_IS_PTHREAD) return;
 
   checkStackCookie();
 
-  // Begin ATINITS hooks
-  if (!Module['noFSInit'] && !FS.initialized) FS.init();
+  
+if (!Module['noFSInit'] && !FS.initialized)
+  FS.init();
+FS.ignorePermissions = false;
+
 TTY.init();
-  // End ATINITS hooks
-
-  wasmExports['__wasm_call_ctors']();
-
-  // Begin ATPOSTCTORS hooks
-  FS.ignorePermissions = false;
-  // End ATPOSTCTORS hooks
+  callRuntimeCallbacks(__ATINIT__);
 }
 
 function postRun() {
   checkStackCookie();
-  if ((ENVIRONMENT_IS_PTHREAD)) { return; } // PThreads reuse the runtime from the main thread.
+  if (ENVIRONMENT_IS_PTHREAD) return; // PThreads reuse the runtime from the main thread.
 
   if (Module['postRun']) {
     if (typeof Module['postRun'] == 'function') Module['postRun'] = [Module['postRun']];
@@ -778,11 +709,115 @@ function postRun() {
       addOnPostRun(Module['postRun'].shift());
     }
   }
-  consumedModuleProp('postRun');
 
-  // Begin ATPOSTRUNS hooks
-  callRuntimeCallbacks(onPostRuns);
-  // End ATPOSTRUNS hooks
+  callRuntimeCallbacks(__ATPOSTRUN__);
+}
+
+function addOnPreRun(cb) {
+  __ATPRERUN__.unshift(cb);
+}
+
+function addOnInit(cb) {
+  __ATINIT__.unshift(cb);
+}
+
+function addOnExit(cb) {
+}
+
+function addOnPostRun(cb) {
+  __ATPOSTRUN__.unshift(cb);
+}
+
+// include: runtime_math.js
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/imul
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/fround
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/clz32
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc
+
+assert(Math.imul, 'This browser does not support Math.imul(), build with LEGACY_VM_SUPPORT or POLYFILL_OLD_MATH_FUNCTIONS to add in a polyfill');
+assert(Math.fround, 'This browser does not support Math.fround(), build with LEGACY_VM_SUPPORT or POLYFILL_OLD_MATH_FUNCTIONS to add in a polyfill');
+assert(Math.clz32, 'This browser does not support Math.clz32(), build with LEGACY_VM_SUPPORT or POLYFILL_OLD_MATH_FUNCTIONS to add in a polyfill');
+assert(Math.trunc, 'This browser does not support Math.trunc(), build with LEGACY_VM_SUPPORT or POLYFILL_OLD_MATH_FUNCTIONS to add in a polyfill');
+// end include: runtime_math.js
+// A counter of dependencies for calling run(). If we need to
+// do asynchronous work before running, increment this and
+// decrement it. Incrementing must happen in a place like
+// Module.preRun (used by emcc to add file preloading).
+// Note that you can add dependencies in preRun, even though
+// it happens right before run - run will be postponed until
+// the dependencies are met.
+var runDependencies = 0;
+var runDependencyWatcher = null;
+var dependenciesFulfilled = null; // overridden to take different actions when all run dependencies are fulfilled
+var runDependencyTracking = {};
+
+function getUniqueRunDependency(id) {
+  var orig = id;
+  while (1) {
+    if (!runDependencyTracking[id]) return id;
+    id = orig + Math.random();
+  }
+}
+
+function addRunDependency(id) {
+  runDependencies++;
+
+  Module['monitorRunDependencies']?.(runDependencies);
+
+  if (id) {
+    assert(!runDependencyTracking[id]);
+    runDependencyTracking[id] = 1;
+    if (runDependencyWatcher === null && typeof setInterval != 'undefined') {
+      // Check for missing dependencies every few seconds
+      runDependencyWatcher = setInterval(() => {
+        if (ABORT) {
+          clearInterval(runDependencyWatcher);
+          runDependencyWatcher = null;
+          return;
+        }
+        var shown = false;
+        for (var dep in runDependencyTracking) {
+          if (!shown) {
+            shown = true;
+            err('still waiting on run dependencies:');
+          }
+          err(`dependency: ${dep}`);
+        }
+        if (shown) {
+          err('(end of list)');
+        }
+      }, 10000);
+    }
+  } else {
+    err('warning: run dependency added without ID');
+  }
+}
+
+function removeRunDependency(id) {
+  runDependencies--;
+
+  Module['monitorRunDependencies']?.(runDependencies);
+
+  if (id) {
+    assert(runDependencyTracking[id]);
+    delete runDependencyTracking[id];
+  } else {
+    err('warning: run dependency removed without ID');
+  }
+  if (runDependencies == 0) {
+    if (runDependencyWatcher !== null) {
+      clearInterval(runDependencyWatcher);
+      runDependencyWatcher = null;
+    }
+    if (dependenciesFulfilled) {
+      var callback = dependenciesFulfilled;
+      dependenciesFulfilled = null;
+      callback(); // can add another dependenciesFulfilled
+    }
+  }
 }
 
 /** @param {string|number=} what */
@@ -812,13 +847,31 @@ function abort(what) {
   /** @suppress {checkTypes} */
   var e = new WebAssembly.RuntimeError(what);
 
-  readyPromiseReject?.(e);
+  readyPromiseReject(e);
   // Throw the error whether or not MODULARIZE is set because abort is used
   // in code paths apart from instantiation where an exception is expected
   // to be thrown when abort is called.
   throw e;
 }
 
+// include: memoryprofiler.js
+// end include: memoryprofiler.js
+// include: URIUtils.js
+// Prefix of data URIs emitted by SINGLE_FILE and related options.
+var dataURIPrefix = 'data:application/octet-stream;base64,';
+
+/**
+ * Indicates whether filename is a base64 data URI.
+ * @noinline
+ */
+var isDataURI = (filename) => filename.startsWith(dataURIPrefix);
+
+/**
+ * Indicates whether filename is delivered via file protocol (as opposed to http/https)
+ * @noinline
+ */
+var isFileURI = (filename) => filename.startsWith('file://');
+// end include: URIUtils.js
 function createExportWrapper(name, nargs) {
   return (...args) => {
     assert(runtimeInitialized, `native function \`${name}\` called before runtime initialization`);
@@ -830,11 +883,31 @@ function createExportWrapper(name, nargs) {
   };
 }
 
-var wasmBinaryFile;
+// include: runtime_exceptions.js
+// Base Emscripten EH error class
+class EmscriptenEH extends Error {}
 
-function findWasmBinary() {
-    return locateFile('z3-built.wasm');
+class EmscriptenSjLj extends EmscriptenEH {}
+
+class CppException extends EmscriptenEH {
+  constructor(excPtr) {
+    super(excPtr);
+    this.excPtr = excPtr;
+    const excInfo = getExceptionMessage(excPtr);
+    this.name = excInfo[0];
+    this.message = excInfo[1];
+  }
 }
+// end include: runtime_exceptions.js
+function findWasmBinary() {
+    var f = 'z3-built.wasm';
+    if (!isDataURI(f)) {
+      return locateFile(f);
+    }
+    return f;
+}
+
+var wasmBinaryFile;
 
 function getBinarySync(file) {
   if (file == wasmBinaryFile && wasmBinary) {
@@ -843,68 +916,73 @@ function getBinarySync(file) {
   if (readBinary) {
     return readBinary(file);
   }
-  // Throwing a plain string here, even though it not normally adviables since
-  // this gets turning into an `abort` in instantiateArrayBuffer.
   throw 'both async and sync fetching of the wasm failed';
 }
 
-async function getWasmBinary(binaryFile) {
+function getBinaryPromise(binaryFile) {
   // If we don't have the binary yet, load it asynchronously using readAsync.
-  if (!wasmBinary) {
+  if (!wasmBinary
+      ) {
     // Fetch the binary using readAsync
-    try {
-      var response = await readAsync(binaryFile);
-      return new Uint8Array(response);
-    } catch {
-      // Fall back to getBinarySync below;
-    }
+    return readAsync(binaryFile).then(
+      (response) => new Uint8Array(/** @type{!ArrayBuffer} */(response)),
+      // Fall back to getBinarySync if readAsync fails
+      () => getBinarySync(binaryFile)
+    );
   }
 
   // Otherwise, getBinarySync should be able to get it synchronously
-  return getBinarySync(binaryFile);
+  return Promise.resolve().then(() => getBinarySync(binaryFile));
 }
 
-async function instantiateArrayBuffer(binaryFile, imports) {
-  try {
-    var binary = await getWasmBinary(binaryFile);
-    var instance = await WebAssembly.instantiate(binary, imports);
-    return instance;
-  } catch (reason) {
+function instantiateArrayBuffer(binaryFile, imports, receiver) {
+  return getBinaryPromise(binaryFile).then((binary) => {
+    return WebAssembly.instantiate(binary, imports);
+  }).then(receiver, (reason) => {
     err(`failed to asynchronously prepare wasm: ${reason}`);
 
     // Warn on some common problems.
-    if (isFileURI(binaryFile)) {
-      err(`warning: Loading from a file URI (${binaryFile}) is not supported in most browsers. See https://emscripten.org/docs/getting_started/FAQ.html#how-do-i-run-a-local-webserver-for-testing-why-does-my-program-stall-in-downloading-or-preparing`);
+    if (isFileURI(wasmBinaryFile)) {
+      err(`warning: Loading from a file URI (${wasmBinaryFile}) is not supported in most browsers. See https://emscripten.org/docs/getting_started/FAQ.html#how-do-i-run-a-local-webserver-for-testing-why-does-my-program-stall-in-downloading-or-preparing`);
     }
     abort(reason);
-  }
+  });
 }
 
-async function instantiateAsync(binary, binaryFile, imports) {
-  if (!binary
+function instantiateAsync(binary, binaryFile, imports, callback) {
+  if (!binary &&
+      typeof WebAssembly.instantiateStreaming == 'function' &&
+      !isDataURI(binaryFile) &&
       // Don't use streaming for file:// delivered objects in a webview, fetch them synchronously.
-      && !isFileURI(binaryFile)
+      !isFileURI(binaryFile) &&
       // Avoid instantiateStreaming() on Node.js environment for now, as while
       // Node.js v18.1.0 implements it, it does not have a full fetch()
       // implementation yet.
       //
       // Reference:
       //   https://github.com/emscripten-core/emscripten/pull/16917
-      && !ENVIRONMENT_IS_NODE
-     ) {
-    try {
-      var response = fetch(binaryFile, { credentials: 'same-origin' });
-      var instantiationResult = await WebAssembly.instantiateStreaming(response, imports);
-      return instantiationResult;
-    } catch (reason) {
-      // We expect the most common failure cause to be a bad MIME type for the binary,
-      // in which case falling back to ArrayBuffer instantiation should work.
-      err(`wasm streaming compile failed: ${reason}`);
-      err('falling back to ArrayBuffer instantiation');
-      // fall back of instantiateArrayBuffer below
-    };
+      !ENVIRONMENT_IS_NODE &&
+      typeof fetch == 'function') {
+    return fetch(binaryFile, { credentials: 'same-origin' }).then((response) => {
+      // Suppress closure warning here since the upstream definition for
+      // instantiateStreaming only allows Promise<Repsponse> rather than
+      // an actual Response.
+      // TODO(https://github.com/google/closure-compiler/pull/3913): Remove if/when upstream closure is fixed.
+      /** @suppress {checkTypes} */
+      var result = WebAssembly.instantiateStreaming(response, imports);
+
+      return result.then(
+        callback,
+        function(reason) {
+          // We expect the most common failure cause to be a bad MIME type for the binary,
+          // in which case falling back to ArrayBuffer instantiation should work.
+          err(`wasm streaming compile failed: ${reason}`);
+          err('falling back to ArrayBuffer instantiation');
+          return instantiateArrayBuffer(binaryFile, imports, callback);
+        });
+    });
   }
-  return instantiateArrayBuffer(binaryFile, imports);
+  return instantiateArrayBuffer(binaryFile, imports, callback);
 }
 
 function getWasmImports() {
@@ -918,7 +996,7 @@ function getWasmImports() {
 
 // Create the wasm instance.
 // Receives the wasm imports, returns the exports.
-async function createWasm() {
+function createWasm() {
   // Load the wasm module and create an instance of using native support in the JS engine.
   // handle a generated wasm instance, receiving its exports and
   // performing other necessary setup
@@ -934,11 +1012,15 @@ async function createWasm() {
     
     assert(wasmTable, 'table not found in wasm exports');
 
+    addOnInit(wasmExports['__wasm_call_ctors']);
+
     // We now have the Wasm module loaded up, keep a reference to the compiled module so we can post it to the workers.
     wasmModule = module;
-    assignWasmExports(wasmExports);
+    removeRunDependency('wasm-instantiate');
     return wasmExports;
   }
+  // wait for the pthread pool (if any)
+  addRunDependency('wasm-instantiate');
 
   // Prefer streaming instantiation if available.
   // Async compilation can be confusing when an error on the page overwrites Module
@@ -950,7 +1032,7 @@ async function createWasm() {
     // receiveInstance() will swap in the exports (to Module.asm) so they can be called
     assert(Module === trueModule, 'the Module object should not be replaced during async compilation - perhaps the order of HTML elements is wrong?');
     trueModule = null;
-    return receiveInstance(result['instance'], result['module']);
+    receiveInstance(result['instance'], result['module']);
   }
 
   var info = getWasmImports();
@@ -962,35 +1044,243 @@ async function createWasm() {
   // Also pthreads and wasm workers initialize the wasm instance through this
   // path.
   if (Module['instantiateWasm']) {
-    return new Promise((resolve, reject) => {
-      try {
-        Module['instantiateWasm'](info, (mod, inst) => {
-          resolve(receiveInstance(mod, inst));
-        });
-      } catch(e) {
-        err(`Module.instantiateWasm callback failed with error: ${e}`);
-        reject(e);
-      }
+    try {
+      return Module['instantiateWasm'](info, receiveInstance);
+    } catch(e) {
+      err(`Module.instantiateWasm callback failed with error: ${e}`);
+        // If instantiation fails, reject the module ready promise.
+        readyPromiseReject(e);
+    }
+  }
+
+  if (ENVIRONMENT_IS_PTHREAD) {
+    return new Promise((resolve) => {
+      wasmModuleReceived = (module) => {
+        // Instantiate from the module posted from the main thread.
+        // We can just use sync instantiation in the worker.
+        var instance = new WebAssembly.Instance(module, getWasmImports());
+        receiveInstance(instance, module);
+        resolve();
+      };
     });
   }
 
-  if ((ENVIRONMENT_IS_PTHREAD)) {
-    // Instantiate from the module that was recieved via postMessage from
-    // the main thread. We can just use sync instantiation in the worker.
-    assert(wasmModule, "wasmModule should have been received via postMessage");
-    var instance = new WebAssembly.Instance(wasmModule, getWasmImports());
-    return receiveInstance(instance, wasmModule);
-  }
-
   wasmBinaryFile ??= findWasmBinary();
-  var result = await instantiateAsync(wasmBinary, wasmBinaryFile, info);
-  var exports = receiveInstantiationResult(result);
-  return exports;
+
+  // If instantiation fails, reject the module ready promise.
+  instantiateAsync(wasmBinary, wasmBinaryFile, info, receiveInstantiationResult).catch(readyPromiseReject);
+  return {}; // no exports yet; we'll fill them in later
 }
 
-// end include: preamble.js
+// include: runtime_debug.js
+// Endianness check
+(() => {
+  var h16 = new Int16Array(1);
+  var h8 = new Int8Array(h16.buffer);
+  h16[0] = 0x6373;
+  if (h8[0] !== 0x73 || h8[1] !== 0x63) throw 'Runtime error: expected the system to be little-endian! (Run with -sSUPPORT_BIG_ENDIAN to bypass)';
+})();
 
-// Begin JS library code
+if (Module['ENVIRONMENT']) {
+  throw new Error('Module.ENVIRONMENT has been deprecated. To force the environment, use the ENVIRONMENT compile-time option (for example, -sENVIRONMENT=web or -sENVIRONMENT=node)');
+}
+
+function legacyModuleProp(prop, newName, incoming=true) {
+  if (!Object.getOwnPropertyDescriptor(Module, prop)) {
+    Object.defineProperty(Module, prop, {
+      configurable: true,
+      get() {
+        let extra = incoming ? ' (the initial value can be provided on Module, but after startup the value is only looked for on a local variable of that name)' : '';
+        abort(`\`Module.${prop}\` has been replaced by \`${newName}\`` + extra);
+
+      }
+    });
+  }
+}
+
+function ignoredModuleProp(prop) {
+  if (Object.getOwnPropertyDescriptor(Module, prop)) {
+    abort(`\`Module.${prop}\` was supplied but \`${prop}\` not included in INCOMING_MODULE_JS_API`);
+  }
+}
+
+// forcing the filesystem exports a few things by default
+function isExportedByForceFilesystem(name) {
+  return name === 'FS_createPath' ||
+         name === 'FS_createDataFile' ||
+         name === 'FS_createPreloadedFile' ||
+         name === 'FS_unlink' ||
+         name === 'addRunDependency' ||
+         // The old FS has some functionality that WasmFS lacks.
+         name === 'FS_createLazyFile' ||
+         name === 'FS_createDevice' ||
+         name === 'removeRunDependency';
+}
+
+/**
+ * Intercept access to a global symbol.  This enables us to give informative
+ * warnings/errors when folks attempt to use symbols they did not include in
+ * their build, or no symbols that no longer exist.
+ */
+function hookGlobalSymbolAccess(sym, func) {
+  // In MODULARIZE mode the generated code runs inside a function scope and not
+  // the global scope, and JavaScript does not provide access to function scopes
+  // so we cannot dynamically modify the scrope using `defineProperty` in this
+  // case.
+  //
+  // In this mode we simply ignore requests for `hookGlobalSymbolAccess`. Since
+  // this is a debug-only feature, skipping it is not major issue.
+}
+
+function missingGlobal(sym, msg) {
+  hookGlobalSymbolAccess(sym, () => {
+    warnOnce(`\`${sym}\` is not longer defined by emscripten. ${msg}`);
+  });
+}
+
+missingGlobal('buffer', 'Please use HEAP8.buffer or wasmMemory.buffer');
+missingGlobal('asm', 'Please use wasmExports instead');
+
+function missingLibrarySymbol(sym) {
+  hookGlobalSymbolAccess(sym, () => {
+    // Can't `abort()` here because it would break code that does runtime
+    // checks.  e.g. `if (typeof SDL === 'undefined')`.
+    var msg = `\`${sym}\` is a library symbol and not included by default; add it to your library.js __deps or to DEFAULT_LIBRARY_FUNCS_TO_INCLUDE on the command line`;
+    // DEFAULT_LIBRARY_FUNCS_TO_INCLUDE requires the name as it appears in
+    // library.js, which means $name for a JS name with no prefix, or name
+    // for a JS name like _name.
+    var librarySymbol = sym;
+    if (!librarySymbol.startsWith('_')) {
+      librarySymbol = '$' + sym;
+    }
+    msg += ` (e.g. -sDEFAULT_LIBRARY_FUNCS_TO_INCLUDE='${librarySymbol}')`;
+    if (isExportedByForceFilesystem(sym)) {
+      msg += '. Alternatively, forcing filesystem support (-sFORCE_FILESYSTEM) can export this for you';
+    }
+    warnOnce(msg);
+  });
+
+  // Any symbol that is not included from the JS library is also (by definition)
+  // not exported on the Module object.
+  unexportedRuntimeSymbol(sym);
+}
+
+function unexportedRuntimeSymbol(sym) {
+  if (ENVIRONMENT_IS_PTHREAD) {
+    return;
+  }
+  if (!Object.getOwnPropertyDescriptor(Module, sym)) {
+    Object.defineProperty(Module, sym, {
+      configurable: true,
+      get() {
+        var msg = `'${sym}' was not exported. add it to EXPORTED_RUNTIME_METHODS (see the Emscripten FAQ)`;
+        if (isExportedByForceFilesystem(sym)) {
+          msg += '. Alternatively, forcing filesystem support (-sFORCE_FILESYSTEM) can export this for you';
+        }
+        abort(msg);
+      }
+    });
+  }
+}
+
+// Used by XXXXX_DEBUG settings to output debug messages.
+function dbg(...args) {
+  // Avoid using the console for debugging in multi-threaded node applications
+  // See https://github.com/emscripten-core/emscripten/issues/14804
+  if (ENVIRONMENT_IS_NODE && fs) {
+    fs.writeSync(2, args.join(' ') + '\n');
+  } else
+  // TODO(sbc): Make this configurable somehow.  Its not always convenient for
+  // logging to show up as warnings.
+  console.warn(...args);
+}
+// end include: runtime_debug.js
+// === Body ===
+
+var ASM_CONSTS = {
+  21446088: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21446143: ($0) => { resolve_async(UTF8ToString($0)); },  
+ 21446180: () => { reject_async(new Error('failed with unknown exception')); },  
+ 21446242: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21446289: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21446331: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21446386: ($0) => { resolve_async($0); },  
+ 21446409: () => { reject_async('failed with unknown exception'); },  
+ 21446460: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21446507: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21446549: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21446604: ($0) => { resolve_async($0); },  
+ 21446627: () => { reject_async('failed with unknown exception'); },  
+ 21446678: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21446725: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21446767: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21446822: ($0) => { resolve_async($0); },  
+ 21446845: () => { reject_async('failed with unknown exception'); },  
+ 21446896: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21446943: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21446985: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21447040: ($0) => { resolve_async($0); },  
+ 21447063: () => { reject_async('failed with unknown exception'); },  
+ 21447114: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21447161: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21447203: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21447258: ($0) => { resolve_async($0); },  
+ 21447281: () => { reject_async('failed with unknown exception'); },  
+ 21447332: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21447379: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21447421: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21447476: ($0) => { resolve_async($0); },  
+ 21447499: () => { reject_async('failed with unknown exception'); },  
+ 21447550: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21447597: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21447639: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21447694: ($0) => { resolve_async($0); },  
+ 21447717: () => { reject_async('failed with unknown exception'); },  
+ 21447768: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21447815: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21447857: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21447912: ($0) => { resolve_async($0); },  
+ 21447935: () => { reject_async('failed with unknown exception'); },  
+ 21447986: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21448033: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21448075: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21448130: ($0) => { resolve_async($0); },  
+ 21448153: () => { reject_async('failed with unknown exception'); },  
+ 21448204: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21448251: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21448293: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21448348: ($0) => { resolve_async($0); },  
+ 21448371: () => { reject_async('failed with unknown exception'); },  
+ 21448422: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21448469: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21448511: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21448566: ($0) => { resolve_async($0); },  
+ 21448589: () => { reject_async('failed with unknown exception'); },  
+ 21448640: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21448687: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21448729: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21448784: ($0) => { resolve_async($0); },  
+ 21448807: () => { reject_async('failed with unknown exception'); },  
+ 21448858: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21448905: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21448947: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21449002: ($0) => { resolve_async($0); },  
+ 21449025: () => { reject_async('failed with unknown exception'); },  
+ 21449076: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21449123: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21449165: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21449220: ($0) => { resolve_async($0); },  
+ 21449243: () => { reject_async('failed with unknown exception'); },  
+ 21449294: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21449341: () => { clearTimeout(threadTimeouts.shift()); },  
+ 21449383: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
+ 21449438: ($0) => { resolve_async($0); },  
+ 21449461: () => { reject_async('failed with unknown exception'); },  
+ 21449512: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
+ 21449559: () => { clearTimeout(threadTimeouts.shift()); }
+};
+
+// end include: preamble.js
 
 
   class ExitStatus {
@@ -1022,15 +1312,6 @@ async function createWasm() {
       assert(worker);
       PThread.returnWorkerToPool(worker);
     };
-  
-  var callRuntimeCallbacks = (callbacks) => {
-      while (callbacks.length > 0) {
-        // Pass the module as the first argument.
-        callbacks.shift()(Module);
-      }
-    };
-  var onPreRuns = [];
-  var addOnPreRun = (cb) => onPreRuns.push(cb);
   
   var spawnThread = (threadParams) => {
       assert(!ENVIRONMENT_IS_PTHREAD, 'Internal Error! spawnThread() can only ever be called from main application thread!');
@@ -1079,6 +1360,11 @@ async function createWasm() {
   var stackAlloc = (sz) => __emscripten_stack_alloc(sz);
   
   
+  var INT53_MAX = 9007199254740992;
+  
+  var INT53_MIN = -9007199254740992;
+  var bigintToI53Checked = (num) => (num < INT53_MIN || num > INT53_MAX) ? NaN : Number(num);
+  
   /** @type{function(number, (number|boolean), ...number)} */
   var proxyToMainThread = (funcIndex, emAsmAddr, sync, ...callArgs) => {
       // EM_ASM proxying is done by passing a pointer to the address of the EM_ASM
@@ -1114,7 +1400,7 @@ async function createWasm() {
           HEAPF64[b + 2*i + 1] = arg;
         }
       }
-      var rtn = __emscripten_run_js_on_main_thread(funcIndex, emAsmAddr, serializedNumCallArgs, args, sync);
+      var rtn = __emscripten_run_on_main_thread_js(funcIndex, emAsmAddr, serializedNumCallArgs, args, sync);
       stackRestore(sp);
       return rtn;
     };
@@ -1135,6 +1421,24 @@ async function createWasm() {
   
   
   
+  
+  var handleException = (e) => {
+      // Certain exception types we do not treat as errors since they are used for
+      // internal control flow.
+      // 1. ExitStatus, which is thrown by exit()
+      // 2. "unwind", which is thrown by emscripten_unwind_to_js_event_loop() and others
+      //    that wish to return to JS event loop.
+      if (e instanceof ExitStatus || e == 'unwind') {
+        return EXITSTATUS;
+      }
+      checkStackCookie();
+      if (e instanceof WebAssembly.RuntimeError) {
+        if (_emscripten_stack_get_current() <= 0) {
+          err('Stack overflow detected.  You can try increasing -sSTACK_SIZE (currently set to 20971520)');
+        }
+      }
+      quit_(1, e);
+    };
   
   
   
@@ -1168,7 +1472,7 @@ async function createWasm() {
       // if exit() was called explicitly, warn the user if the runtime isn't actually being shut down
       if (keepRuntimeAlive() && !implicit) {
         var msg = `program exited (with status: ${status}), but keepRuntimeAlive() is set (counter=${runtimeKeepaliveCounter}) due to an async operation, so halting execution but not exiting the runtime or preventing further async execution (you can use emscripten_force_exit, if you want to force a true shutdown)`;
-        readyPromiseReject?.(msg);
+        readyPromiseReject(msg);
         err(msg);
       }
   
@@ -1178,10 +1482,11 @@ async function createWasm() {
   
   var ptrToString = (ptr) => {
       assert(typeof ptr === 'number');
-      // Convert to 32-bit unsigned value
+      // With CAN_ADDRESS_2GB or MEMORY64, pointers are already unsigned.
       ptr >>>= 0;
       return '0x' + ptr.toString(16).padStart(8, '0');
     };
+  
   
   var PThread = {
   unusedWorkers:[],
@@ -1190,12 +1495,33 @@ async function createWasm() {
   pthreads:{
   },
   nextWorkerID:1,
+  debugInit() {
+        function pthreadLogPrefix() {
+          var t = 0;
+          if (runtimeInitialized && typeof _pthread_self != 'undefined'
+          ) {
+            t = _pthread_self();
+          }
+          return `w:${workerID},t:${ptrToString(t)}: `;
+        }
+  
+        // Prefix all err()/dbg() messages with the calling thread ID.
+        var origDbg = dbg;
+        dbg = (...args) => origDbg(pthreadLogPrefix() + args.join(' '));
+      },
   init() {
+        PThread.debugInit();
         if ((!(ENVIRONMENT_IS_PTHREAD))) {
           PThread.initMainThread();
         }
       },
   initMainThread() {
+        // MINIMAL_RUNTIME takes care of calling loadWasmModuleToAllWorkers
+        // in postamble_minimal.js
+        addOnPreRun(() => {
+          addRunDependency('loading-workers')
+          PThread.loadWasmModuleToAllWorkers(() => removeRunDependency('loading-workers'));
+        });
       },
   terminateAllThreads:() => {
         assert(!ENVIRONMENT_IS_PTHREAD, 'Internal Error! terminateAllThreads() can only ever be called from main application thread!');
@@ -1237,6 +1563,8 @@ async function createWasm() {
         // linear memory.
         __emscripten_thread_free_data(pthread_ptr);
       },
+  receiveObjectTransfer(data) {
+      },
   threadInitTLS() {
         // Call thread init functions (these are the _emscripten_tls_init for each
         // module loaded.
@@ -1264,22 +1592,16 @@ async function createWasm() {
           } else if (cmd === 'spawnThread') {
             spawnThread(d);
           } else if (cmd === 'cleanupThread') {
-            // cleanupThread needs to be run via callUserCallback since it calls
-            // back into user code to free thread data. Without this it's possible
-            // the unwind or ExitStatus exception could escape here.
-            callUserCallback(() => cleanupThread(d.thread));
+            cleanupThread(d.thread);
           } else if (cmd === 'loaded') {
             worker.loaded = true;
             onFinishedLoading(worker);
+          } else if (cmd === 'alert') {
+            alert(`Thread ${d.threadId}: ${d.text}`);
           } else if (d.target === 'setimmediate') {
             // Worker wants to postMessage() to itself to implement setImmediate()
             // emulation.
             worker.postMessage(d);
-          } else if (cmd === 'uncaughtException') {
-            // Message handler for Node.js specific out-of-order behavior:
-            // https://github.com/nodejs/node/issues/59617
-            // A pthread sent an uncaught exception event. Re-raise it on the main thread.
-            worker.onerror(d.error);
           } else if (cmd === 'callHandler') {
             Module[d.handler](...d.args);
           } else if (cmd) {
@@ -1302,7 +1624,6 @@ async function createWasm() {
         if (ENVIRONMENT_IS_NODE) {
           worker.on('message', (data) => worker.onmessage({ data: data }));
           worker.on('error', (e) => worker.onerror(e));
-  
         }
   
         assert(wasmMemory instanceof WebAssembly.Memory, 'WebAssembly memory should have been loaded by now!');
@@ -1323,6 +1644,8 @@ async function createWasm() {
           }
         }
   
+        worker.workerID = PThread.nextWorkerID++;
+  
         // Ask the new worker to load up the Emscripten-compiled page. This is a heavy operation.
         worker.postMessage({
           cmd: 'load',
@@ -1332,8 +1655,19 @@ async function createWasm() {
           'workerID': worker.workerID,
         });
       }),
+  loadWasmModuleToAllWorkers(onMaybeReady) {
+        onMaybeReady();
+      },
   allocateUnusedWorker() {
         var worker;
+        var workerOptions = {
+          // This is the way that we signal to the node worker that it is hosting
+          // a pthread.
+          'workerData': 'em-pthread',
+          // This is the way that we signal to the Web Worker that it is hosting
+          // a pthread.
+          'name': 'em-pthread-' + PThread.nextWorkerID,
+        };
         var pthreadMainJs = _scriptName;
         // We can't use makeModuleReceiveWithVar here since we want to also
         // call URL.createObjectURL on the mainScriptUrlOrBlob.
@@ -1343,15 +1677,7 @@ async function createWasm() {
             pthreadMainJs = URL.createObjectURL(pthreadMainJs);
           }
         }
-        worker = new Worker(pthreadMainJs, {
-          // This is the way that we signal to the node worker that it is hosting
-          // a pthread.
-          'workerData': 'em-pthread',
-          // This is the way that we signal to the Web Worker that it is hosting
-          // a pthread.
-          'name': 'em-pthread-' + PThread.nextWorkerID,
-  });
-        worker.workerID = PThread.nextWorkerID++;
+        worker = new Worker(pthreadMainJs, workerOptions);
         PThread.unusedWorkers.push(worker);
       },
   getNewWorker() {
@@ -1364,14 +1690,15 @@ async function createWasm() {
       },
   };
 
-  var onPostRuns = [];
-  var addOnPostRun = (cb) => onPostRuns.push(cb);
-
-
+  var callRuntimeCallbacks = (callbacks) => {
+      while (callbacks.length > 0) {
+        // Pass the module as the first argument.
+        callbacks.shift()(Module);
+      }
+    };
 
   
-  
-  function establishStackSpace(pthread_ptr) {
+  var establishStackSpace = (pthread_ptr) => {
       var stackHigh = HEAPU32[(((pthread_ptr)+(52))>>2)];
       var stackSize = HEAPU32[(((pthread_ptr)+(56))>>2)];
       var stackLow = stackHigh - stackSize;
@@ -1388,7 +1715,7 @@ async function createWasm() {
       // Write the stack cookie last, after we have set up the proper bounds and
       // current position of the stack.
       writeStackCookie();
-    }
+    };
 
   
     /**
@@ -1421,6 +1748,7 @@ async function createWasm() {
   var getWasmTableEntry = (funcPtr) => {
       var func = wasmTableMirror[funcPtr];
       if (!func) {
+        if (funcPtr >= wasmTableMirror.length) wasmTableMirror.length = funcPtr + 1;
         /** @suppress {checkTypes} */
         wasmTableMirror[funcPtr] = func = wasmTable.get(funcPtr);
       }
@@ -1456,19 +1784,16 @@ async function createWasm() {
   
       checkStackCookie();
       function finish(result) {
-        // In MINIMAL_RUNTIME the noExitRuntime concept does not apply to
-        // pthreads. To exit a pthread with live runtime, use the function
-        // emscripten_unwind_to_js_event_loop() in the pthread body.
         if (keepRuntimeAlive()) {
           EXITSTATUS = result;
-          return;
+        } else {
+          __emscripten_thread_exit(result);
         }
-        __emscripten_thread_exit(result);
       }
       finish(result);
     };
 
-  var noExitRuntime = true;
+  var noExitRuntime = Module['noExitRuntime'] || true;
 
 
   var registerTLSInit = (tlsInitFunc) => PThread.tlsInitFunctions.push(tlsInitFunc);
@@ -1507,18 +1832,6 @@ async function createWasm() {
 
   var UTF8Decoder = typeof TextDecoder != 'undefined' ? new TextDecoder() : undefined;
   
-  var findStringEnd = (heapOrArray, idx, maxBytesToRead, ignoreNul) => {
-      var maxIdx = idx + maxBytesToRead;
-      if (ignoreNul) return maxIdx;
-      // TextDecoder needs to know the byte length in advance, it doesn't stop on
-      // null terminator by itself.
-      // As a tiny code save trick, compare idx against maxIdx using a negation,
-      // so that maxBytesToRead=undefined/NaN means Infinity.
-      while (heapOrArray[idx] && !(idx >= maxIdx)) ++idx;
-      return idx;
-    };
-  
-  
     /**
      * Given a pointer 'idx' to a null-terminated UTF8-encoded string in the given
      * array that contains uint8 values, returns a copy of that string as a
@@ -1526,18 +1839,24 @@ async function createWasm() {
      * heapOrArray is either a regular array, or a JavaScript typed array view.
      * @param {number=} idx
      * @param {number=} maxBytesToRead
-     * @param {boolean=} ignoreNul - If true, the function will not stop on a NUL character.
      * @return {string}
      */
-  var UTF8ArrayToString = (heapOrArray, idx = 0, maxBytesToRead, ignoreNul) => {
+  var UTF8ArrayToString = (heapOrArray, idx = 0, maxBytesToRead = NaN) => {
+      var endIdx = idx + maxBytesToRead;
+      var endPtr = idx;
+      // TextDecoder needs to know the byte length in advance, it doesn't stop on
+      // null terminator by itself.  Also, use the length info to avoid running tiny
+      // strings through TextDecoder, since .subarray() allocates garbage.
+      // (As a tiny code save trick, compare endPtr against endIdx using a negation,
+      // so that undefined/NaN means Infinity)
+      while (heapOrArray[endPtr] && !(endPtr >= endIdx)) ++endPtr;
   
-      var endPtr = findStringEnd(heapOrArray, idx, maxBytesToRead, ignoreNul);
-  
-      // When using conditional TextDecoder, skip it for short strings as the overhead of the native call is not worth it.
       if (endPtr - idx > 16 && heapOrArray.buffer && UTF8Decoder) {
         return UTF8Decoder.decode(heapOrArray.buffer instanceof ArrayBuffer ? heapOrArray.subarray(idx, endPtr) : heapOrArray.slice(idx, endPtr));
       }
       var str = '';
+      // If building with TextDecoder, we have already computed the string length
+      // above, so test loop end condition against that
       while (idx < endPtr) {
         // For UTF8 byte structure, see:
         // http://en.wikipedia.org/wiki/UTF-8#Description
@@ -1574,13 +1893,15 @@ async function createWasm() {
      *   maximum number of bytes to read. You can omit this parameter to scan the
      *   string until the first 0 byte. If maxBytesToRead is passed, and the string
      *   at [ptr, ptr+maxBytesToReadr[ contains a null byte in the middle, then the
-     *   string will cut short at that byte index.
-     * @param {boolean=} ignoreNul - If true, the function will not stop on a NUL character.
+     *   string will cut short at that byte index (i.e. maxBytesToRead will not
+     *   produce a string of exact length [ptr, ptr+maxBytesToRead[) N.B. mixing
+     *   frequent uses of UTF8ToString() with and without maxBytesToRead may throw
+     *   JS JIT optimizations off, so it is worth to consider consistently using one
      * @return {string}
      */
-  var UTF8ToString = (ptr, maxBytesToRead, ignoreNul) => {
+  var UTF8ToString = (ptr, maxBytesToRead) => {
       assert(typeof ptr == 'number', `UTF8ToString expects a number (got ${typeof ptr})`);
-      return ptr ? UTF8ArrayToString(HEAPU8, ptr, maxBytesToRead, ignoreNul) : '';
+      return ptr ? UTF8ArrayToString(HEAPU8, ptr, maxBytesToRead) : '';
     };
   var ___assert_fail = (condition, filename, line, func) =>
       abort(`Assertion failed: ${UTF8ToString(condition)}, at: ` + [filename ? UTF8ToString(filename) : 'unknown filename', line, func ? UTF8ToString(func) : 'unknown function']);
@@ -1675,6 +1996,13 @@ async function createWasm() {
       }
     }
   
+  var ___resumeException = (ptr) => {
+      if (!exceptionLast) {
+        exceptionLast = new CppException(ptr);
+      }
+      throw exceptionLast;
+    };
+  
   
   var setTempRet0 = (val) => __emscripten_tempret_set(val);
   var findMatchingCatch = (args) => {
@@ -1759,6 +2087,7 @@ async function createWasm() {
   
   
   
+  
   function pthreadCreateProxied(pthread_ptr, attr, startRoutine, arg) {
   if (ENVIRONMENT_IS_PTHREAD)
     return proxyToMainThread(2, 0, 1, pthread_ptr, attr, startRoutine, arg);
@@ -1812,12 +2141,6 @@ async function createWasm() {
       return spawnThread(threadParams);
     };
 
-  var ___resumeException = (ptr) => {
-      if (!exceptionLast) {
-        exceptionLast = new CppException(ptr);
-      }
-      throw exceptionLast;
-    };
 
   /** @suppress {duplicate } */
   var syscallGetVarargI = () => {
@@ -1861,7 +2184,7 @@ async function createWasm() {
       },
   normalize:(path) => {
         var isAbsolute = PATH.isAbs(path),
-            trailingSlash = path.slice(-1) === '/';
+            trailingSlash = path.substr(-1) === '/';
         // Normalize the path
         path = PATH.normalizeArray(path.split('/').filter((p) => !!p), !isAbsolute).join('/');
         if (!path && !isAbsolute) {
@@ -1882,29 +2205,60 @@ async function createWasm() {
         }
         if (dir) {
           // It has a dirname, strip trailing slash
-          dir = dir.slice(0, -1);
+          dir = dir.substr(0, dir.length - 1);
         }
         return root + dir;
       },
-  basename:(path) => path && path.match(/([^\/]+|\/)\/*$/)[1],
+  basename:(path) => {
+        // EMSCRIPTEN return '/'' for '/', not an empty string
+        if (path === '/') return '/';
+        path = PATH.normalize(path);
+        path = path.replace(/\/$/, "");
+        var lastSlash = path.lastIndexOf('/');
+        if (lastSlash === -1) return path;
+        return path.substr(lastSlash+1);
+      },
   join:(...paths) => PATH.normalize(paths.join('/')),
   join2:(l, r) => PATH.normalize(l + '/' + r),
   };
   
   var initRandomFill = () => {
-      // This block is not needed on v19+ since crypto.getRandomValues is builtin
+      if (typeof crypto == 'object' && typeof crypto['getRandomValues'] == 'function') {
+        // for modern web browsers
+        // like with most Web APIs, we can't use Web Crypto API directly on shared memory,
+        // so we need to create an intermediate buffer and copy it to the destination
+        return (view) => (
+          view.set(crypto.getRandomValues(new Uint8Array(view.byteLength))),
+          // Return the original view to match modern native implementations.
+          view
+        );
+      } else
       if (ENVIRONMENT_IS_NODE) {
-        var nodeCrypto = require('crypto');
-        return (view) => nodeCrypto.randomFillSync(view);
+        // for nodejs with or without crypto support included
+        try {
+          var crypto_module = require('crypto');
+          var randomFillSync = crypto_module['randomFillSync'];
+          if (randomFillSync) {
+            // nodejs with LTS crypto support
+            return (view) => crypto_module['randomFillSync'](view);
+          }
+          // very old nodejs with the original crypto API
+          var randomBytes = crypto_module['randomBytes'];
+          return (view) => (
+            view.set(randomBytes(view.byteLength)),
+            // Return the original view to match modern native implementations.
+            view
+          );
+        } catch (e) {
+          // nodejs doesn't have crypto support
+        }
       }
-  
-      // like with most Web APIs, we can't use Web Crypto API directly on shared memory,
-      // so we need to create an intermediate buffer and copy it to the destination
-      return (view) => view.set(crypto.getRandomValues(new Uint8Array(view.byteLength)));
+      // we couldn't find a proper implementation, as Math.random() is not suitable for /dev/random, see emscripten-core/emscripten/pull/7096
+      abort('no cryptographic support found for randomDevice. consider polyfilling it if you want to use something insecure like Math.random(), e.g. put this in a --pre-js: var crypto = { getRandomValues: (array) => { for (var i = 0; i < array.length; i++) array[i] = (Math.random()*256)|0 } };');
     };
   var randomFill = (view) => {
       // Lazily init on the first invocation.
-      (randomFill = initRandomFill())(view);
+      return (randomFill = initRandomFill())(view);
     };
   
   
@@ -1930,8 +2284,8 @@ async function createWasm() {
         return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
       },
   relative:(from, to) => {
-        from = PATH_FS.resolve(from).slice(1);
-        to = PATH_FS.resolve(to).slice(1);
+        from = PATH_FS.resolve(from).substr(1);
+        to = PATH_FS.resolve(to).substr(1);
         function trim(arr) {
           var start = 0;
           for (; start < arr.length; start++) {
@@ -1998,10 +2352,18 @@ async function createWasm() {
       var startIdx = outIdx;
       var endIdx = outIdx + maxBytesToWrite - 1; // -1 for string null terminator.
       for (var i = 0; i < str.length; ++i) {
+        // Gotcha: charCodeAt returns a 16-bit word that is a UTF-16 encoded code
+        // unit, not a Unicode code point of the character! So decode
+        // UTF16->UTF32->UTF8.
+        // See http://unicode.org/faq/utf_bom.html#utf16-3
         // For UTF8 byte structure, see http://en.wikipedia.org/wiki/UTF-8#Description
         // and https://www.ietf.org/rfc/rfc2279.txt
         // and https://tools.ietf.org/html/rfc3629
-        var u = str.codePointAt(i);
+        var u = str.charCodeAt(i); // possibly a lead surrogate
+        if (u >= 0xD800 && u <= 0xDFFF) {
+          var u1 = str.charCodeAt(++i);
+          u = 0x10000 + ((u & 0x3FF) << 10) | (u1 & 0x3FF);
+        }
         if (u <= 0x7F) {
           if (outIdx >= endIdx) break;
           heap[outIdx++] = u;
@@ -2021,9 +2383,6 @@ async function createWasm() {
           heap[outIdx++] = 0x80 | ((u >> 12) & 63);
           heap[outIdx++] = 0x80 | ((u >> 6) & 63);
           heap[outIdx++] = 0x80 | (u & 63);
-          // Gotcha: if codePoint is over 0xFFFF, it is represented as a surrogate pair in UTF-16.
-          // We need to manually skip over the second code unit for correct iteration.
-          i++;
         }
       }
       // Null-terminate the pointer to the buffer.
@@ -2031,13 +2390,13 @@ async function createWasm() {
       return outIdx - startIdx;
     };
   /** @type {function(string, boolean=, number=)} */
-  var intArrayFromString = (stringy, dontAddNull, length) => {
-      var len = length > 0 ? length : lengthBytesUTF8(stringy)+1;
-      var u8array = new Array(len);
-      var numBytesWritten = stringToUTF8Array(stringy, u8array, 0, u8array.length);
-      if (dontAddNull) u8array.length = numBytesWritten;
-      return u8array;
-    };
+  function intArrayFromString(stringy, dontAddNull, length) {
+    var len = length > 0 ? length : lengthBytesUTF8(stringy)+1;
+    var u8array = new Array(len);
+    var numBytesWritten = stringToUTF8Array(stringy, u8array, 0, u8array.length);
+    if (dontAddNull) u8array.length = numBytesWritten;
+    return u8array;
+  }
   var FS_stdin_getChar = () => {
       if (!FS_stdin_getChar_buffer.length) {
         var result = null;
@@ -2149,7 +2508,7 @@ async function createWasm() {
             buffer[offset+i] = result;
           }
           if (bytesRead) {
-            stream.node.atime = Date.now();
+            stream.node.timestamp = Date.now();
           }
           return bytesRead;
         },
@@ -2165,7 +2524,7 @@ async function createWasm() {
             throw new FS.ErrnoError(29);
           }
           if (length) {
-            stream.node.mtime = stream.node.ctime = Date.now();
+            stream.node.timestamp = Date.now();
           }
           return i;
         },
@@ -2183,7 +2542,7 @@ async function createWasm() {
           }
         },
   fsync(tty) {
-          if (tty.output?.length > 0) {
+          if (tty.output && tty.output.length > 0) {
             out(UTF8ArrayToString(tty.output));
             tty.output = [];
           }
@@ -2220,7 +2579,7 @@ async function createWasm() {
           }
         },
   fsync(tty) {
-          if (tty.output?.length > 0) {
+          if (tty.output && tty.output.length > 0) {
             err(UTF8ArrayToString(tty.output));
             tty.output = [];
           }
@@ -2229,6 +2588,14 @@ async function createWasm() {
   };
   
   
+  var zeroMemory = (address, size) => {
+      HEAPU8.fill(0, address, address + size);
+    };
+  
+  var alignMemory = (size, alignment) => {
+      assert(alignment, "alignment argument is required");
+      return Math.ceil(size / alignment) * alignment;
+    };
   var mmapAlloc = (size) => {
       abort('internal error: mmapAlloc called but `emscripten_builtin_memalign` native symbol not exported');
     };
@@ -2268,6 +2635,7 @@ async function createWasm() {
               llseek: MEMFS.stream_ops.llseek,
               read: MEMFS.stream_ops.read,
               write: MEMFS.stream_ops.write,
+              allocate: MEMFS.stream_ops.allocate,
               mmap: MEMFS.stream_ops.mmap,
               msync: MEMFS.stream_ops.msync
             }
@@ -2308,11 +2676,11 @@ async function createWasm() {
           node.node_ops = MEMFS.ops_table.chrdev.node;
           node.stream_ops = MEMFS.ops_table.chrdev.stream;
         }
-        node.atime = node.mtime = node.ctime = Date.now();
+        node.timestamp = Date.now();
         // add the new node to the parent
         if (parent) {
           parent.contents[name] = node;
-          parent.atime = parent.mtime = parent.ctime = node.atime;
+          parent.timestamp = node.timestamp;
         }
         return node;
       },
@@ -2368,9 +2736,9 @@ async function createWasm() {
           } else {
             attr.size = 0;
           }
-          attr.atime = new Date(node.atime);
-          attr.mtime = new Date(node.mtime);
-          attr.ctime = new Date(node.ctime);
+          attr.atime = new Date(node.timestamp);
+          attr.mtime = new Date(node.timestamp);
+          attr.ctime = new Date(node.timestamp);
           // NOTE: In our implementation, st_blocks = Math.ceil(st_size/st_blksize),
           //       but this is not required by the standard.
           attr.blksize = 4096;
@@ -2378,10 +2746,11 @@ async function createWasm() {
           return attr;
         },
   setattr(node, attr) {
-          for (const key of ["mode", "atime", "mtime", "ctime"]) {
-            if (attr[key] != null) {
-              node[key] = attr[key];
-            }
+          if (attr.mode !== undefined) {
+            node.mode = attr.mode;
+          }
+          if (attr.timestamp !== undefined) {
+            node.timestamp = attr.timestamp;
           }
           if (attr.size !== undefined) {
             MEMFS.resizeFileStorage(node, attr.size);
@@ -2394,28 +2763,29 @@ async function createWasm() {
           return MEMFS.createNode(parent, name, mode, dev);
         },
   rename(old_node, new_dir, new_name) {
-          var new_node;
-          try {
-            new_node = FS.lookupNode(new_dir, new_name);
-          } catch (e) {}
-          if (new_node) {
-            if (FS.isDir(old_node.mode)) {
-              // if we're overwriting a directory at new_name, make sure it's empty.
+          // if we're overwriting a directory at new_name, make sure it's empty.
+          if (FS.isDir(old_node.mode)) {
+            var new_node;
+            try {
+              new_node = FS.lookupNode(new_dir, new_name);
+            } catch (e) {
+            }
+            if (new_node) {
               for (var i in new_node.contents) {
                 throw new FS.ErrnoError(55);
               }
             }
-            FS.hashRemoveNode(new_node);
           }
           // do the internal rewiring
           delete old_node.parent.contents[old_node.name];
-          new_dir.contents[new_name] = old_node;
+          old_node.parent.timestamp = Date.now()
           old_node.name = new_name;
-          new_dir.ctime = new_dir.mtime = old_node.parent.ctime = old_node.parent.mtime = Date.now();
+          new_dir.contents[new_name] = old_node;
+          new_dir.timestamp = old_node.parent.timestamp;
         },
   unlink(parent, name) {
           delete parent.contents[name];
-          parent.ctime = parent.mtime = Date.now();
+          parent.timestamp = Date.now();
         },
   rmdir(parent, name) {
           var node = FS.lookupNode(parent, name);
@@ -2423,10 +2793,14 @@ async function createWasm() {
             throw new FS.ErrnoError(55);
           }
           delete parent.contents[name];
-          parent.ctime = parent.mtime = Date.now();
+          parent.timestamp = Date.now();
         },
   readdir(node) {
-          return ['.', '..', ...Object.keys(node.contents)];
+          var entries = ['.', '..'];
+          for (var key of Object.keys(node.contents)) {
+            entries.push(key);
+          }
+          return entries;
         },
   symlink(parent, newname, oldpath) {
           var node = MEMFS.createNode(parent, newname, 0o777 | 40960, 0);
@@ -2459,7 +2833,7 @@ async function createWasm() {
   
           if (!length) return 0;
           var node = stream.node;
-          node.mtime = node.ctime = Date.now();
+          node.timestamp = Date.now();
   
           if (buffer.subarray && (!node.contents || node.contents.subarray)) { // This write is from a typed array to a typed array?
             if (canOwn) {
@@ -2504,6 +2878,10 @@ async function createWasm() {
           }
           return position;
         },
+  allocate(stream, offset, length) {
+          MEMFS.expandFileStorage(stream.node, offset + length);
+          stream.node.usedBytes = Math.max(stream.node.usedBytes, offset + length);
+        },
   mmap(stream, length, position, prot, flags) {
           if (!FS.isFile(stream.node.mode)) {
             throw new FS.ErrnoError(43);
@@ -2545,6 +2923,76 @@ async function createWasm() {
   },
   };
   
+  /** @param {boolean=} noRunDep */
+  var asyncLoad = (url, onload, onerror, noRunDep) => {
+      var dep = !noRunDep ? getUniqueRunDependency(`al ${url}`) : '';
+      readAsync(url).then(
+        (arrayBuffer) => {
+          assert(arrayBuffer, `Loading data file "${url}" failed (no arrayBuffer).`);
+          onload(new Uint8Array(arrayBuffer));
+          if (dep) removeRunDependency(dep);
+        },
+        (err) => {
+          if (onerror) {
+            onerror();
+          } else {
+            throw `Loading data file "${url}" failed.`;
+          }
+        }
+      );
+      if (dep) addRunDependency(dep);
+    };
+  
+  
+  var FS_createDataFile = (parent, name, fileData, canRead, canWrite, canOwn) => {
+      FS.createDataFile(parent, name, fileData, canRead, canWrite, canOwn);
+    };
+  
+  var preloadPlugins = Module['preloadPlugins'] || [];
+  var FS_handledByPreloadPlugin = (byteArray, fullname, finish, onerror) => {
+      // Ensure plugins are ready.
+      if (typeof Browser != 'undefined') Browser.init();
+  
+      var handled = false;
+      preloadPlugins.forEach((plugin) => {
+        if (handled) return;
+        if (plugin['canHandle'](fullname)) {
+          plugin['handle'](byteArray, fullname, finish, onerror);
+          handled = true;
+        }
+      });
+      return handled;
+    };
+  var FS_createPreloadedFile = (parent, name, url, canRead, canWrite, onload, onerror, dontCreateFile, canOwn, preFinish) => {
+      // TODO we should allow people to just pass in a complete filename instead
+      // of parent and name being that we just join them anyways
+      var fullname = name ? PATH_FS.resolve(PATH.join2(parent, name)) : parent;
+      var dep = getUniqueRunDependency(`cp ${fullname}`); // might have several active requests for the same fullname
+      function processData(byteArray) {
+        function finish(byteArray) {
+          preFinish?.();
+          if (!dontCreateFile) {
+            FS_createDataFile(parent, name, byteArray, canRead, canWrite, canOwn);
+          }
+          onload?.();
+          removeRunDependency(dep);
+        }
+        if (FS_handledByPreloadPlugin(byteArray, fullname, finish, () => {
+          onerror?.();
+          removeRunDependency(dep);
+        })) {
+          return;
+        }
+        finish(byteArray);
+      }
+      addRunDependency(dep);
+      if (typeof url == 'string') {
+        asyncLoad(url, processData, onerror);
+      } else {
+        processData(url);
+      }
+    };
+  
   var FS_modeStringToFlags = (str) => {
       var flagModes = {
         'r': 0,
@@ -2567,6 +3015,8 @@ async function createWasm() {
       if (canWrite) mode |= 146;
       return mode;
     };
+  
+  
   
   
   
@@ -2696,130 +3146,6 @@ async function createWasm() {
       'EOWNERDEAD': 62,
       'ESTRPIPE': 135,
     };
-  
-  var asyncLoad = async (url) => {
-      var arrayBuffer = await readAsync(url);
-      assert(arrayBuffer, `Loading data file "${url}" failed (no arrayBuffer).`);
-      return new Uint8Array(arrayBuffer);
-    };
-  
-  
-  var FS_createDataFile = (...args) => FS.createDataFile(...args);
-  
-  var getUniqueRunDependency = (id) => {
-      var orig = id;
-      while (1) {
-        if (!runDependencyTracking[id]) return id;
-        id = orig + Math.random();
-      }
-    };
-  
-  var runDependencies = 0;
-  
-  
-  var dependenciesFulfilled = null;
-  
-  var runDependencyTracking = {
-  };
-  
-  var runDependencyWatcher = null;
-  var removeRunDependency = (id) => {
-      runDependencies--;
-  
-      Module['monitorRunDependencies']?.(runDependencies);
-  
-      assert(id, 'removeRunDependency requires an ID');
-      assert(runDependencyTracking[id]);
-      delete runDependencyTracking[id];
-      if (runDependencies == 0) {
-        if (runDependencyWatcher !== null) {
-          clearInterval(runDependencyWatcher);
-          runDependencyWatcher = null;
-        }
-        if (dependenciesFulfilled) {
-          var callback = dependenciesFulfilled;
-          dependenciesFulfilled = null;
-          callback(); // can add another dependenciesFulfilled
-        }
-      }
-    };
-  
-  
-  var addRunDependency = (id) => {
-      runDependencies++;
-  
-      Module['monitorRunDependencies']?.(runDependencies);
-  
-      assert(id, 'addRunDependency requires an ID')
-      assert(!runDependencyTracking[id]);
-      runDependencyTracking[id] = 1;
-      if (runDependencyWatcher === null && typeof setInterval != 'undefined') {
-        // Check for missing dependencies every few seconds
-        runDependencyWatcher = setInterval(() => {
-          if (ABORT) {
-            clearInterval(runDependencyWatcher);
-            runDependencyWatcher = null;
-            return;
-          }
-          var shown = false;
-          for (var dep in runDependencyTracking) {
-            if (!shown) {
-              shown = true;
-              err('still waiting on run dependencies:');
-            }
-            err(`dependency: ${dep}`);
-          }
-          if (shown) {
-            err('(end of list)');
-          }
-        }, 10000);
-        // Prevent this timer from keeping the runtime alive if nothing
-        // else is.
-        runDependencyWatcher.unref?.()
-      }
-    };
-  
-  
-  var preloadPlugins = [];
-  var FS_handledByPreloadPlugin = async (byteArray, fullname) => {
-      // Ensure plugins are ready.
-      if (typeof Browser != 'undefined') Browser.init();
-  
-      for (var plugin of preloadPlugins) {
-        if (plugin['canHandle'](fullname)) {
-          assert(plugin['handle'].constructor.name === 'AsyncFunction', 'Filesystem plugin handlers must be async functions (See #24914)')
-          return plugin['handle'](byteArray, fullname);
-        }
-      }
-      // In no plugin handled this file then return the original/unmodified
-      // byteArray.
-      return byteArray;
-    };
-  var FS_preloadFile = async (parent, name, url, canRead, canWrite, dontCreateFile, canOwn, preFinish) => {
-      // TODO we should allow people to just pass in a complete filename instead
-      // of parent and name being that we just join them anyways
-      var fullname = name ? PATH_FS.resolve(PATH.join2(parent, name)) : parent;
-      var dep = getUniqueRunDependency(`cp ${fullname}`); // might have several active requests for the same fullname
-      addRunDependency(dep);
-  
-      try {
-        var byteArray = url;
-        if (typeof url == 'string') {
-          byteArray = await asyncLoad(url);
-        }
-  
-        byteArray = await FS_handledByPreloadPlugin(byteArray, fullname);
-        preFinish?.();
-        if (!dontCreateFile) {
-          FS_createDataFile(parent, name, byteArray, canRead, canWrite, canOwn);
-        }
-      } finally {
-        removeRunDependency(dep);
-      }
-    };
-  var FS_createPreloadedFile = (parent, name, url, canRead, canWrite, onload, onerror, dontCreateFile, canOwn, preFinish) => {
-      FS_preloadFile(parent, name, url, canRead, canWrite, dontCreateFile, canOwn, preFinish).then(onload).catch(onerror);
-    };
   var FS = {
   root:null,
   mounts:[],
@@ -2831,10 +3157,6 @@ async function createWasm() {
   currentPath:"/",
   initialized:false,
   ignorePermissions:true,
-  filesystems:null,
-  syncFSRequests:0,
-  readFiles:{
-  },
   ErrnoError:class extends Error {
         name = 'ErrnoError';
         // We set the `name` property to be able to identify `FS.ErrnoError`
@@ -2854,6 +3176,10 @@ async function createWasm() {
           }
         }
       },
+  filesystems:null,
+  syncFSRequests:0,
+  readFiles:{
+  },
   FSStream:class {
         shared = {};
         get object() {
@@ -2900,7 +3226,6 @@ async function createWasm() {
           this.name = name;
           this.mode = mode;
           this.rdev = rdev;
-          this.atime = this.mtime = this.ctime = Date.now();
         }
         get read() {
           return (this.mode & this.readMode) === this.readMode;
@@ -2922,84 +3247,63 @@ async function createWasm() {
         }
       },
   lookupPath(path, opts = {}) {
-        if (!path) {
-          throw new FS.ErrnoError(44);
+        path = PATH_FS.resolve(path);
+  
+        if (!path) return { path: '', node: null };
+  
+        var defaults = {
+          follow_mount: true,
+          recurse_count: 0
+        };
+        opts = Object.assign(defaults, opts)
+  
+        if (opts.recurse_count > 8) {  // max recursive lookup of 8
+          throw new FS.ErrnoError(32);
         }
-        opts.follow_mount ??= true
   
-        if (!PATH.isAbs(path)) {
-          path = FS.cwd() + '/' + path;
-        }
+        // split the absolute path
+        var parts = path.split('/').filter((p) => !!p);
   
-        // limit max consecutive symlinks to 40 (SYMLOOP_MAX).
-        linkloop: for (var nlinks = 0; nlinks < 40; nlinks++) {
-          // split the absolute path
-          var parts = path.split('/').filter((p) => !!p);
+        // start at the root
+        var current = FS.root;
+        var current_path = '/';
   
-          // start at the root
-          var current = FS.root;
-          var current_path = '/';
+        for (var i = 0; i < parts.length; i++) {
+          var islast = (i === parts.length-1);
+          if (islast && opts.parent) {
+            // stop resolving
+            break;
+          }
   
-          for (var i = 0; i < parts.length; i++) {
-            var islast = (i === parts.length-1);
-            if (islast && opts.parent) {
-              // stop resolving
-              break;
-            }
+          current = FS.lookupNode(current, parts[i]);
+          current_path = PATH.join2(current_path, parts[i]);
   
-            if (parts[i] === '.') {
-              continue;
-            }
-  
-            if (parts[i] === '..') {
-              current_path = PATH.dirname(current_path);
-              if (FS.isRoot(current)) {
-                path = current_path + '/' + parts.slice(i + 1).join('/');
-                // We're making progress here, don't let many consecutive ..'s
-                // lead to ELOOP
-                nlinks--;
-                continue linkloop;
-              } else {
-                current = current.parent;
-              }
-              continue;
-            }
-  
-            current_path = PATH.join2(current_path, parts[i]);
-            try {
-              current = FS.lookupNode(current, parts[i]);
-            } catch (e) {
-              // if noent_okay is true, suppress a ENOENT in the last component
-              // and return an object with an undefined node. This is needed for
-              // resolving symlinks in the path when creating a file.
-              if ((e?.errno === 44) && islast && opts.noent_okay) {
-                return { path: current_path };
-              }
-              throw e;
-            }
-  
-            // jump to the mount's root node if this is a mountpoint
-            if (FS.isMountpoint(current) && (!islast || opts.follow_mount)) {
+          // jump to the mount's root node if this is a mountpoint
+          if (FS.isMountpoint(current)) {
+            if (!islast || (islast && opts.follow_mount)) {
               current = current.mounted.root;
             }
+          }
   
-            // by default, lookupPath will not follow a symlink if it is the final path component.
-            // setting opts.follow = true will override this behavior.
-            if (FS.isLink(current.mode) && (!islast || opts.follow)) {
-              if (!current.node_ops.readlink) {
-                throw new FS.ErrnoError(52);
+          // by default, lookupPath will not follow a symlink if it is the final path component.
+          // setting opts.follow = true will override this behavior.
+          if (!islast || opts.follow) {
+            var count = 0;
+            while (FS.isLink(current.mode)) {
+              var link = FS.readlink(current_path);
+              current_path = PATH_FS.resolve(PATH.dirname(current_path), link);
+  
+              var lookup = FS.lookupPath(current_path, { recurse_count: opts.recurse_count + 1 });
+              current = lookup.node;
+  
+              if (count++ > 40) {  // limit max consecutive symlinks to 40 (SYMLOOP_MAX).
+                throw new FS.ErrnoError(32);
               }
-              var link = current.node_ops.readlink(current);
-              if (!PATH.isAbs(link)) {
-                link = PATH.dirname(current_path) + '/' + link;
-              }
-              path = link + '/' + parts.slice(i + 1).join('/');
-              continue linkloop;
             }
           }
-          return { path: current_path, node: current };
         }
-        throw new FS.ErrnoError(32);
+  
+        return { path: current_path, node: current };
       },
   getPath(node) {
         var path;
@@ -3123,9 +3427,6 @@ async function createWasm() {
         return 0;
       },
   mayCreate(dir, name) {
-        if (!FS.isDir(dir.mode)) {
-          return 54;
-        }
         try {
           var node = FS.lookupNode(dir, name);
           return 20;
@@ -3165,18 +3466,12 @@ async function createWasm() {
         if (FS.isLink(node.mode)) {
           return 32;
         } else if (FS.isDir(node.mode)) {
-          if (FS.flagsToPermissionString(flags) !== 'r' // opening for write
-              || (flags & (512 | 64))) { // TODO: check for O_SEARCH? (== search for dir only)
+          if (FS.flagsToPermissionString(flags) !== 'r' || // opening for write
+              (flags & 512)) { // TODO: check for O_SEARCH? (== search for dir only)
             return 31;
           }
         }
         return FS.nodePermissions(node, FS.flagsToPermissionString(flags));
-      },
-  checkOpExists(op, err) {
-        if (!op) {
-          throw new FS.ErrnoError(err);
-        }
-        return op;
       },
   MAX_OPEN_FDS:4096,
   nextfd() {
@@ -3214,13 +3509,6 @@ async function createWasm() {
         var stream = FS.createStream(origStream, fd);
         stream.stream_ops?.dup?.(stream);
         return stream;
-      },
-  doSetAttr(stream, node, attr) {
-        var setattr = stream?.stream_ops.setattr;
-        var arg = setattr ? stream : node;
-        setattr ??= node.node_ops.setattr;
-        FS.checkOpExists(setattr, 63)
-        setattr(arg, attr);
       },
   chrdev_stream_ops:{
   open(stream) {
@@ -3391,11 +3679,8 @@ async function createWasm() {
         var lookup = FS.lookupPath(path, { parent: true });
         var parent = lookup.node;
         var name = PATH.basename(path);
-        if (!name) {
+        if (!name || name === '.' || name === '..') {
           throw new FS.ErrnoError(28);
-        }
-        if (name === '.' || name === '..') {
-          throw new FS.ErrnoError(20);
         }
         var errCode = FS.mayCreate(parent, name);
         if (errCode) {
@@ -3407,18 +3692,9 @@ async function createWasm() {
         return parent.node_ops.mknod(parent, name, mode, dev);
       },
   statfs(path) {
-        return FS.statfsNode(FS.lookupPath(path, {follow: true}).node);
-      },
-  statfsStream(stream) {
-        // We keep a separate statfsStream function because noderawfs overrides
-        // it. In noderawfs, stream.node is sometimes null. Instead, we need to
-        // look at stream.path.
-        return FS.statfsNode(stream.node);
-      },
-  statfsNode(node) {
+  
         // NOTE: None of the defaults here are true. We're just returning safe and
-        //       sane values. Currently nodefs and rawfs replace these defaults,
-        //       other file systems leave them alone.
+        //       sane values.
         var rtn = {
           bsize: 4096,
           frsize: 4096,
@@ -3432,8 +3708,9 @@ async function createWasm() {
           namelen: 255,
         };
   
-        if (node.node_ops.statfs) {
-          Object.assign(rtn, node.node_ops.statfs(node.mount.opts.root));
+        var parent = FS.lookupPath(path, {follow: true}).node;
+        if (parent?.node_ops.statfs) {
+          Object.assign(rtn, parent.node_ops.statfs(parent.mount.opts.root));
         }
         return rtn;
       },
@@ -3450,10 +3727,9 @@ async function createWasm() {
   mkdirTree(path, mode) {
         var dirs = path.split('/');
         var d = '';
-        for (var dir of dirs) {
-          if (!dir) continue;
-          if (d || PATH.isAbs(path)) d += '/';
-          d += dir;
+        for (var i = 0; i < dirs.length; ++i) {
+          if (!dirs[i]) continue;
+          d += '/' + dirs[i];
           try {
             FS.mkdir(d, mode);
           } catch(e) {
@@ -3594,8 +3870,10 @@ async function createWasm() {
   readdir(path) {
         var lookup = FS.lookupPath(path, { follow: true });
         var node = lookup.node;
-        var readdir = FS.checkOpExists(node.node_ops.readdir, 54);
-        return readdir(node);
+        if (!node.node_ops.readdir) {
+          throw new FS.ErrnoError(54);
+        }
+        return node.node_ops.readdir(node);
       },
   unlink(path) {
         var lookup = FS.lookupPath(path, { parent: true });
@@ -3635,27 +3913,16 @@ async function createWasm() {
   stat(path, dontFollow) {
         var lookup = FS.lookupPath(path, { follow: !dontFollow });
         var node = lookup.node;
-        var getattr = FS.checkOpExists(node.node_ops.getattr, 63);
-        return getattr(node);
-      },
-  fstat(fd) {
-        var stream = FS.getStreamChecked(fd);
-        var node = stream.node;
-        var getattr = stream.stream_ops.getattr;
-        var arg = getattr ? stream : node;
-        getattr ??= node.node_ops.getattr;
-        FS.checkOpExists(getattr, 63)
-        return getattr(arg);
+        if (!node) {
+          throw new FS.ErrnoError(44);
+        }
+        if (!node.node_ops.getattr) {
+          throw new FS.ErrnoError(63);
+        }
+        return node.node_ops.getattr(node);
       },
   lstat(path) {
         return FS.stat(path, true);
-      },
-  doChmod(stream, node, mode, dontFollow) {
-        FS.doSetAttr(stream, node, {
-          mode: (mode & 4095) | (node.mode & ~4095),
-          ctime: Date.now(),
-          dontFollow
-        });
       },
   chmod(path, mode, dontFollow) {
         var node;
@@ -3665,21 +3932,20 @@ async function createWasm() {
         } else {
           node = path;
         }
-        FS.doChmod(null, node, mode, dontFollow);
+        if (!node.node_ops.setattr) {
+          throw new FS.ErrnoError(63);
+        }
+        node.node_ops.setattr(node, {
+          mode: (mode & 4095) | (node.mode & ~4095),
+          timestamp: Date.now()
+        });
       },
   lchmod(path, mode) {
         FS.chmod(path, mode, true);
       },
   fchmod(fd, mode) {
         var stream = FS.getStreamChecked(fd);
-        FS.doChmod(stream, stream.node, mode, false);
-      },
-  doChown(stream, node, dontFollow) {
-        FS.doSetAttr(stream, node, {
-          timestamp: Date.now(),
-          dontFollow
-          // we ignore the uid / gid for now
-        });
+        FS.chmod(stream.node, mode);
       },
   chown(path, uid, gid, dontFollow) {
         var node;
@@ -3689,30 +3955,20 @@ async function createWasm() {
         } else {
           node = path;
         }
-        FS.doChown(null, node, dontFollow);
+        if (!node.node_ops.setattr) {
+          throw new FS.ErrnoError(63);
+        }
+        node.node_ops.setattr(node, {
+          timestamp: Date.now()
+          // we ignore the uid / gid for now
+        });
       },
   lchown(path, uid, gid) {
         FS.chown(path, uid, gid, true);
       },
   fchown(fd, uid, gid) {
         var stream = FS.getStreamChecked(fd);
-        FS.doChown(stream, stream.node, false);
-      },
-  doTruncate(stream, node, len) {
-        if (FS.isDir(node.mode)) {
-          throw new FS.ErrnoError(31);
-        }
-        if (!FS.isFile(node.mode)) {
-          throw new FS.ErrnoError(28);
-        }
-        var errCode = FS.nodePermissions(node, 'w');
-        if (errCode) {
-          throw new FS.ErrnoError(errCode);
-        }
-        FS.doSetAttr(stream, node, {
-          size: len,
-          timestamp: Date.now()
-        });
+        FS.chown(stream.node, uid, gid);
       },
   truncate(path, len) {
         if (len < 0) {
@@ -3725,22 +3981,36 @@ async function createWasm() {
         } else {
           node = path;
         }
-        FS.doTruncate(null, node, len);
+        if (!node.node_ops.setattr) {
+          throw new FS.ErrnoError(63);
+        }
+        if (FS.isDir(node.mode)) {
+          throw new FS.ErrnoError(31);
+        }
+        if (!FS.isFile(node.mode)) {
+          throw new FS.ErrnoError(28);
+        }
+        var errCode = FS.nodePermissions(node, 'w');
+        if (errCode) {
+          throw new FS.ErrnoError(errCode);
+        }
+        node.node_ops.setattr(node, {
+          size: len,
+          timestamp: Date.now()
+        });
       },
   ftruncate(fd, len) {
         var stream = FS.getStreamChecked(fd);
-        if (len < 0 || (stream.flags & 2097155) === 0) {
+        if ((stream.flags & 2097155) === 0) {
           throw new FS.ErrnoError(28);
         }
-        FS.doTruncate(stream, stream.node, len);
+        FS.truncate(stream.node, len);
       },
   utime(path, atime, mtime) {
         var lookup = FS.lookupPath(path, { follow: true });
         var node = lookup.node;
-        var setattr = FS.checkOpExists(node.node_ops.setattr, 63);
-        setattr(node, {
-          atime: atime,
-          mtime: mtime
+        node.node_ops.setattr(node, {
+          timestamp: Math.max(atime, mtime)
         });
       },
   open(path, flags, mode = 0o666) {
@@ -3754,20 +4024,18 @@ async function createWasm() {
           mode = 0;
         }
         var node;
-        var isDirPath;
         if (typeof path == 'object') {
           node = path;
         } else {
-          isDirPath = path.endsWith("/");
-          // noent_okay makes it so that if the final component of the path
-          // doesn't exist, lookupPath returns `node: undefined`. `path` will be
-          // updated to point to the target of all symlinks.
-          var lookup = FS.lookupPath(path, {
-            follow: !(flags & 131072),
-            noent_okay: true
-          });
-          node = lookup.node;
-          path = lookup.path;
+          path = PATH.normalize(path);
+          try {
+            var lookup = FS.lookupPath(path, {
+              follow: !(flags & 131072)
+            });
+            node = lookup.node;
+          } catch (e) {
+            // ignore
+          }
         }
         // perhaps we need to create the node
         var created = false;
@@ -3777,14 +4045,9 @@ async function createWasm() {
             if ((flags & 128)) {
               throw new FS.ErrnoError(20);
             }
-          } else if (isDirPath) {
-            throw new FS.ErrnoError(31);
           } else {
             // node doesn't exist, try to create it
-            // Ignore the permission bits here to ensure we can `open` this new
-            // file below. We use chmod below the apply the permissions once the
-            // file is open.
-            node = FS.mknod(path, mode | 0o777, 0);
+            node = FS.mknod(path, mode, 0);
             created = true;
           }
         }
@@ -3830,9 +4093,6 @@ async function createWasm() {
         // call the new stream's open function
         if (stream.stream_ops.open) {
           stream.stream_ops.open(stream);
-        }
-        if (created) {
-          FS.chmod(node, mode & 0o777);
         }
         if (Module['logReadFiles'] && !(flags & 1)) {
           if (!(path in FS.readFiles)) {
@@ -3932,6 +4192,24 @@ async function createWasm() {
         if (!seeking) stream.position += bytesWritten;
         return bytesWritten;
       },
+  allocate(stream, offset, length) {
+        if (FS.isClosed(stream)) {
+          throw new FS.ErrnoError(8);
+        }
+        if (offset < 0 || length <= 0) {
+          throw new FS.ErrnoError(28);
+        }
+        if ((stream.flags & 2097155) === 0) {
+          throw new FS.ErrnoError(8);
+        }
+        if (!FS.isFile(stream.node.mode) && !FS.isDir(stream.node.mode)) {
+          throw new FS.ErrnoError(43);
+        }
+        if (!stream.stream_ops.allocate) {
+          throw new FS.ErrnoError(138);
+        }
+        stream.stream_ops.allocate(stream, offset, length);
+      },
   mmap(stream, length, position, prot, flags) {
         // User requests writing to file (prot & PROT_WRITE != 0).
         // Checking if we have permissions to write to the file unless
@@ -3972,29 +4250,33 @@ async function createWasm() {
         opts.flags = opts.flags || 0;
         opts.encoding = opts.encoding || 'binary';
         if (opts.encoding !== 'utf8' && opts.encoding !== 'binary') {
-          abort(`Invalid encoding type "${opts.encoding}"`);
+          throw new Error(`Invalid encoding type "${opts.encoding}"`);
         }
+        var ret;
         var stream = FS.open(path, opts.flags);
         var stat = FS.stat(path);
         var length = stat.size;
         var buf = new Uint8Array(length);
         FS.read(stream, buf, 0, length, 0);
         if (opts.encoding === 'utf8') {
-          buf = UTF8ArrayToString(buf);
+          ret = UTF8ArrayToString(buf);
+        } else if (opts.encoding === 'binary') {
+          ret = buf;
         }
         FS.close(stream);
-        return buf;
+        return ret;
       },
   writeFile(path, data, opts = {}) {
         opts.flags = opts.flags || 577;
         var stream = FS.open(path, opts.flags, opts.mode);
         if (typeof data == 'string') {
-          data = new Uint8Array(intArrayFromString(data, true));
-        }
-        if (ArrayBuffer.isView(data)) {
+          var buf = new Uint8Array(lengthBytesUTF8(data)+1);
+          var actualNumBytes = stringToUTF8Array(data, buf, 0, buf.length);
+          FS.write(stream, buf, 0, actualNumBytes, undefined, opts.canOwn);
+        } else if (ArrayBuffer.isView(data)) {
           FS.write(stream, data, 0, data.byteLength, undefined, opts.canOwn);
         } else {
-          abort('Unsupported data type');
+          throw new Error('Unsupported data type');
         }
         FS.close(stream);
       },
@@ -4040,8 +4322,7 @@ async function createWasm() {
         var randomBuffer = new Uint8Array(1024), randomLeft = 0;
         var randomByte = () => {
           if (randomLeft === 0) {
-            randomFill(randomBuffer);
-            randomLeft = randomBuffer.byteLength;
+            randomLeft = randomFill(randomBuffer).byteLength;
           }
           return randomBuffer[--randomLeft];
         };
@@ -4061,9 +4342,6 @@ async function createWasm() {
         FS.mount({
           mount() {
             var node = FS.createNode(proc_self, 'fd', 16895, 73);
-            node.stream_ops = {
-              llseek: MEMFS.stream_ops.llseek,
-            };
             node.node_ops = {
               lookup(parent, name) {
                 var fd = +name;
@@ -4072,15 +4350,9 @@ async function createWasm() {
                   parent: null,
                   mount: { mountpoint: 'fake' },
                   node_ops: { readlink: () => stream.path },
-                  id: fd + 1,
                 };
                 ret.parent = ret; // make it look like a simple root node
                 return ret;
-              },
-              readdir() {
-                return Array.from(FS.streams.entries())
-                  .filter(([k, v]) => v)
-                  .map(([k, v]) => k.toString());
               }
             };
             return node;
@@ -4149,10 +4421,12 @@ async function createWasm() {
         // force-flush all streams, so we get musl std streams printed out
         _fflush(0);
         // close all of our streams
-        for (var stream of FS.streams) {
-          if (stream) {
-            FS.close(stream);
+        for (var i = 0; i < FS.streams.length; i++) {
+          var stream = FS.streams[i];
+          if (!stream) {
+            continue;
           }
+          FS.close(stream);
         }
       },
   findObject(path, dontResolveLastLink) {
@@ -4200,7 +4474,7 @@ async function createWasm() {
           try {
             FS.mkdir(current);
           } catch (e) {
-            if (e.errno != 20) throw e;
+            // ignore EEXIST
           }
           parent = current;
         }
@@ -4267,7 +4541,7 @@ async function createWasm() {
               buffer[offset+i] = result;
             }
             if (bytesRead) {
-              stream.node.atime = Date.now();
+              stream.node.timestamp = Date.now();
             }
             return bytesRead;
           },
@@ -4280,7 +4554,7 @@ async function createWasm() {
               }
             }
             if (length) {
-              stream.node.mtime = stream.node.ctime = Date.now();
+              stream.node.timestamp = Date.now();
             }
             return i;
           }
@@ -4290,10 +4564,11 @@ async function createWasm() {
   forceLoadFile(obj) {
         if (obj.isDevice || obj.isFolder || obj.link || obj.contents) return true;
         if (typeof XMLHttpRequest != 'undefined') {
-          abort("Lazy loading should have been performed (contents set) in createLazyFile, but it was not. Lazy loading only works in web workers. Use --embed-file or --preload-file in emcc on the main thread.");
+          throw new Error("Lazy loading should have been performed (contents set) in createLazyFile, but it was not. Lazy loading only works in web workers. Use --embed-file or --preload-file in emcc on the main thread.");
         } else { // Command-line.
           try {
             obj.contents = readBinary(obj.url);
+            obj.usedBytes = obj.contents.length;
           } catch (e) {
             throw new FS.ErrnoError(29);
           }
@@ -4321,7 +4596,7 @@ async function createWasm() {
             var xhr = new XMLHttpRequest();
             xhr.open('HEAD', url, false);
             xhr.send(null);
-            if (!(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304)) abort("Couldn't load " + url + ". Status: " + xhr.status);
+            if (!(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304)) throw new Error("Couldn't load " + url + ". Status: " + xhr.status);
             var datalength = Number(xhr.getResponseHeader("Content-length"));
             var header;
             var hasByteServing = (header = xhr.getResponseHeader("Accept-Ranges")) && header === "bytes";
@@ -4333,8 +4608,8 @@ async function createWasm() {
   
             // Function to get a range from the remote URL.
             var doXHR = (from, to) => {
-              if (from > to) abort("invalid range (" + from + ", " + to + ") or no bytes requested!");
-              if (to > datalength-1) abort("only " + datalength + " bytes available! programmer error!");
+              if (from > to) throw new Error("invalid range (" + from + ", " + to + ") or no bytes requested!");
+              if (to > datalength-1) throw new Error("only " + datalength + " bytes available! programmer error!");
   
               // TODO: Use mozResponseArrayBuffer, responseStream, etc. if available.
               var xhr = new XMLHttpRequest();
@@ -4348,7 +4623,7 @@ async function createWasm() {
               }
   
               xhr.send(null);
-              if (!(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304)) abort("Couldn't load " + url + ". Status: " + xhr.status);
+              if (!(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304)) throw new Error("Couldn't load " + url + ". Status: " + xhr.status);
               if (xhr.response !== undefined) {
                 return new Uint8Array(/** @type{Array<number>} */(xhr.response || []));
               }
@@ -4362,7 +4637,7 @@ async function createWasm() {
               if (typeof lazyArray.chunks[chunkNum] == 'undefined') {
                 lazyArray.chunks[chunkNum] = doXHR(start, end);
               }
-              if (typeof lazyArray.chunks[chunkNum] == 'undefined') abort('doXHR failed!');
+              if (typeof lazyArray.chunks[chunkNum] == 'undefined') throw new Error('doXHR failed!');
               return lazyArray.chunks[chunkNum];
             });
   
@@ -4393,7 +4668,7 @@ async function createWasm() {
         }
   
         if (typeof XMLHttpRequest != 'undefined') {
-          if (!ENVIRONMENT_IS_WORKER) abort('Cannot do synchronous binary XHRs outside webworkers in modern browsers. Use --embed-file or --preload-file in emcc');
+          if (!ENVIRONMENT_IS_WORKER) throw 'Cannot do synchronous binary XHRs outside webworkers in modern browsers. Use --embed-file or --preload-file in emcc';
           var lazyArray = new LazyUint8Array();
           var properties = { isDevice: false, contents: lazyArray };
         } else {
@@ -4501,15 +4776,16 @@ async function createWasm() {
           }
           return dir;
         }
-        return dir + '/' + path;
+        return PATH.join2(dir, path);
       },
-  writeStat(buf, stat) {
-        HEAPU32[((buf)>>2)] = stat.dev;
-        HEAPU32[(((buf)+(4))>>2)] = stat.mode;
+  doStat(func, path, buf) {
+        var stat = func(path);
+        HEAP32[((buf)>>2)] = stat.dev;
+        HEAP32[(((buf)+(4))>>2)] = stat.mode;
         HEAPU32[(((buf)+(8))>>2)] = stat.nlink;
-        HEAPU32[(((buf)+(12))>>2)] = stat.uid;
-        HEAPU32[(((buf)+(16))>>2)] = stat.gid;
-        HEAPU32[(((buf)+(20))>>2)] = stat.rdev;
+        HEAP32[(((buf)+(12))>>2)] = stat.uid;
+        HEAP32[(((buf)+(16))>>2)] = stat.gid;
+        HEAP32[(((buf)+(20))>>2)] = stat.rdev;
         HEAP64[(((buf)+(24))>>3)] = BigInt(stat.size);
         HEAP32[(((buf)+(32))>>2)] = 4096;
         HEAP32[(((buf)+(36))>>2)] = stat.blocks;
@@ -4524,18 +4800,6 @@ async function createWasm() {
         HEAPU32[(((buf)+(80))>>2)] = (ctime % 1000) * 1000 * 1000;
         HEAP64[(((buf)+(88))>>3)] = BigInt(stat.ino);
         return 0;
-      },
-  writeStatFs(buf, stats) {
-        HEAPU32[(((buf)+(4))>>2)] = stats.bsize;
-        HEAPU32[(((buf)+(60))>>2)] = stats.bsize;
-        HEAP64[(((buf)+(8))>>3)] = BigInt(stats.blocks);
-        HEAP64[(((buf)+(16))>>3)] = BigInt(stats.bfree);
-        HEAP64[(((buf)+(24))>>3)] = BigInt(stats.bavail);
-        HEAP64[(((buf)+(32))>>3)] = BigInt(stats.files);
-        HEAP64[(((buf)+(40))>>3)] = BigInt(stats.ffree);
-        HEAPU32[(((buf)+(48))>>2)] = stats.fsid;
-        HEAPU32[(((buf)+(64))>>2)] = stats.flags;  // ST_NOSUID
-        HEAPU32[(((buf)+(56))>>2)] = stats.namelen;
       },
   doMsync(addr, stream, len, flags, offset) {
         if (!FS.isFile(stream.node.mode)) {
@@ -4600,11 +4864,7 @@ async function createWasm() {
         }
         case 13:
         case 14:
-          // Pretend that the locking is successful. These are process-level locks,
-          // and Emscripten programs are a single process. If we supported linking a
-          // filesystem between programs, we'd need to do more here.
-          // See https://github.com/emscripten-core/emscripten/issues/23697
-          return 0;
+          return 0; // Pretend that the locking is successful.
       }
       return -28;
     } catch (e) {
@@ -4681,7 +4941,6 @@ async function createWasm() {
           if (!stream.tty) return -59;
           return -28; // not supported
         }
-        case 21537:
         case 21531: {
           var argp = syscallGetVarargP();
           return FS.ioctl(stream, op, argp);
@@ -4744,6 +5003,9 @@ async function createWasm() {
   var __abort_js = () =>
       abort('native code called abort()');
 
+  var nowIsMonotonic = 1;
+  var __emscripten_get_now_is_monotonic = () => nowIsMonotonic;
+
   var __emscripten_init_main_thread_js = (tb) => {
       // Pass the thread address to the native code where they stored in wasm
       // globals which act as a form of TLS. Global constructors trying
@@ -4759,23 +5021,6 @@ async function createWasm() {
       PThread.threadInitTLS();
     };
 
-  var handleException = (e) => {
-      // Certain exception types we do not treat as errors since they are used for
-      // internal control flow.
-      // 1. ExitStatus, which is thrown by exit()
-      // 2. "unwind", which is thrown by emscripten_unwind_to_js_event_loop() and others
-      //    that wish to return to JS event loop.
-      if (e instanceof ExitStatus || e == 'unwind') {
-        return EXITSTATUS;
-      }
-      checkStackCookie();
-      if (e instanceof WebAssembly.RuntimeError) {
-        if (_emscripten_stack_get_current() <= 0) {
-          err('Stack overflow detected.  You can try increasing -sSTACK_SIZE (currently set to 20971520)');
-        }
-      }
-      quit_(1, e);
-    };
   
   
   
@@ -4783,13 +5028,8 @@ async function createWasm() {
   var maybeExit = () => {
       if (!keepRuntimeAlive()) {
         try {
-          if (ENVIRONMENT_IS_PTHREAD) {
-            // exit the current thread, but only if there is one active.
-            // TODO(https://github.com/emscripten-core/emscripten/issues/25076):
-            // Unify this check with the runtimeExited check above
-            if (_pthread_self()) __emscripten_thread_exit(EXITSTATUS);
-            return;
-          }
+          if (ENVIRONMENT_IS_PTHREAD) __emscripten_thread_exit(EXITSTATUS);
+          else
           _exit(EXITSTATUS);
         } catch (e) {
           handleException(e);
@@ -4811,7 +5051,6 @@ async function createWasm() {
   
   
   
-  
   var __emscripten_thread_mailbox_await = (pthread_ptr) => {
       if (typeof Atomics.waitAsync === 'function') {
         // Wait on the pthread's initial self-pointer field because it is easy and
@@ -4828,14 +5067,9 @@ async function createWasm() {
       // to postMessage and there is no need to do anything here.
     };
   
-  var checkMailbox = () => callUserCallback(() => {
+  var checkMailbox = () => {
       // Only check the mailbox if we have a live pthread runtime. We implement
       // pthread_self to return 0 if there is no live runtime.
-      //
-      // TODO(https://github.com/emscripten-core/emscripten/issues/25076):
-      // Is this check still needed?  `callUserCallback` is supposed to
-      // ensure the runtime is alive, and if `_pthread_self` is NULL then the
-      // runtime certainly is *not* alive, so this should be a redundant check.
       var pthread_ptr = _pthread_self();
       if (pthread_ptr) {
         // If we are using Atomics.waitAsync as our notification mechanism, wait
@@ -4843,9 +5077,9 @@ async function createWasm() {
         // work that could otherwise arrive after we've finished processing the
         // mailbox and before we're ready for the next notification.
         __emscripten_thread_mailbox_await(pthread_ptr);
-        __emscripten_check_mailbox();
+        callUserCallback(__emscripten_check_mailbox);
       }
-    });
+    };
   
   var __emscripten_notify_mailbox_postmessage = (targetThread, currThreadId) => {
       if (targetThread == currThreadId) {
@@ -4976,41 +5210,6 @@ async function createWasm() {
       }
     };
 
-  var _emscripten_get_now = () => performance.timeOrigin + performance.now();
-  
-  var _emscripten_date_now = () => Date.now();
-  
-  var nowIsMonotonic = 1;
-  
-  var checkWasiClock = (clock_id) => clock_id >= 0 && clock_id <= 3;
-  
-  var INT53_MAX = 9007199254740992;
-  
-  var INT53_MIN = -9007199254740992;
-  var bigintToI53Checked = (num) => (num < INT53_MIN || num > INT53_MAX) ? NaN : Number(num);
-  function _clock_time_get(clk_id, ignored_precision, ptime) {
-    ignored_precision = bigintToI53Checked(ignored_precision);
-  
-  
-      if (!checkWasiClock(clk_id)) {
-        return 28;
-      }
-      var now;
-      // all wasi clocks but realtime are monotonic
-      if (clk_id === 0) {
-        now = _emscripten_date_now();
-      } else if (nowIsMonotonic) {
-        now = _emscripten_get_now();
-      } else {
-        return 52;
-      }
-      // "now" is in ms, and wasi times are in ns.
-      var nsec = Math.round(now * 1000 * 1000);
-      HEAP64[((ptime)>>3)] = BigInt(nsec);
-      return 0;
-    ;
-  }
-
   var readEmAsmArgsArray = [];
   var readEmAsmArgs = (sigPtr, buf) => {
       // Nobody should have mutated _readEmAsmArgsArray underneath us to be something else than an array.
@@ -5083,6 +5282,8 @@ async function createWasm() {
   
     };
 
+  var _emscripten_date_now = () => Date.now();
+
   var runtimeKeepalivePush = () => {
       runtimeKeepaliveCounter += 1;
     };
@@ -5091,15 +5292,12 @@ async function createWasm() {
       throw 'unwind';
     };
 
+  var _emscripten_get_now = () => performance.timeOrigin + performance.now();
+
   var getHeapMax = () =>
       HEAPU8.length;
-  var _emscripten_get_heap_max = () => getHeapMax();
-
-
-  var _emscripten_num_logical_cores = () =>
-      ENVIRONMENT_IS_NODE ? require('os').cpus().length :
-      navigator['hardwareConcurrency'];
-
+  
+  
   var abortOnCannotGrowMemory = (requestedSize) => {
       abort(`Cannot enlarge memory arrays to size ${requestedSize} bytes (OOM). Either (1) compile with -sINITIAL_MEMORY=X with X higher than the current value ${HEAP8.length}, (2) compile with -sALLOW_MEMORY_GROWTH which allows increasing the size at runtime, or (3) if you want malloc to return NULL (0) instead of this abort, compile with -sABORTING_MALLOC=0`);
     };
@@ -5118,7 +5316,7 @@ async function createWasm() {
       if (!getEnvStrings.strings) {
         // Default values.
         // Browser language detection #8751
-        var lang = ((typeof navigator == 'object' && navigator.language) || 'C').replace('-', '_') + '.UTF-8';
+        var lang = ((typeof navigator == 'object' && navigator.languages && navigator.languages[0]) || 'C').replace('-', '_') + '.UTF-8';
         var env = {
           'USER': 'web_user',
           'LOGNAME': 'web_user',
@@ -5145,43 +5343,47 @@ async function createWasm() {
       return getEnvStrings.strings;
     };
   
+  var stringToAscii = (str, buffer) => {
+      for (var i = 0; i < str.length; ++i) {
+        assert(str.charCodeAt(i) === (str.charCodeAt(i) & 0xff));
+        HEAP8[buffer++] = str.charCodeAt(i);
+      }
+      // Null-terminate the string
+      HEAP8[buffer] = 0;
+    };
   
-  
-  function _environ_get(__environ, environ_buf) {
+  var _environ_get = 
+  function(__environ, environ_buf) {
   if (ENVIRONMENT_IS_PTHREAD)
     return proxyToMainThread(6, 0, 1, __environ, environ_buf);
   
       var bufSize = 0;
-      var envp = 0;
-      for (var string of getEnvStrings()) {
+      getEnvStrings().forEach((string, i) => {
         var ptr = environ_buf + bufSize;
-        HEAPU32[(((__environ)+(envp))>>2)] = ptr;
-        bufSize += stringToUTF8(string, ptr, Infinity) + 1;
-        envp += 4;
-      }
+        HEAPU32[(((__environ)+(i*4))>>2)] = ptr;
+        stringToAscii(string, ptr);
+        bufSize += string.length + 1;
+      });
       return 0;
     
   }
-  
+  ;
 
   
-  
-  
-  function _environ_sizes_get(penviron_count, penviron_buf_size) {
+  var _environ_sizes_get = 
+  function(penviron_count, penviron_buf_size) {
   if (ENVIRONMENT_IS_PTHREAD)
     return proxyToMainThread(7, 0, 1, penviron_count, penviron_buf_size);
   
       var strings = getEnvStrings();
       HEAPU32[((penviron_count)>>2)] = strings.length;
       var bufSize = 0;
-      for (var string of strings) {
-        bufSize += lengthBytesUTF8(string) + 1;
-      }
+      strings.forEach((string) => bufSize += string.length + 1);
       HEAPU32[((penviron_buf_size)>>2)] = bufSize;
       return 0;
     
   }
-  
+  ;
 
 
   
@@ -5250,7 +5452,7 @@ async function createWasm() {
   
     offset = bigintToI53Checked(offset);
   
-  
+    
   try {
   
       if (isNaN(offset)) return 61;
@@ -5341,7 +5543,7 @@ async function createWasm() {
     /**
      * @param {string|null=} returnType
      * @param {Array=} argTypes
-     * @param {Array=} args
+     * @param {Arguments|Array=} args
      * @param {Object=} opts
      */
   var ccall = (ident, returnType, argTypes, args, opts) => {
@@ -5398,8 +5600,10 @@ async function createWasm() {
 
 
   var incrementExceptionRefcount = (ptr) => ___cxa_increment_exception_refcount(ptr);
+  Module['incrementExceptionRefcount'] = incrementExceptionRefcount;
 
   var decrementExceptionRefcount = (ptr) => ___cxa_decrement_exception_refcount(ptr);
+  Module['decrementExceptionRefcount'] = decrementExceptionRefcount;
 
   
   
@@ -5424,490 +5628,13 @@ async function createWasm() {
       return [type, message];
     };
   var getExceptionMessage = (ptr) => getExceptionMessageCommon(ptr);
+  Module['getExceptionMessage'] = getExceptionMessage;
 PThread.init();;
 
   FS.createPreloadedFile = FS_createPreloadedFile;
-  FS.preloadFile = FS_preloadFile;
-  FS.staticInit();;
-// End JS library code
-
-// include: postlibrary.js
-// This file is included after the automatically-generated JS library code
-// but before the wasm module is created.
-
-{
-  // With WASM_ESM_INTEGRATION this has to happen at the top level and not
-  // delayed until processModuleArgs.
-  initMemory();
-
-  // Begin ATMODULES hooks
-  if (Module['noExitRuntime']) noExitRuntime = Module['noExitRuntime'];
-if (Module['preloadPlugins']) preloadPlugins = Module['preloadPlugins'];
-if (Module['print']) out = Module['print'];
-if (Module['printErr']) err = Module['printErr'];
-if (Module['wasmBinary']) wasmBinary = Module['wasmBinary'];
-  // End ATMODULES hooks
-
-  checkIncomingModuleAPI();
-
-  if (Module['arguments']) arguments_ = Module['arguments'];
-  if (Module['thisProgram']) thisProgram = Module['thisProgram'];
-
-  // Assertions on removed incoming Module JS APIs.
-  assert(typeof Module['memoryInitializerPrefixURL'] == 'undefined', 'Module.memoryInitializerPrefixURL option was removed, use Module.locateFile instead');
-  assert(typeof Module['pthreadMainPrefixURL'] == 'undefined', 'Module.pthreadMainPrefixURL option was removed, use Module.locateFile instead');
-  assert(typeof Module['cdInitializerPrefixURL'] == 'undefined', 'Module.cdInitializerPrefixURL option was removed, use Module.locateFile instead');
-  assert(typeof Module['filePackagePrefixURL'] == 'undefined', 'Module.filePackagePrefixURL option was removed, use Module.locateFile instead');
-  assert(typeof Module['read'] == 'undefined', 'Module.read option was removed');
-  assert(typeof Module['readAsync'] == 'undefined', 'Module.readAsync option was removed (modify readAsync in JS)');
-  assert(typeof Module['readBinary'] == 'undefined', 'Module.readBinary option was removed (modify readBinary in JS)');
-  assert(typeof Module['setWindowTitle'] == 'undefined', 'Module.setWindowTitle option was removed (modify emscripten_set_window_title in JS)');
-  assert(typeof Module['TOTAL_MEMORY'] == 'undefined', 'Module.TOTAL_MEMORY has been renamed Module.INITIAL_MEMORY');
-  assert(typeof Module['ENVIRONMENT'] == 'undefined', 'Module.ENVIRONMENT has been deprecated. To force the environment, use the ENVIRONMENT compile-time option (for example, -sENVIRONMENT=web or -sENVIRONMENT=node)');
-  assert(typeof Module['STACK_SIZE'] == 'undefined', 'STACK_SIZE can no longer be set at runtime.  Use -sSTACK_SIZE at link time')
-
-  if (Module['preInit']) {
-    if (typeof Module['preInit'] == 'function') Module['preInit'] = [Module['preInit']];
-    while (Module['preInit'].length > 0) {
-      Module['preInit'].shift()();
-    }
-  }
-  consumedModuleProp('preInit');
-}
-
-// Begin runtime exports
-  Module['ccall'] = ccall;
-  Module['UTF8ToString'] = UTF8ToString;
-  Module['intArrayFromString'] = intArrayFromString;
-  Module['FS'] = FS;
-  Module['PThread'] = PThread;
-  var missingLibrarySymbols = [
-  'writeI53ToI64',
-  'writeI53ToI64Clamped',
-  'writeI53ToI64Signaling',
-  'writeI53ToU64Clamped',
-  'writeI53ToU64Signaling',
-  'readI53FromI64',
-  'readI53FromU64',
-  'convertI32PairToI53',
-  'convertI32PairToI53Checked',
-  'convertU32PairToI53',
-  'getTempRet0',
-  'zeroMemory',
-  'growMemory',
-  'withStackSave',
-  'inetPton4',
-  'inetNtop4',
-  'inetPton6',
-  'inetNtop6',
-  'readSockaddr',
-  'writeSockaddr',
-  'jstoi_q',
-  'autoResumeAudioContext',
-  'getDynCaller',
-  'dynCall',
-  'runtimeKeepalivePop',
-  'asmjsMangle',
-  'alignMemory',
-  'HandleAllocator',
-  'getNativeTypeSize',
-  'addOnInit',
-  'addOnPostCtor',
-  'addOnPreMain',
-  'addOnExit',
-  'STACK_SIZE',
-  'STACK_ALIGN',
-  'POINTER_SIZE',
-  'ASSERTIONS',
-  'cwrap',
-  'convertJsFunctionToWasm',
-  'getEmptyTableSlot',
-  'updateTableMap',
-  'getFunctionAddress',
-  'addFunction',
-  'removeFunction',
-  'intArrayToString',
-  'AsciiToString',
-  'stringToAscii',
-  'UTF16ToString',
-  'stringToUTF16',
-  'lengthBytesUTF16',
-  'UTF32ToString',
-  'stringToUTF32',
-  'lengthBytesUTF32',
-  'stringToNewUTF8',
-  'registerKeyEventCallback',
-  'maybeCStringToJsString',
-  'findEventTarget',
-  'getBoundingClientRect',
-  'fillMouseEventData',
-  'registerMouseEventCallback',
-  'registerWheelEventCallback',
-  'registerUiEventCallback',
-  'registerFocusEventCallback',
-  'fillDeviceOrientationEventData',
-  'registerDeviceOrientationEventCallback',
-  'fillDeviceMotionEventData',
-  'registerDeviceMotionEventCallback',
-  'screenOrientation',
-  'fillOrientationChangeEventData',
-  'registerOrientationChangeEventCallback',
-  'fillFullscreenChangeEventData',
-  'registerFullscreenChangeEventCallback',
-  'JSEvents_requestFullscreen',
-  'JSEvents_resizeCanvasForFullscreen',
-  'registerRestoreOldStyle',
-  'hideEverythingExceptGivenElement',
-  'restoreHiddenElements',
-  'setLetterbox',
-  'softFullscreenResizeWebGLRenderTarget',
-  'doRequestFullscreen',
-  'fillPointerlockChangeEventData',
-  'registerPointerlockChangeEventCallback',
-  'registerPointerlockErrorEventCallback',
-  'requestPointerLock',
-  'fillVisibilityChangeEventData',
-  'registerVisibilityChangeEventCallback',
-  'registerTouchEventCallback',
-  'fillGamepadEventData',
-  'registerGamepadEventCallback',
-  'registerBeforeUnloadEventCallback',
-  'fillBatteryEventData',
-  'registerBatteryEventCallback',
-  'setCanvasElementSizeCallingThread',
-  'setCanvasElementSizeMainThread',
-  'setCanvasElementSize',
-  'getCanvasSizeCallingThread',
-  'getCanvasSizeMainThread',
-  'getCanvasElementSize',
-  'jsStackTrace',
-  'getCallstack',
-  'convertPCtoSourceLocation',
-  'wasiRightsToMuslOFlags',
-  'wasiOFlagsToMuslOFlags',
-  'safeSetTimeout',
-  'setImmediateWrapped',
-  'safeRequestAnimationFrame',
-  'clearImmediateWrapped',
-  'registerPostMainLoop',
-  'registerPreMainLoop',
-  'getPromise',
-  'makePromise',
-  'idsToPromises',
-  'makePromiseCallback',
-  'Browser_asyncPrepareDataCounter',
-  'isLeapYear',
-  'ydayFromDate',
-  'arraySum',
-  'addDays',
-  'getSocketFromFD',
-  'getSocketAddress',
-  'FS_mkdirTree',
-  '_setNetworkCallback',
-  'heapObjectForWebGLType',
-  'toTypedArrayIndex',
-  'webgl_enable_ANGLE_instanced_arrays',
-  'webgl_enable_OES_vertex_array_object',
-  'webgl_enable_WEBGL_draw_buffers',
-  'webgl_enable_WEBGL_multi_draw',
-  'webgl_enable_EXT_polygon_offset_clamp',
-  'webgl_enable_EXT_clip_control',
-  'webgl_enable_WEBGL_polygon_mode',
-  'emscriptenWebGLGet',
-  'computeUnpackAlignedImageSize',
-  'colorChannelsInGlTextureFormat',
-  'emscriptenWebGLGetTexPixelData',
-  'emscriptenWebGLGetUniform',
-  'webglGetUniformLocation',
-  'webglPrepareUniformLocationsBeforeFirstUse',
-  'webglGetLeftBracePos',
-  'emscriptenWebGLGetVertexAttrib',
-  '__glGetActiveAttribOrUniform',
-  'writeGLArray',
-  'emscripten_webgl_destroy_context_before_on_calling_thread',
-  'registerWebGlEventCallback',
-  'runAndAbortIfError',
-  'ALLOC_NORMAL',
-  'ALLOC_STACK',
-  'allocate',
-  'writeStringToMemory',
-  'writeAsciiToMemory',
-  'demangle',
-  'stackTrace',
-];
-missingLibrarySymbols.forEach(missingLibrarySymbol)
-
-  var unexportedSymbols = [
-  'run',
-  'out',
-  'err',
-  'callMain',
-  'abort',
-  'wasmMemory',
-  'wasmExports',
-  'HEAPF32',
-  'HEAPF64',
-  'HEAP8',
-  'HEAPU8',
-  'HEAP16',
-  'HEAPU16',
-  'HEAP32',
-  'HEAP64',
-  'HEAPU64',
-  'writeStackCookie',
-  'checkStackCookie',
-  'INT53_MAX',
-  'INT53_MIN',
-  'bigintToI53Checked',
-  'stackSave',
-  'stackRestore',
-  'stackAlloc',
-  'setTempRet0',
-  'ptrToString',
-  'exitJS',
-  'getHeapMax',
-  'abortOnCannotGrowMemory',
-  'ENV',
-  'ERRNO_CODES',
-  'strError',
-  'DNS',
-  'Protocols',
-  'Sockets',
-  'timers',
-  'warnOnce',
-  'readEmAsmArgsArray',
-  'readEmAsmArgs',
-  'runEmAsmFunction',
-  'runMainThreadEmAsm',
-  'getExecutableName',
-  'handleException',
-  'keepRuntimeAlive',
-  'runtimeKeepalivePush',
-  'callUserCallback',
-  'maybeExit',
-  'asyncLoad',
-  'mmapAlloc',
-  'wasmTable',
-  'getUniqueRunDependency',
-  'noExitRuntime',
-  'addRunDependency',
-  'removeRunDependency',
-  'addOnPreRun',
-  'addOnPostRun',
-  'freeTableIndexes',
-  'functionsInTableMap',
-  'setValue',
-  'getValue',
-  'PATH',
-  'PATH_FS',
-  'UTF8Decoder',
-  'UTF8ArrayToString',
-  'stringToUTF8Array',
-  'stringToUTF8',
-  'lengthBytesUTF8',
-  'UTF16Decoder',
-  'stringToUTF8OnStack',
-  'writeArrayToMemory',
-  'JSEvents',
-  'specialHTMLTargets',
-  'findCanvasEventTarget',
-  'currentFullscreenStrategy',
-  'restoreOldWindowedStyle',
-  'UNWIND_CACHE',
-  'ExitStatus',
-  'getEnvStrings',
-  'checkWasiClock',
-  'doReadv',
-  'doWritev',
-  'initRandomFill',
-  'randomFill',
-  'emSetImmediate',
-  'emClearImmediate_deps',
-  'emClearImmediate',
-  'promiseMap',
-  'uncaughtExceptionCount',
-  'exceptionLast',
-  'exceptionCaught',
-  'ExceptionInfo',
-  'findMatchingCatch',
-  'getExceptionMessageCommon',
-  'Browser',
-  'requestFullscreen',
-  'requestFullScreen',
-  'setCanvasSize',
-  'getUserMedia',
-  'createContext',
-  'getPreloadedImageData__data',
-  'wget',
-  'MONTH_DAYS_REGULAR',
-  'MONTH_DAYS_LEAP',
-  'MONTH_DAYS_REGULAR_CUMULATIVE',
-  'MONTH_DAYS_LEAP_CUMULATIVE',
-  'SYSCALLS',
-  'preloadPlugins',
-  'FS_createPreloadedFile',
-  'FS_preloadFile',
-  'FS_modeStringToFlags',
-  'FS_getMode',
-  'FS_stdin_getChar_buffer',
-  'FS_stdin_getChar',
-  'FS_unlink',
-  'FS_createPath',
-  'FS_createDevice',
-  'FS_readFile',
-  'FS_root',
-  'FS_mounts',
-  'FS_devices',
-  'FS_streams',
-  'FS_nextInode',
-  'FS_nameTable',
-  'FS_currentPath',
-  'FS_initialized',
-  'FS_ignorePermissions',
-  'FS_filesystems',
-  'FS_syncFSRequests',
-  'FS_readFiles',
-  'FS_lookupPath',
-  'FS_getPath',
-  'FS_hashName',
-  'FS_hashAddNode',
-  'FS_hashRemoveNode',
-  'FS_lookupNode',
-  'FS_createNode',
-  'FS_destroyNode',
-  'FS_isRoot',
-  'FS_isMountpoint',
-  'FS_isFile',
-  'FS_isDir',
-  'FS_isLink',
-  'FS_isChrdev',
-  'FS_isBlkdev',
-  'FS_isFIFO',
-  'FS_isSocket',
-  'FS_flagsToPermissionString',
-  'FS_nodePermissions',
-  'FS_mayLookup',
-  'FS_mayCreate',
-  'FS_mayDelete',
-  'FS_mayOpen',
-  'FS_checkOpExists',
-  'FS_nextfd',
-  'FS_getStreamChecked',
-  'FS_getStream',
-  'FS_createStream',
-  'FS_closeStream',
-  'FS_dupStream',
-  'FS_doSetAttr',
-  'FS_chrdev_stream_ops',
-  'FS_major',
-  'FS_minor',
-  'FS_makedev',
-  'FS_registerDevice',
-  'FS_getDevice',
-  'FS_getMounts',
-  'FS_syncfs',
-  'FS_mount',
-  'FS_unmount',
-  'FS_lookup',
-  'FS_mknod',
-  'FS_statfs',
-  'FS_statfsStream',
-  'FS_statfsNode',
-  'FS_create',
-  'FS_mkdir',
-  'FS_mkdev',
-  'FS_symlink',
-  'FS_rename',
-  'FS_rmdir',
-  'FS_readdir',
-  'FS_readlink',
-  'FS_stat',
-  'FS_fstat',
-  'FS_lstat',
-  'FS_doChmod',
-  'FS_chmod',
-  'FS_lchmod',
-  'FS_fchmod',
-  'FS_doChown',
-  'FS_chown',
-  'FS_lchown',
-  'FS_fchown',
-  'FS_doTruncate',
-  'FS_truncate',
-  'FS_ftruncate',
-  'FS_utime',
-  'FS_open',
-  'FS_close',
-  'FS_isClosed',
-  'FS_llseek',
-  'FS_read',
-  'FS_write',
-  'FS_mmap',
-  'FS_msync',
-  'FS_ioctl',
-  'FS_writeFile',
-  'FS_cwd',
-  'FS_chdir',
-  'FS_createDefaultDirectories',
-  'FS_createDefaultDevices',
-  'FS_createSpecialDirectories',
-  'FS_createStandardStreams',
-  'FS_staticInit',
-  'FS_init',
-  'FS_quit',
-  'FS_findObject',
-  'FS_analyzePath',
-  'FS_createFile',
-  'FS_createDataFile',
-  'FS_forceLoadFile',
-  'FS_createLazyFile',
-  'FS_absolutePath',
-  'FS_createFolder',
-  'FS_createLink',
-  'FS_joinPath',
-  'FS_mmapAlloc',
-  'FS_standardizePath',
-  'MEMFS',
-  'TTY',
-  'PIPEFS',
-  'SOCKFS',
-  'tempFixedLengthArray',
-  'miniTempWebGLFloatBuffers',
-  'miniTempWebGLIntBuffers',
-  'GL',
-  'AL',
-  'GLUT',
-  'EGL',
-  'GLEW',
-  'IDBStore',
-  'SDL',
-  'SDL_gfx',
-  'allocateUTF8',
-  'allocateUTF8OnStack',
-  'print',
-  'printErr',
-  'jstoi_s',
-  'terminateWorker',
-  'cleanupThread',
-  'registerTLSInit',
-  'spawnThread',
-  'exitOnMainThread',
-  'proxyToMainThread',
-  'proxiedJSCallArgs',
-  'invokeEntryPoint',
-  'checkMailbox',
-];
-unexportedSymbols.forEach(unexportedRuntimeSymbol);
-
-  // End runtime exports
-  // Begin JS library exports
-  Module['incrementExceptionRefcount'] = incrementExceptionRefcount;
-  Module['decrementExceptionRefcount'] = decrementExceptionRefcount;
-  Module['getExceptionMessage'] = getExceptionMessage;
-  // End JS library exports
-
-// end include: postlibrary.js
-
+  FS.staticInit();
+  // Set module methods based on EXPORTED_RUNTIME_METHODS
+  ;
 
 // proxiedFunctionTable specifies the list of functions that can be called
 // either synchronously or asynchronously from other threads in postMessage()d
@@ -5931,1746 +5658,9 @@ var proxiedFunctionTable = [
 function checkIncomingModuleAPI() {
   ignoredModuleProp('fetchSettings');
 }
-var ASM_CONSTS = {
-  21446100: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21446155: ($0) => { resolve_async(UTF8ToString($0)); },  
- 21446192: () => { reject_async(new Error('failed with unknown exception')); },  
- 21446254: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21446301: () => { clearTimeout(threadTimeouts.shift()); },  
- 21446343: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21446398: ($0) => { resolve_async($0); },  
- 21446421: () => { reject_async('failed with unknown exception'); },  
- 21446472: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21446519: () => { clearTimeout(threadTimeouts.shift()); },  
- 21446561: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21446616: ($0) => { resolve_async($0); },  
- 21446639: () => { reject_async('failed with unknown exception'); },  
- 21446690: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21446737: () => { clearTimeout(threadTimeouts.shift()); },  
- 21446779: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21446834: ($0) => { resolve_async($0); },  
- 21446857: () => { reject_async('failed with unknown exception'); },  
- 21446908: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21446955: () => { clearTimeout(threadTimeouts.shift()); },  
- 21446997: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21447052: ($0) => { resolve_async($0); },  
- 21447075: () => { reject_async('failed with unknown exception'); },  
- 21447126: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21447173: () => { clearTimeout(threadTimeouts.shift()); },  
- 21447215: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21447270: ($0) => { resolve_async($0); },  
- 21447293: () => { reject_async('failed with unknown exception'); },  
- 21447344: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21447391: () => { clearTimeout(threadTimeouts.shift()); },  
- 21447433: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21447488: ($0) => { resolve_async($0); },  
- 21447511: () => { reject_async('failed with unknown exception'); },  
- 21447562: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21447609: () => { clearTimeout(threadTimeouts.shift()); },  
- 21447651: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21447706: ($0) => { resolve_async($0); },  
- 21447729: () => { reject_async('failed with unknown exception'); },  
- 21447780: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21447827: () => { clearTimeout(threadTimeouts.shift()); },  
- 21447869: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21447924: ($0) => { resolve_async($0); },  
- 21447947: () => { reject_async('failed with unknown exception'); },  
- 21447998: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21448045: () => { clearTimeout(threadTimeouts.shift()); },  
- 21448087: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21448142: ($0) => { resolve_async($0); },  
- 21448165: () => { reject_async('failed with unknown exception'); },  
- 21448216: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21448263: () => { clearTimeout(threadTimeouts.shift()); },  
- 21448305: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21448360: ($0) => { resolve_async($0); },  
- 21448383: () => { reject_async('failed with unknown exception'); },  
- 21448434: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21448481: () => { clearTimeout(threadTimeouts.shift()); },  
- 21448523: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21448578: ($0) => { resolve_async($0); },  
- 21448601: () => { reject_async('failed with unknown exception'); },  
- 21448652: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21448699: () => { clearTimeout(threadTimeouts.shift()); },  
- 21448741: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21448796: ($0) => { resolve_async($0); },  
- 21448819: () => { reject_async('failed with unknown exception'); },  
- 21448870: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21448917: () => { clearTimeout(threadTimeouts.shift()); },  
- 21448959: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21449014: ($0) => { resolve_async($0); },  
- 21449037: () => { reject_async('failed with unknown exception'); },  
- 21449088: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21449135: () => { clearTimeout(threadTimeouts.shift()); },  
- 21449177: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21449232: ($0) => { resolve_async($0); },  
- 21449255: () => { reject_async('failed with unknown exception'); },  
- 21449306: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21449353: () => { clearTimeout(threadTimeouts.shift()); },  
- 21449395: () => { threadTimeouts.push(setTimeout(() => {}, 600000)); },  
- 21449450: ($0) => { resolve_async($0); },  
- 21449473: () => { reject_async('failed with unknown exception'); },  
- 21449524: ($0) => { reject_async(new Error(UTF8ToString($0))); },  
- 21449571: () => { clearTimeout(threadTimeouts.shift()); }
-};
-
-// Imports from the Wasm binary.
-var _Z3_get_error_msg = Module['_Z3_get_error_msg'] = makeInvalidEarlyAccess('_Z3_get_error_msg');
-var ___cxa_free_exception = makeInvalidEarlyAccess('___cxa_free_exception');
-var _set_throwy_error_handler = Module['_set_throwy_error_handler'] = makeInvalidEarlyAccess('_set_throwy_error_handler');
-var _set_noop_error_handler = Module['_set_noop_error_handler'] = makeInvalidEarlyAccess('_set_noop_error_handler');
-var _async_Z3_eval_smtlib2_string = Module['_async_Z3_eval_smtlib2_string'] = makeInvalidEarlyAccess('_async_Z3_eval_smtlib2_string');
-var _async_Z3_simplify = Module['_async_Z3_simplify'] = makeInvalidEarlyAccess('_async_Z3_simplify');
-var _async_Z3_simplify_ex = Module['_async_Z3_simplify_ex'] = makeInvalidEarlyAccess('_async_Z3_simplify_ex');
-var _async_Z3_solver_check = Module['_async_Z3_solver_check'] = makeInvalidEarlyAccess('_async_Z3_solver_check');
-var _async_Z3_solver_cube = Module['_async_Z3_solver_cube'] = makeInvalidEarlyAccess('_async_Z3_solver_cube');
-var _async_Z3_solver_get_consequences = Module['_async_Z3_solver_get_consequences'] = makeInvalidEarlyAccess('_async_Z3_solver_get_consequences');
-var _async_Z3_tactic_apply = Module['_async_Z3_tactic_apply'] = makeInvalidEarlyAccess('_async_Z3_tactic_apply');
-var _async_Z3_tactic_apply_ex = Module['_async_Z3_tactic_apply_ex'] = makeInvalidEarlyAccess('_async_Z3_tactic_apply_ex');
-var _async_Z3_optimize_check = Module['_async_Z3_optimize_check'] = makeInvalidEarlyAccess('_async_Z3_optimize_check');
-var _async_Z3_algebraic_roots = Module['_async_Z3_algebraic_roots'] = makeInvalidEarlyAccess('_async_Z3_algebraic_roots');
-var _async_Z3_algebraic_eval = Module['_async_Z3_algebraic_eval'] = makeInvalidEarlyAccess('_async_Z3_algebraic_eval');
-var _async_Z3_fixedpoint_query = Module['_async_Z3_fixedpoint_query'] = makeInvalidEarlyAccess('_async_Z3_fixedpoint_query');
-var _async_Z3_fixedpoint_query_relations = Module['_async_Z3_fixedpoint_query_relations'] = makeInvalidEarlyAccess('_async_Z3_fixedpoint_query_relations');
-var _async_Z3_fixedpoint_query_from_lvl = Module['_async_Z3_fixedpoint_query_from_lvl'] = makeInvalidEarlyAccess('_async_Z3_fixedpoint_query_from_lvl');
-var _async_Z3_polynomial_subresultants = Module['_async_Z3_polynomial_subresultants'] = makeInvalidEarlyAccess('_async_Z3_polynomial_subresultants');
-var _async_Z3_solver_check_assumptions = Module['_async_Z3_solver_check_assumptions'] = makeInvalidEarlyAccess('_async_Z3_solver_check_assumptions');
-var _Z3_eval_smtlib2_string = Module['_Z3_eval_smtlib2_string'] = makeInvalidEarlyAccess('_Z3_eval_smtlib2_string');
-var _Z3_simplify = Module['_Z3_simplify'] = makeInvalidEarlyAccess('_Z3_simplify');
-var _Z3_simplify_ex = Module['_Z3_simplify_ex'] = makeInvalidEarlyAccess('_Z3_simplify_ex');
-var _Z3_solver_check = Module['_Z3_solver_check'] = makeInvalidEarlyAccess('_Z3_solver_check');
-var _Z3_solver_cube = Module['_Z3_solver_cube'] = makeInvalidEarlyAccess('_Z3_solver_cube');
-var _Z3_solver_get_consequences = Module['_Z3_solver_get_consequences'] = makeInvalidEarlyAccess('_Z3_solver_get_consequences');
-var _Z3_tactic_apply = Module['_Z3_tactic_apply'] = makeInvalidEarlyAccess('_Z3_tactic_apply');
-var _Z3_tactic_apply_ex = Module['_Z3_tactic_apply_ex'] = makeInvalidEarlyAccess('_Z3_tactic_apply_ex');
-var _Z3_optimize_check = Module['_Z3_optimize_check'] = makeInvalidEarlyAccess('_Z3_optimize_check');
-var _Z3_algebraic_roots = Module['_Z3_algebraic_roots'] = makeInvalidEarlyAccess('_Z3_algebraic_roots');
-var _Z3_algebraic_eval = Module['_Z3_algebraic_eval'] = makeInvalidEarlyAccess('_Z3_algebraic_eval');
-var _Z3_fixedpoint_query = Module['_Z3_fixedpoint_query'] = makeInvalidEarlyAccess('_Z3_fixedpoint_query');
-var _Z3_fixedpoint_query_relations = Module['_Z3_fixedpoint_query_relations'] = makeInvalidEarlyAccess('_Z3_fixedpoint_query_relations');
-var _Z3_fixedpoint_query_from_lvl = Module['_Z3_fixedpoint_query_from_lvl'] = makeInvalidEarlyAccess('_Z3_fixedpoint_query_from_lvl');
-var _Z3_polynomial_subresultants = Module['_Z3_polynomial_subresultants'] = makeInvalidEarlyAccess('_Z3_polynomial_subresultants');
-var _Z3_solver_check_assumptions = Module['_Z3_solver_check_assumptions'] = makeInvalidEarlyAccess('_Z3_solver_check_assumptions');
-var _Z3_mk_array_sort = Module['_Z3_mk_array_sort'] = makeInvalidEarlyAccess('_Z3_mk_array_sort');
-var _Z3_mk_array_sort_n = Module['_Z3_mk_array_sort_n'] = makeInvalidEarlyAccess('_Z3_mk_array_sort_n');
-var _Z3_mk_select = Module['_Z3_mk_select'] = makeInvalidEarlyAccess('_Z3_mk_select');
-var _Z3_mk_select_n = Module['_Z3_mk_select_n'] = makeInvalidEarlyAccess('_Z3_mk_select_n');
-var _Z3_mk_store = Module['_Z3_mk_store'] = makeInvalidEarlyAccess('_Z3_mk_store');
-var _Z3_mk_store_n = Module['_Z3_mk_store_n'] = makeInvalidEarlyAccess('_Z3_mk_store_n');
-var _Z3_mk_map = Module['_Z3_mk_map'] = makeInvalidEarlyAccess('_Z3_mk_map');
-var _Z3_mk_const_array = Module['_Z3_mk_const_array'] = makeInvalidEarlyAccess('_Z3_mk_const_array');
-var _Z3_mk_array_default = Module['_Z3_mk_array_default'] = makeInvalidEarlyAccess('_Z3_mk_array_default');
-var _Z3_mk_set_sort = Module['_Z3_mk_set_sort'] = makeInvalidEarlyAccess('_Z3_mk_set_sort');
-var _Z3_mk_empty_set = Module['_Z3_mk_empty_set'] = makeInvalidEarlyAccess('_Z3_mk_empty_set');
-var _Z3_mk_full_set = Module['_Z3_mk_full_set'] = makeInvalidEarlyAccess('_Z3_mk_full_set');
-var _Z3_mk_set_union = Module['_Z3_mk_set_union'] = makeInvalidEarlyAccess('_Z3_mk_set_union');
-var _Z3_mk_set_intersect = Module['_Z3_mk_set_intersect'] = makeInvalidEarlyAccess('_Z3_mk_set_intersect');
-var _Z3_mk_set_difference = Module['_Z3_mk_set_difference'] = makeInvalidEarlyAccess('_Z3_mk_set_difference');
-var _Z3_mk_set_complement = Module['_Z3_mk_set_complement'] = makeInvalidEarlyAccess('_Z3_mk_set_complement');
-var _Z3_mk_set_subset = Module['_Z3_mk_set_subset'] = makeInvalidEarlyAccess('_Z3_mk_set_subset');
-var _Z3_mk_array_ext = Module['_Z3_mk_array_ext'] = makeInvalidEarlyAccess('_Z3_mk_array_ext');
-var _Z3_mk_set_has_size = Module['_Z3_mk_set_has_size'] = makeInvalidEarlyAccess('_Z3_mk_set_has_size');
-var _Z3_mk_as_array = Module['_Z3_mk_as_array'] = makeInvalidEarlyAccess('_Z3_mk_as_array');
-var _Z3_mk_set_member = Module['_Z3_mk_set_member'] = makeInvalidEarlyAccess('_Z3_mk_set_member');
-var _Z3_mk_set_add = Module['_Z3_mk_set_add'] = makeInvalidEarlyAccess('_Z3_mk_set_add');
-var _Z3_mk_set_del = Module['_Z3_mk_set_del'] = makeInvalidEarlyAccess('_Z3_mk_set_del');
-var _Z3_get_array_arity = Module['_Z3_get_array_arity'] = makeInvalidEarlyAccess('_Z3_get_array_arity');
-var _Z3_get_array_sort_domain = Module['_Z3_get_array_sort_domain'] = makeInvalidEarlyAccess('_Z3_get_array_sort_domain');
-var _Z3_get_array_sort_domain_n = Module['_Z3_get_array_sort_domain_n'] = makeInvalidEarlyAccess('_Z3_get_array_sort_domain_n');
-var _Z3_get_array_sort_range = Module['_Z3_get_array_sort_range'] = makeInvalidEarlyAccess('_Z3_get_array_sort_range');
-var _Z3_mk_fpa_rounding_mode_sort = Module['_Z3_mk_fpa_rounding_mode_sort'] = makeInvalidEarlyAccess('_Z3_mk_fpa_rounding_mode_sort');
-var _Z3_mk_fpa_round_nearest_ties_to_even = Module['_Z3_mk_fpa_round_nearest_ties_to_even'] = makeInvalidEarlyAccess('_Z3_mk_fpa_round_nearest_ties_to_even');
-var _Z3_mk_fpa_rne = Module['_Z3_mk_fpa_rne'] = makeInvalidEarlyAccess('_Z3_mk_fpa_rne');
-var _Z3_mk_fpa_round_nearest_ties_to_away = Module['_Z3_mk_fpa_round_nearest_ties_to_away'] = makeInvalidEarlyAccess('_Z3_mk_fpa_round_nearest_ties_to_away');
-var _Z3_mk_fpa_rna = Module['_Z3_mk_fpa_rna'] = makeInvalidEarlyAccess('_Z3_mk_fpa_rna');
-var _Z3_mk_fpa_round_toward_positive = Module['_Z3_mk_fpa_round_toward_positive'] = makeInvalidEarlyAccess('_Z3_mk_fpa_round_toward_positive');
-var _Z3_mk_fpa_rtp = Module['_Z3_mk_fpa_rtp'] = makeInvalidEarlyAccess('_Z3_mk_fpa_rtp');
-var _Z3_mk_fpa_round_toward_negative = Module['_Z3_mk_fpa_round_toward_negative'] = makeInvalidEarlyAccess('_Z3_mk_fpa_round_toward_negative');
-var _Z3_mk_fpa_rtn = Module['_Z3_mk_fpa_rtn'] = makeInvalidEarlyAccess('_Z3_mk_fpa_rtn');
-var _Z3_mk_fpa_round_toward_zero = Module['_Z3_mk_fpa_round_toward_zero'] = makeInvalidEarlyAccess('_Z3_mk_fpa_round_toward_zero');
-var _Z3_mk_fpa_rtz = Module['_Z3_mk_fpa_rtz'] = makeInvalidEarlyAccess('_Z3_mk_fpa_rtz');
-var _Z3_mk_fpa_sort = Module['_Z3_mk_fpa_sort'] = makeInvalidEarlyAccess('_Z3_mk_fpa_sort');
-var _Z3_mk_fpa_sort_half = Module['_Z3_mk_fpa_sort_half'] = makeInvalidEarlyAccess('_Z3_mk_fpa_sort_half');
-var _Z3_mk_fpa_sort_16 = Module['_Z3_mk_fpa_sort_16'] = makeInvalidEarlyAccess('_Z3_mk_fpa_sort_16');
-var _Z3_mk_fpa_sort_single = Module['_Z3_mk_fpa_sort_single'] = makeInvalidEarlyAccess('_Z3_mk_fpa_sort_single');
-var _Z3_mk_fpa_sort_32 = Module['_Z3_mk_fpa_sort_32'] = makeInvalidEarlyAccess('_Z3_mk_fpa_sort_32');
-var _Z3_mk_fpa_sort_double = Module['_Z3_mk_fpa_sort_double'] = makeInvalidEarlyAccess('_Z3_mk_fpa_sort_double');
-var _Z3_mk_fpa_sort_64 = Module['_Z3_mk_fpa_sort_64'] = makeInvalidEarlyAccess('_Z3_mk_fpa_sort_64');
-var _Z3_mk_fpa_sort_quadruple = Module['_Z3_mk_fpa_sort_quadruple'] = makeInvalidEarlyAccess('_Z3_mk_fpa_sort_quadruple');
-var _Z3_mk_fpa_sort_128 = Module['_Z3_mk_fpa_sort_128'] = makeInvalidEarlyAccess('_Z3_mk_fpa_sort_128');
-var _Z3_mk_fpa_nan = Module['_Z3_mk_fpa_nan'] = makeInvalidEarlyAccess('_Z3_mk_fpa_nan');
-var _Z3_mk_fpa_inf = Module['_Z3_mk_fpa_inf'] = makeInvalidEarlyAccess('_Z3_mk_fpa_inf');
-var _Z3_mk_fpa_zero = Module['_Z3_mk_fpa_zero'] = makeInvalidEarlyAccess('_Z3_mk_fpa_zero');
-var _Z3_mk_fpa_fp = Module['_Z3_mk_fpa_fp'] = makeInvalidEarlyAccess('_Z3_mk_fpa_fp');
-var _Z3_mk_fpa_numeral_float = Module['_Z3_mk_fpa_numeral_float'] = makeInvalidEarlyAccess('_Z3_mk_fpa_numeral_float');
-var _Z3_mk_fpa_numeral_double = Module['_Z3_mk_fpa_numeral_double'] = makeInvalidEarlyAccess('_Z3_mk_fpa_numeral_double');
-var _Z3_mk_fpa_numeral_int = Module['_Z3_mk_fpa_numeral_int'] = makeInvalidEarlyAccess('_Z3_mk_fpa_numeral_int');
-var _Z3_mk_fpa_numeral_int_uint = Module['_Z3_mk_fpa_numeral_int_uint'] = makeInvalidEarlyAccess('_Z3_mk_fpa_numeral_int_uint');
-var _Z3_mk_fpa_numeral_int64_uint64 = Module['_Z3_mk_fpa_numeral_int64_uint64'] = makeInvalidEarlyAccess('_Z3_mk_fpa_numeral_int64_uint64');
-var _Z3_mk_fpa_abs = Module['_Z3_mk_fpa_abs'] = makeInvalidEarlyAccess('_Z3_mk_fpa_abs');
-var _Z3_mk_fpa_neg = Module['_Z3_mk_fpa_neg'] = makeInvalidEarlyAccess('_Z3_mk_fpa_neg');
-var _Z3_mk_fpa_add = Module['_Z3_mk_fpa_add'] = makeInvalidEarlyAccess('_Z3_mk_fpa_add');
-var _Z3_mk_fpa_sub = Module['_Z3_mk_fpa_sub'] = makeInvalidEarlyAccess('_Z3_mk_fpa_sub');
-var _Z3_mk_fpa_mul = Module['_Z3_mk_fpa_mul'] = makeInvalidEarlyAccess('_Z3_mk_fpa_mul');
-var _Z3_mk_fpa_div = Module['_Z3_mk_fpa_div'] = makeInvalidEarlyAccess('_Z3_mk_fpa_div');
-var _Z3_mk_fpa_fma = Module['_Z3_mk_fpa_fma'] = makeInvalidEarlyAccess('_Z3_mk_fpa_fma');
-var _Z3_mk_fpa_sqrt = Module['_Z3_mk_fpa_sqrt'] = makeInvalidEarlyAccess('_Z3_mk_fpa_sqrt');
-var _Z3_mk_fpa_rem = Module['_Z3_mk_fpa_rem'] = makeInvalidEarlyAccess('_Z3_mk_fpa_rem');
-var _Z3_mk_fpa_round_to_integral = Module['_Z3_mk_fpa_round_to_integral'] = makeInvalidEarlyAccess('_Z3_mk_fpa_round_to_integral');
-var _Z3_mk_fpa_min = Module['_Z3_mk_fpa_min'] = makeInvalidEarlyAccess('_Z3_mk_fpa_min');
-var _Z3_mk_fpa_max = Module['_Z3_mk_fpa_max'] = makeInvalidEarlyAccess('_Z3_mk_fpa_max');
-var _Z3_mk_fpa_leq = Module['_Z3_mk_fpa_leq'] = makeInvalidEarlyAccess('_Z3_mk_fpa_leq');
-var _Z3_mk_fpa_lt = Module['_Z3_mk_fpa_lt'] = makeInvalidEarlyAccess('_Z3_mk_fpa_lt');
-var _Z3_mk_fpa_geq = Module['_Z3_mk_fpa_geq'] = makeInvalidEarlyAccess('_Z3_mk_fpa_geq');
-var _Z3_mk_fpa_gt = Module['_Z3_mk_fpa_gt'] = makeInvalidEarlyAccess('_Z3_mk_fpa_gt');
-var _Z3_mk_fpa_eq = Module['_Z3_mk_fpa_eq'] = makeInvalidEarlyAccess('_Z3_mk_fpa_eq');
-var _Z3_mk_fpa_is_normal = Module['_Z3_mk_fpa_is_normal'] = makeInvalidEarlyAccess('_Z3_mk_fpa_is_normal');
-var _Z3_mk_fpa_is_subnormal = Module['_Z3_mk_fpa_is_subnormal'] = makeInvalidEarlyAccess('_Z3_mk_fpa_is_subnormal');
-var _Z3_mk_fpa_is_zero = Module['_Z3_mk_fpa_is_zero'] = makeInvalidEarlyAccess('_Z3_mk_fpa_is_zero');
-var _Z3_mk_fpa_is_infinite = Module['_Z3_mk_fpa_is_infinite'] = makeInvalidEarlyAccess('_Z3_mk_fpa_is_infinite');
-var _Z3_mk_fpa_is_nan = Module['_Z3_mk_fpa_is_nan'] = makeInvalidEarlyAccess('_Z3_mk_fpa_is_nan');
-var _Z3_mk_fpa_is_negative = Module['_Z3_mk_fpa_is_negative'] = makeInvalidEarlyAccess('_Z3_mk_fpa_is_negative');
-var _Z3_mk_fpa_is_positive = Module['_Z3_mk_fpa_is_positive'] = makeInvalidEarlyAccess('_Z3_mk_fpa_is_positive');
-var _Z3_mk_fpa_to_fp_bv = Module['_Z3_mk_fpa_to_fp_bv'] = makeInvalidEarlyAccess('_Z3_mk_fpa_to_fp_bv');
-var _Z3_mk_fpa_to_fp_float = Module['_Z3_mk_fpa_to_fp_float'] = makeInvalidEarlyAccess('_Z3_mk_fpa_to_fp_float');
-var _Z3_mk_fpa_to_fp_real = Module['_Z3_mk_fpa_to_fp_real'] = makeInvalidEarlyAccess('_Z3_mk_fpa_to_fp_real');
-var _Z3_mk_fpa_to_fp_signed = Module['_Z3_mk_fpa_to_fp_signed'] = makeInvalidEarlyAccess('_Z3_mk_fpa_to_fp_signed');
-var _Z3_mk_fpa_to_fp_unsigned = Module['_Z3_mk_fpa_to_fp_unsigned'] = makeInvalidEarlyAccess('_Z3_mk_fpa_to_fp_unsigned');
-var _Z3_mk_fpa_to_ubv = Module['_Z3_mk_fpa_to_ubv'] = makeInvalidEarlyAccess('_Z3_mk_fpa_to_ubv');
-var _Z3_mk_fpa_to_sbv = Module['_Z3_mk_fpa_to_sbv'] = makeInvalidEarlyAccess('_Z3_mk_fpa_to_sbv');
-var _Z3_mk_fpa_to_real = Module['_Z3_mk_fpa_to_real'] = makeInvalidEarlyAccess('_Z3_mk_fpa_to_real');
-var _Z3_fpa_get_ebits = Module['_Z3_fpa_get_ebits'] = makeInvalidEarlyAccess('_Z3_fpa_get_ebits');
-var _Z3_fpa_get_sbits = Module['_Z3_fpa_get_sbits'] = makeInvalidEarlyAccess('_Z3_fpa_get_sbits');
-var _Z3_fpa_get_numeral_sign = Module['_Z3_fpa_get_numeral_sign'] = makeInvalidEarlyAccess('_Z3_fpa_get_numeral_sign');
-var _Z3_fpa_get_numeral_sign_bv = Module['_Z3_fpa_get_numeral_sign_bv'] = makeInvalidEarlyAccess('_Z3_fpa_get_numeral_sign_bv');
-var _Z3_fpa_get_numeral_significand_bv = Module['_Z3_fpa_get_numeral_significand_bv'] = makeInvalidEarlyAccess('_Z3_fpa_get_numeral_significand_bv');
-var _Z3_fpa_get_numeral_significand_string = Module['_Z3_fpa_get_numeral_significand_string'] = makeInvalidEarlyAccess('_Z3_fpa_get_numeral_significand_string');
-var _Z3_fpa_get_numeral_significand_uint64 = Module['_Z3_fpa_get_numeral_significand_uint64'] = makeInvalidEarlyAccess('_Z3_fpa_get_numeral_significand_uint64');
-var _Z3_fpa_get_numeral_exponent_string = Module['_Z3_fpa_get_numeral_exponent_string'] = makeInvalidEarlyAccess('_Z3_fpa_get_numeral_exponent_string');
-var _Z3_fpa_get_numeral_exponent_int64 = Module['_Z3_fpa_get_numeral_exponent_int64'] = makeInvalidEarlyAccess('_Z3_fpa_get_numeral_exponent_int64');
-var _Z3_fpa_get_numeral_exponent_bv = Module['_Z3_fpa_get_numeral_exponent_bv'] = makeInvalidEarlyAccess('_Z3_fpa_get_numeral_exponent_bv');
-var _Z3_mk_fpa_to_ieee_bv = Module['_Z3_mk_fpa_to_ieee_bv'] = makeInvalidEarlyAccess('_Z3_mk_fpa_to_ieee_bv');
-var _Z3_mk_fpa_to_fp_int_real = Module['_Z3_mk_fpa_to_fp_int_real'] = makeInvalidEarlyAccess('_Z3_mk_fpa_to_fp_int_real');
-var _Z3_fpa_is_numeral_nan = Module['_Z3_fpa_is_numeral_nan'] = makeInvalidEarlyAccess('_Z3_fpa_is_numeral_nan');
-var _Z3_fpa_is_numeral_inf = Module['_Z3_fpa_is_numeral_inf'] = makeInvalidEarlyAccess('_Z3_fpa_is_numeral_inf');
-var _Z3_fpa_is_numeral_zero = Module['_Z3_fpa_is_numeral_zero'] = makeInvalidEarlyAccess('_Z3_fpa_is_numeral_zero');
-var _Z3_fpa_is_numeral_normal = Module['_Z3_fpa_is_numeral_normal'] = makeInvalidEarlyAccess('_Z3_fpa_is_numeral_normal');
-var _Z3_fpa_is_numeral_subnormal = Module['_Z3_fpa_is_numeral_subnormal'] = makeInvalidEarlyAccess('_Z3_fpa_is_numeral_subnormal');
-var _Z3_fpa_is_numeral_positive = Module['_Z3_fpa_is_numeral_positive'] = makeInvalidEarlyAccess('_Z3_fpa_is_numeral_positive');
-var _Z3_fpa_is_numeral_negative = Module['_Z3_fpa_is_numeral_negative'] = makeInvalidEarlyAccess('_Z3_fpa_is_numeral_negative');
-var _Z3_mk_int_sort = Module['_Z3_mk_int_sort'] = makeInvalidEarlyAccess('_Z3_mk_int_sort');
-var _Z3_mk_real_sort = Module['_Z3_mk_real_sort'] = makeInvalidEarlyAccess('_Z3_mk_real_sort');
-var _Z3_mk_real_int64 = Module['_Z3_mk_real_int64'] = makeInvalidEarlyAccess('_Z3_mk_real_int64');
-var _Z3_mk_real = Module['_Z3_mk_real'] = makeInvalidEarlyAccess('_Z3_mk_real');
-var _Z3_mk_add = Module['_Z3_mk_add'] = makeInvalidEarlyAccess('_Z3_mk_add');
-var _Z3_mk_mul = Module['_Z3_mk_mul'] = makeInvalidEarlyAccess('_Z3_mk_mul');
-var _Z3_mk_power = Module['_Z3_mk_power'] = makeInvalidEarlyAccess('_Z3_mk_power');
-var _Z3_mk_mod = Module['_Z3_mk_mod'] = makeInvalidEarlyAccess('_Z3_mk_mod');
-var _Z3_mk_rem = Module['_Z3_mk_rem'] = makeInvalidEarlyAccess('_Z3_mk_rem');
-var _Z3_mk_div = Module['_Z3_mk_div'] = makeInvalidEarlyAccess('_Z3_mk_div');
-var _Z3_mk_lt = Module['_Z3_mk_lt'] = makeInvalidEarlyAccess('_Z3_mk_lt');
-var _Z3_mk_gt = Module['_Z3_mk_gt'] = makeInvalidEarlyAccess('_Z3_mk_gt');
-var _Z3_mk_le = Module['_Z3_mk_le'] = makeInvalidEarlyAccess('_Z3_mk_le');
-var _Z3_mk_ge = Module['_Z3_mk_ge'] = makeInvalidEarlyAccess('_Z3_mk_ge');
-var _Z3_mk_divides = Module['_Z3_mk_divides'] = makeInvalidEarlyAccess('_Z3_mk_divides');
-var _Z3_mk_abs = Module['_Z3_mk_abs'] = makeInvalidEarlyAccess('_Z3_mk_abs');
-var _Z3_mk_int2real = Module['_Z3_mk_int2real'] = makeInvalidEarlyAccess('_Z3_mk_int2real');
-var _Z3_mk_real2int = Module['_Z3_mk_real2int'] = makeInvalidEarlyAccess('_Z3_mk_real2int');
-var _Z3_mk_is_int = Module['_Z3_mk_is_int'] = makeInvalidEarlyAccess('_Z3_mk_is_int');
-var _Z3_mk_sub = Module['_Z3_mk_sub'] = makeInvalidEarlyAccess('_Z3_mk_sub');
-var _Z3_mk_unary_minus = Module['_Z3_mk_unary_minus'] = makeInvalidEarlyAccess('_Z3_mk_unary_minus');
-var _Z3_is_algebraic_number = Module['_Z3_is_algebraic_number'] = makeInvalidEarlyAccess('_Z3_is_algebraic_number');
-var _Z3_get_algebraic_number_lower = Module['_Z3_get_algebraic_number_lower'] = makeInvalidEarlyAccess('_Z3_get_algebraic_number_lower');
-var _Z3_get_algebraic_number_upper = Module['_Z3_get_algebraic_number_upper'] = makeInvalidEarlyAccess('_Z3_get_algebraic_number_upper');
-var _Z3_get_numerator = Module['_Z3_get_numerator'] = makeInvalidEarlyAccess('_Z3_get_numerator');
-var _Z3_get_denominator = Module['_Z3_get_denominator'] = makeInvalidEarlyAccess('_Z3_get_denominator');
-var _Z3_mk_tuple_sort = Module['_Z3_mk_tuple_sort'] = makeInvalidEarlyAccess('_Z3_mk_tuple_sort');
-var _Z3_mk_enumeration_sort = Module['_Z3_mk_enumeration_sort'] = makeInvalidEarlyAccess('_Z3_mk_enumeration_sort');
-var _Z3_mk_list_sort = Module['_Z3_mk_list_sort'] = makeInvalidEarlyAccess('_Z3_mk_list_sort');
-var _Z3_mk_constructor = Module['_Z3_mk_constructor'] = makeInvalidEarlyAccess('_Z3_mk_constructor');
-var _Z3_constructor_num_fields = Module['_Z3_constructor_num_fields'] = makeInvalidEarlyAccess('_Z3_constructor_num_fields');
-var _Z3_query_constructor = Module['_Z3_query_constructor'] = makeInvalidEarlyAccess('_Z3_query_constructor');
-var _Z3_del_constructor = Module['_Z3_del_constructor'] = makeInvalidEarlyAccess('_Z3_del_constructor');
-var _Z3_mk_datatype = Module['_Z3_mk_datatype'] = makeInvalidEarlyAccess('_Z3_mk_datatype');
-var _Z3_mk_constructor_list = Module['_Z3_mk_constructor_list'] = makeInvalidEarlyAccess('_Z3_mk_constructor_list');
-var _Z3_del_constructor_list = Module['_Z3_del_constructor_list'] = makeInvalidEarlyAccess('_Z3_del_constructor_list');
-var _Z3_mk_datatype_sort = Module['_Z3_mk_datatype_sort'] = makeInvalidEarlyAccess('_Z3_mk_datatype_sort');
-var _Z3_mk_datatypes = Module['_Z3_mk_datatypes'] = makeInvalidEarlyAccess('_Z3_mk_datatypes');
-var _Z3_is_recursive_datatype_sort = Module['_Z3_is_recursive_datatype_sort'] = makeInvalidEarlyAccess('_Z3_is_recursive_datatype_sort');
-var _Z3_get_datatype_sort_num_constructors = Module['_Z3_get_datatype_sort_num_constructors'] = makeInvalidEarlyAccess('_Z3_get_datatype_sort_num_constructors');
-var _Z3_get_datatype_sort_constructor = Module['_Z3_get_datatype_sort_constructor'] = makeInvalidEarlyAccess('_Z3_get_datatype_sort_constructor');
-var _Z3_get_datatype_sort_recognizer = Module['_Z3_get_datatype_sort_recognizer'] = makeInvalidEarlyAccess('_Z3_get_datatype_sort_recognizer');
-var _Z3_get_datatype_sort_constructor_accessor = Module['_Z3_get_datatype_sort_constructor_accessor'] = makeInvalidEarlyAccess('_Z3_get_datatype_sort_constructor_accessor');
-var _Z3_get_tuple_sort_mk_decl = Module['_Z3_get_tuple_sort_mk_decl'] = makeInvalidEarlyAccess('_Z3_get_tuple_sort_mk_decl');
-var _Z3_get_tuple_sort_num_fields = Module['_Z3_get_tuple_sort_num_fields'] = makeInvalidEarlyAccess('_Z3_get_tuple_sort_num_fields');
-var _Z3_get_tuple_sort_field_decl = Module['_Z3_get_tuple_sort_field_decl'] = makeInvalidEarlyAccess('_Z3_get_tuple_sort_field_decl');
-var _Z3_datatype_update_field = Module['_Z3_datatype_update_field'] = makeInvalidEarlyAccess('_Z3_datatype_update_field');
-var _Z3_mk_model = Module['_Z3_mk_model'] = makeInvalidEarlyAccess('_Z3_mk_model');
-var _Z3_model_inc_ref = Module['_Z3_model_inc_ref'] = makeInvalidEarlyAccess('_Z3_model_inc_ref');
-var _Z3_model_dec_ref = Module['_Z3_model_dec_ref'] = makeInvalidEarlyAccess('_Z3_model_dec_ref');
-var _Z3_model_get_const_interp = Module['_Z3_model_get_const_interp'] = makeInvalidEarlyAccess('_Z3_model_get_const_interp');
-var _Z3_model_has_interp = Module['_Z3_model_has_interp'] = makeInvalidEarlyAccess('_Z3_model_has_interp');
-var _Z3_model_get_func_interp = Module['_Z3_model_get_func_interp'] = makeInvalidEarlyAccess('_Z3_model_get_func_interp');
-var _Z3_model_get_num_consts = Module['_Z3_model_get_num_consts'] = makeInvalidEarlyAccess('_Z3_model_get_num_consts');
-var _Z3_model_get_const_decl = Module['_Z3_model_get_const_decl'] = makeInvalidEarlyAccess('_Z3_model_get_const_decl');
-var _Z3_model_get_num_funcs = Module['_Z3_model_get_num_funcs'] = makeInvalidEarlyAccess('_Z3_model_get_num_funcs');
-var _Z3_model_get_func_decl = Module['_Z3_model_get_func_decl'] = makeInvalidEarlyAccess('_Z3_model_get_func_decl');
-var _Z3_model_eval = Module['_Z3_model_eval'] = makeInvalidEarlyAccess('_Z3_model_eval');
-var _Z3_model_get_num_sorts = Module['_Z3_model_get_num_sorts'] = makeInvalidEarlyAccess('_Z3_model_get_num_sorts');
-var _Z3_model_get_sort = Module['_Z3_model_get_sort'] = makeInvalidEarlyAccess('_Z3_model_get_sort');
-var _Z3_model_get_sort_universe = Module['_Z3_model_get_sort_universe'] = makeInvalidEarlyAccess('_Z3_model_get_sort_universe');
-var _Z3_model_translate = Module['_Z3_model_translate'] = makeInvalidEarlyAccess('_Z3_model_translate');
-var _Z3_is_as_array = Module['_Z3_is_as_array'] = makeInvalidEarlyAccess('_Z3_is_as_array');
-var _Z3_get_as_array_func_decl = Module['_Z3_get_as_array_func_decl'] = makeInvalidEarlyAccess('_Z3_get_as_array_func_decl');
-var _Z3_add_func_interp = Module['_Z3_add_func_interp'] = makeInvalidEarlyAccess('_Z3_add_func_interp');
-var _Z3_add_const_interp = Module['_Z3_add_const_interp'] = makeInvalidEarlyAccess('_Z3_add_const_interp');
-var _Z3_func_interp_inc_ref = Module['_Z3_func_interp_inc_ref'] = makeInvalidEarlyAccess('_Z3_func_interp_inc_ref');
-var _Z3_func_interp_dec_ref = Module['_Z3_func_interp_dec_ref'] = makeInvalidEarlyAccess('_Z3_func_interp_dec_ref');
-var _Z3_func_interp_get_num_entries = Module['_Z3_func_interp_get_num_entries'] = makeInvalidEarlyAccess('_Z3_func_interp_get_num_entries');
-var _Z3_func_interp_get_entry = Module['_Z3_func_interp_get_entry'] = makeInvalidEarlyAccess('_Z3_func_interp_get_entry');
-var _Z3_func_interp_get_else = Module['_Z3_func_interp_get_else'] = makeInvalidEarlyAccess('_Z3_func_interp_get_else');
-var _Z3_func_interp_set_else = Module['_Z3_func_interp_set_else'] = makeInvalidEarlyAccess('_Z3_func_interp_set_else');
-var _Z3_func_interp_get_arity = Module['_Z3_func_interp_get_arity'] = makeInvalidEarlyAccess('_Z3_func_interp_get_arity');
-var _Z3_func_interp_add_entry = Module['_Z3_func_interp_add_entry'] = makeInvalidEarlyAccess('_Z3_func_interp_add_entry');
-var _Z3_func_entry_inc_ref = Module['_Z3_func_entry_inc_ref'] = makeInvalidEarlyAccess('_Z3_func_entry_inc_ref');
-var _Z3_func_entry_dec_ref = Module['_Z3_func_entry_dec_ref'] = makeInvalidEarlyAccess('_Z3_func_entry_dec_ref');
-var _Z3_func_entry_get_value = Module['_Z3_func_entry_get_value'] = makeInvalidEarlyAccess('_Z3_func_entry_get_value');
-var _Z3_func_entry_get_num_args = Module['_Z3_func_entry_get_num_args'] = makeInvalidEarlyAccess('_Z3_func_entry_get_num_args');
-var _Z3_func_entry_get_arg = Module['_Z3_func_entry_get_arg'] = makeInvalidEarlyAccess('_Z3_func_entry_get_arg');
-var _Z3_model_to_string = Module['_Z3_model_to_string'] = makeInvalidEarlyAccess('_Z3_model_to_string');
-var _Z3_mk_ast_map = Module['_Z3_mk_ast_map'] = makeInvalidEarlyAccess('_Z3_mk_ast_map');
-var _Z3_ast_map_inc_ref = Module['_Z3_ast_map_inc_ref'] = makeInvalidEarlyAccess('_Z3_ast_map_inc_ref');
-var _Z3_ast_map_dec_ref = Module['_Z3_ast_map_dec_ref'] = makeInvalidEarlyAccess('_Z3_ast_map_dec_ref');
-var _Z3_ast_map_contains = Module['_Z3_ast_map_contains'] = makeInvalidEarlyAccess('_Z3_ast_map_contains');
-var _Z3_ast_map_find = Module['_Z3_ast_map_find'] = makeInvalidEarlyAccess('_Z3_ast_map_find');
-var _Z3_ast_map_insert = Module['_Z3_ast_map_insert'] = makeInvalidEarlyAccess('_Z3_ast_map_insert');
-var _Z3_ast_map_reset = Module['_Z3_ast_map_reset'] = makeInvalidEarlyAccess('_Z3_ast_map_reset');
-var _Z3_ast_map_erase = Module['_Z3_ast_map_erase'] = makeInvalidEarlyAccess('_Z3_ast_map_erase');
-var _Z3_ast_map_size = Module['_Z3_ast_map_size'] = makeInvalidEarlyAccess('_Z3_ast_map_size');
-var _Z3_ast_map_keys = Module['_Z3_ast_map_keys'] = makeInvalidEarlyAccess('_Z3_ast_map_keys');
-var _Z3_ast_map_to_string = Module['_Z3_ast_map_to_string'] = makeInvalidEarlyAccess('_Z3_ast_map_to_string');
-var _Z3_get_relation_arity = Module['_Z3_get_relation_arity'] = makeInvalidEarlyAccess('_Z3_get_relation_arity');
-var _Z3_get_relation_column = Module['_Z3_get_relation_column'] = makeInvalidEarlyAccess('_Z3_get_relation_column');
-var _Z3_mk_finite_domain_sort = Module['_Z3_mk_finite_domain_sort'] = makeInvalidEarlyAccess('_Z3_mk_finite_domain_sort');
-var _Z3_get_finite_domain_sort_size = Module['_Z3_get_finite_domain_sort_size'] = makeInvalidEarlyAccess('_Z3_get_finite_domain_sort_size');
-var _Z3_mk_fixedpoint = Module['_Z3_mk_fixedpoint'] = makeInvalidEarlyAccess('_Z3_mk_fixedpoint');
-var _Z3_fixedpoint_inc_ref = Module['_Z3_fixedpoint_inc_ref'] = makeInvalidEarlyAccess('_Z3_fixedpoint_inc_ref');
-var _Z3_fixedpoint_dec_ref = Module['_Z3_fixedpoint_dec_ref'] = makeInvalidEarlyAccess('_Z3_fixedpoint_dec_ref');
-var _Z3_fixedpoint_assert = Module['_Z3_fixedpoint_assert'] = makeInvalidEarlyAccess('_Z3_fixedpoint_assert');
-var _Z3_fixedpoint_add_rule = Module['_Z3_fixedpoint_add_rule'] = makeInvalidEarlyAccess('_Z3_fixedpoint_add_rule');
-var _Z3_fixedpoint_add_fact = Module['_Z3_fixedpoint_add_fact'] = makeInvalidEarlyAccess('_Z3_fixedpoint_add_fact');
-var _Z3_get_sort_kind = Module['_Z3_get_sort_kind'] = makeInvalidEarlyAccess('_Z3_get_sort_kind');
-var _Z3_fixedpoint_get_answer = Module['_Z3_fixedpoint_get_answer'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_answer');
-var _Z3_fixedpoint_get_reason_unknown = Module['_Z3_fixedpoint_get_reason_unknown'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_reason_unknown');
-var _Z3_fixedpoint_to_string = Module['_Z3_fixedpoint_to_string'] = makeInvalidEarlyAccess('_Z3_fixedpoint_to_string');
-var _Z3_fixedpoint_from_string = Module['_Z3_fixedpoint_from_string'] = makeInvalidEarlyAccess('_Z3_fixedpoint_from_string');
-var _Z3_fixedpoint_from_file = Module['_Z3_fixedpoint_from_file'] = makeInvalidEarlyAccess('_Z3_fixedpoint_from_file');
-var _Z3_fixedpoint_get_statistics = Module['_Z3_fixedpoint_get_statistics'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_statistics');
-var _Z3_fixedpoint_register_relation = Module['_Z3_fixedpoint_register_relation'] = makeInvalidEarlyAccess('_Z3_fixedpoint_register_relation');
-var _Z3_fixedpoint_set_predicate_representation = Module['_Z3_fixedpoint_set_predicate_representation'] = makeInvalidEarlyAccess('_Z3_fixedpoint_set_predicate_representation');
-var _Z3_fixedpoint_get_rules = Module['_Z3_fixedpoint_get_rules'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_rules');
-var _Z3_fixedpoint_get_assertions = Module['_Z3_fixedpoint_get_assertions'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_assertions');
-var _Z3_fixedpoint_update_rule = Module['_Z3_fixedpoint_update_rule'] = makeInvalidEarlyAccess('_Z3_fixedpoint_update_rule');
-var _Z3_fixedpoint_get_num_levels = Module['_Z3_fixedpoint_get_num_levels'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_num_levels');
-var _Z3_fixedpoint_get_cover_delta = Module['_Z3_fixedpoint_get_cover_delta'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_cover_delta');
-var _Z3_fixedpoint_add_cover = Module['_Z3_fixedpoint_add_cover'] = makeInvalidEarlyAccess('_Z3_fixedpoint_add_cover');
-var _Z3_fixedpoint_get_help = Module['_Z3_fixedpoint_get_help'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_help');
-var _Z3_fixedpoint_get_param_descrs = Module['_Z3_fixedpoint_get_param_descrs'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_param_descrs');
-var _Z3_fixedpoint_set_params = Module['_Z3_fixedpoint_set_params'] = makeInvalidEarlyAccess('_Z3_fixedpoint_set_params');
-var _Z3_fixedpoint_get_ground_sat_answer = Module['_Z3_fixedpoint_get_ground_sat_answer'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_ground_sat_answer');
-var _Z3_fixedpoint_get_rules_along_trace = Module['_Z3_fixedpoint_get_rules_along_trace'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_rules_along_trace');
-var _Z3_fixedpoint_get_rule_names_along_trace = Module['_Z3_fixedpoint_get_rule_names_along_trace'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_rule_names_along_trace');
-var _Z3_fixedpoint_add_invariant = Module['_Z3_fixedpoint_add_invariant'] = makeInvalidEarlyAccess('_Z3_fixedpoint_add_invariant');
-var _Z3_fixedpoint_get_reachable = Module['_Z3_fixedpoint_get_reachable'] = makeInvalidEarlyAccess('_Z3_fixedpoint_get_reachable');
-var _Z3_mk_ast_vector = Module['_Z3_mk_ast_vector'] = makeInvalidEarlyAccess('_Z3_mk_ast_vector');
-var _Z3_ast_vector_inc_ref = Module['_Z3_ast_vector_inc_ref'] = makeInvalidEarlyAccess('_Z3_ast_vector_inc_ref');
-var _Z3_ast_vector_dec_ref = Module['_Z3_ast_vector_dec_ref'] = makeInvalidEarlyAccess('_Z3_ast_vector_dec_ref');
-var _Z3_ast_vector_size = Module['_Z3_ast_vector_size'] = makeInvalidEarlyAccess('_Z3_ast_vector_size');
-var _Z3_ast_vector_get = Module['_Z3_ast_vector_get'] = makeInvalidEarlyAccess('_Z3_ast_vector_get');
-var _Z3_ast_vector_set = Module['_Z3_ast_vector_set'] = makeInvalidEarlyAccess('_Z3_ast_vector_set');
-var _Z3_ast_vector_resize = Module['_Z3_ast_vector_resize'] = makeInvalidEarlyAccess('_Z3_ast_vector_resize');
-var _Z3_ast_vector_push = Module['_Z3_ast_vector_push'] = makeInvalidEarlyAccess('_Z3_ast_vector_push');
-var _Z3_ast_vector_translate = Module['_Z3_ast_vector_translate'] = makeInvalidEarlyAccess('_Z3_ast_vector_translate');
-var _Z3_ast_vector_to_string = Module['_Z3_ast_vector_to_string'] = makeInvalidEarlyAccess('_Z3_ast_vector_to_string');
-var _Z3_mk_optimize = Module['_Z3_mk_optimize'] = makeInvalidEarlyAccess('_Z3_mk_optimize');
-var _Z3_optimize_inc_ref = Module['_Z3_optimize_inc_ref'] = makeInvalidEarlyAccess('_Z3_optimize_inc_ref');
-var _Z3_optimize_dec_ref = Module['_Z3_optimize_dec_ref'] = makeInvalidEarlyAccess('_Z3_optimize_dec_ref');
-var _Z3_optimize_assert = Module['_Z3_optimize_assert'] = makeInvalidEarlyAccess('_Z3_optimize_assert');
-var _Z3_optimize_assert_and_track = Module['_Z3_optimize_assert_and_track'] = makeInvalidEarlyAccess('_Z3_optimize_assert_and_track');
-var _Z3_optimize_assert_soft = Module['_Z3_optimize_assert_soft'] = makeInvalidEarlyAccess('_Z3_optimize_assert_soft');
-var _Z3_optimize_maximize = Module['_Z3_optimize_maximize'] = makeInvalidEarlyAccess('_Z3_optimize_maximize');
-var _Z3_optimize_minimize = Module['_Z3_optimize_minimize'] = makeInvalidEarlyAccess('_Z3_optimize_minimize');
-var _Z3_optimize_push = Module['_Z3_optimize_push'] = makeInvalidEarlyAccess('_Z3_optimize_push');
-var _Z3_optimize_pop = Module['_Z3_optimize_pop'] = makeInvalidEarlyAccess('_Z3_optimize_pop');
-var _Z3_optimize_get_unsat_core = Module['_Z3_optimize_get_unsat_core'] = makeInvalidEarlyAccess('_Z3_optimize_get_unsat_core');
-var _Z3_optimize_get_reason_unknown = Module['_Z3_optimize_get_reason_unknown'] = makeInvalidEarlyAccess('_Z3_optimize_get_reason_unknown');
-var _Z3_optimize_get_model = Module['_Z3_optimize_get_model'] = makeInvalidEarlyAccess('_Z3_optimize_get_model');
-var _Z3_optimize_set_params = Module['_Z3_optimize_set_params'] = makeInvalidEarlyAccess('_Z3_optimize_set_params');
-var _Z3_optimize_get_param_descrs = Module['_Z3_optimize_get_param_descrs'] = makeInvalidEarlyAccess('_Z3_optimize_get_param_descrs');
-var _Z3_optimize_get_lower = Module['_Z3_optimize_get_lower'] = makeInvalidEarlyAccess('_Z3_optimize_get_lower');
-var _Z3_optimize_get_upper = Module['_Z3_optimize_get_upper'] = makeInvalidEarlyAccess('_Z3_optimize_get_upper');
-var _Z3_optimize_get_lower_as_vector = Module['_Z3_optimize_get_lower_as_vector'] = makeInvalidEarlyAccess('_Z3_optimize_get_lower_as_vector');
-var _Z3_optimize_get_upper_as_vector = Module['_Z3_optimize_get_upper_as_vector'] = makeInvalidEarlyAccess('_Z3_optimize_get_upper_as_vector');
-var _Z3_optimize_to_string = Module['_Z3_optimize_to_string'] = makeInvalidEarlyAccess('_Z3_optimize_to_string');
-var _Z3_optimize_get_help = Module['_Z3_optimize_get_help'] = makeInvalidEarlyAccess('_Z3_optimize_get_help');
-var _Z3_optimize_get_statistics = Module['_Z3_optimize_get_statistics'] = makeInvalidEarlyAccess('_Z3_optimize_get_statistics');
-var _Z3_optimize_from_string = Module['_Z3_optimize_from_string'] = makeInvalidEarlyAccess('_Z3_optimize_from_string');
-var _Z3_optimize_from_file = Module['_Z3_optimize_from_file'] = makeInvalidEarlyAccess('_Z3_optimize_from_file');
-var _Z3_optimize_get_assertions = Module['_Z3_optimize_get_assertions'] = makeInvalidEarlyAccess('_Z3_optimize_get_assertions');
-var _Z3_optimize_get_objectives = Module['_Z3_optimize_get_objectives'] = makeInvalidEarlyAccess('_Z3_optimize_get_objectives');
-var _Z3_optimize_set_initial_value = Module['_Z3_optimize_set_initial_value'] = makeInvalidEarlyAccess('_Z3_optimize_set_initial_value');
-var _Z3_mk_linear_order = Module['_Z3_mk_linear_order'] = makeInvalidEarlyAccess('_Z3_mk_linear_order');
-var _Z3_mk_partial_order = Module['_Z3_mk_partial_order'] = makeInvalidEarlyAccess('_Z3_mk_partial_order');
-var _Z3_mk_piecewise_linear_order = Module['_Z3_mk_piecewise_linear_order'] = makeInvalidEarlyAccess('_Z3_mk_piecewise_linear_order');
-var _Z3_mk_tree_order = Module['_Z3_mk_tree_order'] = makeInvalidEarlyAccess('_Z3_mk_tree_order');
-var _Z3_mk_transitive_closure = Module['_Z3_mk_transitive_closure'] = makeInvalidEarlyAccess('_Z3_mk_transitive_closure');
-var _Z3_algebraic_is_value = Module['_Z3_algebraic_is_value'] = makeInvalidEarlyAccess('_Z3_algebraic_is_value');
-var _Z3_algebraic_is_pos = Module['_Z3_algebraic_is_pos'] = makeInvalidEarlyAccess('_Z3_algebraic_is_pos');
-var _Z3_algebraic_sign = Module['_Z3_algebraic_sign'] = makeInvalidEarlyAccess('_Z3_algebraic_sign');
-var _Z3_algebraic_is_neg = Module['_Z3_algebraic_is_neg'] = makeInvalidEarlyAccess('_Z3_algebraic_is_neg');
-var _Z3_algebraic_is_zero = Module['_Z3_algebraic_is_zero'] = makeInvalidEarlyAccess('_Z3_algebraic_is_zero');
-var _Z3_algebraic_add = Module['_Z3_algebraic_add'] = makeInvalidEarlyAccess('_Z3_algebraic_add');
-var _Z3_algebraic_sub = Module['_Z3_algebraic_sub'] = makeInvalidEarlyAccess('_Z3_algebraic_sub');
-var _Z3_algebraic_mul = Module['_Z3_algebraic_mul'] = makeInvalidEarlyAccess('_Z3_algebraic_mul');
-var _Z3_algebraic_div = Module['_Z3_algebraic_div'] = makeInvalidEarlyAccess('_Z3_algebraic_div');
-var _Z3_algebraic_root = Module['_Z3_algebraic_root'] = makeInvalidEarlyAccess('_Z3_algebraic_root');
-var _Z3_algebraic_power = Module['_Z3_algebraic_power'] = makeInvalidEarlyAccess('_Z3_algebraic_power');
-var _Z3_algebraic_lt = Module['_Z3_algebraic_lt'] = makeInvalidEarlyAccess('_Z3_algebraic_lt');
-var _Z3_algebraic_gt = Module['_Z3_algebraic_gt'] = makeInvalidEarlyAccess('_Z3_algebraic_gt');
-var _Z3_algebraic_le = Module['_Z3_algebraic_le'] = makeInvalidEarlyAccess('_Z3_algebraic_le');
-var _Z3_algebraic_ge = Module['_Z3_algebraic_ge'] = makeInvalidEarlyAccess('_Z3_algebraic_ge');
-var _Z3_algebraic_eq = Module['_Z3_algebraic_eq'] = makeInvalidEarlyAccess('_Z3_algebraic_eq');
-var _Z3_algebraic_neq = Module['_Z3_algebraic_neq'] = makeInvalidEarlyAccess('_Z3_algebraic_neq');
-var _Z3_algebraic_get_poly = Module['_Z3_algebraic_get_poly'] = makeInvalidEarlyAccess('_Z3_algebraic_get_poly');
-var _Z3_algebraic_get_i = Module['_Z3_algebraic_get_i'] = makeInvalidEarlyAccess('_Z3_algebraic_get_i');
-var _Z3_mk_tactic = Module['_Z3_mk_tactic'] = makeInvalidEarlyAccess('_Z3_mk_tactic');
-var _Z3_tactic_inc_ref = Module['_Z3_tactic_inc_ref'] = makeInvalidEarlyAccess('_Z3_tactic_inc_ref');
-var _Z3_tactic_dec_ref = Module['_Z3_tactic_dec_ref'] = makeInvalidEarlyAccess('_Z3_tactic_dec_ref');
-var _Z3_mk_probe = Module['_Z3_mk_probe'] = makeInvalidEarlyAccess('_Z3_mk_probe');
-var _Z3_probe_inc_ref = Module['_Z3_probe_inc_ref'] = makeInvalidEarlyAccess('_Z3_probe_inc_ref');
-var _Z3_probe_dec_ref = Module['_Z3_probe_dec_ref'] = makeInvalidEarlyAccess('_Z3_probe_dec_ref');
-var _Z3_tactic_and_then = Module['_Z3_tactic_and_then'] = makeInvalidEarlyAccess('_Z3_tactic_and_then');
-var _Z3_tactic_or_else = Module['_Z3_tactic_or_else'] = makeInvalidEarlyAccess('_Z3_tactic_or_else');
-var _Z3_tactic_par_or = Module['_Z3_tactic_par_or'] = makeInvalidEarlyAccess('_Z3_tactic_par_or');
-var _Z3_tactic_par_and_then = Module['_Z3_tactic_par_and_then'] = makeInvalidEarlyAccess('_Z3_tactic_par_and_then');
-var _Z3_tactic_try_for = Module['_Z3_tactic_try_for'] = makeInvalidEarlyAccess('_Z3_tactic_try_for');
-var _Z3_tactic_when = Module['_Z3_tactic_when'] = makeInvalidEarlyAccess('_Z3_tactic_when');
-var _Z3_tactic_cond = Module['_Z3_tactic_cond'] = makeInvalidEarlyAccess('_Z3_tactic_cond');
-var _Z3_tactic_repeat = Module['_Z3_tactic_repeat'] = makeInvalidEarlyAccess('_Z3_tactic_repeat');
-var _Z3_tactic_skip = Module['_Z3_tactic_skip'] = makeInvalidEarlyAccess('_Z3_tactic_skip');
-var _Z3_tactic_fail = Module['_Z3_tactic_fail'] = makeInvalidEarlyAccess('_Z3_tactic_fail');
-var _Z3_tactic_fail_if = Module['_Z3_tactic_fail_if'] = makeInvalidEarlyAccess('_Z3_tactic_fail_if');
-var _Z3_tactic_fail_if_not_decided = Module['_Z3_tactic_fail_if_not_decided'] = makeInvalidEarlyAccess('_Z3_tactic_fail_if_not_decided');
-var _Z3_tactic_using_params = Module['_Z3_tactic_using_params'] = makeInvalidEarlyAccess('_Z3_tactic_using_params');
-var _Z3_probe_const = Module['_Z3_probe_const'] = makeInvalidEarlyAccess('_Z3_probe_const');
-var _Z3_probe_lt = Module['_Z3_probe_lt'] = makeInvalidEarlyAccess('_Z3_probe_lt');
-var _Z3_probe_gt = Module['_Z3_probe_gt'] = makeInvalidEarlyAccess('_Z3_probe_gt');
-var _Z3_probe_le = Module['_Z3_probe_le'] = makeInvalidEarlyAccess('_Z3_probe_le');
-var _Z3_probe_ge = Module['_Z3_probe_ge'] = makeInvalidEarlyAccess('_Z3_probe_ge');
-var _Z3_probe_eq = Module['_Z3_probe_eq'] = makeInvalidEarlyAccess('_Z3_probe_eq');
-var _Z3_probe_and = Module['_Z3_probe_and'] = makeInvalidEarlyAccess('_Z3_probe_and');
-var _Z3_probe_or = Module['_Z3_probe_or'] = makeInvalidEarlyAccess('_Z3_probe_or');
-var _Z3_probe_not = Module['_Z3_probe_not'] = makeInvalidEarlyAccess('_Z3_probe_not');
-var _Z3_get_num_tactics = Module['_Z3_get_num_tactics'] = makeInvalidEarlyAccess('_Z3_get_num_tactics');
-var _Z3_get_tactic_name = Module['_Z3_get_tactic_name'] = makeInvalidEarlyAccess('_Z3_get_tactic_name');
-var _Z3_get_num_probes = Module['_Z3_get_num_probes'] = makeInvalidEarlyAccess('_Z3_get_num_probes');
-var _Z3_get_probe_name = Module['_Z3_get_probe_name'] = makeInvalidEarlyAccess('_Z3_get_probe_name');
-var _Z3_tactic_get_help = Module['_Z3_tactic_get_help'] = makeInvalidEarlyAccess('_Z3_tactic_get_help');
-var _Z3_tactic_get_param_descrs = Module['_Z3_tactic_get_param_descrs'] = makeInvalidEarlyAccess('_Z3_tactic_get_param_descrs');
-var _Z3_tactic_get_descr = Module['_Z3_tactic_get_descr'] = makeInvalidEarlyAccess('_Z3_tactic_get_descr');
-var _Z3_probe_get_descr = Module['_Z3_probe_get_descr'] = makeInvalidEarlyAccess('_Z3_probe_get_descr');
-var _Z3_probe_apply = Module['_Z3_probe_apply'] = makeInvalidEarlyAccess('_Z3_probe_apply');
-var _Z3_apply_result_inc_ref = Module['_Z3_apply_result_inc_ref'] = makeInvalidEarlyAccess('_Z3_apply_result_inc_ref');
-var _Z3_apply_result_dec_ref = Module['_Z3_apply_result_dec_ref'] = makeInvalidEarlyAccess('_Z3_apply_result_dec_ref');
-var _Z3_apply_result_to_string = Module['_Z3_apply_result_to_string'] = makeInvalidEarlyAccess('_Z3_apply_result_to_string');
-var _Z3_apply_result_get_num_subgoals = Module['_Z3_apply_result_get_num_subgoals'] = makeInvalidEarlyAccess('_Z3_apply_result_get_num_subgoals');
-var _Z3_apply_result_get_subgoal = Module['_Z3_apply_result_get_subgoal'] = makeInvalidEarlyAccess('_Z3_apply_result_get_subgoal');
-var _Z3_mk_simplifier = Module['_Z3_mk_simplifier'] = makeInvalidEarlyAccess('_Z3_mk_simplifier');
-var _Z3_simplifier_inc_ref = Module['_Z3_simplifier_inc_ref'] = makeInvalidEarlyAccess('_Z3_simplifier_inc_ref');
-var _Z3_simplifier_dec_ref = Module['_Z3_simplifier_dec_ref'] = makeInvalidEarlyAccess('_Z3_simplifier_dec_ref');
-var _Z3_get_num_simplifiers = Module['_Z3_get_num_simplifiers'] = makeInvalidEarlyAccess('_Z3_get_num_simplifiers');
-var _Z3_get_simplifier_name = Module['_Z3_get_simplifier_name'] = makeInvalidEarlyAccess('_Z3_get_simplifier_name');
-var _Z3_simplifier_and_then = Module['_Z3_simplifier_and_then'] = makeInvalidEarlyAccess('_Z3_simplifier_and_then');
-var _Z3_simplifier_using_params = Module['_Z3_simplifier_using_params'] = makeInvalidEarlyAccess('_Z3_simplifier_using_params');
-var _Z3_simplifier_get_help = Module['_Z3_simplifier_get_help'] = makeInvalidEarlyAccess('_Z3_simplifier_get_help');
-var _Z3_simplifier_get_param_descrs = Module['_Z3_simplifier_get_param_descrs'] = makeInvalidEarlyAccess('_Z3_simplifier_get_param_descrs');
-var _Z3_simplifier_get_descr = Module['_Z3_simplifier_get_descr'] = makeInvalidEarlyAccess('_Z3_simplifier_get_descr');
-var _Z3_mk_int_symbol = Module['_Z3_mk_int_symbol'] = makeInvalidEarlyAccess('_Z3_mk_int_symbol');
-var _Z3_mk_string_symbol = Module['_Z3_mk_string_symbol'] = makeInvalidEarlyAccess('_Z3_mk_string_symbol');
-var _Z3_is_eq_sort = Module['_Z3_is_eq_sort'] = makeInvalidEarlyAccess('_Z3_is_eq_sort');
-var _Z3_mk_uninterpreted_sort = Module['_Z3_mk_uninterpreted_sort'] = makeInvalidEarlyAccess('_Z3_mk_uninterpreted_sort');
-var _Z3_mk_type_variable = Module['_Z3_mk_type_variable'] = makeInvalidEarlyAccess('_Z3_mk_type_variable');
-var _Z3_is_eq_ast = Module['_Z3_is_eq_ast'] = makeInvalidEarlyAccess('_Z3_is_eq_ast');
-var _Z3_is_eq_func_decl = Module['_Z3_is_eq_func_decl'] = makeInvalidEarlyAccess('_Z3_is_eq_func_decl');
-var _Z3_mk_func_decl = Module['_Z3_mk_func_decl'] = makeInvalidEarlyAccess('_Z3_mk_func_decl');
-var _Z3_mk_rec_func_decl = Module['_Z3_mk_rec_func_decl'] = makeInvalidEarlyAccess('_Z3_mk_rec_func_decl');
-var _Z3_add_rec_def = Module['_Z3_add_rec_def'] = makeInvalidEarlyAccess('_Z3_add_rec_def');
-var _Z3_mk_app = Module['_Z3_mk_app'] = makeInvalidEarlyAccess('_Z3_mk_app');
-var _Z3_mk_const = Module['_Z3_mk_const'] = makeInvalidEarlyAccess('_Z3_mk_const');
-var _Z3_mk_fresh_func_decl = Module['_Z3_mk_fresh_func_decl'] = makeInvalidEarlyAccess('_Z3_mk_fresh_func_decl');
-var _Z3_mk_fresh_const = Module['_Z3_mk_fresh_const'] = makeInvalidEarlyAccess('_Z3_mk_fresh_const');
-var _Z3_mk_true = Module['_Z3_mk_true'] = makeInvalidEarlyAccess('_Z3_mk_true');
-var _Z3_mk_false = Module['_Z3_mk_false'] = makeInvalidEarlyAccess('_Z3_mk_false');
-var _Z3_mk_not = Module['_Z3_mk_not'] = makeInvalidEarlyAccess('_Z3_mk_not');
-var _Z3_mk_eq = Module['_Z3_mk_eq'] = makeInvalidEarlyAccess('_Z3_mk_eq');
-var _Z3_mk_distinct = Module['_Z3_mk_distinct'] = makeInvalidEarlyAccess('_Z3_mk_distinct');
-var _Z3_mk_iff = Module['_Z3_mk_iff'] = makeInvalidEarlyAccess('_Z3_mk_iff');
-var _Z3_mk_implies = Module['_Z3_mk_implies'] = makeInvalidEarlyAccess('_Z3_mk_implies');
-var _Z3_mk_xor = Module['_Z3_mk_xor'] = makeInvalidEarlyAccess('_Z3_mk_xor');
-var _Z3_mk_and = Module['_Z3_mk_and'] = makeInvalidEarlyAccess('_Z3_mk_and');
-var _Z3_mk_or = Module['_Z3_mk_or'] = makeInvalidEarlyAccess('_Z3_mk_or');
-var _Z3_mk_ite = Module['_Z3_mk_ite'] = makeInvalidEarlyAccess('_Z3_mk_ite');
-var _Z3_mk_bool_sort = Module['_Z3_mk_bool_sort'] = makeInvalidEarlyAccess('_Z3_mk_bool_sort');
-var _Z3_app_to_ast = Module['_Z3_app_to_ast'] = makeInvalidEarlyAccess('_Z3_app_to_ast');
-var _Z3_sort_to_ast = Module['_Z3_sort_to_ast'] = makeInvalidEarlyAccess('_Z3_sort_to_ast');
-var _Z3_func_decl_to_ast = Module['_Z3_func_decl_to_ast'] = makeInvalidEarlyAccess('_Z3_func_decl_to_ast');
-var _Z3_get_ast_id = Module['_Z3_get_ast_id'] = makeInvalidEarlyAccess('_Z3_get_ast_id');
-var _Z3_get_func_decl_id = Module['_Z3_get_func_decl_id'] = makeInvalidEarlyAccess('_Z3_get_func_decl_id');
-var _Z3_get_sort_id = Module['_Z3_get_sort_id'] = makeInvalidEarlyAccess('_Z3_get_sort_id');
-var _Z3_is_well_sorted = Module['_Z3_is_well_sorted'] = makeInvalidEarlyAccess('_Z3_is_well_sorted');
-var _Z3_get_symbol_kind = Module['_Z3_get_symbol_kind'] = makeInvalidEarlyAccess('_Z3_get_symbol_kind');
-var _Z3_get_symbol_int = Module['_Z3_get_symbol_int'] = makeInvalidEarlyAccess('_Z3_get_symbol_int');
-var _Z3_get_symbol_string = Module['_Z3_get_symbol_string'] = makeInvalidEarlyAccess('_Z3_get_symbol_string');
-var _Z3_get_ast_kind = Module['_Z3_get_ast_kind'] = makeInvalidEarlyAccess('_Z3_get_ast_kind');
-var _Z3_get_ast_hash = Module['_Z3_get_ast_hash'] = makeInvalidEarlyAccess('_Z3_get_ast_hash');
-var _Z3_is_app = Module['_Z3_is_app'] = makeInvalidEarlyAccess('_Z3_is_app');
-var _Z3_to_app = Module['_Z3_to_app'] = makeInvalidEarlyAccess('_Z3_to_app');
-var _Z3_is_ground = Module['_Z3_is_ground'] = makeInvalidEarlyAccess('_Z3_is_ground');
-var _Z3_get_depth = Module['_Z3_get_depth'] = makeInvalidEarlyAccess('_Z3_get_depth');
-var _Z3_to_func_decl = Module['_Z3_to_func_decl'] = makeInvalidEarlyAccess('_Z3_to_func_decl');
-var _Z3_get_app_decl = Module['_Z3_get_app_decl'] = makeInvalidEarlyAccess('_Z3_get_app_decl');
-var _Z3_get_app_num_args = Module['_Z3_get_app_num_args'] = makeInvalidEarlyAccess('_Z3_get_app_num_args');
-var _Z3_get_app_arg = Module['_Z3_get_app_arg'] = makeInvalidEarlyAccess('_Z3_get_app_arg');
-var _Z3_get_decl_name = Module['_Z3_get_decl_name'] = makeInvalidEarlyAccess('_Z3_get_decl_name');
-var _Z3_get_decl_num_parameters = Module['_Z3_get_decl_num_parameters'] = makeInvalidEarlyAccess('_Z3_get_decl_num_parameters');
-var _Z3_get_decl_parameter_kind = Module['_Z3_get_decl_parameter_kind'] = makeInvalidEarlyAccess('_Z3_get_decl_parameter_kind');
-var _Z3_get_decl_int_parameter = Module['_Z3_get_decl_int_parameter'] = makeInvalidEarlyAccess('_Z3_get_decl_int_parameter');
-var _Z3_get_decl_double_parameter = Module['_Z3_get_decl_double_parameter'] = makeInvalidEarlyAccess('_Z3_get_decl_double_parameter');
-var _Z3_get_decl_symbol_parameter = Module['_Z3_get_decl_symbol_parameter'] = makeInvalidEarlyAccess('_Z3_get_decl_symbol_parameter');
-var _Z3_get_decl_sort_parameter = Module['_Z3_get_decl_sort_parameter'] = makeInvalidEarlyAccess('_Z3_get_decl_sort_parameter');
-var _Z3_get_decl_ast_parameter = Module['_Z3_get_decl_ast_parameter'] = makeInvalidEarlyAccess('_Z3_get_decl_ast_parameter');
-var _Z3_get_decl_func_decl_parameter = Module['_Z3_get_decl_func_decl_parameter'] = makeInvalidEarlyAccess('_Z3_get_decl_func_decl_parameter');
-var _Z3_get_decl_rational_parameter = Module['_Z3_get_decl_rational_parameter'] = makeInvalidEarlyAccess('_Z3_get_decl_rational_parameter');
-var _Z3_get_sort_name = Module['_Z3_get_sort_name'] = makeInvalidEarlyAccess('_Z3_get_sort_name');
-var _Z3_get_sort = Module['_Z3_get_sort'] = makeInvalidEarlyAccess('_Z3_get_sort');
-var _Z3_get_arity = Module['_Z3_get_arity'] = makeInvalidEarlyAccess('_Z3_get_arity');
-var _Z3_get_domain_size = Module['_Z3_get_domain_size'] = makeInvalidEarlyAccess('_Z3_get_domain_size');
-var _Z3_get_domain = Module['_Z3_get_domain'] = makeInvalidEarlyAccess('_Z3_get_domain');
-var _Z3_get_range = Module['_Z3_get_range'] = makeInvalidEarlyAccess('_Z3_get_range');
-var _Z3_get_bool_value = Module['_Z3_get_bool_value'] = makeInvalidEarlyAccess('_Z3_get_bool_value');
-var _Z3_simplify_get_help = Module['_Z3_simplify_get_help'] = makeInvalidEarlyAccess('_Z3_simplify_get_help');
-var _Z3_simplify_get_param_descrs = Module['_Z3_simplify_get_param_descrs'] = makeInvalidEarlyAccess('_Z3_simplify_get_param_descrs');
-var _Z3_update_term = Module['_Z3_update_term'] = makeInvalidEarlyAccess('_Z3_update_term');
-var _Z3_substitute = Module['_Z3_substitute'] = makeInvalidEarlyAccess('_Z3_substitute');
-var _Z3_substitute_funs = Module['_Z3_substitute_funs'] = makeInvalidEarlyAccess('_Z3_substitute_funs');
-var _Z3_substitute_vars = Module['_Z3_substitute_vars'] = makeInvalidEarlyAccess('_Z3_substitute_vars');
-var _Z3_ast_to_string = Module['_Z3_ast_to_string'] = makeInvalidEarlyAccess('_Z3_ast_to_string');
-var _Z3_sort_to_string = Module['_Z3_sort_to_string'] = makeInvalidEarlyAccess('_Z3_sort_to_string');
-var _Z3_func_decl_to_string = Module['_Z3_func_decl_to_string'] = makeInvalidEarlyAccess('_Z3_func_decl_to_string');
-var _Z3_benchmark_to_smtlib_string = Module['_Z3_benchmark_to_smtlib_string'] = makeInvalidEarlyAccess('_Z3_benchmark_to_smtlib_string');
-var _Z3_get_decl_kind = Module['_Z3_get_decl_kind'] = makeInvalidEarlyAccess('_Z3_get_decl_kind');
-var _Z3_get_index_value = Module['_Z3_get_index_value'] = makeInvalidEarlyAccess('_Z3_get_index_value');
-var _Z3_translate = Module['_Z3_translate'] = makeInvalidEarlyAccess('_Z3_translate');
-var _Z3_mk_context = Module['_Z3_mk_context'] = makeInvalidEarlyAccess('_Z3_mk_context');
-var _Z3_mk_context_rc = Module['_Z3_mk_context_rc'] = makeInvalidEarlyAccess('_Z3_mk_context_rc');
-var _Z3_del_context = Module['_Z3_del_context'] = makeInvalidEarlyAccess('_Z3_del_context');
-var _Z3_interrupt = Module['_Z3_interrupt'] = makeInvalidEarlyAccess('_Z3_interrupt');
-var _Z3_enable_concurrent_dec_ref = Module['_Z3_enable_concurrent_dec_ref'] = makeInvalidEarlyAccess('_Z3_enable_concurrent_dec_ref');
-var _Z3_toggle_warning_messages = Module['_Z3_toggle_warning_messages'] = makeInvalidEarlyAccess('_Z3_toggle_warning_messages');
-var _Z3_inc_ref = Module['_Z3_inc_ref'] = makeInvalidEarlyAccess('_Z3_inc_ref');
-var _Z3_dec_ref = Module['_Z3_dec_ref'] = makeInvalidEarlyAccess('_Z3_dec_ref');
-var _Z3_get_version = Module['_Z3_get_version'] = makeInvalidEarlyAccess('_Z3_get_version');
-var _Z3_get_full_version = Module['_Z3_get_full_version'] = makeInvalidEarlyAccess('_Z3_get_full_version');
-var _Z3_enable_trace = Module['_Z3_enable_trace'] = makeInvalidEarlyAccess('_Z3_enable_trace');
-var _Z3_disable_trace = Module['_Z3_disable_trace'] = makeInvalidEarlyAccess('_Z3_disable_trace');
-var _Z3_reset_memory = Module['_Z3_reset_memory'] = makeInvalidEarlyAccess('_Z3_reset_memory');
-var _Z3_finalize_memory = Module['_Z3_finalize_memory'] = makeInvalidEarlyAccess('_Z3_finalize_memory');
-var _Z3_get_error_code = Module['_Z3_get_error_code'] = makeInvalidEarlyAccess('_Z3_get_error_code');
-var _Z3_set_error = Module['_Z3_set_error'] = makeInvalidEarlyAccess('_Z3_set_error');
-var _Z3_set_ast_print_mode = Module['_Z3_set_ast_print_mode'] = makeInvalidEarlyAccess('_Z3_set_ast_print_mode');
-var _Z3_qe_model_project = Module['_Z3_qe_model_project'] = makeInvalidEarlyAccess('_Z3_qe_model_project');
-var _Z3_qe_model_project_skolem = Module['_Z3_qe_model_project_skolem'] = makeInvalidEarlyAccess('_Z3_qe_model_project_skolem');
-var _Z3_qe_model_project_with_witness = Module['_Z3_qe_model_project_with_witness'] = makeInvalidEarlyAccess('_Z3_qe_model_project_with_witness');
-var _Z3_model_extrapolate = Module['_Z3_model_extrapolate'] = makeInvalidEarlyAccess('_Z3_model_extrapolate');
-var _Z3_qe_lite = Module['_Z3_qe_lite'] = makeInvalidEarlyAccess('_Z3_qe_lite');
-var _Z3_open_log = Module['_Z3_open_log'] = makeInvalidEarlyAccess('_Z3_open_log');
-var _Z3_append_log = Module['_Z3_append_log'] = makeInvalidEarlyAccess('_Z3_append_log');
-var _Z3_close_log = Module['_Z3_close_log'] = makeInvalidEarlyAccess('_Z3_close_log');
-var _Z3_mk_atmost = Module['_Z3_mk_atmost'] = makeInvalidEarlyAccess('_Z3_mk_atmost');
-var _Z3_mk_atleast = Module['_Z3_mk_atleast'] = makeInvalidEarlyAccess('_Z3_mk_atleast');
-var _Z3_mk_pble = Module['_Z3_mk_pble'] = makeInvalidEarlyAccess('_Z3_mk_pble');
-var _Z3_mk_pbge = Module['_Z3_mk_pbge'] = makeInvalidEarlyAccess('_Z3_mk_pbge');
-var _Z3_mk_pbeq = Module['_Z3_mk_pbeq'] = makeInvalidEarlyAccess('_Z3_mk_pbeq');
-var _Z3_mk_goal = Module['_Z3_mk_goal'] = makeInvalidEarlyAccess('_Z3_mk_goal');
-var _Z3_goal_inc_ref = Module['_Z3_goal_inc_ref'] = makeInvalidEarlyAccess('_Z3_goal_inc_ref');
-var _Z3_goal_dec_ref = Module['_Z3_goal_dec_ref'] = makeInvalidEarlyAccess('_Z3_goal_dec_ref');
-var _Z3_goal_precision = Module['_Z3_goal_precision'] = makeInvalidEarlyAccess('_Z3_goal_precision');
-var _Z3_goal_assert = Module['_Z3_goal_assert'] = makeInvalidEarlyAccess('_Z3_goal_assert');
-var _Z3_goal_inconsistent = Module['_Z3_goal_inconsistent'] = makeInvalidEarlyAccess('_Z3_goal_inconsistent');
-var _Z3_goal_depth = Module['_Z3_goal_depth'] = makeInvalidEarlyAccess('_Z3_goal_depth');
-var _Z3_goal_reset = Module['_Z3_goal_reset'] = makeInvalidEarlyAccess('_Z3_goal_reset');
-var _Z3_goal_size = Module['_Z3_goal_size'] = makeInvalidEarlyAccess('_Z3_goal_size');
-var _Z3_goal_formula = Module['_Z3_goal_formula'] = makeInvalidEarlyAccess('_Z3_goal_formula');
-var _Z3_goal_num_exprs = Module['_Z3_goal_num_exprs'] = makeInvalidEarlyAccess('_Z3_goal_num_exprs');
-var _Z3_goal_is_decided_sat = Module['_Z3_goal_is_decided_sat'] = makeInvalidEarlyAccess('_Z3_goal_is_decided_sat');
-var _Z3_goal_is_decided_unsat = Module['_Z3_goal_is_decided_unsat'] = makeInvalidEarlyAccess('_Z3_goal_is_decided_unsat');
-var _Z3_goal_convert_model = Module['_Z3_goal_convert_model'] = makeInvalidEarlyAccess('_Z3_goal_convert_model');
-var _Z3_goal_translate = Module['_Z3_goal_translate'] = makeInvalidEarlyAccess('_Z3_goal_translate');
-var _Z3_goal_to_string = Module['_Z3_goal_to_string'] = makeInvalidEarlyAccess('_Z3_goal_to_string');
-var _Z3_goal_to_dimacs_string = Module['_Z3_goal_to_dimacs_string'] = makeInvalidEarlyAccess('_Z3_goal_to_dimacs_string');
-var _Z3_rcf_del = Module['_Z3_rcf_del'] = makeInvalidEarlyAccess('_Z3_rcf_del');
-var _Z3_rcf_mk_rational = Module['_Z3_rcf_mk_rational'] = makeInvalidEarlyAccess('_Z3_rcf_mk_rational');
-var _Z3_rcf_mk_small_int = Module['_Z3_rcf_mk_small_int'] = makeInvalidEarlyAccess('_Z3_rcf_mk_small_int');
-var _Z3_rcf_mk_pi = Module['_Z3_rcf_mk_pi'] = makeInvalidEarlyAccess('_Z3_rcf_mk_pi');
-var _Z3_rcf_mk_e = Module['_Z3_rcf_mk_e'] = makeInvalidEarlyAccess('_Z3_rcf_mk_e');
-var _Z3_rcf_mk_infinitesimal = Module['_Z3_rcf_mk_infinitesimal'] = makeInvalidEarlyAccess('_Z3_rcf_mk_infinitesimal');
-var _Z3_rcf_mk_roots = Module['_Z3_rcf_mk_roots'] = makeInvalidEarlyAccess('_Z3_rcf_mk_roots');
-var _Z3_rcf_add = Module['_Z3_rcf_add'] = makeInvalidEarlyAccess('_Z3_rcf_add');
-var _Z3_rcf_sub = Module['_Z3_rcf_sub'] = makeInvalidEarlyAccess('_Z3_rcf_sub');
-var _Z3_rcf_mul = Module['_Z3_rcf_mul'] = makeInvalidEarlyAccess('_Z3_rcf_mul');
-var _Z3_rcf_div = Module['_Z3_rcf_div'] = makeInvalidEarlyAccess('_Z3_rcf_div');
-var _Z3_rcf_neg = Module['_Z3_rcf_neg'] = makeInvalidEarlyAccess('_Z3_rcf_neg');
-var _Z3_rcf_inv = Module['_Z3_rcf_inv'] = makeInvalidEarlyAccess('_Z3_rcf_inv');
-var _Z3_rcf_power = Module['_Z3_rcf_power'] = makeInvalidEarlyAccess('_Z3_rcf_power');
-var _Z3_rcf_lt = Module['_Z3_rcf_lt'] = makeInvalidEarlyAccess('_Z3_rcf_lt');
-var _Z3_rcf_gt = Module['_Z3_rcf_gt'] = makeInvalidEarlyAccess('_Z3_rcf_gt');
-var _Z3_rcf_le = Module['_Z3_rcf_le'] = makeInvalidEarlyAccess('_Z3_rcf_le');
-var _Z3_rcf_ge = Module['_Z3_rcf_ge'] = makeInvalidEarlyAccess('_Z3_rcf_ge');
-var _Z3_rcf_eq = Module['_Z3_rcf_eq'] = makeInvalidEarlyAccess('_Z3_rcf_eq');
-var _Z3_rcf_neq = Module['_Z3_rcf_neq'] = makeInvalidEarlyAccess('_Z3_rcf_neq');
-var _Z3_rcf_num_to_string = Module['_Z3_rcf_num_to_string'] = makeInvalidEarlyAccess('_Z3_rcf_num_to_string');
-var _Z3_rcf_num_to_decimal_string = Module['_Z3_rcf_num_to_decimal_string'] = makeInvalidEarlyAccess('_Z3_rcf_num_to_decimal_string');
-var _Z3_rcf_get_numerator_denominator = Module['_Z3_rcf_get_numerator_denominator'] = makeInvalidEarlyAccess('_Z3_rcf_get_numerator_denominator');
-var _Z3_rcf_is_rational = Module['_Z3_rcf_is_rational'] = makeInvalidEarlyAccess('_Z3_rcf_is_rational');
-var _Z3_rcf_is_algebraic = Module['_Z3_rcf_is_algebraic'] = makeInvalidEarlyAccess('_Z3_rcf_is_algebraic');
-var _Z3_rcf_is_infinitesimal = Module['_Z3_rcf_is_infinitesimal'] = makeInvalidEarlyAccess('_Z3_rcf_is_infinitesimal');
-var _Z3_rcf_is_transcendental = Module['_Z3_rcf_is_transcendental'] = makeInvalidEarlyAccess('_Z3_rcf_is_transcendental');
-var _Z3_rcf_extension_index = Module['_Z3_rcf_extension_index'] = makeInvalidEarlyAccess('_Z3_rcf_extension_index');
-var _Z3_rcf_transcendental_name = Module['_Z3_rcf_transcendental_name'] = makeInvalidEarlyAccess('_Z3_rcf_transcendental_name');
-var _Z3_rcf_infinitesimal_name = Module['_Z3_rcf_infinitesimal_name'] = makeInvalidEarlyAccess('_Z3_rcf_infinitesimal_name');
-var _Z3_rcf_num_coefficients = Module['_Z3_rcf_num_coefficients'] = makeInvalidEarlyAccess('_Z3_rcf_num_coefficients');
-var _Z3_rcf_coefficient = Module['_Z3_rcf_coefficient'] = makeInvalidEarlyAccess('_Z3_rcf_coefficient');
-var _Z3_rcf_interval = Module['_Z3_rcf_interval'] = makeInvalidEarlyAccess('_Z3_rcf_interval');
-var _Z3_rcf_num_sign_conditions = Module['_Z3_rcf_num_sign_conditions'] = makeInvalidEarlyAccess('_Z3_rcf_num_sign_conditions');
-var _Z3_rcf_sign_condition_sign = Module['_Z3_rcf_sign_condition_sign'] = makeInvalidEarlyAccess('_Z3_rcf_sign_condition_sign');
-var _Z3_rcf_num_sign_condition_coefficients = Module['_Z3_rcf_num_sign_condition_coefficients'] = makeInvalidEarlyAccess('_Z3_rcf_num_sign_condition_coefficients');
-var _Z3_rcf_sign_condition_coefficient = Module['_Z3_rcf_sign_condition_coefficient'] = makeInvalidEarlyAccess('_Z3_rcf_sign_condition_coefficient');
-var _Z3_mk_seq_sort = Module['_Z3_mk_seq_sort'] = makeInvalidEarlyAccess('_Z3_mk_seq_sort');
-var _Z3_mk_re_sort = Module['_Z3_mk_re_sort'] = makeInvalidEarlyAccess('_Z3_mk_re_sort');
-var _Z3_mk_string = Module['_Z3_mk_string'] = makeInvalidEarlyAccess('_Z3_mk_string');
-var _Z3_mk_lstring = Module['_Z3_mk_lstring'] = makeInvalidEarlyAccess('_Z3_mk_lstring');
-var _Z3_mk_u32string = Module['_Z3_mk_u32string'] = makeInvalidEarlyAccess('_Z3_mk_u32string');
-var _Z3_mk_char = Module['_Z3_mk_char'] = makeInvalidEarlyAccess('_Z3_mk_char');
-var _Z3_mk_string_sort = Module['_Z3_mk_string_sort'] = makeInvalidEarlyAccess('_Z3_mk_string_sort');
-var _Z3_mk_char_sort = Module['_Z3_mk_char_sort'] = makeInvalidEarlyAccess('_Z3_mk_char_sort');
-var _Z3_is_seq_sort = Module['_Z3_is_seq_sort'] = makeInvalidEarlyAccess('_Z3_is_seq_sort');
-var _Z3_is_re_sort = Module['_Z3_is_re_sort'] = makeInvalidEarlyAccess('_Z3_is_re_sort');
-var _Z3_get_seq_sort_basis = Module['_Z3_get_seq_sort_basis'] = makeInvalidEarlyAccess('_Z3_get_seq_sort_basis');
-var _Z3_get_re_sort_basis = Module['_Z3_get_re_sort_basis'] = makeInvalidEarlyAccess('_Z3_get_re_sort_basis');
-var _Z3_is_char_sort = Module['_Z3_is_char_sort'] = makeInvalidEarlyAccess('_Z3_is_char_sort');
-var _Z3_is_string_sort = Module['_Z3_is_string_sort'] = makeInvalidEarlyAccess('_Z3_is_string_sort');
-var _Z3_is_string = Module['_Z3_is_string'] = makeInvalidEarlyAccess('_Z3_is_string');
-var _Z3_get_string = Module['_Z3_get_string'] = makeInvalidEarlyAccess('_Z3_get_string');
-var _Z3_get_lstring = Module['_Z3_get_lstring'] = makeInvalidEarlyAccess('_Z3_get_lstring');
-var _Z3_get_string_length = Module['_Z3_get_string_length'] = makeInvalidEarlyAccess('_Z3_get_string_length');
-var _Z3_get_string_contents = Module['_Z3_get_string_contents'] = makeInvalidEarlyAccess('_Z3_get_string_contents');
-var _Z3_mk_seq_empty = Module['_Z3_mk_seq_empty'] = makeInvalidEarlyAccess('_Z3_mk_seq_empty');
-var _Z3_mk_seq_unit = Module['_Z3_mk_seq_unit'] = makeInvalidEarlyAccess('_Z3_mk_seq_unit');
-var _Z3_mk_seq_concat = Module['_Z3_mk_seq_concat'] = makeInvalidEarlyAccess('_Z3_mk_seq_concat');
-var _Z3_mk_seq_prefix = Module['_Z3_mk_seq_prefix'] = makeInvalidEarlyAccess('_Z3_mk_seq_prefix');
-var _Z3_mk_seq_suffix = Module['_Z3_mk_seq_suffix'] = makeInvalidEarlyAccess('_Z3_mk_seq_suffix');
-var _Z3_mk_seq_contains = Module['_Z3_mk_seq_contains'] = makeInvalidEarlyAccess('_Z3_mk_seq_contains');
-var _Z3_mk_str_lt = Module['_Z3_mk_str_lt'] = makeInvalidEarlyAccess('_Z3_mk_str_lt');
-var _Z3_mk_str_le = Module['_Z3_mk_str_le'] = makeInvalidEarlyAccess('_Z3_mk_str_le');
-var _Z3_mk_string_to_code = Module['_Z3_mk_string_to_code'] = makeInvalidEarlyAccess('_Z3_mk_string_to_code');
-var _Z3_mk_string_from_code = Module['_Z3_mk_string_from_code'] = makeInvalidEarlyAccess('_Z3_mk_string_from_code');
-var _Z3_mk_seq_extract = Module['_Z3_mk_seq_extract'] = makeInvalidEarlyAccess('_Z3_mk_seq_extract');
-var _Z3_mk_seq_replace = Module['_Z3_mk_seq_replace'] = makeInvalidEarlyAccess('_Z3_mk_seq_replace');
-var _Z3_mk_seq_at = Module['_Z3_mk_seq_at'] = makeInvalidEarlyAccess('_Z3_mk_seq_at');
-var _Z3_mk_seq_nth = Module['_Z3_mk_seq_nth'] = makeInvalidEarlyAccess('_Z3_mk_seq_nth');
-var _Z3_mk_seq_length = Module['_Z3_mk_seq_length'] = makeInvalidEarlyAccess('_Z3_mk_seq_length');
-var _Z3_mk_seq_index = Module['_Z3_mk_seq_index'] = makeInvalidEarlyAccess('_Z3_mk_seq_index');
-var _Z3_mk_seq_last_index = Module['_Z3_mk_seq_last_index'] = makeInvalidEarlyAccess('_Z3_mk_seq_last_index');
-var _Z3_mk_seq_to_re = Module['_Z3_mk_seq_to_re'] = makeInvalidEarlyAccess('_Z3_mk_seq_to_re');
-var _Z3_mk_seq_in_re = Module['_Z3_mk_seq_in_re'] = makeInvalidEarlyAccess('_Z3_mk_seq_in_re');
-var _Z3_mk_int_to_str = Module['_Z3_mk_int_to_str'] = makeInvalidEarlyAccess('_Z3_mk_int_to_str');
-var _Z3_mk_str_to_int = Module['_Z3_mk_str_to_int'] = makeInvalidEarlyAccess('_Z3_mk_str_to_int');
-var _Z3_mk_ubv_to_str = Module['_Z3_mk_ubv_to_str'] = makeInvalidEarlyAccess('_Z3_mk_ubv_to_str');
-var _Z3_mk_sbv_to_str = Module['_Z3_mk_sbv_to_str'] = makeInvalidEarlyAccess('_Z3_mk_sbv_to_str');
-var _Z3_mk_re_loop = Module['_Z3_mk_re_loop'] = makeInvalidEarlyAccess('_Z3_mk_re_loop');
-var _Z3_mk_re_power = Module['_Z3_mk_re_power'] = makeInvalidEarlyAccess('_Z3_mk_re_power');
-var _Z3_mk_re_plus = Module['_Z3_mk_re_plus'] = makeInvalidEarlyAccess('_Z3_mk_re_plus');
-var _Z3_mk_re_star = Module['_Z3_mk_re_star'] = makeInvalidEarlyAccess('_Z3_mk_re_star');
-var _Z3_mk_re_option = Module['_Z3_mk_re_option'] = makeInvalidEarlyAccess('_Z3_mk_re_option');
-var _Z3_mk_re_complement = Module['_Z3_mk_re_complement'] = makeInvalidEarlyAccess('_Z3_mk_re_complement');
-var _Z3_mk_re_diff = Module['_Z3_mk_re_diff'] = makeInvalidEarlyAccess('_Z3_mk_re_diff');
-var _Z3_mk_re_union = Module['_Z3_mk_re_union'] = makeInvalidEarlyAccess('_Z3_mk_re_union');
-var _Z3_mk_re_intersect = Module['_Z3_mk_re_intersect'] = makeInvalidEarlyAccess('_Z3_mk_re_intersect');
-var _Z3_mk_re_concat = Module['_Z3_mk_re_concat'] = makeInvalidEarlyAccess('_Z3_mk_re_concat');
-var _Z3_mk_re_range = Module['_Z3_mk_re_range'] = makeInvalidEarlyAccess('_Z3_mk_re_range');
-var _Z3_mk_re_allchar = Module['_Z3_mk_re_allchar'] = makeInvalidEarlyAccess('_Z3_mk_re_allchar');
-var _Z3_mk_re_empty = Module['_Z3_mk_re_empty'] = makeInvalidEarlyAccess('_Z3_mk_re_empty');
-var _Z3_mk_re_full = Module['_Z3_mk_re_full'] = makeInvalidEarlyAccess('_Z3_mk_re_full');
-var _Z3_mk_char_le = Module['_Z3_mk_char_le'] = makeInvalidEarlyAccess('_Z3_mk_char_le');
-var _Z3_mk_char_to_int = Module['_Z3_mk_char_to_int'] = makeInvalidEarlyAccess('_Z3_mk_char_to_int');
-var _Z3_mk_char_to_bv = Module['_Z3_mk_char_to_bv'] = makeInvalidEarlyAccess('_Z3_mk_char_to_bv');
-var _Z3_mk_char_from_bv = Module['_Z3_mk_char_from_bv'] = makeInvalidEarlyAccess('_Z3_mk_char_from_bv');
-var _Z3_mk_char_is_digit = Module['_Z3_mk_char_is_digit'] = makeInvalidEarlyAccess('_Z3_mk_char_is_digit');
-var _Z3_mk_seq_map = Module['_Z3_mk_seq_map'] = makeInvalidEarlyAccess('_Z3_mk_seq_map');
-var _Z3_mk_seq_mapi = Module['_Z3_mk_seq_mapi'] = makeInvalidEarlyAccess('_Z3_mk_seq_mapi');
-var _Z3_mk_seq_foldl = Module['_Z3_mk_seq_foldl'] = makeInvalidEarlyAccess('_Z3_mk_seq_foldl');
-var _Z3_mk_seq_foldli = Module['_Z3_mk_seq_foldli'] = makeInvalidEarlyAccess('_Z3_mk_seq_foldli');
-var _Z3_mk_bv_sort = Module['_Z3_mk_bv_sort'] = makeInvalidEarlyAccess('_Z3_mk_bv_sort');
-var _Z3_mk_bvnot = Module['_Z3_mk_bvnot'] = makeInvalidEarlyAccess('_Z3_mk_bvnot');
-var _Z3_mk_bvredand = Module['_Z3_mk_bvredand'] = makeInvalidEarlyAccess('_Z3_mk_bvredand');
-var _Z3_mk_bvredor = Module['_Z3_mk_bvredor'] = makeInvalidEarlyAccess('_Z3_mk_bvredor');
-var _Z3_mk_bvand = Module['_Z3_mk_bvand'] = makeInvalidEarlyAccess('_Z3_mk_bvand');
-var _Z3_mk_bvor = Module['_Z3_mk_bvor'] = makeInvalidEarlyAccess('_Z3_mk_bvor');
-var _Z3_mk_bvxor = Module['_Z3_mk_bvxor'] = makeInvalidEarlyAccess('_Z3_mk_bvxor');
-var _Z3_mk_bvnand = Module['_Z3_mk_bvnand'] = makeInvalidEarlyAccess('_Z3_mk_bvnand');
-var _Z3_mk_bvnor = Module['_Z3_mk_bvnor'] = makeInvalidEarlyAccess('_Z3_mk_bvnor');
-var _Z3_mk_bvxnor = Module['_Z3_mk_bvxnor'] = makeInvalidEarlyAccess('_Z3_mk_bvxnor');
-var _Z3_mk_bvadd = Module['_Z3_mk_bvadd'] = makeInvalidEarlyAccess('_Z3_mk_bvadd');
-var _Z3_mk_bvmul = Module['_Z3_mk_bvmul'] = makeInvalidEarlyAccess('_Z3_mk_bvmul');
-var _Z3_mk_bvudiv = Module['_Z3_mk_bvudiv'] = makeInvalidEarlyAccess('_Z3_mk_bvudiv');
-var _Z3_mk_bvsdiv = Module['_Z3_mk_bvsdiv'] = makeInvalidEarlyAccess('_Z3_mk_bvsdiv');
-var _Z3_mk_bvurem = Module['_Z3_mk_bvurem'] = makeInvalidEarlyAccess('_Z3_mk_bvurem');
-var _Z3_mk_bvsrem = Module['_Z3_mk_bvsrem'] = makeInvalidEarlyAccess('_Z3_mk_bvsrem');
-var _Z3_mk_bvsmod = Module['_Z3_mk_bvsmod'] = makeInvalidEarlyAccess('_Z3_mk_bvsmod');
-var _Z3_mk_bvule = Module['_Z3_mk_bvule'] = makeInvalidEarlyAccess('_Z3_mk_bvule');
-var _Z3_mk_bvsle = Module['_Z3_mk_bvsle'] = makeInvalidEarlyAccess('_Z3_mk_bvsle');
-var _Z3_mk_bvuge = Module['_Z3_mk_bvuge'] = makeInvalidEarlyAccess('_Z3_mk_bvuge');
-var _Z3_mk_bvsge = Module['_Z3_mk_bvsge'] = makeInvalidEarlyAccess('_Z3_mk_bvsge');
-var _Z3_mk_bvult = Module['_Z3_mk_bvult'] = makeInvalidEarlyAccess('_Z3_mk_bvult');
-var _Z3_mk_bvslt = Module['_Z3_mk_bvslt'] = makeInvalidEarlyAccess('_Z3_mk_bvslt');
-var _Z3_mk_bvugt = Module['_Z3_mk_bvugt'] = makeInvalidEarlyAccess('_Z3_mk_bvugt');
-var _Z3_mk_bvsgt = Module['_Z3_mk_bvsgt'] = makeInvalidEarlyAccess('_Z3_mk_bvsgt');
-var _Z3_mk_concat = Module['_Z3_mk_concat'] = makeInvalidEarlyAccess('_Z3_mk_concat');
-var _Z3_mk_bvshl = Module['_Z3_mk_bvshl'] = makeInvalidEarlyAccess('_Z3_mk_bvshl');
-var _Z3_mk_bvlshr = Module['_Z3_mk_bvlshr'] = makeInvalidEarlyAccess('_Z3_mk_bvlshr');
-var _Z3_mk_bvashr = Module['_Z3_mk_bvashr'] = makeInvalidEarlyAccess('_Z3_mk_bvashr');
-var _Z3_mk_ext_rotate_left = Module['_Z3_mk_ext_rotate_left'] = makeInvalidEarlyAccess('_Z3_mk_ext_rotate_left');
-var _Z3_mk_ext_rotate_right = Module['_Z3_mk_ext_rotate_right'] = makeInvalidEarlyAccess('_Z3_mk_ext_rotate_right');
-var _Z3_mk_extract = Module['_Z3_mk_extract'] = makeInvalidEarlyAccess('_Z3_mk_extract');
-var _Z3_mk_sign_ext = Module['_Z3_mk_sign_ext'] = makeInvalidEarlyAccess('_Z3_mk_sign_ext');
-var _Z3_mk_zero_ext = Module['_Z3_mk_zero_ext'] = makeInvalidEarlyAccess('_Z3_mk_zero_ext');
-var _Z3_mk_repeat = Module['_Z3_mk_repeat'] = makeInvalidEarlyAccess('_Z3_mk_repeat');
-var _Z3_mk_bit2bool = Module['_Z3_mk_bit2bool'] = makeInvalidEarlyAccess('_Z3_mk_bit2bool');
-var _Z3_mk_rotate_left = Module['_Z3_mk_rotate_left'] = makeInvalidEarlyAccess('_Z3_mk_rotate_left');
-var _Z3_mk_rotate_right = Module['_Z3_mk_rotate_right'] = makeInvalidEarlyAccess('_Z3_mk_rotate_right');
-var _Z3_mk_int2bv = Module['_Z3_mk_int2bv'] = makeInvalidEarlyAccess('_Z3_mk_int2bv');
-var _Z3_mk_bv2int = Module['_Z3_mk_bv2int'] = makeInvalidEarlyAccess('_Z3_mk_bv2int');
-var _Z3_get_bv_sort_size = Module['_Z3_get_bv_sort_size'] = makeInvalidEarlyAccess('_Z3_get_bv_sort_size');
-var _Z3_mk_bvadd_no_overflow = Module['_Z3_mk_bvadd_no_overflow'] = makeInvalidEarlyAccess('_Z3_mk_bvadd_no_overflow');
-var _Z3_mk_bvadd_no_underflow = Module['_Z3_mk_bvadd_no_underflow'] = makeInvalidEarlyAccess('_Z3_mk_bvadd_no_underflow');
-var _Z3_mk_bvsub_no_overflow = Module['_Z3_mk_bvsub_no_overflow'] = makeInvalidEarlyAccess('_Z3_mk_bvsub_no_overflow');
-var _Z3_mk_bvneg = Module['_Z3_mk_bvneg'] = makeInvalidEarlyAccess('_Z3_mk_bvneg');
-var _Z3_mk_bvsub_no_underflow = Module['_Z3_mk_bvsub_no_underflow'] = makeInvalidEarlyAccess('_Z3_mk_bvsub_no_underflow');
-var _Z3_mk_bvmul_no_overflow = Module['_Z3_mk_bvmul_no_overflow'] = makeInvalidEarlyAccess('_Z3_mk_bvmul_no_overflow');
-var _Z3_mk_bvmul_no_underflow = Module['_Z3_mk_bvmul_no_underflow'] = makeInvalidEarlyAccess('_Z3_mk_bvmul_no_underflow');
-var _Z3_mk_bvneg_no_overflow = Module['_Z3_mk_bvneg_no_overflow'] = makeInvalidEarlyAccess('_Z3_mk_bvneg_no_overflow');
-var _Z3_mk_bvsdiv_no_overflow = Module['_Z3_mk_bvsdiv_no_overflow'] = makeInvalidEarlyAccess('_Z3_mk_bvsdiv_no_overflow');
-var _Z3_mk_bvsub = Module['_Z3_mk_bvsub'] = makeInvalidEarlyAccess('_Z3_mk_bvsub');
-var _Z3_stats_to_string = Module['_Z3_stats_to_string'] = makeInvalidEarlyAccess('_Z3_stats_to_string');
-var _Z3_stats_inc_ref = Module['_Z3_stats_inc_ref'] = makeInvalidEarlyAccess('_Z3_stats_inc_ref');
-var _Z3_stats_dec_ref = Module['_Z3_stats_dec_ref'] = makeInvalidEarlyAccess('_Z3_stats_dec_ref');
-var _Z3_stats_size = Module['_Z3_stats_size'] = makeInvalidEarlyAccess('_Z3_stats_size');
-var _Z3_stats_get_key = Module['_Z3_stats_get_key'] = makeInvalidEarlyAccess('_Z3_stats_get_key');
-var _Z3_stats_is_uint = Module['_Z3_stats_is_uint'] = makeInvalidEarlyAccess('_Z3_stats_is_uint');
-var _Z3_stats_is_double = Module['_Z3_stats_is_double'] = makeInvalidEarlyAccess('_Z3_stats_is_double');
-var _Z3_stats_get_uint_value = Module['_Z3_stats_get_uint_value'] = makeInvalidEarlyAccess('_Z3_stats_get_uint_value');
-var _Z3_stats_get_double_value = Module['_Z3_stats_get_double_value'] = makeInvalidEarlyAccess('_Z3_stats_get_double_value');
-var _Z3_get_estimated_alloc_size = Module['_Z3_get_estimated_alloc_size'] = makeInvalidEarlyAccess('_Z3_get_estimated_alloc_size');
-var _Z3_global_param_set = Module['_Z3_global_param_set'] = makeInvalidEarlyAccess('_Z3_global_param_set');
-var _Z3_global_param_reset_all = Module['_Z3_global_param_reset_all'] = makeInvalidEarlyAccess('_Z3_global_param_reset_all');
-var _Z3_global_param_get = Module['_Z3_global_param_get'] = makeInvalidEarlyAccess('_Z3_global_param_get');
-var _Z3_get_global_param_descrs = Module['_Z3_get_global_param_descrs'] = makeInvalidEarlyAccess('_Z3_get_global_param_descrs');
-var _Z3_mk_config = Module['_Z3_mk_config'] = makeInvalidEarlyAccess('_Z3_mk_config');
-var _Z3_del_config = Module['_Z3_del_config'] = makeInvalidEarlyAccess('_Z3_del_config');
-var _Z3_set_param_value = Module['_Z3_set_param_value'] = makeInvalidEarlyAccess('_Z3_set_param_value');
-var _Z3_update_param_value = Module['_Z3_update_param_value'] = makeInvalidEarlyAccess('_Z3_update_param_value');
-var _Z3_mk_simple_solver = Module['_Z3_mk_simple_solver'] = makeInvalidEarlyAccess('_Z3_mk_simple_solver');
-var _Z3_mk_solver = Module['_Z3_mk_solver'] = makeInvalidEarlyAccess('_Z3_mk_solver');
-var _Z3_mk_solver_for_logic = Module['_Z3_mk_solver_for_logic'] = makeInvalidEarlyAccess('_Z3_mk_solver_for_logic');
-var _Z3_mk_solver_from_tactic = Module['_Z3_mk_solver_from_tactic'] = makeInvalidEarlyAccess('_Z3_mk_solver_from_tactic');
-var _Z3_solver_add_simplifier = Module['_Z3_solver_add_simplifier'] = makeInvalidEarlyAccess('_Z3_solver_add_simplifier');
-var _Z3_solver_translate = Module['_Z3_solver_translate'] = makeInvalidEarlyAccess('_Z3_solver_translate');
-var _Z3_solver_import_model_converter = Module['_Z3_solver_import_model_converter'] = makeInvalidEarlyAccess('_Z3_solver_import_model_converter');
-var _Z3_solver_from_string = Module['_Z3_solver_from_string'] = makeInvalidEarlyAccess('_Z3_solver_from_string');
-var _Z3_solver_from_file = Module['_Z3_solver_from_file'] = makeInvalidEarlyAccess('_Z3_solver_from_file');
-var _Z3_solver_get_help = Module['_Z3_solver_get_help'] = makeInvalidEarlyAccess('_Z3_solver_get_help');
-var _Z3_solver_get_param_descrs = Module['_Z3_solver_get_param_descrs'] = makeInvalidEarlyAccess('_Z3_solver_get_param_descrs');
-var _Z3_solver_set_params = Module['_Z3_solver_set_params'] = makeInvalidEarlyAccess('_Z3_solver_set_params');
-var _Z3_solver_inc_ref = Module['_Z3_solver_inc_ref'] = makeInvalidEarlyAccess('_Z3_solver_inc_ref');
-var _Z3_solver_dec_ref = Module['_Z3_solver_dec_ref'] = makeInvalidEarlyAccess('_Z3_solver_dec_ref');
-var _Z3_solver_push = Module['_Z3_solver_push'] = makeInvalidEarlyAccess('_Z3_solver_push');
-var _Z3_solver_interrupt = Module['_Z3_solver_interrupt'] = makeInvalidEarlyAccess('_Z3_solver_interrupt');
-var _Z3_solver_pop = Module['_Z3_solver_pop'] = makeInvalidEarlyAccess('_Z3_solver_pop');
-var _Z3_solver_reset = Module['_Z3_solver_reset'] = makeInvalidEarlyAccess('_Z3_solver_reset');
-var _Z3_solver_get_num_scopes = Module['_Z3_solver_get_num_scopes'] = makeInvalidEarlyAccess('_Z3_solver_get_num_scopes');
-var _Z3_solver_assert = Module['_Z3_solver_assert'] = makeInvalidEarlyAccess('_Z3_solver_assert');
-var _Z3_solver_assert_and_track = Module['_Z3_solver_assert_and_track'] = makeInvalidEarlyAccess('_Z3_solver_assert_and_track');
-var _Z3_solver_get_assertions = Module['_Z3_solver_get_assertions'] = makeInvalidEarlyAccess('_Z3_solver_get_assertions');
-var _Z3_solver_get_units = Module['_Z3_solver_get_units'] = makeInvalidEarlyAccess('_Z3_solver_get_units');
-var _Z3_solver_get_non_units = Module['_Z3_solver_get_non_units'] = makeInvalidEarlyAccess('_Z3_solver_get_non_units');
-var _Z3_solver_get_levels = Module['_Z3_solver_get_levels'] = makeInvalidEarlyAccess('_Z3_solver_get_levels');
-var _Z3_solver_get_trail = Module['_Z3_solver_get_trail'] = makeInvalidEarlyAccess('_Z3_solver_get_trail');
-var _pthread_self = makeInvalidEarlyAccess('_pthread_self');
-var _Z3_solver_get_model = Module['_Z3_solver_get_model'] = makeInvalidEarlyAccess('_Z3_solver_get_model');
-var _Z3_solver_get_proof = Module['_Z3_solver_get_proof'] = makeInvalidEarlyAccess('_Z3_solver_get_proof');
-var _Z3_solver_get_unsat_core = Module['_Z3_solver_get_unsat_core'] = makeInvalidEarlyAccess('_Z3_solver_get_unsat_core');
-var _Z3_solver_get_reason_unknown = Module['_Z3_solver_get_reason_unknown'] = makeInvalidEarlyAccess('_Z3_solver_get_reason_unknown');
-var _Z3_solver_get_statistics = Module['_Z3_solver_get_statistics'] = makeInvalidEarlyAccess('_Z3_solver_get_statistics');
-var _Z3_solver_to_string = Module['_Z3_solver_to_string'] = makeInvalidEarlyAccess('_Z3_solver_to_string');
-var _Z3_solver_to_dimacs_string = Module['_Z3_solver_to_dimacs_string'] = makeInvalidEarlyAccess('_Z3_solver_to_dimacs_string');
-var _Z3_get_implied_equalities = Module['_Z3_get_implied_equalities'] = makeInvalidEarlyAccess('_Z3_get_implied_equalities');
-var _Z3_solver_congruence_root = Module['_Z3_solver_congruence_root'] = makeInvalidEarlyAccess('_Z3_solver_congruence_root');
-var _Z3_solver_congruence_next = Module['_Z3_solver_congruence_next'] = makeInvalidEarlyAccess('_Z3_solver_congruence_next');
-var _Z3_solver_congruence_explain = Module['_Z3_solver_congruence_explain'] = makeInvalidEarlyAccess('_Z3_solver_congruence_explain');
-var _Z3_solver_solve_for = Module['_Z3_solver_solve_for'] = makeInvalidEarlyAccess('_Z3_solver_solve_for');
-var _Z3_solver_register_on_clause = Module['_Z3_solver_register_on_clause'] = makeInvalidEarlyAccess('_Z3_solver_register_on_clause');
-var _Z3_solver_propagate_init = Module['_Z3_solver_propagate_init'] = makeInvalidEarlyAccess('_Z3_solver_propagate_init');
-var _Z3_solver_propagate_fixed = Module['_Z3_solver_propagate_fixed'] = makeInvalidEarlyAccess('_Z3_solver_propagate_fixed');
-var _Z3_solver_propagate_final = Module['_Z3_solver_propagate_final'] = makeInvalidEarlyAccess('_Z3_solver_propagate_final');
-var _Z3_solver_propagate_eq = Module['_Z3_solver_propagate_eq'] = makeInvalidEarlyAccess('_Z3_solver_propagate_eq');
-var _Z3_solver_propagate_diseq = Module['_Z3_solver_propagate_diseq'] = makeInvalidEarlyAccess('_Z3_solver_propagate_diseq');
-var _Z3_solver_propagate_register = Module['_Z3_solver_propagate_register'] = makeInvalidEarlyAccess('_Z3_solver_propagate_register');
-var _Z3_solver_propagate_register_cb = Module['_Z3_solver_propagate_register_cb'] = makeInvalidEarlyAccess('_Z3_solver_propagate_register_cb');
-var _Z3_solver_propagate_consequence = Module['_Z3_solver_propagate_consequence'] = makeInvalidEarlyAccess('_Z3_solver_propagate_consequence');
-var _Z3_solver_propagate_created = Module['_Z3_solver_propagate_created'] = makeInvalidEarlyAccess('_Z3_solver_propagate_created');
-var _Z3_solver_propagate_decide = Module['_Z3_solver_propagate_decide'] = makeInvalidEarlyAccess('_Z3_solver_propagate_decide');
-var _Z3_solver_propagate_on_binding = Module['_Z3_solver_propagate_on_binding'] = makeInvalidEarlyAccess('_Z3_solver_propagate_on_binding');
-var _Z3_solver_next_split = Module['_Z3_solver_next_split'] = makeInvalidEarlyAccess('_Z3_solver_next_split');
-var _Z3_solver_propagate_declare = Module['_Z3_solver_propagate_declare'] = makeInvalidEarlyAccess('_Z3_solver_propagate_declare');
-var _Z3_solver_set_initial_value = Module['_Z3_solver_set_initial_value'] = makeInvalidEarlyAccess('_Z3_solver_set_initial_value');
-var _Z3_mk_quantifier = Module['_Z3_mk_quantifier'] = makeInvalidEarlyAccess('_Z3_mk_quantifier');
-var _Z3_mk_quantifier_ex = Module['_Z3_mk_quantifier_ex'] = makeInvalidEarlyAccess('_Z3_mk_quantifier_ex');
-var _Z3_mk_forall = Module['_Z3_mk_forall'] = makeInvalidEarlyAccess('_Z3_mk_forall');
-var _Z3_mk_exists = Module['_Z3_mk_exists'] = makeInvalidEarlyAccess('_Z3_mk_exists');
-var _Z3_mk_lambda = Module['_Z3_mk_lambda'] = makeInvalidEarlyAccess('_Z3_mk_lambda');
-var _Z3_mk_lambda_const = Module['_Z3_mk_lambda_const'] = makeInvalidEarlyAccess('_Z3_mk_lambda_const');
-var _Z3_mk_quantifier_const_ex = Module['_Z3_mk_quantifier_const_ex'] = makeInvalidEarlyAccess('_Z3_mk_quantifier_const_ex');
-var _Z3_mk_quantifier_const = Module['_Z3_mk_quantifier_const'] = makeInvalidEarlyAccess('_Z3_mk_quantifier_const');
-var _Z3_mk_forall_const = Module['_Z3_mk_forall_const'] = makeInvalidEarlyAccess('_Z3_mk_forall_const');
-var _Z3_mk_exists_const = Module['_Z3_mk_exists_const'] = makeInvalidEarlyAccess('_Z3_mk_exists_const');
-var _Z3_mk_pattern = Module['_Z3_mk_pattern'] = makeInvalidEarlyAccess('_Z3_mk_pattern');
-var _Z3_mk_bound = Module['_Z3_mk_bound'] = makeInvalidEarlyAccess('_Z3_mk_bound');
-var _Z3_is_quantifier_forall = Module['_Z3_is_quantifier_forall'] = makeInvalidEarlyAccess('_Z3_is_quantifier_forall');
-var _Z3_is_quantifier_exists = Module['_Z3_is_quantifier_exists'] = makeInvalidEarlyAccess('_Z3_is_quantifier_exists');
-var _Z3_is_lambda = Module['_Z3_is_lambda'] = makeInvalidEarlyAccess('_Z3_is_lambda');
-var _Z3_get_quantifier_weight = Module['_Z3_get_quantifier_weight'] = makeInvalidEarlyAccess('_Z3_get_quantifier_weight');
-var _Z3_get_quantifier_skolem_id = Module['_Z3_get_quantifier_skolem_id'] = makeInvalidEarlyAccess('_Z3_get_quantifier_skolem_id');
-var _Z3_get_quantifier_id = Module['_Z3_get_quantifier_id'] = makeInvalidEarlyAccess('_Z3_get_quantifier_id');
-var _Z3_get_quantifier_num_patterns = Module['_Z3_get_quantifier_num_patterns'] = makeInvalidEarlyAccess('_Z3_get_quantifier_num_patterns');
-var _Z3_get_quantifier_pattern_ast = Module['_Z3_get_quantifier_pattern_ast'] = makeInvalidEarlyAccess('_Z3_get_quantifier_pattern_ast');
-var _Z3_get_quantifier_num_no_patterns = Module['_Z3_get_quantifier_num_no_patterns'] = makeInvalidEarlyAccess('_Z3_get_quantifier_num_no_patterns');
-var _Z3_get_quantifier_no_pattern_ast = Module['_Z3_get_quantifier_no_pattern_ast'] = makeInvalidEarlyAccess('_Z3_get_quantifier_no_pattern_ast');
-var _Z3_get_quantifier_bound_name = Module['_Z3_get_quantifier_bound_name'] = makeInvalidEarlyAccess('_Z3_get_quantifier_bound_name');
-var _Z3_get_quantifier_bound_sort = Module['_Z3_get_quantifier_bound_sort'] = makeInvalidEarlyAccess('_Z3_get_quantifier_bound_sort');
-var _Z3_get_quantifier_body = Module['_Z3_get_quantifier_body'] = makeInvalidEarlyAccess('_Z3_get_quantifier_body');
-var _Z3_get_quantifier_num_bound = Module['_Z3_get_quantifier_num_bound'] = makeInvalidEarlyAccess('_Z3_get_quantifier_num_bound');
-var _Z3_get_pattern_num_terms = Module['_Z3_get_pattern_num_terms'] = makeInvalidEarlyAccess('_Z3_get_pattern_num_terms');
-var _Z3_get_pattern = Module['_Z3_get_pattern'] = makeInvalidEarlyAccess('_Z3_get_pattern');
-var _Z3_pattern_to_ast = Module['_Z3_pattern_to_ast'] = makeInvalidEarlyAccess('_Z3_pattern_to_ast');
-var _Z3_pattern_to_string = Module['_Z3_pattern_to_string'] = makeInvalidEarlyAccess('_Z3_pattern_to_string');
-var _Z3_mk_params = Module['_Z3_mk_params'] = makeInvalidEarlyAccess('_Z3_mk_params');
-var _Z3_params_inc_ref = Module['_Z3_params_inc_ref'] = makeInvalidEarlyAccess('_Z3_params_inc_ref');
-var _Z3_params_dec_ref = Module['_Z3_params_dec_ref'] = makeInvalidEarlyAccess('_Z3_params_dec_ref');
-var _Z3_params_set_bool = Module['_Z3_params_set_bool'] = makeInvalidEarlyAccess('_Z3_params_set_bool');
-var _Z3_params_set_uint = Module['_Z3_params_set_uint'] = makeInvalidEarlyAccess('_Z3_params_set_uint');
-var _Z3_params_set_double = Module['_Z3_params_set_double'] = makeInvalidEarlyAccess('_Z3_params_set_double');
-var _Z3_params_set_symbol = Module['_Z3_params_set_symbol'] = makeInvalidEarlyAccess('_Z3_params_set_symbol');
-var _Z3_params_to_string = Module['_Z3_params_to_string'] = makeInvalidEarlyAccess('_Z3_params_to_string');
-var _Z3_params_validate = Module['_Z3_params_validate'] = makeInvalidEarlyAccess('_Z3_params_validate');
-var _Z3_param_descrs_inc_ref = Module['_Z3_param_descrs_inc_ref'] = makeInvalidEarlyAccess('_Z3_param_descrs_inc_ref');
-var _Z3_param_descrs_dec_ref = Module['_Z3_param_descrs_dec_ref'] = makeInvalidEarlyAccess('_Z3_param_descrs_dec_ref');
-var _Z3_param_descrs_get_kind = Module['_Z3_param_descrs_get_kind'] = makeInvalidEarlyAccess('_Z3_param_descrs_get_kind');
-var _Z3_param_descrs_size = Module['_Z3_param_descrs_size'] = makeInvalidEarlyAccess('_Z3_param_descrs_size');
-var _Z3_param_descrs_get_name = Module['_Z3_param_descrs_get_name'] = makeInvalidEarlyAccess('_Z3_param_descrs_get_name');
-var _Z3_param_descrs_get_documentation = Module['_Z3_param_descrs_get_documentation'] = makeInvalidEarlyAccess('_Z3_param_descrs_get_documentation');
-var _Z3_param_descrs_to_string = Module['_Z3_param_descrs_to_string'] = makeInvalidEarlyAccess('_Z3_param_descrs_to_string');
-var _Z3_mk_numeral = Module['_Z3_mk_numeral'] = makeInvalidEarlyAccess('_Z3_mk_numeral');
-var _Z3_mk_int = Module['_Z3_mk_int'] = makeInvalidEarlyAccess('_Z3_mk_int');
-var _Z3_mk_unsigned_int = Module['_Z3_mk_unsigned_int'] = makeInvalidEarlyAccess('_Z3_mk_unsigned_int');
-var _Z3_mk_int64 = Module['_Z3_mk_int64'] = makeInvalidEarlyAccess('_Z3_mk_int64');
-var _Z3_mk_unsigned_int64 = Module['_Z3_mk_unsigned_int64'] = makeInvalidEarlyAccess('_Z3_mk_unsigned_int64');
-var _Z3_is_numeral_ast = Module['_Z3_is_numeral_ast'] = makeInvalidEarlyAccess('_Z3_is_numeral_ast');
-var _Z3_get_numeral_binary_string = Module['_Z3_get_numeral_binary_string'] = makeInvalidEarlyAccess('_Z3_get_numeral_binary_string');
-var _Z3_get_numeral_string = Module['_Z3_get_numeral_string'] = makeInvalidEarlyAccess('_Z3_get_numeral_string');
-var _Z3_get_numeral_double = Module['_Z3_get_numeral_double'] = makeInvalidEarlyAccess('_Z3_get_numeral_double');
-var _Z3_get_numeral_decimal_string = Module['_Z3_get_numeral_decimal_string'] = makeInvalidEarlyAccess('_Z3_get_numeral_decimal_string');
-var _Z3_get_numeral_small = Module['_Z3_get_numeral_small'] = makeInvalidEarlyAccess('_Z3_get_numeral_small');
-var _Z3_get_numeral_int = Module['_Z3_get_numeral_int'] = makeInvalidEarlyAccess('_Z3_get_numeral_int');
-var _Z3_get_numeral_int64 = Module['_Z3_get_numeral_int64'] = makeInvalidEarlyAccess('_Z3_get_numeral_int64');
-var _Z3_get_numeral_uint = Module['_Z3_get_numeral_uint'] = makeInvalidEarlyAccess('_Z3_get_numeral_uint');
-var _Z3_get_numeral_uint64 = Module['_Z3_get_numeral_uint64'] = makeInvalidEarlyAccess('_Z3_get_numeral_uint64');
-var _Z3_get_numeral_rational_int64 = Module['_Z3_get_numeral_rational_int64'] = makeInvalidEarlyAccess('_Z3_get_numeral_rational_int64');
-var _Z3_mk_bv_numeral = Module['_Z3_mk_bv_numeral'] = makeInvalidEarlyAccess('_Z3_mk_bv_numeral');
-var _Z3_mk_parser_context = Module['_Z3_mk_parser_context'] = makeInvalidEarlyAccess('_Z3_mk_parser_context');
-var _Z3_parser_context_inc_ref = Module['_Z3_parser_context_inc_ref'] = makeInvalidEarlyAccess('_Z3_parser_context_inc_ref');
-var _Z3_parser_context_dec_ref = Module['_Z3_parser_context_dec_ref'] = makeInvalidEarlyAccess('_Z3_parser_context_dec_ref');
-var _Z3_parser_context_add_sort = Module['_Z3_parser_context_add_sort'] = makeInvalidEarlyAccess('_Z3_parser_context_add_sort');
-var _Z3_parser_context_add_decl = Module['_Z3_parser_context_add_decl'] = makeInvalidEarlyAccess('_Z3_parser_context_add_decl');
-var _Z3_parser_context_from_string = Module['_Z3_parser_context_from_string'] = makeInvalidEarlyAccess('_Z3_parser_context_from_string');
-var _Z3_parse_smtlib2_string = Module['_Z3_parse_smtlib2_string'] = makeInvalidEarlyAccess('_Z3_parse_smtlib2_string');
-var _Z3_parse_smtlib2_file = Module['_Z3_parse_smtlib2_file'] = makeInvalidEarlyAccess('_Z3_parse_smtlib2_file');
-var _free = Module['_free'] = makeInvalidEarlyAccess('_free');
-var _malloc = Module['_malloc'] = makeInvalidEarlyAccess('_malloc');
-var _fflush = makeInvalidEarlyAccess('_fflush');
-var __emscripten_tls_init = makeInvalidEarlyAccess('__emscripten_tls_init');
-var __emscripten_thread_init = makeInvalidEarlyAccess('__emscripten_thread_init');
-var __emscripten_thread_crashed = makeInvalidEarlyAccess('__emscripten_thread_crashed');
-var _emscripten_stack_get_end = makeInvalidEarlyAccess('_emscripten_stack_get_end');
-var _emscripten_stack_get_base = makeInvalidEarlyAccess('_emscripten_stack_get_base');
-var __emscripten_run_js_on_main_thread = makeInvalidEarlyAccess('__emscripten_run_js_on_main_thread');
-var __emscripten_thread_free_data = makeInvalidEarlyAccess('__emscripten_thread_free_data');
-var __emscripten_thread_exit = makeInvalidEarlyAccess('__emscripten_thread_exit');
-var _strerror = makeInvalidEarlyAccess('_strerror');
-var __emscripten_check_mailbox = makeInvalidEarlyAccess('__emscripten_check_mailbox');
-var _setThrew = makeInvalidEarlyAccess('_setThrew');
-var __emscripten_tempret_set = makeInvalidEarlyAccess('__emscripten_tempret_set');
-var _emscripten_stack_init = makeInvalidEarlyAccess('_emscripten_stack_init');
-var _emscripten_stack_set_limits = makeInvalidEarlyAccess('_emscripten_stack_set_limits');
-var _emscripten_stack_get_free = makeInvalidEarlyAccess('_emscripten_stack_get_free');
-var __emscripten_stack_restore = makeInvalidEarlyAccess('__emscripten_stack_restore');
-var __emscripten_stack_alloc = makeInvalidEarlyAccess('__emscripten_stack_alloc');
-var _emscripten_stack_get_current = makeInvalidEarlyAccess('_emscripten_stack_get_current');
-var ___cxa_decrement_exception_refcount = makeInvalidEarlyAccess('___cxa_decrement_exception_refcount');
-var ___cxa_increment_exception_refcount = makeInvalidEarlyAccess('___cxa_increment_exception_refcount');
-var ___get_exception_message = makeInvalidEarlyAccess('___get_exception_message');
-var ___cxa_can_catch = makeInvalidEarlyAccess('___cxa_can_catch');
-var ___cxa_get_exception_ptr = makeInvalidEarlyAccess('___cxa_get_exception_ptr');
-
-function assignWasmExports(wasmExports) {
-  Module['_Z3_get_error_msg'] = _Z3_get_error_msg = createExportWrapper('Z3_get_error_msg', 2);
-  ___cxa_free_exception = createExportWrapper('__cxa_free_exception', 1);
-  Module['_set_throwy_error_handler'] = _set_throwy_error_handler = createExportWrapper('set_throwy_error_handler', 1);
-  Module['_set_noop_error_handler'] = _set_noop_error_handler = createExportWrapper('set_noop_error_handler', 1);
-  Module['_async_Z3_eval_smtlib2_string'] = _async_Z3_eval_smtlib2_string = createExportWrapper('async_Z3_eval_smtlib2_string', 2);
-  Module['_async_Z3_simplify'] = _async_Z3_simplify = createExportWrapper('async_Z3_simplify', 2);
-  Module['_async_Z3_simplify_ex'] = _async_Z3_simplify_ex = createExportWrapper('async_Z3_simplify_ex', 3);
-  Module['_async_Z3_solver_check'] = _async_Z3_solver_check = createExportWrapper('async_Z3_solver_check', 2);
-  Module['_async_Z3_solver_cube'] = _async_Z3_solver_cube = createExportWrapper('async_Z3_solver_cube', 4);
-  Module['_async_Z3_solver_get_consequences'] = _async_Z3_solver_get_consequences = createExportWrapper('async_Z3_solver_get_consequences', 5);
-  Module['_async_Z3_tactic_apply'] = _async_Z3_tactic_apply = createExportWrapper('async_Z3_tactic_apply', 3);
-  Module['_async_Z3_tactic_apply_ex'] = _async_Z3_tactic_apply_ex = createExportWrapper('async_Z3_tactic_apply_ex', 4);
-  Module['_async_Z3_optimize_check'] = _async_Z3_optimize_check = createExportWrapper('async_Z3_optimize_check', 4);
-  Module['_async_Z3_algebraic_roots'] = _async_Z3_algebraic_roots = createExportWrapper('async_Z3_algebraic_roots', 4);
-  Module['_async_Z3_algebraic_eval'] = _async_Z3_algebraic_eval = createExportWrapper('async_Z3_algebraic_eval', 4);
-  Module['_async_Z3_fixedpoint_query'] = _async_Z3_fixedpoint_query = createExportWrapper('async_Z3_fixedpoint_query', 3);
-  Module['_async_Z3_fixedpoint_query_relations'] = _async_Z3_fixedpoint_query_relations = createExportWrapper('async_Z3_fixedpoint_query_relations', 4);
-  Module['_async_Z3_fixedpoint_query_from_lvl'] = _async_Z3_fixedpoint_query_from_lvl = createExportWrapper('async_Z3_fixedpoint_query_from_lvl', 4);
-  Module['_async_Z3_polynomial_subresultants'] = _async_Z3_polynomial_subresultants = createExportWrapper('async_Z3_polynomial_subresultants', 4);
-  Module['_async_Z3_solver_check_assumptions'] = _async_Z3_solver_check_assumptions = createExportWrapper('async_Z3_solver_check_assumptions', 4);
-  Module['_Z3_eval_smtlib2_string'] = _Z3_eval_smtlib2_string = createExportWrapper('Z3_eval_smtlib2_string', 2);
-  Module['_Z3_simplify'] = _Z3_simplify = createExportWrapper('Z3_simplify', 2);
-  Module['_Z3_simplify_ex'] = _Z3_simplify_ex = createExportWrapper('Z3_simplify_ex', 3);
-  Module['_Z3_solver_check'] = _Z3_solver_check = createExportWrapper('Z3_solver_check', 2);
-  Module['_Z3_solver_cube'] = _Z3_solver_cube = createExportWrapper('Z3_solver_cube', 4);
-  Module['_Z3_solver_get_consequences'] = _Z3_solver_get_consequences = createExportWrapper('Z3_solver_get_consequences', 5);
-  Module['_Z3_tactic_apply'] = _Z3_tactic_apply = createExportWrapper('Z3_tactic_apply', 3);
-  Module['_Z3_tactic_apply_ex'] = _Z3_tactic_apply_ex = createExportWrapper('Z3_tactic_apply_ex', 4);
-  Module['_Z3_optimize_check'] = _Z3_optimize_check = createExportWrapper('Z3_optimize_check', 4);
-  Module['_Z3_algebraic_roots'] = _Z3_algebraic_roots = createExportWrapper('Z3_algebraic_roots', 4);
-  Module['_Z3_algebraic_eval'] = _Z3_algebraic_eval = createExportWrapper('Z3_algebraic_eval', 4);
-  Module['_Z3_fixedpoint_query'] = _Z3_fixedpoint_query = createExportWrapper('Z3_fixedpoint_query', 3);
-  Module['_Z3_fixedpoint_query_relations'] = _Z3_fixedpoint_query_relations = createExportWrapper('Z3_fixedpoint_query_relations', 4);
-  Module['_Z3_fixedpoint_query_from_lvl'] = _Z3_fixedpoint_query_from_lvl = createExportWrapper('Z3_fixedpoint_query_from_lvl', 4);
-  Module['_Z3_polynomial_subresultants'] = _Z3_polynomial_subresultants = createExportWrapper('Z3_polynomial_subresultants', 4);
-  Module['_Z3_solver_check_assumptions'] = _Z3_solver_check_assumptions = createExportWrapper('Z3_solver_check_assumptions', 4);
-  Module['_Z3_mk_array_sort'] = _Z3_mk_array_sort = createExportWrapper('Z3_mk_array_sort', 3);
-  Module['_Z3_mk_array_sort_n'] = _Z3_mk_array_sort_n = createExportWrapper('Z3_mk_array_sort_n', 4);
-  Module['_Z3_mk_select'] = _Z3_mk_select = createExportWrapper('Z3_mk_select', 3);
-  Module['_Z3_mk_select_n'] = _Z3_mk_select_n = createExportWrapper('Z3_mk_select_n', 4);
-  Module['_Z3_mk_store'] = _Z3_mk_store = createExportWrapper('Z3_mk_store', 4);
-  Module['_Z3_mk_store_n'] = _Z3_mk_store_n = createExportWrapper('Z3_mk_store_n', 5);
-  Module['_Z3_mk_map'] = _Z3_mk_map = createExportWrapper('Z3_mk_map', 4);
-  Module['_Z3_mk_const_array'] = _Z3_mk_const_array = createExportWrapper('Z3_mk_const_array', 3);
-  Module['_Z3_mk_array_default'] = _Z3_mk_array_default = createExportWrapper('Z3_mk_array_default', 2);
-  Module['_Z3_mk_set_sort'] = _Z3_mk_set_sort = createExportWrapper('Z3_mk_set_sort', 2);
-  Module['_Z3_mk_empty_set'] = _Z3_mk_empty_set = createExportWrapper('Z3_mk_empty_set', 2);
-  Module['_Z3_mk_full_set'] = _Z3_mk_full_set = createExportWrapper('Z3_mk_full_set', 2);
-  Module['_Z3_mk_set_union'] = _Z3_mk_set_union = createExportWrapper('Z3_mk_set_union', 3);
-  Module['_Z3_mk_set_intersect'] = _Z3_mk_set_intersect = createExportWrapper('Z3_mk_set_intersect', 3);
-  Module['_Z3_mk_set_difference'] = _Z3_mk_set_difference = createExportWrapper('Z3_mk_set_difference', 3);
-  Module['_Z3_mk_set_complement'] = _Z3_mk_set_complement = createExportWrapper('Z3_mk_set_complement', 2);
-  Module['_Z3_mk_set_subset'] = _Z3_mk_set_subset = createExportWrapper('Z3_mk_set_subset', 3);
-  Module['_Z3_mk_array_ext'] = _Z3_mk_array_ext = createExportWrapper('Z3_mk_array_ext', 3);
-  Module['_Z3_mk_set_has_size'] = _Z3_mk_set_has_size = createExportWrapper('Z3_mk_set_has_size', 3);
-  Module['_Z3_mk_as_array'] = _Z3_mk_as_array = createExportWrapper('Z3_mk_as_array', 2);
-  Module['_Z3_mk_set_member'] = _Z3_mk_set_member = createExportWrapper('Z3_mk_set_member', 3);
-  Module['_Z3_mk_set_add'] = _Z3_mk_set_add = createExportWrapper('Z3_mk_set_add', 3);
-  Module['_Z3_mk_set_del'] = _Z3_mk_set_del = createExportWrapper('Z3_mk_set_del', 3);
-  Module['_Z3_get_array_arity'] = _Z3_get_array_arity = createExportWrapper('Z3_get_array_arity', 2);
-  Module['_Z3_get_array_sort_domain'] = _Z3_get_array_sort_domain = createExportWrapper('Z3_get_array_sort_domain', 2);
-  Module['_Z3_get_array_sort_domain_n'] = _Z3_get_array_sort_domain_n = createExportWrapper('Z3_get_array_sort_domain_n', 3);
-  Module['_Z3_get_array_sort_range'] = _Z3_get_array_sort_range = createExportWrapper('Z3_get_array_sort_range', 2);
-  Module['_Z3_mk_fpa_rounding_mode_sort'] = _Z3_mk_fpa_rounding_mode_sort = createExportWrapper('Z3_mk_fpa_rounding_mode_sort', 1);
-  Module['_Z3_mk_fpa_round_nearest_ties_to_even'] = _Z3_mk_fpa_round_nearest_ties_to_even = createExportWrapper('Z3_mk_fpa_round_nearest_ties_to_even', 1);
-  Module['_Z3_mk_fpa_rne'] = _Z3_mk_fpa_rne = createExportWrapper('Z3_mk_fpa_rne', 1);
-  Module['_Z3_mk_fpa_round_nearest_ties_to_away'] = _Z3_mk_fpa_round_nearest_ties_to_away = createExportWrapper('Z3_mk_fpa_round_nearest_ties_to_away', 1);
-  Module['_Z3_mk_fpa_rna'] = _Z3_mk_fpa_rna = createExportWrapper('Z3_mk_fpa_rna', 1);
-  Module['_Z3_mk_fpa_round_toward_positive'] = _Z3_mk_fpa_round_toward_positive = createExportWrapper('Z3_mk_fpa_round_toward_positive', 1);
-  Module['_Z3_mk_fpa_rtp'] = _Z3_mk_fpa_rtp = createExportWrapper('Z3_mk_fpa_rtp', 1);
-  Module['_Z3_mk_fpa_round_toward_negative'] = _Z3_mk_fpa_round_toward_negative = createExportWrapper('Z3_mk_fpa_round_toward_negative', 1);
-  Module['_Z3_mk_fpa_rtn'] = _Z3_mk_fpa_rtn = createExportWrapper('Z3_mk_fpa_rtn', 1);
-  Module['_Z3_mk_fpa_round_toward_zero'] = _Z3_mk_fpa_round_toward_zero = createExportWrapper('Z3_mk_fpa_round_toward_zero', 1);
-  Module['_Z3_mk_fpa_rtz'] = _Z3_mk_fpa_rtz = createExportWrapper('Z3_mk_fpa_rtz', 1);
-  Module['_Z3_mk_fpa_sort'] = _Z3_mk_fpa_sort = createExportWrapper('Z3_mk_fpa_sort', 3);
-  Module['_Z3_mk_fpa_sort_half'] = _Z3_mk_fpa_sort_half = createExportWrapper('Z3_mk_fpa_sort_half', 1);
-  Module['_Z3_mk_fpa_sort_16'] = _Z3_mk_fpa_sort_16 = createExportWrapper('Z3_mk_fpa_sort_16', 1);
-  Module['_Z3_mk_fpa_sort_single'] = _Z3_mk_fpa_sort_single = createExportWrapper('Z3_mk_fpa_sort_single', 1);
-  Module['_Z3_mk_fpa_sort_32'] = _Z3_mk_fpa_sort_32 = createExportWrapper('Z3_mk_fpa_sort_32', 1);
-  Module['_Z3_mk_fpa_sort_double'] = _Z3_mk_fpa_sort_double = createExportWrapper('Z3_mk_fpa_sort_double', 1);
-  Module['_Z3_mk_fpa_sort_64'] = _Z3_mk_fpa_sort_64 = createExportWrapper('Z3_mk_fpa_sort_64', 1);
-  Module['_Z3_mk_fpa_sort_quadruple'] = _Z3_mk_fpa_sort_quadruple = createExportWrapper('Z3_mk_fpa_sort_quadruple', 1);
-  Module['_Z3_mk_fpa_sort_128'] = _Z3_mk_fpa_sort_128 = createExportWrapper('Z3_mk_fpa_sort_128', 1);
-  Module['_Z3_mk_fpa_nan'] = _Z3_mk_fpa_nan = createExportWrapper('Z3_mk_fpa_nan', 2);
-  Module['_Z3_mk_fpa_inf'] = _Z3_mk_fpa_inf = createExportWrapper('Z3_mk_fpa_inf', 3);
-  Module['_Z3_mk_fpa_zero'] = _Z3_mk_fpa_zero = createExportWrapper('Z3_mk_fpa_zero', 3);
-  Module['_Z3_mk_fpa_fp'] = _Z3_mk_fpa_fp = createExportWrapper('Z3_mk_fpa_fp', 4);
-  Module['_Z3_mk_fpa_numeral_float'] = _Z3_mk_fpa_numeral_float = createExportWrapper('Z3_mk_fpa_numeral_float', 3);
-  Module['_Z3_mk_fpa_numeral_double'] = _Z3_mk_fpa_numeral_double = createExportWrapper('Z3_mk_fpa_numeral_double', 3);
-  Module['_Z3_mk_fpa_numeral_int'] = _Z3_mk_fpa_numeral_int = createExportWrapper('Z3_mk_fpa_numeral_int', 3);
-  Module['_Z3_mk_fpa_numeral_int_uint'] = _Z3_mk_fpa_numeral_int_uint = createExportWrapper('Z3_mk_fpa_numeral_int_uint', 5);
-  Module['_Z3_mk_fpa_numeral_int64_uint64'] = _Z3_mk_fpa_numeral_int64_uint64 = createExportWrapper('Z3_mk_fpa_numeral_int64_uint64', 5);
-  Module['_Z3_mk_fpa_abs'] = _Z3_mk_fpa_abs = createExportWrapper('Z3_mk_fpa_abs', 2);
-  Module['_Z3_mk_fpa_neg'] = _Z3_mk_fpa_neg = createExportWrapper('Z3_mk_fpa_neg', 2);
-  Module['_Z3_mk_fpa_add'] = _Z3_mk_fpa_add = createExportWrapper('Z3_mk_fpa_add', 4);
-  Module['_Z3_mk_fpa_sub'] = _Z3_mk_fpa_sub = createExportWrapper('Z3_mk_fpa_sub', 4);
-  Module['_Z3_mk_fpa_mul'] = _Z3_mk_fpa_mul = createExportWrapper('Z3_mk_fpa_mul', 4);
-  Module['_Z3_mk_fpa_div'] = _Z3_mk_fpa_div = createExportWrapper('Z3_mk_fpa_div', 4);
-  Module['_Z3_mk_fpa_fma'] = _Z3_mk_fpa_fma = createExportWrapper('Z3_mk_fpa_fma', 5);
-  Module['_Z3_mk_fpa_sqrt'] = _Z3_mk_fpa_sqrt = createExportWrapper('Z3_mk_fpa_sqrt', 3);
-  Module['_Z3_mk_fpa_rem'] = _Z3_mk_fpa_rem = createExportWrapper('Z3_mk_fpa_rem', 3);
-  Module['_Z3_mk_fpa_round_to_integral'] = _Z3_mk_fpa_round_to_integral = createExportWrapper('Z3_mk_fpa_round_to_integral', 3);
-  Module['_Z3_mk_fpa_min'] = _Z3_mk_fpa_min = createExportWrapper('Z3_mk_fpa_min', 3);
-  Module['_Z3_mk_fpa_max'] = _Z3_mk_fpa_max = createExportWrapper('Z3_mk_fpa_max', 3);
-  Module['_Z3_mk_fpa_leq'] = _Z3_mk_fpa_leq = createExportWrapper('Z3_mk_fpa_leq', 3);
-  Module['_Z3_mk_fpa_lt'] = _Z3_mk_fpa_lt = createExportWrapper('Z3_mk_fpa_lt', 3);
-  Module['_Z3_mk_fpa_geq'] = _Z3_mk_fpa_geq = createExportWrapper('Z3_mk_fpa_geq', 3);
-  Module['_Z3_mk_fpa_gt'] = _Z3_mk_fpa_gt = createExportWrapper('Z3_mk_fpa_gt', 3);
-  Module['_Z3_mk_fpa_eq'] = _Z3_mk_fpa_eq = createExportWrapper('Z3_mk_fpa_eq', 3);
-  Module['_Z3_mk_fpa_is_normal'] = _Z3_mk_fpa_is_normal = createExportWrapper('Z3_mk_fpa_is_normal', 2);
-  Module['_Z3_mk_fpa_is_subnormal'] = _Z3_mk_fpa_is_subnormal = createExportWrapper('Z3_mk_fpa_is_subnormal', 2);
-  Module['_Z3_mk_fpa_is_zero'] = _Z3_mk_fpa_is_zero = createExportWrapper('Z3_mk_fpa_is_zero', 2);
-  Module['_Z3_mk_fpa_is_infinite'] = _Z3_mk_fpa_is_infinite = createExportWrapper('Z3_mk_fpa_is_infinite', 2);
-  Module['_Z3_mk_fpa_is_nan'] = _Z3_mk_fpa_is_nan = createExportWrapper('Z3_mk_fpa_is_nan', 2);
-  Module['_Z3_mk_fpa_is_negative'] = _Z3_mk_fpa_is_negative = createExportWrapper('Z3_mk_fpa_is_negative', 2);
-  Module['_Z3_mk_fpa_is_positive'] = _Z3_mk_fpa_is_positive = createExportWrapper('Z3_mk_fpa_is_positive', 2);
-  Module['_Z3_mk_fpa_to_fp_bv'] = _Z3_mk_fpa_to_fp_bv = createExportWrapper('Z3_mk_fpa_to_fp_bv', 3);
-  Module['_Z3_mk_fpa_to_fp_float'] = _Z3_mk_fpa_to_fp_float = createExportWrapper('Z3_mk_fpa_to_fp_float', 4);
-  Module['_Z3_mk_fpa_to_fp_real'] = _Z3_mk_fpa_to_fp_real = createExportWrapper('Z3_mk_fpa_to_fp_real', 4);
-  Module['_Z3_mk_fpa_to_fp_signed'] = _Z3_mk_fpa_to_fp_signed = createExportWrapper('Z3_mk_fpa_to_fp_signed', 4);
-  Module['_Z3_mk_fpa_to_fp_unsigned'] = _Z3_mk_fpa_to_fp_unsigned = createExportWrapper('Z3_mk_fpa_to_fp_unsigned', 4);
-  Module['_Z3_mk_fpa_to_ubv'] = _Z3_mk_fpa_to_ubv = createExportWrapper('Z3_mk_fpa_to_ubv', 4);
-  Module['_Z3_mk_fpa_to_sbv'] = _Z3_mk_fpa_to_sbv = createExportWrapper('Z3_mk_fpa_to_sbv', 4);
-  Module['_Z3_mk_fpa_to_real'] = _Z3_mk_fpa_to_real = createExportWrapper('Z3_mk_fpa_to_real', 2);
-  Module['_Z3_fpa_get_ebits'] = _Z3_fpa_get_ebits = createExportWrapper('Z3_fpa_get_ebits', 2);
-  Module['_Z3_fpa_get_sbits'] = _Z3_fpa_get_sbits = createExportWrapper('Z3_fpa_get_sbits', 2);
-  Module['_Z3_fpa_get_numeral_sign'] = _Z3_fpa_get_numeral_sign = createExportWrapper('Z3_fpa_get_numeral_sign', 3);
-  Module['_Z3_fpa_get_numeral_sign_bv'] = _Z3_fpa_get_numeral_sign_bv = createExportWrapper('Z3_fpa_get_numeral_sign_bv', 2);
-  Module['_Z3_fpa_get_numeral_significand_bv'] = _Z3_fpa_get_numeral_significand_bv = createExportWrapper('Z3_fpa_get_numeral_significand_bv', 2);
-  Module['_Z3_fpa_get_numeral_significand_string'] = _Z3_fpa_get_numeral_significand_string = createExportWrapper('Z3_fpa_get_numeral_significand_string', 2);
-  Module['_Z3_fpa_get_numeral_significand_uint64'] = _Z3_fpa_get_numeral_significand_uint64 = createExportWrapper('Z3_fpa_get_numeral_significand_uint64', 3);
-  Module['_Z3_fpa_get_numeral_exponent_string'] = _Z3_fpa_get_numeral_exponent_string = createExportWrapper('Z3_fpa_get_numeral_exponent_string', 3);
-  Module['_Z3_fpa_get_numeral_exponent_int64'] = _Z3_fpa_get_numeral_exponent_int64 = createExportWrapper('Z3_fpa_get_numeral_exponent_int64', 4);
-  Module['_Z3_fpa_get_numeral_exponent_bv'] = _Z3_fpa_get_numeral_exponent_bv = createExportWrapper('Z3_fpa_get_numeral_exponent_bv', 3);
-  Module['_Z3_mk_fpa_to_ieee_bv'] = _Z3_mk_fpa_to_ieee_bv = createExportWrapper('Z3_mk_fpa_to_ieee_bv', 2);
-  Module['_Z3_mk_fpa_to_fp_int_real'] = _Z3_mk_fpa_to_fp_int_real = createExportWrapper('Z3_mk_fpa_to_fp_int_real', 5);
-  Module['_Z3_fpa_is_numeral_nan'] = _Z3_fpa_is_numeral_nan = createExportWrapper('Z3_fpa_is_numeral_nan', 2);
-  Module['_Z3_fpa_is_numeral_inf'] = _Z3_fpa_is_numeral_inf = createExportWrapper('Z3_fpa_is_numeral_inf', 2);
-  Module['_Z3_fpa_is_numeral_zero'] = _Z3_fpa_is_numeral_zero = createExportWrapper('Z3_fpa_is_numeral_zero', 2);
-  Module['_Z3_fpa_is_numeral_normal'] = _Z3_fpa_is_numeral_normal = createExportWrapper('Z3_fpa_is_numeral_normal', 2);
-  Module['_Z3_fpa_is_numeral_subnormal'] = _Z3_fpa_is_numeral_subnormal = createExportWrapper('Z3_fpa_is_numeral_subnormal', 2);
-  Module['_Z3_fpa_is_numeral_positive'] = _Z3_fpa_is_numeral_positive = createExportWrapper('Z3_fpa_is_numeral_positive', 2);
-  Module['_Z3_fpa_is_numeral_negative'] = _Z3_fpa_is_numeral_negative = createExportWrapper('Z3_fpa_is_numeral_negative', 2);
-  Module['_Z3_mk_int_sort'] = _Z3_mk_int_sort = createExportWrapper('Z3_mk_int_sort', 1);
-  Module['_Z3_mk_real_sort'] = _Z3_mk_real_sort = createExportWrapper('Z3_mk_real_sort', 1);
-  Module['_Z3_mk_real_int64'] = _Z3_mk_real_int64 = createExportWrapper('Z3_mk_real_int64', 3);
-  Module['_Z3_mk_real'] = _Z3_mk_real = createExportWrapper('Z3_mk_real', 3);
-  Module['_Z3_mk_add'] = _Z3_mk_add = createExportWrapper('Z3_mk_add', 3);
-  Module['_Z3_mk_mul'] = _Z3_mk_mul = createExportWrapper('Z3_mk_mul', 3);
-  Module['_Z3_mk_power'] = _Z3_mk_power = createExportWrapper('Z3_mk_power', 3);
-  Module['_Z3_mk_mod'] = _Z3_mk_mod = createExportWrapper('Z3_mk_mod', 3);
-  Module['_Z3_mk_rem'] = _Z3_mk_rem = createExportWrapper('Z3_mk_rem', 3);
-  Module['_Z3_mk_div'] = _Z3_mk_div = createExportWrapper('Z3_mk_div', 3);
-  Module['_Z3_mk_lt'] = _Z3_mk_lt = createExportWrapper('Z3_mk_lt', 3);
-  Module['_Z3_mk_gt'] = _Z3_mk_gt = createExportWrapper('Z3_mk_gt', 3);
-  Module['_Z3_mk_le'] = _Z3_mk_le = createExportWrapper('Z3_mk_le', 3);
-  Module['_Z3_mk_ge'] = _Z3_mk_ge = createExportWrapper('Z3_mk_ge', 3);
-  Module['_Z3_mk_divides'] = _Z3_mk_divides = createExportWrapper('Z3_mk_divides', 3);
-  Module['_Z3_mk_abs'] = _Z3_mk_abs = createExportWrapper('Z3_mk_abs', 2);
-  Module['_Z3_mk_int2real'] = _Z3_mk_int2real = createExportWrapper('Z3_mk_int2real', 2);
-  Module['_Z3_mk_real2int'] = _Z3_mk_real2int = createExportWrapper('Z3_mk_real2int', 2);
-  Module['_Z3_mk_is_int'] = _Z3_mk_is_int = createExportWrapper('Z3_mk_is_int', 2);
-  Module['_Z3_mk_sub'] = _Z3_mk_sub = createExportWrapper('Z3_mk_sub', 3);
-  Module['_Z3_mk_unary_minus'] = _Z3_mk_unary_minus = createExportWrapper('Z3_mk_unary_minus', 2);
-  Module['_Z3_is_algebraic_number'] = _Z3_is_algebraic_number = createExportWrapper('Z3_is_algebraic_number', 2);
-  Module['_Z3_get_algebraic_number_lower'] = _Z3_get_algebraic_number_lower = createExportWrapper('Z3_get_algebraic_number_lower', 3);
-  Module['_Z3_get_algebraic_number_upper'] = _Z3_get_algebraic_number_upper = createExportWrapper('Z3_get_algebraic_number_upper', 3);
-  Module['_Z3_get_numerator'] = _Z3_get_numerator = createExportWrapper('Z3_get_numerator', 2);
-  Module['_Z3_get_denominator'] = _Z3_get_denominator = createExportWrapper('Z3_get_denominator', 2);
-  Module['_Z3_mk_tuple_sort'] = _Z3_mk_tuple_sort = createExportWrapper('Z3_mk_tuple_sort', 7);
-  Module['_Z3_mk_enumeration_sort'] = _Z3_mk_enumeration_sort = createExportWrapper('Z3_mk_enumeration_sort', 6);
-  Module['_Z3_mk_list_sort'] = _Z3_mk_list_sort = createExportWrapper('Z3_mk_list_sort', 9);
-  Module['_Z3_mk_constructor'] = _Z3_mk_constructor = createExportWrapper('Z3_mk_constructor', 7);
-  Module['_Z3_constructor_num_fields'] = _Z3_constructor_num_fields = createExportWrapper('Z3_constructor_num_fields', 2);
-  Module['_Z3_query_constructor'] = _Z3_query_constructor = createExportWrapper('Z3_query_constructor', 6);
-  Module['_Z3_del_constructor'] = _Z3_del_constructor = createExportWrapper('Z3_del_constructor', 2);
-  Module['_Z3_mk_datatype'] = _Z3_mk_datatype = createExportWrapper('Z3_mk_datatype', 4);
-  Module['_Z3_mk_constructor_list'] = _Z3_mk_constructor_list = createExportWrapper('Z3_mk_constructor_list', 3);
-  Module['_Z3_del_constructor_list'] = _Z3_del_constructor_list = createExportWrapper('Z3_del_constructor_list', 2);
-  Module['_Z3_mk_datatype_sort'] = _Z3_mk_datatype_sort = createExportWrapper('Z3_mk_datatype_sort', 2);
-  Module['_Z3_mk_datatypes'] = _Z3_mk_datatypes = createExportWrapper('Z3_mk_datatypes', 5);
-  Module['_Z3_is_recursive_datatype_sort'] = _Z3_is_recursive_datatype_sort = createExportWrapper('Z3_is_recursive_datatype_sort', 2);
-  Module['_Z3_get_datatype_sort_num_constructors'] = _Z3_get_datatype_sort_num_constructors = createExportWrapper('Z3_get_datatype_sort_num_constructors', 2);
-  Module['_Z3_get_datatype_sort_constructor'] = _Z3_get_datatype_sort_constructor = createExportWrapper('Z3_get_datatype_sort_constructor', 3);
-  Module['_Z3_get_datatype_sort_recognizer'] = _Z3_get_datatype_sort_recognizer = createExportWrapper('Z3_get_datatype_sort_recognizer', 3);
-  Module['_Z3_get_datatype_sort_constructor_accessor'] = _Z3_get_datatype_sort_constructor_accessor = createExportWrapper('Z3_get_datatype_sort_constructor_accessor', 4);
-  Module['_Z3_get_tuple_sort_mk_decl'] = _Z3_get_tuple_sort_mk_decl = createExportWrapper('Z3_get_tuple_sort_mk_decl', 2);
-  Module['_Z3_get_tuple_sort_num_fields'] = _Z3_get_tuple_sort_num_fields = createExportWrapper('Z3_get_tuple_sort_num_fields', 2);
-  Module['_Z3_get_tuple_sort_field_decl'] = _Z3_get_tuple_sort_field_decl = createExportWrapper('Z3_get_tuple_sort_field_decl', 3);
-  Module['_Z3_datatype_update_field'] = _Z3_datatype_update_field = createExportWrapper('Z3_datatype_update_field', 4);
-  Module['_Z3_mk_model'] = _Z3_mk_model = createExportWrapper('Z3_mk_model', 1);
-  Module['_Z3_model_inc_ref'] = _Z3_model_inc_ref = createExportWrapper('Z3_model_inc_ref', 2);
-  Module['_Z3_model_dec_ref'] = _Z3_model_dec_ref = createExportWrapper('Z3_model_dec_ref', 2);
-  Module['_Z3_model_get_const_interp'] = _Z3_model_get_const_interp = createExportWrapper('Z3_model_get_const_interp', 3);
-  Module['_Z3_model_has_interp'] = _Z3_model_has_interp = createExportWrapper('Z3_model_has_interp', 3);
-  Module['_Z3_model_get_func_interp'] = _Z3_model_get_func_interp = createExportWrapper('Z3_model_get_func_interp', 3);
-  Module['_Z3_model_get_num_consts'] = _Z3_model_get_num_consts = createExportWrapper('Z3_model_get_num_consts', 2);
-  Module['_Z3_model_get_const_decl'] = _Z3_model_get_const_decl = createExportWrapper('Z3_model_get_const_decl', 3);
-  Module['_Z3_model_get_num_funcs'] = _Z3_model_get_num_funcs = createExportWrapper('Z3_model_get_num_funcs', 2);
-  Module['_Z3_model_get_func_decl'] = _Z3_model_get_func_decl = createExportWrapper('Z3_model_get_func_decl', 3);
-  Module['_Z3_model_eval'] = _Z3_model_eval = createExportWrapper('Z3_model_eval', 5);
-  Module['_Z3_model_get_num_sorts'] = _Z3_model_get_num_sorts = createExportWrapper('Z3_model_get_num_sorts', 2);
-  Module['_Z3_model_get_sort'] = _Z3_model_get_sort = createExportWrapper('Z3_model_get_sort', 3);
-  Module['_Z3_model_get_sort_universe'] = _Z3_model_get_sort_universe = createExportWrapper('Z3_model_get_sort_universe', 3);
-  Module['_Z3_model_translate'] = _Z3_model_translate = createExportWrapper('Z3_model_translate', 3);
-  Module['_Z3_is_as_array'] = _Z3_is_as_array = createExportWrapper('Z3_is_as_array', 2);
-  Module['_Z3_get_as_array_func_decl'] = _Z3_get_as_array_func_decl = createExportWrapper('Z3_get_as_array_func_decl', 2);
-  Module['_Z3_add_func_interp'] = _Z3_add_func_interp = createExportWrapper('Z3_add_func_interp', 4);
-  Module['_Z3_add_const_interp'] = _Z3_add_const_interp = createExportWrapper('Z3_add_const_interp', 4);
-  Module['_Z3_func_interp_inc_ref'] = _Z3_func_interp_inc_ref = createExportWrapper('Z3_func_interp_inc_ref', 2);
-  Module['_Z3_func_interp_dec_ref'] = _Z3_func_interp_dec_ref = createExportWrapper('Z3_func_interp_dec_ref', 2);
-  Module['_Z3_func_interp_get_num_entries'] = _Z3_func_interp_get_num_entries = createExportWrapper('Z3_func_interp_get_num_entries', 2);
-  Module['_Z3_func_interp_get_entry'] = _Z3_func_interp_get_entry = createExportWrapper('Z3_func_interp_get_entry', 3);
-  Module['_Z3_func_interp_get_else'] = _Z3_func_interp_get_else = createExportWrapper('Z3_func_interp_get_else', 2);
-  Module['_Z3_func_interp_set_else'] = _Z3_func_interp_set_else = createExportWrapper('Z3_func_interp_set_else', 3);
-  Module['_Z3_func_interp_get_arity'] = _Z3_func_interp_get_arity = createExportWrapper('Z3_func_interp_get_arity', 2);
-  Module['_Z3_func_interp_add_entry'] = _Z3_func_interp_add_entry = createExportWrapper('Z3_func_interp_add_entry', 4);
-  Module['_Z3_func_entry_inc_ref'] = _Z3_func_entry_inc_ref = createExportWrapper('Z3_func_entry_inc_ref', 2);
-  Module['_Z3_func_entry_dec_ref'] = _Z3_func_entry_dec_ref = createExportWrapper('Z3_func_entry_dec_ref', 2);
-  Module['_Z3_func_entry_get_value'] = _Z3_func_entry_get_value = createExportWrapper('Z3_func_entry_get_value', 2);
-  Module['_Z3_func_entry_get_num_args'] = _Z3_func_entry_get_num_args = createExportWrapper('Z3_func_entry_get_num_args', 2);
-  Module['_Z3_func_entry_get_arg'] = _Z3_func_entry_get_arg = createExportWrapper('Z3_func_entry_get_arg', 3);
-  Module['_Z3_model_to_string'] = _Z3_model_to_string = createExportWrapper('Z3_model_to_string', 2);
-  Module['_Z3_mk_ast_map'] = _Z3_mk_ast_map = createExportWrapper('Z3_mk_ast_map', 1);
-  Module['_Z3_ast_map_inc_ref'] = _Z3_ast_map_inc_ref = createExportWrapper('Z3_ast_map_inc_ref', 2);
-  Module['_Z3_ast_map_dec_ref'] = _Z3_ast_map_dec_ref = createExportWrapper('Z3_ast_map_dec_ref', 2);
-  Module['_Z3_ast_map_contains'] = _Z3_ast_map_contains = createExportWrapper('Z3_ast_map_contains', 3);
-  Module['_Z3_ast_map_find'] = _Z3_ast_map_find = createExportWrapper('Z3_ast_map_find', 3);
-  Module['_Z3_ast_map_insert'] = _Z3_ast_map_insert = createExportWrapper('Z3_ast_map_insert', 4);
-  Module['_Z3_ast_map_reset'] = _Z3_ast_map_reset = createExportWrapper('Z3_ast_map_reset', 2);
-  Module['_Z3_ast_map_erase'] = _Z3_ast_map_erase = createExportWrapper('Z3_ast_map_erase', 3);
-  Module['_Z3_ast_map_size'] = _Z3_ast_map_size = createExportWrapper('Z3_ast_map_size', 2);
-  Module['_Z3_ast_map_keys'] = _Z3_ast_map_keys = createExportWrapper('Z3_ast_map_keys', 2);
-  Module['_Z3_ast_map_to_string'] = _Z3_ast_map_to_string = createExportWrapper('Z3_ast_map_to_string', 2);
-  Module['_Z3_get_relation_arity'] = _Z3_get_relation_arity = createExportWrapper('Z3_get_relation_arity', 2);
-  Module['_Z3_get_relation_column'] = _Z3_get_relation_column = createExportWrapper('Z3_get_relation_column', 3);
-  Module['_Z3_mk_finite_domain_sort'] = _Z3_mk_finite_domain_sort = createExportWrapper('Z3_mk_finite_domain_sort', 3);
-  Module['_Z3_get_finite_domain_sort_size'] = _Z3_get_finite_domain_sort_size = createExportWrapper('Z3_get_finite_domain_sort_size', 3);
-  Module['_Z3_mk_fixedpoint'] = _Z3_mk_fixedpoint = createExportWrapper('Z3_mk_fixedpoint', 1);
-  Module['_Z3_fixedpoint_inc_ref'] = _Z3_fixedpoint_inc_ref = createExportWrapper('Z3_fixedpoint_inc_ref', 2);
-  Module['_Z3_fixedpoint_dec_ref'] = _Z3_fixedpoint_dec_ref = createExportWrapper('Z3_fixedpoint_dec_ref', 2);
-  Module['_Z3_fixedpoint_assert'] = _Z3_fixedpoint_assert = createExportWrapper('Z3_fixedpoint_assert', 3);
-  Module['_Z3_fixedpoint_add_rule'] = _Z3_fixedpoint_add_rule = createExportWrapper('Z3_fixedpoint_add_rule', 4);
-  Module['_Z3_fixedpoint_add_fact'] = _Z3_fixedpoint_add_fact = createExportWrapper('Z3_fixedpoint_add_fact', 5);
-  Module['_Z3_get_sort_kind'] = _Z3_get_sort_kind = createExportWrapper('Z3_get_sort_kind', 2);
-  Module['_Z3_fixedpoint_get_answer'] = _Z3_fixedpoint_get_answer = createExportWrapper('Z3_fixedpoint_get_answer', 2);
-  Module['_Z3_fixedpoint_get_reason_unknown'] = _Z3_fixedpoint_get_reason_unknown = createExportWrapper('Z3_fixedpoint_get_reason_unknown', 2);
-  Module['_Z3_fixedpoint_to_string'] = _Z3_fixedpoint_to_string = createExportWrapper('Z3_fixedpoint_to_string', 4);
-  Module['_Z3_fixedpoint_from_string'] = _Z3_fixedpoint_from_string = createExportWrapper('Z3_fixedpoint_from_string', 3);
-  Module['_Z3_fixedpoint_from_file'] = _Z3_fixedpoint_from_file = createExportWrapper('Z3_fixedpoint_from_file', 3);
-  Module['_Z3_fixedpoint_get_statistics'] = _Z3_fixedpoint_get_statistics = createExportWrapper('Z3_fixedpoint_get_statistics', 2);
-  Module['_Z3_fixedpoint_register_relation'] = _Z3_fixedpoint_register_relation = createExportWrapper('Z3_fixedpoint_register_relation', 3);
-  Module['_Z3_fixedpoint_set_predicate_representation'] = _Z3_fixedpoint_set_predicate_representation = createExportWrapper('Z3_fixedpoint_set_predicate_representation', 5);
-  Module['_Z3_fixedpoint_get_rules'] = _Z3_fixedpoint_get_rules = createExportWrapper('Z3_fixedpoint_get_rules', 2);
-  Module['_Z3_fixedpoint_get_assertions'] = _Z3_fixedpoint_get_assertions = createExportWrapper('Z3_fixedpoint_get_assertions', 2);
-  Module['_Z3_fixedpoint_update_rule'] = _Z3_fixedpoint_update_rule = createExportWrapper('Z3_fixedpoint_update_rule', 4);
-  Module['_Z3_fixedpoint_get_num_levels'] = _Z3_fixedpoint_get_num_levels = createExportWrapper('Z3_fixedpoint_get_num_levels', 3);
-  Module['_Z3_fixedpoint_get_cover_delta'] = _Z3_fixedpoint_get_cover_delta = createExportWrapper('Z3_fixedpoint_get_cover_delta', 4);
-  Module['_Z3_fixedpoint_add_cover'] = _Z3_fixedpoint_add_cover = createExportWrapper('Z3_fixedpoint_add_cover', 5);
-  Module['_Z3_fixedpoint_get_help'] = _Z3_fixedpoint_get_help = createExportWrapper('Z3_fixedpoint_get_help', 2);
-  Module['_Z3_fixedpoint_get_param_descrs'] = _Z3_fixedpoint_get_param_descrs = createExportWrapper('Z3_fixedpoint_get_param_descrs', 2);
-  Module['_Z3_fixedpoint_set_params'] = _Z3_fixedpoint_set_params = createExportWrapper('Z3_fixedpoint_set_params', 3);
-  Module['_Z3_fixedpoint_get_ground_sat_answer'] = _Z3_fixedpoint_get_ground_sat_answer = createExportWrapper('Z3_fixedpoint_get_ground_sat_answer', 2);
-  Module['_Z3_fixedpoint_get_rules_along_trace'] = _Z3_fixedpoint_get_rules_along_trace = createExportWrapper('Z3_fixedpoint_get_rules_along_trace', 2);
-  Module['_Z3_fixedpoint_get_rule_names_along_trace'] = _Z3_fixedpoint_get_rule_names_along_trace = createExportWrapper('Z3_fixedpoint_get_rule_names_along_trace', 2);
-  Module['_Z3_fixedpoint_add_invariant'] = _Z3_fixedpoint_add_invariant = createExportWrapper('Z3_fixedpoint_add_invariant', 4);
-  Module['_Z3_fixedpoint_get_reachable'] = _Z3_fixedpoint_get_reachable = createExportWrapper('Z3_fixedpoint_get_reachable', 3);
-  Module['_Z3_mk_ast_vector'] = _Z3_mk_ast_vector = createExportWrapper('Z3_mk_ast_vector', 1);
-  Module['_Z3_ast_vector_inc_ref'] = _Z3_ast_vector_inc_ref = createExportWrapper('Z3_ast_vector_inc_ref', 2);
-  Module['_Z3_ast_vector_dec_ref'] = _Z3_ast_vector_dec_ref = createExportWrapper('Z3_ast_vector_dec_ref', 2);
-  Module['_Z3_ast_vector_size'] = _Z3_ast_vector_size = createExportWrapper('Z3_ast_vector_size', 2);
-  Module['_Z3_ast_vector_get'] = _Z3_ast_vector_get = createExportWrapper('Z3_ast_vector_get', 3);
-  Module['_Z3_ast_vector_set'] = _Z3_ast_vector_set = createExportWrapper('Z3_ast_vector_set', 4);
-  Module['_Z3_ast_vector_resize'] = _Z3_ast_vector_resize = createExportWrapper('Z3_ast_vector_resize', 3);
-  Module['_Z3_ast_vector_push'] = _Z3_ast_vector_push = createExportWrapper('Z3_ast_vector_push', 3);
-  Module['_Z3_ast_vector_translate'] = _Z3_ast_vector_translate = createExportWrapper('Z3_ast_vector_translate', 3);
-  Module['_Z3_ast_vector_to_string'] = _Z3_ast_vector_to_string = createExportWrapper('Z3_ast_vector_to_string', 2);
-  Module['_Z3_mk_optimize'] = _Z3_mk_optimize = createExportWrapper('Z3_mk_optimize', 1);
-  Module['_Z3_optimize_inc_ref'] = _Z3_optimize_inc_ref = createExportWrapper('Z3_optimize_inc_ref', 2);
-  Module['_Z3_optimize_dec_ref'] = _Z3_optimize_dec_ref = createExportWrapper('Z3_optimize_dec_ref', 2);
-  Module['_Z3_optimize_assert'] = _Z3_optimize_assert = createExportWrapper('Z3_optimize_assert', 3);
-  Module['_Z3_optimize_assert_and_track'] = _Z3_optimize_assert_and_track = createExportWrapper('Z3_optimize_assert_and_track', 4);
-  Module['_Z3_optimize_assert_soft'] = _Z3_optimize_assert_soft = createExportWrapper('Z3_optimize_assert_soft', 5);
-  Module['_Z3_optimize_maximize'] = _Z3_optimize_maximize = createExportWrapper('Z3_optimize_maximize', 3);
-  Module['_Z3_optimize_minimize'] = _Z3_optimize_minimize = createExportWrapper('Z3_optimize_minimize', 3);
-  Module['_Z3_optimize_push'] = _Z3_optimize_push = createExportWrapper('Z3_optimize_push', 2);
-  Module['_Z3_optimize_pop'] = _Z3_optimize_pop = createExportWrapper('Z3_optimize_pop', 2);
-  Module['_Z3_optimize_get_unsat_core'] = _Z3_optimize_get_unsat_core = createExportWrapper('Z3_optimize_get_unsat_core', 2);
-  Module['_Z3_optimize_get_reason_unknown'] = _Z3_optimize_get_reason_unknown = createExportWrapper('Z3_optimize_get_reason_unknown', 2);
-  Module['_Z3_optimize_get_model'] = _Z3_optimize_get_model = createExportWrapper('Z3_optimize_get_model', 2);
-  Module['_Z3_optimize_set_params'] = _Z3_optimize_set_params = createExportWrapper('Z3_optimize_set_params', 3);
-  Module['_Z3_optimize_get_param_descrs'] = _Z3_optimize_get_param_descrs = createExportWrapper('Z3_optimize_get_param_descrs', 2);
-  Module['_Z3_optimize_get_lower'] = _Z3_optimize_get_lower = createExportWrapper('Z3_optimize_get_lower', 3);
-  Module['_Z3_optimize_get_upper'] = _Z3_optimize_get_upper = createExportWrapper('Z3_optimize_get_upper', 3);
-  Module['_Z3_optimize_get_lower_as_vector'] = _Z3_optimize_get_lower_as_vector = createExportWrapper('Z3_optimize_get_lower_as_vector', 3);
-  Module['_Z3_optimize_get_upper_as_vector'] = _Z3_optimize_get_upper_as_vector = createExportWrapper('Z3_optimize_get_upper_as_vector', 3);
-  Module['_Z3_optimize_to_string'] = _Z3_optimize_to_string = createExportWrapper('Z3_optimize_to_string', 2);
-  Module['_Z3_optimize_get_help'] = _Z3_optimize_get_help = createExportWrapper('Z3_optimize_get_help', 2);
-  Module['_Z3_optimize_get_statistics'] = _Z3_optimize_get_statistics = createExportWrapper('Z3_optimize_get_statistics', 2);
-  Module['_Z3_optimize_from_string'] = _Z3_optimize_from_string = createExportWrapper('Z3_optimize_from_string', 3);
-  Module['_Z3_optimize_from_file'] = _Z3_optimize_from_file = createExportWrapper('Z3_optimize_from_file', 3);
-  Module['_Z3_optimize_get_assertions'] = _Z3_optimize_get_assertions = createExportWrapper('Z3_optimize_get_assertions', 2);
-  Module['_Z3_optimize_get_objectives'] = _Z3_optimize_get_objectives = createExportWrapper('Z3_optimize_get_objectives', 2);
-  Module['_Z3_optimize_set_initial_value'] = _Z3_optimize_set_initial_value = createExportWrapper('Z3_optimize_set_initial_value', 4);
-  Module['_Z3_mk_linear_order'] = _Z3_mk_linear_order = createExportWrapper('Z3_mk_linear_order', 3);
-  Module['_Z3_mk_partial_order'] = _Z3_mk_partial_order = createExportWrapper('Z3_mk_partial_order', 3);
-  Module['_Z3_mk_piecewise_linear_order'] = _Z3_mk_piecewise_linear_order = createExportWrapper('Z3_mk_piecewise_linear_order', 3);
-  Module['_Z3_mk_tree_order'] = _Z3_mk_tree_order = createExportWrapper('Z3_mk_tree_order', 3);
-  Module['_Z3_mk_transitive_closure'] = _Z3_mk_transitive_closure = createExportWrapper('Z3_mk_transitive_closure', 2);
-  Module['_Z3_algebraic_is_value'] = _Z3_algebraic_is_value = createExportWrapper('Z3_algebraic_is_value', 2);
-  Module['_Z3_algebraic_is_pos'] = _Z3_algebraic_is_pos = createExportWrapper('Z3_algebraic_is_pos', 2);
-  Module['_Z3_algebraic_sign'] = _Z3_algebraic_sign = createExportWrapper('Z3_algebraic_sign', 2);
-  Module['_Z3_algebraic_is_neg'] = _Z3_algebraic_is_neg = createExportWrapper('Z3_algebraic_is_neg', 2);
-  Module['_Z3_algebraic_is_zero'] = _Z3_algebraic_is_zero = createExportWrapper('Z3_algebraic_is_zero', 2);
-  Module['_Z3_algebraic_add'] = _Z3_algebraic_add = createExportWrapper('Z3_algebraic_add', 3);
-  Module['_Z3_algebraic_sub'] = _Z3_algebraic_sub = createExportWrapper('Z3_algebraic_sub', 3);
-  Module['_Z3_algebraic_mul'] = _Z3_algebraic_mul = createExportWrapper('Z3_algebraic_mul', 3);
-  Module['_Z3_algebraic_div'] = _Z3_algebraic_div = createExportWrapper('Z3_algebraic_div', 3);
-  Module['_Z3_algebraic_root'] = _Z3_algebraic_root = createExportWrapper('Z3_algebraic_root', 3);
-  Module['_Z3_algebraic_power'] = _Z3_algebraic_power = createExportWrapper('Z3_algebraic_power', 3);
-  Module['_Z3_algebraic_lt'] = _Z3_algebraic_lt = createExportWrapper('Z3_algebraic_lt', 3);
-  Module['_Z3_algebraic_gt'] = _Z3_algebraic_gt = createExportWrapper('Z3_algebraic_gt', 3);
-  Module['_Z3_algebraic_le'] = _Z3_algebraic_le = createExportWrapper('Z3_algebraic_le', 3);
-  Module['_Z3_algebraic_ge'] = _Z3_algebraic_ge = createExportWrapper('Z3_algebraic_ge', 3);
-  Module['_Z3_algebraic_eq'] = _Z3_algebraic_eq = createExportWrapper('Z3_algebraic_eq', 3);
-  Module['_Z3_algebraic_neq'] = _Z3_algebraic_neq = createExportWrapper('Z3_algebraic_neq', 3);
-  Module['_Z3_algebraic_get_poly'] = _Z3_algebraic_get_poly = createExportWrapper('Z3_algebraic_get_poly', 2);
-  Module['_Z3_algebraic_get_i'] = _Z3_algebraic_get_i = createExportWrapper('Z3_algebraic_get_i', 2);
-  Module['_Z3_mk_tactic'] = _Z3_mk_tactic = createExportWrapper('Z3_mk_tactic', 2);
-  Module['_Z3_tactic_inc_ref'] = _Z3_tactic_inc_ref = createExportWrapper('Z3_tactic_inc_ref', 2);
-  Module['_Z3_tactic_dec_ref'] = _Z3_tactic_dec_ref = createExportWrapper('Z3_tactic_dec_ref', 2);
-  Module['_Z3_mk_probe'] = _Z3_mk_probe = createExportWrapper('Z3_mk_probe', 2);
-  Module['_Z3_probe_inc_ref'] = _Z3_probe_inc_ref = createExportWrapper('Z3_probe_inc_ref', 2);
-  Module['_Z3_probe_dec_ref'] = _Z3_probe_dec_ref = createExportWrapper('Z3_probe_dec_ref', 2);
-  Module['_Z3_tactic_and_then'] = _Z3_tactic_and_then = createExportWrapper('Z3_tactic_and_then', 3);
-  Module['_Z3_tactic_or_else'] = _Z3_tactic_or_else = createExportWrapper('Z3_tactic_or_else', 3);
-  Module['_Z3_tactic_par_or'] = _Z3_tactic_par_or = createExportWrapper('Z3_tactic_par_or', 3);
-  Module['_Z3_tactic_par_and_then'] = _Z3_tactic_par_and_then = createExportWrapper('Z3_tactic_par_and_then', 3);
-  Module['_Z3_tactic_try_for'] = _Z3_tactic_try_for = createExportWrapper('Z3_tactic_try_for', 3);
-  Module['_Z3_tactic_when'] = _Z3_tactic_when = createExportWrapper('Z3_tactic_when', 3);
-  Module['_Z3_tactic_cond'] = _Z3_tactic_cond = createExportWrapper('Z3_tactic_cond', 4);
-  Module['_Z3_tactic_repeat'] = _Z3_tactic_repeat = createExportWrapper('Z3_tactic_repeat', 3);
-  Module['_Z3_tactic_skip'] = _Z3_tactic_skip = createExportWrapper('Z3_tactic_skip', 1);
-  Module['_Z3_tactic_fail'] = _Z3_tactic_fail = createExportWrapper('Z3_tactic_fail', 1);
-  Module['_Z3_tactic_fail_if'] = _Z3_tactic_fail_if = createExportWrapper('Z3_tactic_fail_if', 2);
-  Module['_Z3_tactic_fail_if_not_decided'] = _Z3_tactic_fail_if_not_decided = createExportWrapper('Z3_tactic_fail_if_not_decided', 1);
-  Module['_Z3_tactic_using_params'] = _Z3_tactic_using_params = createExportWrapper('Z3_tactic_using_params', 3);
-  Module['_Z3_probe_const'] = _Z3_probe_const = createExportWrapper('Z3_probe_const', 2);
-  Module['_Z3_probe_lt'] = _Z3_probe_lt = createExportWrapper('Z3_probe_lt', 3);
-  Module['_Z3_probe_gt'] = _Z3_probe_gt = createExportWrapper('Z3_probe_gt', 3);
-  Module['_Z3_probe_le'] = _Z3_probe_le = createExportWrapper('Z3_probe_le', 3);
-  Module['_Z3_probe_ge'] = _Z3_probe_ge = createExportWrapper('Z3_probe_ge', 3);
-  Module['_Z3_probe_eq'] = _Z3_probe_eq = createExportWrapper('Z3_probe_eq', 3);
-  Module['_Z3_probe_and'] = _Z3_probe_and = createExportWrapper('Z3_probe_and', 3);
-  Module['_Z3_probe_or'] = _Z3_probe_or = createExportWrapper('Z3_probe_or', 3);
-  Module['_Z3_probe_not'] = _Z3_probe_not = createExportWrapper('Z3_probe_not', 2);
-  Module['_Z3_get_num_tactics'] = _Z3_get_num_tactics = createExportWrapper('Z3_get_num_tactics', 1);
-  Module['_Z3_get_tactic_name'] = _Z3_get_tactic_name = createExportWrapper('Z3_get_tactic_name', 2);
-  Module['_Z3_get_num_probes'] = _Z3_get_num_probes = createExportWrapper('Z3_get_num_probes', 1);
-  Module['_Z3_get_probe_name'] = _Z3_get_probe_name = createExportWrapper('Z3_get_probe_name', 2);
-  Module['_Z3_tactic_get_help'] = _Z3_tactic_get_help = createExportWrapper('Z3_tactic_get_help', 2);
-  Module['_Z3_tactic_get_param_descrs'] = _Z3_tactic_get_param_descrs = createExportWrapper('Z3_tactic_get_param_descrs', 2);
-  Module['_Z3_tactic_get_descr'] = _Z3_tactic_get_descr = createExportWrapper('Z3_tactic_get_descr', 2);
-  Module['_Z3_probe_get_descr'] = _Z3_probe_get_descr = createExportWrapper('Z3_probe_get_descr', 2);
-  Module['_Z3_probe_apply'] = _Z3_probe_apply = createExportWrapper('Z3_probe_apply', 3);
-  Module['_Z3_apply_result_inc_ref'] = _Z3_apply_result_inc_ref = createExportWrapper('Z3_apply_result_inc_ref', 2);
-  Module['_Z3_apply_result_dec_ref'] = _Z3_apply_result_dec_ref = createExportWrapper('Z3_apply_result_dec_ref', 2);
-  Module['_Z3_apply_result_to_string'] = _Z3_apply_result_to_string = createExportWrapper('Z3_apply_result_to_string', 2);
-  Module['_Z3_apply_result_get_num_subgoals'] = _Z3_apply_result_get_num_subgoals = createExportWrapper('Z3_apply_result_get_num_subgoals', 2);
-  Module['_Z3_apply_result_get_subgoal'] = _Z3_apply_result_get_subgoal = createExportWrapper('Z3_apply_result_get_subgoal', 3);
-  Module['_Z3_mk_simplifier'] = _Z3_mk_simplifier = createExportWrapper('Z3_mk_simplifier', 2);
-  Module['_Z3_simplifier_inc_ref'] = _Z3_simplifier_inc_ref = createExportWrapper('Z3_simplifier_inc_ref', 2);
-  Module['_Z3_simplifier_dec_ref'] = _Z3_simplifier_dec_ref = createExportWrapper('Z3_simplifier_dec_ref', 2);
-  Module['_Z3_get_num_simplifiers'] = _Z3_get_num_simplifiers = createExportWrapper('Z3_get_num_simplifiers', 1);
-  Module['_Z3_get_simplifier_name'] = _Z3_get_simplifier_name = createExportWrapper('Z3_get_simplifier_name', 2);
-  Module['_Z3_simplifier_and_then'] = _Z3_simplifier_and_then = createExportWrapper('Z3_simplifier_and_then', 3);
-  Module['_Z3_simplifier_using_params'] = _Z3_simplifier_using_params = createExportWrapper('Z3_simplifier_using_params', 3);
-  Module['_Z3_simplifier_get_help'] = _Z3_simplifier_get_help = createExportWrapper('Z3_simplifier_get_help', 2);
-  Module['_Z3_simplifier_get_param_descrs'] = _Z3_simplifier_get_param_descrs = createExportWrapper('Z3_simplifier_get_param_descrs', 2);
-  Module['_Z3_simplifier_get_descr'] = _Z3_simplifier_get_descr = createExportWrapper('Z3_simplifier_get_descr', 2);
-  Module['_Z3_mk_int_symbol'] = _Z3_mk_int_symbol = createExportWrapper('Z3_mk_int_symbol', 2);
-  Module['_Z3_mk_string_symbol'] = _Z3_mk_string_symbol = createExportWrapper('Z3_mk_string_symbol', 2);
-  Module['_Z3_is_eq_sort'] = _Z3_is_eq_sort = createExportWrapper('Z3_is_eq_sort', 3);
-  Module['_Z3_mk_uninterpreted_sort'] = _Z3_mk_uninterpreted_sort = createExportWrapper('Z3_mk_uninterpreted_sort', 2);
-  Module['_Z3_mk_type_variable'] = _Z3_mk_type_variable = createExportWrapper('Z3_mk_type_variable', 2);
-  Module['_Z3_is_eq_ast'] = _Z3_is_eq_ast = createExportWrapper('Z3_is_eq_ast', 3);
-  Module['_Z3_is_eq_func_decl'] = _Z3_is_eq_func_decl = createExportWrapper('Z3_is_eq_func_decl', 3);
-  Module['_Z3_mk_func_decl'] = _Z3_mk_func_decl = createExportWrapper('Z3_mk_func_decl', 5);
-  Module['_Z3_mk_rec_func_decl'] = _Z3_mk_rec_func_decl = createExportWrapper('Z3_mk_rec_func_decl', 5);
-  Module['_Z3_add_rec_def'] = _Z3_add_rec_def = createExportWrapper('Z3_add_rec_def', 5);
-  Module['_Z3_mk_app'] = _Z3_mk_app = createExportWrapper('Z3_mk_app', 4);
-  Module['_Z3_mk_const'] = _Z3_mk_const = createExportWrapper('Z3_mk_const', 3);
-  Module['_Z3_mk_fresh_func_decl'] = _Z3_mk_fresh_func_decl = createExportWrapper('Z3_mk_fresh_func_decl', 5);
-  Module['_Z3_mk_fresh_const'] = _Z3_mk_fresh_const = createExportWrapper('Z3_mk_fresh_const', 3);
-  Module['_Z3_mk_true'] = _Z3_mk_true = createExportWrapper('Z3_mk_true', 1);
-  Module['_Z3_mk_false'] = _Z3_mk_false = createExportWrapper('Z3_mk_false', 1);
-  Module['_Z3_mk_not'] = _Z3_mk_not = createExportWrapper('Z3_mk_not', 2);
-  Module['_Z3_mk_eq'] = _Z3_mk_eq = createExportWrapper('Z3_mk_eq', 3);
-  Module['_Z3_mk_distinct'] = _Z3_mk_distinct = createExportWrapper('Z3_mk_distinct', 3);
-  Module['_Z3_mk_iff'] = _Z3_mk_iff = createExportWrapper('Z3_mk_iff', 3);
-  Module['_Z3_mk_implies'] = _Z3_mk_implies = createExportWrapper('Z3_mk_implies', 3);
-  Module['_Z3_mk_xor'] = _Z3_mk_xor = createExportWrapper('Z3_mk_xor', 3);
-  Module['_Z3_mk_and'] = _Z3_mk_and = createExportWrapper('Z3_mk_and', 3);
-  Module['_Z3_mk_or'] = _Z3_mk_or = createExportWrapper('Z3_mk_or', 3);
-  Module['_Z3_mk_ite'] = _Z3_mk_ite = createExportWrapper('Z3_mk_ite', 4);
-  Module['_Z3_mk_bool_sort'] = _Z3_mk_bool_sort = createExportWrapper('Z3_mk_bool_sort', 1);
-  Module['_Z3_app_to_ast'] = _Z3_app_to_ast = createExportWrapper('Z3_app_to_ast', 2);
-  Module['_Z3_sort_to_ast'] = _Z3_sort_to_ast = createExportWrapper('Z3_sort_to_ast', 2);
-  Module['_Z3_func_decl_to_ast'] = _Z3_func_decl_to_ast = createExportWrapper('Z3_func_decl_to_ast', 2);
-  Module['_Z3_get_ast_id'] = _Z3_get_ast_id = createExportWrapper('Z3_get_ast_id', 2);
-  Module['_Z3_get_func_decl_id'] = _Z3_get_func_decl_id = createExportWrapper('Z3_get_func_decl_id', 2);
-  Module['_Z3_get_sort_id'] = _Z3_get_sort_id = createExportWrapper('Z3_get_sort_id', 2);
-  Module['_Z3_is_well_sorted'] = _Z3_is_well_sorted = createExportWrapper('Z3_is_well_sorted', 2);
-  Module['_Z3_get_symbol_kind'] = _Z3_get_symbol_kind = createExportWrapper('Z3_get_symbol_kind', 2);
-  Module['_Z3_get_symbol_int'] = _Z3_get_symbol_int = createExportWrapper('Z3_get_symbol_int', 2);
-  Module['_Z3_get_symbol_string'] = _Z3_get_symbol_string = createExportWrapper('Z3_get_symbol_string', 2);
-  Module['_Z3_get_ast_kind'] = _Z3_get_ast_kind = createExportWrapper('Z3_get_ast_kind', 2);
-  Module['_Z3_get_ast_hash'] = _Z3_get_ast_hash = createExportWrapper('Z3_get_ast_hash', 2);
-  Module['_Z3_is_app'] = _Z3_is_app = createExportWrapper('Z3_is_app', 2);
-  Module['_Z3_to_app'] = _Z3_to_app = createExportWrapper('Z3_to_app', 2);
-  Module['_Z3_is_ground'] = _Z3_is_ground = createExportWrapper('Z3_is_ground', 2);
-  Module['_Z3_get_depth'] = _Z3_get_depth = createExportWrapper('Z3_get_depth', 2);
-  Module['_Z3_to_func_decl'] = _Z3_to_func_decl = createExportWrapper('Z3_to_func_decl', 2);
-  Module['_Z3_get_app_decl'] = _Z3_get_app_decl = createExportWrapper('Z3_get_app_decl', 2);
-  Module['_Z3_get_app_num_args'] = _Z3_get_app_num_args = createExportWrapper('Z3_get_app_num_args', 2);
-  Module['_Z3_get_app_arg'] = _Z3_get_app_arg = createExportWrapper('Z3_get_app_arg', 3);
-  Module['_Z3_get_decl_name'] = _Z3_get_decl_name = createExportWrapper('Z3_get_decl_name', 2);
-  Module['_Z3_get_decl_num_parameters'] = _Z3_get_decl_num_parameters = createExportWrapper('Z3_get_decl_num_parameters', 2);
-  Module['_Z3_get_decl_parameter_kind'] = _Z3_get_decl_parameter_kind = createExportWrapper('Z3_get_decl_parameter_kind', 3);
-  Module['_Z3_get_decl_int_parameter'] = _Z3_get_decl_int_parameter = createExportWrapper('Z3_get_decl_int_parameter', 3);
-  Module['_Z3_get_decl_double_parameter'] = _Z3_get_decl_double_parameter = createExportWrapper('Z3_get_decl_double_parameter', 3);
-  Module['_Z3_get_decl_symbol_parameter'] = _Z3_get_decl_symbol_parameter = createExportWrapper('Z3_get_decl_symbol_parameter', 3);
-  Module['_Z3_get_decl_sort_parameter'] = _Z3_get_decl_sort_parameter = createExportWrapper('Z3_get_decl_sort_parameter', 3);
-  Module['_Z3_get_decl_ast_parameter'] = _Z3_get_decl_ast_parameter = createExportWrapper('Z3_get_decl_ast_parameter', 3);
-  Module['_Z3_get_decl_func_decl_parameter'] = _Z3_get_decl_func_decl_parameter = createExportWrapper('Z3_get_decl_func_decl_parameter', 3);
-  Module['_Z3_get_decl_rational_parameter'] = _Z3_get_decl_rational_parameter = createExportWrapper('Z3_get_decl_rational_parameter', 3);
-  Module['_Z3_get_sort_name'] = _Z3_get_sort_name = createExportWrapper('Z3_get_sort_name', 2);
-  Module['_Z3_get_sort'] = _Z3_get_sort = createExportWrapper('Z3_get_sort', 2);
-  Module['_Z3_get_arity'] = _Z3_get_arity = createExportWrapper('Z3_get_arity', 2);
-  Module['_Z3_get_domain_size'] = _Z3_get_domain_size = createExportWrapper('Z3_get_domain_size', 2);
-  Module['_Z3_get_domain'] = _Z3_get_domain = createExportWrapper('Z3_get_domain', 3);
-  Module['_Z3_get_range'] = _Z3_get_range = createExportWrapper('Z3_get_range', 2);
-  Module['_Z3_get_bool_value'] = _Z3_get_bool_value = createExportWrapper('Z3_get_bool_value', 2);
-  Module['_Z3_simplify_get_help'] = _Z3_simplify_get_help = createExportWrapper('Z3_simplify_get_help', 1);
-  Module['_Z3_simplify_get_param_descrs'] = _Z3_simplify_get_param_descrs = createExportWrapper('Z3_simplify_get_param_descrs', 1);
-  Module['_Z3_update_term'] = _Z3_update_term = createExportWrapper('Z3_update_term', 4);
-  Module['_Z3_substitute'] = _Z3_substitute = createExportWrapper('Z3_substitute', 5);
-  Module['_Z3_substitute_funs'] = _Z3_substitute_funs = createExportWrapper('Z3_substitute_funs', 5);
-  Module['_Z3_substitute_vars'] = _Z3_substitute_vars = createExportWrapper('Z3_substitute_vars', 4);
-  Module['_Z3_ast_to_string'] = _Z3_ast_to_string = createExportWrapper('Z3_ast_to_string', 2);
-  Module['_Z3_sort_to_string'] = _Z3_sort_to_string = createExportWrapper('Z3_sort_to_string', 2);
-  Module['_Z3_func_decl_to_string'] = _Z3_func_decl_to_string = createExportWrapper('Z3_func_decl_to_string', 2);
-  Module['_Z3_benchmark_to_smtlib_string'] = _Z3_benchmark_to_smtlib_string = createExportWrapper('Z3_benchmark_to_smtlib_string', 8);
-  Module['_Z3_get_decl_kind'] = _Z3_get_decl_kind = createExportWrapper('Z3_get_decl_kind', 2);
-  Module['_Z3_get_index_value'] = _Z3_get_index_value = createExportWrapper('Z3_get_index_value', 2);
-  Module['_Z3_translate'] = _Z3_translate = createExportWrapper('Z3_translate', 3);
-  Module['_Z3_mk_context'] = _Z3_mk_context = createExportWrapper('Z3_mk_context', 1);
-  Module['_Z3_mk_context_rc'] = _Z3_mk_context_rc = createExportWrapper('Z3_mk_context_rc', 1);
-  Module['_Z3_del_context'] = _Z3_del_context = createExportWrapper('Z3_del_context', 1);
-  Module['_Z3_interrupt'] = _Z3_interrupt = createExportWrapper('Z3_interrupt', 1);
-  Module['_Z3_enable_concurrent_dec_ref'] = _Z3_enable_concurrent_dec_ref = createExportWrapper('Z3_enable_concurrent_dec_ref', 1);
-  Module['_Z3_toggle_warning_messages'] = _Z3_toggle_warning_messages = createExportWrapper('Z3_toggle_warning_messages', 1);
-  Module['_Z3_inc_ref'] = _Z3_inc_ref = createExportWrapper('Z3_inc_ref', 2);
-  Module['_Z3_dec_ref'] = _Z3_dec_ref = createExportWrapper('Z3_dec_ref', 2);
-  Module['_Z3_get_version'] = _Z3_get_version = createExportWrapper('Z3_get_version', 4);
-  Module['_Z3_get_full_version'] = _Z3_get_full_version = createExportWrapper('Z3_get_full_version', 0);
-  Module['_Z3_enable_trace'] = _Z3_enable_trace = createExportWrapper('Z3_enable_trace', 1);
-  Module['_Z3_disable_trace'] = _Z3_disable_trace = createExportWrapper('Z3_disable_trace', 1);
-  Module['_Z3_reset_memory'] = _Z3_reset_memory = createExportWrapper('Z3_reset_memory', 0);
-  Module['_Z3_finalize_memory'] = _Z3_finalize_memory = createExportWrapper('Z3_finalize_memory', 0);
-  Module['_Z3_get_error_code'] = _Z3_get_error_code = createExportWrapper('Z3_get_error_code', 1);
-  Module['_Z3_set_error'] = _Z3_set_error = createExportWrapper('Z3_set_error', 2);
-  Module['_Z3_set_ast_print_mode'] = _Z3_set_ast_print_mode = createExportWrapper('Z3_set_ast_print_mode', 2);
-  Module['_Z3_qe_model_project'] = _Z3_qe_model_project = createExportWrapper('Z3_qe_model_project', 5);
-  Module['_Z3_qe_model_project_skolem'] = _Z3_qe_model_project_skolem = createExportWrapper('Z3_qe_model_project_skolem', 6);
-  Module['_Z3_qe_model_project_with_witness'] = _Z3_qe_model_project_with_witness = createExportWrapper('Z3_qe_model_project_with_witness', 6);
-  Module['_Z3_model_extrapolate'] = _Z3_model_extrapolate = createExportWrapper('Z3_model_extrapolate', 3);
-  Module['_Z3_qe_lite'] = _Z3_qe_lite = createExportWrapper('Z3_qe_lite', 3);
-  Module['_Z3_open_log'] = _Z3_open_log = createExportWrapper('Z3_open_log', 1);
-  Module['_Z3_append_log'] = _Z3_append_log = createExportWrapper('Z3_append_log', 1);
-  Module['_Z3_close_log'] = _Z3_close_log = createExportWrapper('Z3_close_log', 0);
-  Module['_Z3_mk_atmost'] = _Z3_mk_atmost = createExportWrapper('Z3_mk_atmost', 4);
-  Module['_Z3_mk_atleast'] = _Z3_mk_atleast = createExportWrapper('Z3_mk_atleast', 4);
-  Module['_Z3_mk_pble'] = _Z3_mk_pble = createExportWrapper('Z3_mk_pble', 5);
-  Module['_Z3_mk_pbge'] = _Z3_mk_pbge = createExportWrapper('Z3_mk_pbge', 5);
-  Module['_Z3_mk_pbeq'] = _Z3_mk_pbeq = createExportWrapper('Z3_mk_pbeq', 5);
-  Module['_Z3_mk_goal'] = _Z3_mk_goal = createExportWrapper('Z3_mk_goal', 4);
-  Module['_Z3_goal_inc_ref'] = _Z3_goal_inc_ref = createExportWrapper('Z3_goal_inc_ref', 2);
-  Module['_Z3_goal_dec_ref'] = _Z3_goal_dec_ref = createExportWrapper('Z3_goal_dec_ref', 2);
-  Module['_Z3_goal_precision'] = _Z3_goal_precision = createExportWrapper('Z3_goal_precision', 2);
-  Module['_Z3_goal_assert'] = _Z3_goal_assert = createExportWrapper('Z3_goal_assert', 3);
-  Module['_Z3_goal_inconsistent'] = _Z3_goal_inconsistent = createExportWrapper('Z3_goal_inconsistent', 2);
-  Module['_Z3_goal_depth'] = _Z3_goal_depth = createExportWrapper('Z3_goal_depth', 2);
-  Module['_Z3_goal_reset'] = _Z3_goal_reset = createExportWrapper('Z3_goal_reset', 2);
-  Module['_Z3_goal_size'] = _Z3_goal_size = createExportWrapper('Z3_goal_size', 2);
-  Module['_Z3_goal_formula'] = _Z3_goal_formula = createExportWrapper('Z3_goal_formula', 3);
-  Module['_Z3_goal_num_exprs'] = _Z3_goal_num_exprs = createExportWrapper('Z3_goal_num_exprs', 2);
-  Module['_Z3_goal_is_decided_sat'] = _Z3_goal_is_decided_sat = createExportWrapper('Z3_goal_is_decided_sat', 2);
-  Module['_Z3_goal_is_decided_unsat'] = _Z3_goal_is_decided_unsat = createExportWrapper('Z3_goal_is_decided_unsat', 2);
-  Module['_Z3_goal_convert_model'] = _Z3_goal_convert_model = createExportWrapper('Z3_goal_convert_model', 3);
-  Module['_Z3_goal_translate'] = _Z3_goal_translate = createExportWrapper('Z3_goal_translate', 3);
-  Module['_Z3_goal_to_string'] = _Z3_goal_to_string = createExportWrapper('Z3_goal_to_string', 2);
-  Module['_Z3_goal_to_dimacs_string'] = _Z3_goal_to_dimacs_string = createExportWrapper('Z3_goal_to_dimacs_string', 3);
-  Module['_Z3_rcf_del'] = _Z3_rcf_del = createExportWrapper('Z3_rcf_del', 2);
-  Module['_Z3_rcf_mk_rational'] = _Z3_rcf_mk_rational = createExportWrapper('Z3_rcf_mk_rational', 2);
-  Module['_Z3_rcf_mk_small_int'] = _Z3_rcf_mk_small_int = createExportWrapper('Z3_rcf_mk_small_int', 2);
-  Module['_Z3_rcf_mk_pi'] = _Z3_rcf_mk_pi = createExportWrapper('Z3_rcf_mk_pi', 1);
-  Module['_Z3_rcf_mk_e'] = _Z3_rcf_mk_e = createExportWrapper('Z3_rcf_mk_e', 1);
-  Module['_Z3_rcf_mk_infinitesimal'] = _Z3_rcf_mk_infinitesimal = createExportWrapper('Z3_rcf_mk_infinitesimal', 1);
-  Module['_Z3_rcf_mk_roots'] = _Z3_rcf_mk_roots = createExportWrapper('Z3_rcf_mk_roots', 4);
-  Module['_Z3_rcf_add'] = _Z3_rcf_add = createExportWrapper('Z3_rcf_add', 3);
-  Module['_Z3_rcf_sub'] = _Z3_rcf_sub = createExportWrapper('Z3_rcf_sub', 3);
-  Module['_Z3_rcf_mul'] = _Z3_rcf_mul = createExportWrapper('Z3_rcf_mul', 3);
-  Module['_Z3_rcf_div'] = _Z3_rcf_div = createExportWrapper('Z3_rcf_div', 3);
-  Module['_Z3_rcf_neg'] = _Z3_rcf_neg = createExportWrapper('Z3_rcf_neg', 2);
-  Module['_Z3_rcf_inv'] = _Z3_rcf_inv = createExportWrapper('Z3_rcf_inv', 2);
-  Module['_Z3_rcf_power'] = _Z3_rcf_power = createExportWrapper('Z3_rcf_power', 3);
-  Module['_Z3_rcf_lt'] = _Z3_rcf_lt = createExportWrapper('Z3_rcf_lt', 3);
-  Module['_Z3_rcf_gt'] = _Z3_rcf_gt = createExportWrapper('Z3_rcf_gt', 3);
-  Module['_Z3_rcf_le'] = _Z3_rcf_le = createExportWrapper('Z3_rcf_le', 3);
-  Module['_Z3_rcf_ge'] = _Z3_rcf_ge = createExportWrapper('Z3_rcf_ge', 3);
-  Module['_Z3_rcf_eq'] = _Z3_rcf_eq = createExportWrapper('Z3_rcf_eq', 3);
-  Module['_Z3_rcf_neq'] = _Z3_rcf_neq = createExportWrapper('Z3_rcf_neq', 3);
-  Module['_Z3_rcf_num_to_string'] = _Z3_rcf_num_to_string = createExportWrapper('Z3_rcf_num_to_string', 4);
-  Module['_Z3_rcf_num_to_decimal_string'] = _Z3_rcf_num_to_decimal_string = createExportWrapper('Z3_rcf_num_to_decimal_string', 3);
-  Module['_Z3_rcf_get_numerator_denominator'] = _Z3_rcf_get_numerator_denominator = createExportWrapper('Z3_rcf_get_numerator_denominator', 4);
-  Module['_Z3_rcf_is_rational'] = _Z3_rcf_is_rational = createExportWrapper('Z3_rcf_is_rational', 2);
-  Module['_Z3_rcf_is_algebraic'] = _Z3_rcf_is_algebraic = createExportWrapper('Z3_rcf_is_algebraic', 2);
-  Module['_Z3_rcf_is_infinitesimal'] = _Z3_rcf_is_infinitesimal = createExportWrapper('Z3_rcf_is_infinitesimal', 2);
-  Module['_Z3_rcf_is_transcendental'] = _Z3_rcf_is_transcendental = createExportWrapper('Z3_rcf_is_transcendental', 2);
-  Module['_Z3_rcf_extension_index'] = _Z3_rcf_extension_index = createExportWrapper('Z3_rcf_extension_index', 2);
-  Module['_Z3_rcf_transcendental_name'] = _Z3_rcf_transcendental_name = createExportWrapper('Z3_rcf_transcendental_name', 2);
-  Module['_Z3_rcf_infinitesimal_name'] = _Z3_rcf_infinitesimal_name = createExportWrapper('Z3_rcf_infinitesimal_name', 2);
-  Module['_Z3_rcf_num_coefficients'] = _Z3_rcf_num_coefficients = createExportWrapper('Z3_rcf_num_coefficients', 2);
-  Module['_Z3_rcf_coefficient'] = _Z3_rcf_coefficient = createExportWrapper('Z3_rcf_coefficient', 3);
-  Module['_Z3_rcf_interval'] = _Z3_rcf_interval = createExportWrapper('Z3_rcf_interval', 8);
-  Module['_Z3_rcf_num_sign_conditions'] = _Z3_rcf_num_sign_conditions = createExportWrapper('Z3_rcf_num_sign_conditions', 2);
-  Module['_Z3_rcf_sign_condition_sign'] = _Z3_rcf_sign_condition_sign = createExportWrapper('Z3_rcf_sign_condition_sign', 3);
-  Module['_Z3_rcf_num_sign_condition_coefficients'] = _Z3_rcf_num_sign_condition_coefficients = createExportWrapper('Z3_rcf_num_sign_condition_coefficients', 3);
-  Module['_Z3_rcf_sign_condition_coefficient'] = _Z3_rcf_sign_condition_coefficient = createExportWrapper('Z3_rcf_sign_condition_coefficient', 4);
-  Module['_Z3_mk_seq_sort'] = _Z3_mk_seq_sort = createExportWrapper('Z3_mk_seq_sort', 2);
-  Module['_Z3_mk_re_sort'] = _Z3_mk_re_sort = createExportWrapper('Z3_mk_re_sort', 2);
-  Module['_Z3_mk_string'] = _Z3_mk_string = createExportWrapper('Z3_mk_string', 2);
-  Module['_Z3_mk_lstring'] = _Z3_mk_lstring = createExportWrapper('Z3_mk_lstring', 3);
-  Module['_Z3_mk_u32string'] = _Z3_mk_u32string = createExportWrapper('Z3_mk_u32string', 3);
-  Module['_Z3_mk_char'] = _Z3_mk_char = createExportWrapper('Z3_mk_char', 2);
-  Module['_Z3_mk_string_sort'] = _Z3_mk_string_sort = createExportWrapper('Z3_mk_string_sort', 1);
-  Module['_Z3_mk_char_sort'] = _Z3_mk_char_sort = createExportWrapper('Z3_mk_char_sort', 1);
-  Module['_Z3_is_seq_sort'] = _Z3_is_seq_sort = createExportWrapper('Z3_is_seq_sort', 2);
-  Module['_Z3_is_re_sort'] = _Z3_is_re_sort = createExportWrapper('Z3_is_re_sort', 2);
-  Module['_Z3_get_seq_sort_basis'] = _Z3_get_seq_sort_basis = createExportWrapper('Z3_get_seq_sort_basis', 2);
-  Module['_Z3_get_re_sort_basis'] = _Z3_get_re_sort_basis = createExportWrapper('Z3_get_re_sort_basis', 2);
-  Module['_Z3_is_char_sort'] = _Z3_is_char_sort = createExportWrapper('Z3_is_char_sort', 2);
-  Module['_Z3_is_string_sort'] = _Z3_is_string_sort = createExportWrapper('Z3_is_string_sort', 2);
-  Module['_Z3_is_string'] = _Z3_is_string = createExportWrapper('Z3_is_string', 2);
-  Module['_Z3_get_string'] = _Z3_get_string = createExportWrapper('Z3_get_string', 2);
-  Module['_Z3_get_lstring'] = _Z3_get_lstring = createExportWrapper('Z3_get_lstring', 3);
-  Module['_Z3_get_string_length'] = _Z3_get_string_length = createExportWrapper('Z3_get_string_length', 2);
-  Module['_Z3_get_string_contents'] = _Z3_get_string_contents = createExportWrapper('Z3_get_string_contents', 4);
-  Module['_Z3_mk_seq_empty'] = _Z3_mk_seq_empty = createExportWrapper('Z3_mk_seq_empty', 2);
-  Module['_Z3_mk_seq_unit'] = _Z3_mk_seq_unit = createExportWrapper('Z3_mk_seq_unit', 2);
-  Module['_Z3_mk_seq_concat'] = _Z3_mk_seq_concat = createExportWrapper('Z3_mk_seq_concat', 3);
-  Module['_Z3_mk_seq_prefix'] = _Z3_mk_seq_prefix = createExportWrapper('Z3_mk_seq_prefix', 3);
-  Module['_Z3_mk_seq_suffix'] = _Z3_mk_seq_suffix = createExportWrapper('Z3_mk_seq_suffix', 3);
-  Module['_Z3_mk_seq_contains'] = _Z3_mk_seq_contains = createExportWrapper('Z3_mk_seq_contains', 3);
-  Module['_Z3_mk_str_lt'] = _Z3_mk_str_lt = createExportWrapper('Z3_mk_str_lt', 3);
-  Module['_Z3_mk_str_le'] = _Z3_mk_str_le = createExportWrapper('Z3_mk_str_le', 3);
-  Module['_Z3_mk_string_to_code'] = _Z3_mk_string_to_code = createExportWrapper('Z3_mk_string_to_code', 2);
-  Module['_Z3_mk_string_from_code'] = _Z3_mk_string_from_code = createExportWrapper('Z3_mk_string_from_code', 2);
-  Module['_Z3_mk_seq_extract'] = _Z3_mk_seq_extract = createExportWrapper('Z3_mk_seq_extract', 4);
-  Module['_Z3_mk_seq_replace'] = _Z3_mk_seq_replace = createExportWrapper('Z3_mk_seq_replace', 4);
-  Module['_Z3_mk_seq_at'] = _Z3_mk_seq_at = createExportWrapper('Z3_mk_seq_at', 3);
-  Module['_Z3_mk_seq_nth'] = _Z3_mk_seq_nth = createExportWrapper('Z3_mk_seq_nth', 3);
-  Module['_Z3_mk_seq_length'] = _Z3_mk_seq_length = createExportWrapper('Z3_mk_seq_length', 2);
-  Module['_Z3_mk_seq_index'] = _Z3_mk_seq_index = createExportWrapper('Z3_mk_seq_index', 4);
-  Module['_Z3_mk_seq_last_index'] = _Z3_mk_seq_last_index = createExportWrapper('Z3_mk_seq_last_index', 3);
-  Module['_Z3_mk_seq_to_re'] = _Z3_mk_seq_to_re = createExportWrapper('Z3_mk_seq_to_re', 2);
-  Module['_Z3_mk_seq_in_re'] = _Z3_mk_seq_in_re = createExportWrapper('Z3_mk_seq_in_re', 3);
-  Module['_Z3_mk_int_to_str'] = _Z3_mk_int_to_str = createExportWrapper('Z3_mk_int_to_str', 2);
-  Module['_Z3_mk_str_to_int'] = _Z3_mk_str_to_int = createExportWrapper('Z3_mk_str_to_int', 2);
-  Module['_Z3_mk_ubv_to_str'] = _Z3_mk_ubv_to_str = createExportWrapper('Z3_mk_ubv_to_str', 2);
-  Module['_Z3_mk_sbv_to_str'] = _Z3_mk_sbv_to_str = createExportWrapper('Z3_mk_sbv_to_str', 2);
-  Module['_Z3_mk_re_loop'] = _Z3_mk_re_loop = createExportWrapper('Z3_mk_re_loop', 4);
-  Module['_Z3_mk_re_power'] = _Z3_mk_re_power = createExportWrapper('Z3_mk_re_power', 3);
-  Module['_Z3_mk_re_plus'] = _Z3_mk_re_plus = createExportWrapper('Z3_mk_re_plus', 2);
-  Module['_Z3_mk_re_star'] = _Z3_mk_re_star = createExportWrapper('Z3_mk_re_star', 2);
-  Module['_Z3_mk_re_option'] = _Z3_mk_re_option = createExportWrapper('Z3_mk_re_option', 2);
-  Module['_Z3_mk_re_complement'] = _Z3_mk_re_complement = createExportWrapper('Z3_mk_re_complement', 2);
-  Module['_Z3_mk_re_diff'] = _Z3_mk_re_diff = createExportWrapper('Z3_mk_re_diff', 3);
-  Module['_Z3_mk_re_union'] = _Z3_mk_re_union = createExportWrapper('Z3_mk_re_union', 3);
-  Module['_Z3_mk_re_intersect'] = _Z3_mk_re_intersect = createExportWrapper('Z3_mk_re_intersect', 3);
-  Module['_Z3_mk_re_concat'] = _Z3_mk_re_concat = createExportWrapper('Z3_mk_re_concat', 3);
-  Module['_Z3_mk_re_range'] = _Z3_mk_re_range = createExportWrapper('Z3_mk_re_range', 3);
-  Module['_Z3_mk_re_allchar'] = _Z3_mk_re_allchar = createExportWrapper('Z3_mk_re_allchar', 2);
-  Module['_Z3_mk_re_empty'] = _Z3_mk_re_empty = createExportWrapper('Z3_mk_re_empty', 2);
-  Module['_Z3_mk_re_full'] = _Z3_mk_re_full = createExportWrapper('Z3_mk_re_full', 2);
-  Module['_Z3_mk_char_le'] = _Z3_mk_char_le = createExportWrapper('Z3_mk_char_le', 3);
-  Module['_Z3_mk_char_to_int'] = _Z3_mk_char_to_int = createExportWrapper('Z3_mk_char_to_int', 2);
-  Module['_Z3_mk_char_to_bv'] = _Z3_mk_char_to_bv = createExportWrapper('Z3_mk_char_to_bv', 2);
-  Module['_Z3_mk_char_from_bv'] = _Z3_mk_char_from_bv = createExportWrapper('Z3_mk_char_from_bv', 2);
-  Module['_Z3_mk_char_is_digit'] = _Z3_mk_char_is_digit = createExportWrapper('Z3_mk_char_is_digit', 2);
-  Module['_Z3_mk_seq_map'] = _Z3_mk_seq_map = createExportWrapper('Z3_mk_seq_map', 3);
-  Module['_Z3_mk_seq_mapi'] = _Z3_mk_seq_mapi = createExportWrapper('Z3_mk_seq_mapi', 4);
-  Module['_Z3_mk_seq_foldl'] = _Z3_mk_seq_foldl = createExportWrapper('Z3_mk_seq_foldl', 4);
-  Module['_Z3_mk_seq_foldli'] = _Z3_mk_seq_foldli = createExportWrapper('Z3_mk_seq_foldli', 5);
-  Module['_Z3_mk_bv_sort'] = _Z3_mk_bv_sort = createExportWrapper('Z3_mk_bv_sort', 2);
-  Module['_Z3_mk_bvnot'] = _Z3_mk_bvnot = createExportWrapper('Z3_mk_bvnot', 2);
-  Module['_Z3_mk_bvredand'] = _Z3_mk_bvredand = createExportWrapper('Z3_mk_bvredand', 2);
-  Module['_Z3_mk_bvredor'] = _Z3_mk_bvredor = createExportWrapper('Z3_mk_bvredor', 2);
-  Module['_Z3_mk_bvand'] = _Z3_mk_bvand = createExportWrapper('Z3_mk_bvand', 3);
-  Module['_Z3_mk_bvor'] = _Z3_mk_bvor = createExportWrapper('Z3_mk_bvor', 3);
-  Module['_Z3_mk_bvxor'] = _Z3_mk_bvxor = createExportWrapper('Z3_mk_bvxor', 3);
-  Module['_Z3_mk_bvnand'] = _Z3_mk_bvnand = createExportWrapper('Z3_mk_bvnand', 3);
-  Module['_Z3_mk_bvnor'] = _Z3_mk_bvnor = createExportWrapper('Z3_mk_bvnor', 3);
-  Module['_Z3_mk_bvxnor'] = _Z3_mk_bvxnor = createExportWrapper('Z3_mk_bvxnor', 3);
-  Module['_Z3_mk_bvadd'] = _Z3_mk_bvadd = createExportWrapper('Z3_mk_bvadd', 3);
-  Module['_Z3_mk_bvmul'] = _Z3_mk_bvmul = createExportWrapper('Z3_mk_bvmul', 3);
-  Module['_Z3_mk_bvudiv'] = _Z3_mk_bvudiv = createExportWrapper('Z3_mk_bvudiv', 3);
-  Module['_Z3_mk_bvsdiv'] = _Z3_mk_bvsdiv = createExportWrapper('Z3_mk_bvsdiv', 3);
-  Module['_Z3_mk_bvurem'] = _Z3_mk_bvurem = createExportWrapper('Z3_mk_bvurem', 3);
-  Module['_Z3_mk_bvsrem'] = _Z3_mk_bvsrem = createExportWrapper('Z3_mk_bvsrem', 3);
-  Module['_Z3_mk_bvsmod'] = _Z3_mk_bvsmod = createExportWrapper('Z3_mk_bvsmod', 3);
-  Module['_Z3_mk_bvule'] = _Z3_mk_bvule = createExportWrapper('Z3_mk_bvule', 3);
-  Module['_Z3_mk_bvsle'] = _Z3_mk_bvsle = createExportWrapper('Z3_mk_bvsle', 3);
-  Module['_Z3_mk_bvuge'] = _Z3_mk_bvuge = createExportWrapper('Z3_mk_bvuge', 3);
-  Module['_Z3_mk_bvsge'] = _Z3_mk_bvsge = createExportWrapper('Z3_mk_bvsge', 3);
-  Module['_Z3_mk_bvult'] = _Z3_mk_bvult = createExportWrapper('Z3_mk_bvult', 3);
-  Module['_Z3_mk_bvslt'] = _Z3_mk_bvslt = createExportWrapper('Z3_mk_bvslt', 3);
-  Module['_Z3_mk_bvugt'] = _Z3_mk_bvugt = createExportWrapper('Z3_mk_bvugt', 3);
-  Module['_Z3_mk_bvsgt'] = _Z3_mk_bvsgt = createExportWrapper('Z3_mk_bvsgt', 3);
-  Module['_Z3_mk_concat'] = _Z3_mk_concat = createExportWrapper('Z3_mk_concat', 3);
-  Module['_Z3_mk_bvshl'] = _Z3_mk_bvshl = createExportWrapper('Z3_mk_bvshl', 3);
-  Module['_Z3_mk_bvlshr'] = _Z3_mk_bvlshr = createExportWrapper('Z3_mk_bvlshr', 3);
-  Module['_Z3_mk_bvashr'] = _Z3_mk_bvashr = createExportWrapper('Z3_mk_bvashr', 3);
-  Module['_Z3_mk_ext_rotate_left'] = _Z3_mk_ext_rotate_left = createExportWrapper('Z3_mk_ext_rotate_left', 3);
-  Module['_Z3_mk_ext_rotate_right'] = _Z3_mk_ext_rotate_right = createExportWrapper('Z3_mk_ext_rotate_right', 3);
-  Module['_Z3_mk_extract'] = _Z3_mk_extract = createExportWrapper('Z3_mk_extract', 4);
-  Module['_Z3_mk_sign_ext'] = _Z3_mk_sign_ext = createExportWrapper('Z3_mk_sign_ext', 3);
-  Module['_Z3_mk_zero_ext'] = _Z3_mk_zero_ext = createExportWrapper('Z3_mk_zero_ext', 3);
-  Module['_Z3_mk_repeat'] = _Z3_mk_repeat = createExportWrapper('Z3_mk_repeat', 3);
-  Module['_Z3_mk_bit2bool'] = _Z3_mk_bit2bool = createExportWrapper('Z3_mk_bit2bool', 3);
-  Module['_Z3_mk_rotate_left'] = _Z3_mk_rotate_left = createExportWrapper('Z3_mk_rotate_left', 3);
-  Module['_Z3_mk_rotate_right'] = _Z3_mk_rotate_right = createExportWrapper('Z3_mk_rotate_right', 3);
-  Module['_Z3_mk_int2bv'] = _Z3_mk_int2bv = createExportWrapper('Z3_mk_int2bv', 3);
-  Module['_Z3_mk_bv2int'] = _Z3_mk_bv2int = createExportWrapper('Z3_mk_bv2int', 3);
-  Module['_Z3_get_bv_sort_size'] = _Z3_get_bv_sort_size = createExportWrapper('Z3_get_bv_sort_size', 2);
-  Module['_Z3_mk_bvadd_no_overflow'] = _Z3_mk_bvadd_no_overflow = createExportWrapper('Z3_mk_bvadd_no_overflow', 4);
-  Module['_Z3_mk_bvadd_no_underflow'] = _Z3_mk_bvadd_no_underflow = createExportWrapper('Z3_mk_bvadd_no_underflow', 3);
-  Module['_Z3_mk_bvsub_no_overflow'] = _Z3_mk_bvsub_no_overflow = createExportWrapper('Z3_mk_bvsub_no_overflow', 3);
-  Module['_Z3_mk_bvneg'] = _Z3_mk_bvneg = createExportWrapper('Z3_mk_bvneg', 2);
-  Module['_Z3_mk_bvsub_no_underflow'] = _Z3_mk_bvsub_no_underflow = createExportWrapper('Z3_mk_bvsub_no_underflow', 4);
-  Module['_Z3_mk_bvmul_no_overflow'] = _Z3_mk_bvmul_no_overflow = createExportWrapper('Z3_mk_bvmul_no_overflow', 4);
-  Module['_Z3_mk_bvmul_no_underflow'] = _Z3_mk_bvmul_no_underflow = createExportWrapper('Z3_mk_bvmul_no_underflow', 3);
-  Module['_Z3_mk_bvneg_no_overflow'] = _Z3_mk_bvneg_no_overflow = createExportWrapper('Z3_mk_bvneg_no_overflow', 2);
-  Module['_Z3_mk_bvsdiv_no_overflow'] = _Z3_mk_bvsdiv_no_overflow = createExportWrapper('Z3_mk_bvsdiv_no_overflow', 3);
-  Module['_Z3_mk_bvsub'] = _Z3_mk_bvsub = createExportWrapper('Z3_mk_bvsub', 3);
-  Module['_Z3_stats_to_string'] = _Z3_stats_to_string = createExportWrapper('Z3_stats_to_string', 2);
-  Module['_Z3_stats_inc_ref'] = _Z3_stats_inc_ref = createExportWrapper('Z3_stats_inc_ref', 2);
-  Module['_Z3_stats_dec_ref'] = _Z3_stats_dec_ref = createExportWrapper('Z3_stats_dec_ref', 2);
-  Module['_Z3_stats_size'] = _Z3_stats_size = createExportWrapper('Z3_stats_size', 2);
-  Module['_Z3_stats_get_key'] = _Z3_stats_get_key = createExportWrapper('Z3_stats_get_key', 3);
-  Module['_Z3_stats_is_uint'] = _Z3_stats_is_uint = createExportWrapper('Z3_stats_is_uint', 3);
-  Module['_Z3_stats_is_double'] = _Z3_stats_is_double = createExportWrapper('Z3_stats_is_double', 3);
-  Module['_Z3_stats_get_uint_value'] = _Z3_stats_get_uint_value = createExportWrapper('Z3_stats_get_uint_value', 3);
-  Module['_Z3_stats_get_double_value'] = _Z3_stats_get_double_value = createExportWrapper('Z3_stats_get_double_value', 3);
-  Module['_Z3_get_estimated_alloc_size'] = _Z3_get_estimated_alloc_size = createExportWrapper('Z3_get_estimated_alloc_size', 0);
-  Module['_Z3_global_param_set'] = _Z3_global_param_set = createExportWrapper('Z3_global_param_set', 2);
-  Module['_Z3_global_param_reset_all'] = _Z3_global_param_reset_all = createExportWrapper('Z3_global_param_reset_all', 0);
-  Module['_Z3_global_param_get'] = _Z3_global_param_get = createExportWrapper('Z3_global_param_get', 2);
-  Module['_Z3_get_global_param_descrs'] = _Z3_get_global_param_descrs = createExportWrapper('Z3_get_global_param_descrs', 1);
-  Module['_Z3_mk_config'] = _Z3_mk_config = createExportWrapper('Z3_mk_config', 0);
-  Module['_Z3_del_config'] = _Z3_del_config = createExportWrapper('Z3_del_config', 1);
-  Module['_Z3_set_param_value'] = _Z3_set_param_value = createExportWrapper('Z3_set_param_value', 3);
-  Module['_Z3_update_param_value'] = _Z3_update_param_value = createExportWrapper('Z3_update_param_value', 3);
-  Module['_Z3_mk_simple_solver'] = _Z3_mk_simple_solver = createExportWrapper('Z3_mk_simple_solver', 1);
-  Module['_Z3_mk_solver'] = _Z3_mk_solver = createExportWrapper('Z3_mk_solver', 1);
-  Module['_Z3_mk_solver_for_logic'] = _Z3_mk_solver_for_logic = createExportWrapper('Z3_mk_solver_for_logic', 2);
-  Module['_Z3_mk_solver_from_tactic'] = _Z3_mk_solver_from_tactic = createExportWrapper('Z3_mk_solver_from_tactic', 2);
-  Module['_Z3_solver_add_simplifier'] = _Z3_solver_add_simplifier = createExportWrapper('Z3_solver_add_simplifier', 3);
-  Module['_Z3_solver_translate'] = _Z3_solver_translate = createExportWrapper('Z3_solver_translate', 3);
-  Module['_Z3_solver_import_model_converter'] = _Z3_solver_import_model_converter = createExportWrapper('Z3_solver_import_model_converter', 3);
-  Module['_Z3_solver_from_string'] = _Z3_solver_from_string = createExportWrapper('Z3_solver_from_string', 3);
-  Module['_Z3_solver_from_file'] = _Z3_solver_from_file = createExportWrapper('Z3_solver_from_file', 3);
-  Module['_Z3_solver_get_help'] = _Z3_solver_get_help = createExportWrapper('Z3_solver_get_help', 2);
-  Module['_Z3_solver_get_param_descrs'] = _Z3_solver_get_param_descrs = createExportWrapper('Z3_solver_get_param_descrs', 2);
-  Module['_Z3_solver_set_params'] = _Z3_solver_set_params = createExportWrapper('Z3_solver_set_params', 3);
-  Module['_Z3_solver_inc_ref'] = _Z3_solver_inc_ref = createExportWrapper('Z3_solver_inc_ref', 2);
-  Module['_Z3_solver_dec_ref'] = _Z3_solver_dec_ref = createExportWrapper('Z3_solver_dec_ref', 2);
-  Module['_Z3_solver_push'] = _Z3_solver_push = createExportWrapper('Z3_solver_push', 2);
-  Module['_Z3_solver_interrupt'] = _Z3_solver_interrupt = createExportWrapper('Z3_solver_interrupt', 2);
-  Module['_Z3_solver_pop'] = _Z3_solver_pop = createExportWrapper('Z3_solver_pop', 3);
-  Module['_Z3_solver_reset'] = _Z3_solver_reset = createExportWrapper('Z3_solver_reset', 2);
-  Module['_Z3_solver_get_num_scopes'] = _Z3_solver_get_num_scopes = createExportWrapper('Z3_solver_get_num_scopes', 2);
-  Module['_Z3_solver_assert'] = _Z3_solver_assert = createExportWrapper('Z3_solver_assert', 3);
-  Module['_Z3_solver_assert_and_track'] = _Z3_solver_assert_and_track = createExportWrapper('Z3_solver_assert_and_track', 4);
-  Module['_Z3_solver_get_assertions'] = _Z3_solver_get_assertions = createExportWrapper('Z3_solver_get_assertions', 2);
-  Module['_Z3_solver_get_units'] = _Z3_solver_get_units = createExportWrapper('Z3_solver_get_units', 2);
-  Module['_Z3_solver_get_non_units'] = _Z3_solver_get_non_units = createExportWrapper('Z3_solver_get_non_units', 2);
-  Module['_Z3_solver_get_levels'] = _Z3_solver_get_levels = createExportWrapper('Z3_solver_get_levels', 5);
-  Module['_Z3_solver_get_trail'] = _Z3_solver_get_trail = createExportWrapper('Z3_solver_get_trail', 2);
-  _pthread_self = createExportWrapper('pthread_self', 0);
-  Module['_Z3_solver_get_model'] = _Z3_solver_get_model = createExportWrapper('Z3_solver_get_model', 2);
-  Module['_Z3_solver_get_proof'] = _Z3_solver_get_proof = createExportWrapper('Z3_solver_get_proof', 2);
-  Module['_Z3_solver_get_unsat_core'] = _Z3_solver_get_unsat_core = createExportWrapper('Z3_solver_get_unsat_core', 2);
-  Module['_Z3_solver_get_reason_unknown'] = _Z3_solver_get_reason_unknown = createExportWrapper('Z3_solver_get_reason_unknown', 2);
-  Module['_Z3_solver_get_statistics'] = _Z3_solver_get_statistics = createExportWrapper('Z3_solver_get_statistics', 2);
-  Module['_Z3_solver_to_string'] = _Z3_solver_to_string = createExportWrapper('Z3_solver_to_string', 2);
-  Module['_Z3_solver_to_dimacs_string'] = _Z3_solver_to_dimacs_string = createExportWrapper('Z3_solver_to_dimacs_string', 3);
-  Module['_Z3_get_implied_equalities'] = _Z3_get_implied_equalities = createExportWrapper('Z3_get_implied_equalities', 5);
-  Module['_Z3_solver_congruence_root'] = _Z3_solver_congruence_root = createExportWrapper('Z3_solver_congruence_root', 3);
-  Module['_Z3_solver_congruence_next'] = _Z3_solver_congruence_next = createExportWrapper('Z3_solver_congruence_next', 3);
-  Module['_Z3_solver_congruence_explain'] = _Z3_solver_congruence_explain = createExportWrapper('Z3_solver_congruence_explain', 4);
-  Module['_Z3_solver_solve_for'] = _Z3_solver_solve_for = createExportWrapper('Z3_solver_solve_for', 5);
-  Module['_Z3_solver_register_on_clause'] = _Z3_solver_register_on_clause = createExportWrapper('Z3_solver_register_on_clause', 4);
-  Module['_Z3_solver_propagate_init'] = _Z3_solver_propagate_init = createExportWrapper('Z3_solver_propagate_init', 6);
-  Module['_Z3_solver_propagate_fixed'] = _Z3_solver_propagate_fixed = createExportWrapper('Z3_solver_propagate_fixed', 3);
-  Module['_Z3_solver_propagate_final'] = _Z3_solver_propagate_final = createExportWrapper('Z3_solver_propagate_final', 3);
-  Module['_Z3_solver_propagate_eq'] = _Z3_solver_propagate_eq = createExportWrapper('Z3_solver_propagate_eq', 3);
-  Module['_Z3_solver_propagate_diseq'] = _Z3_solver_propagate_diseq = createExportWrapper('Z3_solver_propagate_diseq', 3);
-  Module['_Z3_solver_propagate_register'] = _Z3_solver_propagate_register = createExportWrapper('Z3_solver_propagate_register', 3);
-  Module['_Z3_solver_propagate_register_cb'] = _Z3_solver_propagate_register_cb = createExportWrapper('Z3_solver_propagate_register_cb', 3);
-  Module['_Z3_solver_propagate_consequence'] = _Z3_solver_propagate_consequence = createExportWrapper('Z3_solver_propagate_consequence', 8);
-  Module['_Z3_solver_propagate_created'] = _Z3_solver_propagate_created = createExportWrapper('Z3_solver_propagate_created', 3);
-  Module['_Z3_solver_propagate_decide'] = _Z3_solver_propagate_decide = createExportWrapper('Z3_solver_propagate_decide', 3);
-  Module['_Z3_solver_propagate_on_binding'] = _Z3_solver_propagate_on_binding = createExportWrapper('Z3_solver_propagate_on_binding', 3);
-  Module['_Z3_solver_next_split'] = _Z3_solver_next_split = createExportWrapper('Z3_solver_next_split', 5);
-  Module['_Z3_solver_propagate_declare'] = _Z3_solver_propagate_declare = createExportWrapper('Z3_solver_propagate_declare', 5);
-  Module['_Z3_solver_set_initial_value'] = _Z3_solver_set_initial_value = createExportWrapper('Z3_solver_set_initial_value', 4);
-  Module['_Z3_mk_quantifier'] = _Z3_mk_quantifier = createExportWrapper('Z3_mk_quantifier', 9);
-  Module['_Z3_mk_quantifier_ex'] = _Z3_mk_quantifier_ex = createExportWrapper('Z3_mk_quantifier_ex', 13);
-  Module['_Z3_mk_forall'] = _Z3_mk_forall = createExportWrapper('Z3_mk_forall', 8);
-  Module['_Z3_mk_exists'] = _Z3_mk_exists = createExportWrapper('Z3_mk_exists', 8);
-  Module['_Z3_mk_lambda'] = _Z3_mk_lambda = createExportWrapper('Z3_mk_lambda', 5);
-  Module['_Z3_mk_lambda_const'] = _Z3_mk_lambda_const = createExportWrapper('Z3_mk_lambda_const', 4);
-  Module['_Z3_mk_quantifier_const_ex'] = _Z3_mk_quantifier_const_ex = createExportWrapper('Z3_mk_quantifier_const_ex', 12);
-  Module['_Z3_mk_quantifier_const'] = _Z3_mk_quantifier_const = createExportWrapper('Z3_mk_quantifier_const', 8);
-  Module['_Z3_mk_forall_const'] = _Z3_mk_forall_const = createExportWrapper('Z3_mk_forall_const', 7);
-  Module['_Z3_mk_exists_const'] = _Z3_mk_exists_const = createExportWrapper('Z3_mk_exists_const', 7);
-  Module['_Z3_mk_pattern'] = _Z3_mk_pattern = createExportWrapper('Z3_mk_pattern', 3);
-  Module['_Z3_mk_bound'] = _Z3_mk_bound = createExportWrapper('Z3_mk_bound', 3);
-  Module['_Z3_is_quantifier_forall'] = _Z3_is_quantifier_forall = createExportWrapper('Z3_is_quantifier_forall', 2);
-  Module['_Z3_is_quantifier_exists'] = _Z3_is_quantifier_exists = createExportWrapper('Z3_is_quantifier_exists', 2);
-  Module['_Z3_is_lambda'] = _Z3_is_lambda = createExportWrapper('Z3_is_lambda', 2);
-  Module['_Z3_get_quantifier_weight'] = _Z3_get_quantifier_weight = createExportWrapper('Z3_get_quantifier_weight', 2);
-  Module['_Z3_get_quantifier_skolem_id'] = _Z3_get_quantifier_skolem_id = createExportWrapper('Z3_get_quantifier_skolem_id', 2);
-  Module['_Z3_get_quantifier_id'] = _Z3_get_quantifier_id = createExportWrapper('Z3_get_quantifier_id', 2);
-  Module['_Z3_get_quantifier_num_patterns'] = _Z3_get_quantifier_num_patterns = createExportWrapper('Z3_get_quantifier_num_patterns', 2);
-  Module['_Z3_get_quantifier_pattern_ast'] = _Z3_get_quantifier_pattern_ast = createExportWrapper('Z3_get_quantifier_pattern_ast', 3);
-  Module['_Z3_get_quantifier_num_no_patterns'] = _Z3_get_quantifier_num_no_patterns = createExportWrapper('Z3_get_quantifier_num_no_patterns', 2);
-  Module['_Z3_get_quantifier_no_pattern_ast'] = _Z3_get_quantifier_no_pattern_ast = createExportWrapper('Z3_get_quantifier_no_pattern_ast', 3);
-  Module['_Z3_get_quantifier_bound_name'] = _Z3_get_quantifier_bound_name = createExportWrapper('Z3_get_quantifier_bound_name', 3);
-  Module['_Z3_get_quantifier_bound_sort'] = _Z3_get_quantifier_bound_sort = createExportWrapper('Z3_get_quantifier_bound_sort', 3);
-  Module['_Z3_get_quantifier_body'] = _Z3_get_quantifier_body = createExportWrapper('Z3_get_quantifier_body', 2);
-  Module['_Z3_get_quantifier_num_bound'] = _Z3_get_quantifier_num_bound = createExportWrapper('Z3_get_quantifier_num_bound', 2);
-  Module['_Z3_get_pattern_num_terms'] = _Z3_get_pattern_num_terms = createExportWrapper('Z3_get_pattern_num_terms', 2);
-  Module['_Z3_get_pattern'] = _Z3_get_pattern = createExportWrapper('Z3_get_pattern', 3);
-  Module['_Z3_pattern_to_ast'] = _Z3_pattern_to_ast = createExportWrapper('Z3_pattern_to_ast', 2);
-  Module['_Z3_pattern_to_string'] = _Z3_pattern_to_string = createExportWrapper('Z3_pattern_to_string', 2);
-  Module['_Z3_mk_params'] = _Z3_mk_params = createExportWrapper('Z3_mk_params', 1);
-  Module['_Z3_params_inc_ref'] = _Z3_params_inc_ref = createExportWrapper('Z3_params_inc_ref', 2);
-  Module['_Z3_params_dec_ref'] = _Z3_params_dec_ref = createExportWrapper('Z3_params_dec_ref', 2);
-  Module['_Z3_params_set_bool'] = _Z3_params_set_bool = createExportWrapper('Z3_params_set_bool', 4);
-  Module['_Z3_params_set_uint'] = _Z3_params_set_uint = createExportWrapper('Z3_params_set_uint', 4);
-  Module['_Z3_params_set_double'] = _Z3_params_set_double = createExportWrapper('Z3_params_set_double', 4);
-  Module['_Z3_params_set_symbol'] = _Z3_params_set_symbol = createExportWrapper('Z3_params_set_symbol', 4);
-  Module['_Z3_params_to_string'] = _Z3_params_to_string = createExportWrapper('Z3_params_to_string', 2);
-  Module['_Z3_params_validate'] = _Z3_params_validate = createExportWrapper('Z3_params_validate', 3);
-  Module['_Z3_param_descrs_inc_ref'] = _Z3_param_descrs_inc_ref = createExportWrapper('Z3_param_descrs_inc_ref', 2);
-  Module['_Z3_param_descrs_dec_ref'] = _Z3_param_descrs_dec_ref = createExportWrapper('Z3_param_descrs_dec_ref', 2);
-  Module['_Z3_param_descrs_get_kind'] = _Z3_param_descrs_get_kind = createExportWrapper('Z3_param_descrs_get_kind', 3);
-  Module['_Z3_param_descrs_size'] = _Z3_param_descrs_size = createExportWrapper('Z3_param_descrs_size', 2);
-  Module['_Z3_param_descrs_get_name'] = _Z3_param_descrs_get_name = createExportWrapper('Z3_param_descrs_get_name', 3);
-  Module['_Z3_param_descrs_get_documentation'] = _Z3_param_descrs_get_documentation = createExportWrapper('Z3_param_descrs_get_documentation', 3);
-  Module['_Z3_param_descrs_to_string'] = _Z3_param_descrs_to_string = createExportWrapper('Z3_param_descrs_to_string', 2);
-  Module['_Z3_mk_numeral'] = _Z3_mk_numeral = createExportWrapper('Z3_mk_numeral', 3);
-  Module['_Z3_mk_int'] = _Z3_mk_int = createExportWrapper('Z3_mk_int', 3);
-  Module['_Z3_mk_unsigned_int'] = _Z3_mk_unsigned_int = createExportWrapper('Z3_mk_unsigned_int', 3);
-  Module['_Z3_mk_int64'] = _Z3_mk_int64 = createExportWrapper('Z3_mk_int64', 3);
-  Module['_Z3_mk_unsigned_int64'] = _Z3_mk_unsigned_int64 = createExportWrapper('Z3_mk_unsigned_int64', 3);
-  Module['_Z3_is_numeral_ast'] = _Z3_is_numeral_ast = createExportWrapper('Z3_is_numeral_ast', 2);
-  Module['_Z3_get_numeral_binary_string'] = _Z3_get_numeral_binary_string = createExportWrapper('Z3_get_numeral_binary_string', 2);
-  Module['_Z3_get_numeral_string'] = _Z3_get_numeral_string = createExportWrapper('Z3_get_numeral_string', 2);
-  Module['_Z3_get_numeral_double'] = _Z3_get_numeral_double = createExportWrapper('Z3_get_numeral_double', 2);
-  Module['_Z3_get_numeral_decimal_string'] = _Z3_get_numeral_decimal_string = createExportWrapper('Z3_get_numeral_decimal_string', 3);
-  Module['_Z3_get_numeral_small'] = _Z3_get_numeral_small = createExportWrapper('Z3_get_numeral_small', 4);
-  Module['_Z3_get_numeral_int'] = _Z3_get_numeral_int = createExportWrapper('Z3_get_numeral_int', 3);
-  Module['_Z3_get_numeral_int64'] = _Z3_get_numeral_int64 = createExportWrapper('Z3_get_numeral_int64', 3);
-  Module['_Z3_get_numeral_uint'] = _Z3_get_numeral_uint = createExportWrapper('Z3_get_numeral_uint', 3);
-  Module['_Z3_get_numeral_uint64'] = _Z3_get_numeral_uint64 = createExportWrapper('Z3_get_numeral_uint64', 3);
-  Module['_Z3_get_numeral_rational_int64'] = _Z3_get_numeral_rational_int64 = createExportWrapper('Z3_get_numeral_rational_int64', 4);
-  Module['_Z3_mk_bv_numeral'] = _Z3_mk_bv_numeral = createExportWrapper('Z3_mk_bv_numeral', 3);
-  Module['_Z3_mk_parser_context'] = _Z3_mk_parser_context = createExportWrapper('Z3_mk_parser_context', 1);
-  Module['_Z3_parser_context_inc_ref'] = _Z3_parser_context_inc_ref = createExportWrapper('Z3_parser_context_inc_ref', 2);
-  Module['_Z3_parser_context_dec_ref'] = _Z3_parser_context_dec_ref = createExportWrapper('Z3_parser_context_dec_ref', 2);
-  Module['_Z3_parser_context_add_sort'] = _Z3_parser_context_add_sort = createExportWrapper('Z3_parser_context_add_sort', 3);
-  Module['_Z3_parser_context_add_decl'] = _Z3_parser_context_add_decl = createExportWrapper('Z3_parser_context_add_decl', 3);
-  Module['_Z3_parser_context_from_string'] = _Z3_parser_context_from_string = createExportWrapper('Z3_parser_context_from_string', 3);
-  Module['_Z3_parse_smtlib2_string'] = _Z3_parse_smtlib2_string = createExportWrapper('Z3_parse_smtlib2_string', 8);
-  Module['_Z3_parse_smtlib2_file'] = _Z3_parse_smtlib2_file = createExportWrapper('Z3_parse_smtlib2_file', 8);
-  Module['_free'] = _free = createExportWrapper('free', 1);
-  Module['_malloc'] = _malloc = createExportWrapper('malloc', 1);
-  _fflush = createExportWrapper('fflush', 1);
-  __emscripten_tls_init = createExportWrapper('_emscripten_tls_init', 0);
-  __emscripten_thread_init = createExportWrapper('_emscripten_thread_init', 6);
-  __emscripten_thread_crashed = createExportWrapper('_emscripten_thread_crashed', 0);
-  _emscripten_stack_get_end = wasmExports['emscripten_stack_get_end'];
-  _emscripten_stack_get_base = wasmExports['emscripten_stack_get_base'];
-  __emscripten_run_js_on_main_thread = createExportWrapper('_emscripten_run_js_on_main_thread', 5);
-  __emscripten_thread_free_data = createExportWrapper('_emscripten_thread_free_data', 1);
-  __emscripten_thread_exit = createExportWrapper('_emscripten_thread_exit', 1);
-  _strerror = createExportWrapper('strerror', 1);
-  __emscripten_check_mailbox = createExportWrapper('_emscripten_check_mailbox', 0);
-  _setThrew = createExportWrapper('setThrew', 2);
-  __emscripten_tempret_set = createExportWrapper('_emscripten_tempret_set', 1);
-  _emscripten_stack_init = wasmExports['emscripten_stack_init'];
-  _emscripten_stack_set_limits = wasmExports['emscripten_stack_set_limits'];
-  _emscripten_stack_get_free = wasmExports['emscripten_stack_get_free'];
-  __emscripten_stack_restore = wasmExports['_emscripten_stack_restore'];
-  __emscripten_stack_alloc = wasmExports['_emscripten_stack_alloc'];
-  _emscripten_stack_get_current = wasmExports['emscripten_stack_get_current'];
-  ___cxa_decrement_exception_refcount = createExportWrapper('__cxa_decrement_exception_refcount', 1);
-  ___cxa_increment_exception_refcount = createExportWrapper('__cxa_increment_exception_refcount', 1);
-  ___get_exception_message = createExportWrapper('__get_exception_message', 3);
-  ___cxa_can_catch = createExportWrapper('__cxa_can_catch', 3);
-  ___cxa_get_exception_ptr = createExportWrapper('__cxa_get_exception_ptr', 1);
-}
-  var wasmImports;
-  function assignWasmImports() {
-    wasmImports = {
+var wasmImports;
+function assignWasmImports() {
+  wasmImports = {
     /** @export */
     __assert_fail: ___assert_fail,
     /** @export */
@@ -7706,6 +5696,8 @@ function assignWasmExports(wasmExports) {
     /** @export */
     _abort_js: __abort_js,
     /** @export */
+    _emscripten_get_now_is_monotonic: __emscripten_get_now_is_monotonic,
+    /** @export */
     _emscripten_init_main_thread_js: __emscripten_init_main_thread_js,
     /** @export */
     _emscripten_notify_mailbox_postmessage: __emscripten_notify_mailbox_postmessage,
@@ -7720,21 +5712,17 @@ function assignWasmExports(wasmExports) {
     /** @export */
     _tzset_js: __tzset_js,
     /** @export */
-    clock_time_get: _clock_time_get,
-    /** @export */
     emscripten_asm_const_async_on_main_thread: _emscripten_asm_const_async_on_main_thread,
     /** @export */
     emscripten_asm_const_int: _emscripten_asm_const_int,
     /** @export */
     emscripten_check_blocking_allowed: _emscripten_check_blocking_allowed,
     /** @export */
+    emscripten_date_now: _emscripten_date_now,
+    /** @export */
     emscripten_exit_with_live_runtime: _emscripten_exit_with_live_runtime,
     /** @export */
-    emscripten_get_heap_max: _emscripten_get_heap_max,
-    /** @export */
     emscripten_get_now: _emscripten_get_now,
-    /** @export */
-    emscripten_num_logical_cores: _emscripten_num_logical_cores,
     /** @export */
     emscripten_resize_heap: _emscripten_resize_heap,
     /** @export */
@@ -7766,8 +5754,6 @@ function assignWasmExports(wasmExports) {
     /** @export */
     invoke_fiii,
     /** @export */
-    invoke_fiiii,
-    /** @export */
     invoke_i,
     /** @export */
     invoke_id,
@@ -7781,6 +5767,8 @@ function assignWasmExports(wasmExports) {
     invoke_iiid,
     /** @export */
     invoke_iiii,
+    /** @export */
+    invoke_iiiif,
     /** @export */
     invoke_iiiii,
     /** @export */
@@ -7890,8 +5878,837 @@ function assignWasmExports(wasmExports) {
     /** @export */
     proc_exit: _proc_exit
   };
-  }
-  
+}
+var wasmExports = createWasm();
+var ___wasm_call_ctors = createExportWrapper('__wasm_call_ctors', 0);
+var _Z3_get_error_msg = Module['_Z3_get_error_msg'] = createExportWrapper('Z3_get_error_msg', 2);
+var ___cxa_free_exception = createExportWrapper('__cxa_free_exception', 1);
+var _set_throwy_error_handler = Module['_set_throwy_error_handler'] = createExportWrapper('set_throwy_error_handler', 1);
+var _set_noop_error_handler = Module['_set_noop_error_handler'] = createExportWrapper('set_noop_error_handler', 1);
+var _async_Z3_eval_smtlib2_string = Module['_async_Z3_eval_smtlib2_string'] = createExportWrapper('async_Z3_eval_smtlib2_string', 2);
+var _async_Z3_simplify = Module['_async_Z3_simplify'] = createExportWrapper('async_Z3_simplify', 2);
+var _async_Z3_simplify_ex = Module['_async_Z3_simplify_ex'] = createExportWrapper('async_Z3_simplify_ex', 3);
+var _async_Z3_solver_check = Module['_async_Z3_solver_check'] = createExportWrapper('async_Z3_solver_check', 2);
+var _async_Z3_solver_check_assumptions = Module['_async_Z3_solver_check_assumptions'] = createExportWrapper('async_Z3_solver_check_assumptions', 4);
+var _async_Z3_solver_cube = Module['_async_Z3_solver_cube'] = createExportWrapper('async_Z3_solver_cube', 4);
+var _async_Z3_solver_get_consequences = Module['_async_Z3_solver_get_consequences'] = createExportWrapper('async_Z3_solver_get_consequences', 5);
+var _async_Z3_tactic_apply = Module['_async_Z3_tactic_apply'] = createExportWrapper('async_Z3_tactic_apply', 3);
+var _async_Z3_tactic_apply_ex = Module['_async_Z3_tactic_apply_ex'] = createExportWrapper('async_Z3_tactic_apply_ex', 4);
+var _async_Z3_optimize_check = Module['_async_Z3_optimize_check'] = createExportWrapper('async_Z3_optimize_check', 4);
+var _async_Z3_algebraic_roots = Module['_async_Z3_algebraic_roots'] = createExportWrapper('async_Z3_algebraic_roots', 4);
+var _async_Z3_algebraic_eval = Module['_async_Z3_algebraic_eval'] = createExportWrapper('async_Z3_algebraic_eval', 4);
+var _async_Z3_fixedpoint_query = Module['_async_Z3_fixedpoint_query'] = createExportWrapper('async_Z3_fixedpoint_query', 3);
+var _async_Z3_fixedpoint_query_relations = Module['_async_Z3_fixedpoint_query_relations'] = createExportWrapper('async_Z3_fixedpoint_query_relations', 4);
+var _async_Z3_fixedpoint_query_from_lvl = Module['_async_Z3_fixedpoint_query_from_lvl'] = createExportWrapper('async_Z3_fixedpoint_query_from_lvl', 4);
+var _async_Z3_polynomial_subresultants = Module['_async_Z3_polynomial_subresultants'] = createExportWrapper('async_Z3_polynomial_subresultants', 4);
+var _Z3_eval_smtlib2_string = Module['_Z3_eval_smtlib2_string'] = createExportWrapper('Z3_eval_smtlib2_string', 2);
+var _Z3_simplify = Module['_Z3_simplify'] = createExportWrapper('Z3_simplify', 2);
+var _Z3_simplify_ex = Module['_Z3_simplify_ex'] = createExportWrapper('Z3_simplify_ex', 3);
+var _Z3_solver_check = Module['_Z3_solver_check'] = createExportWrapper('Z3_solver_check', 2);
+var _Z3_solver_check_assumptions = Module['_Z3_solver_check_assumptions'] = createExportWrapper('Z3_solver_check_assumptions', 4);
+var _Z3_solver_cube = Module['_Z3_solver_cube'] = createExportWrapper('Z3_solver_cube', 4);
+var _Z3_solver_get_consequences = Module['_Z3_solver_get_consequences'] = createExportWrapper('Z3_solver_get_consequences', 5);
+var _Z3_tactic_apply = Module['_Z3_tactic_apply'] = createExportWrapper('Z3_tactic_apply', 3);
+var _Z3_tactic_apply_ex = Module['_Z3_tactic_apply_ex'] = createExportWrapper('Z3_tactic_apply_ex', 4);
+var _Z3_optimize_check = Module['_Z3_optimize_check'] = createExportWrapper('Z3_optimize_check', 4);
+var _Z3_algebraic_roots = Module['_Z3_algebraic_roots'] = createExportWrapper('Z3_algebraic_roots', 4);
+var _Z3_algebraic_eval = Module['_Z3_algebraic_eval'] = createExportWrapper('Z3_algebraic_eval', 4);
+var _Z3_fixedpoint_query = Module['_Z3_fixedpoint_query'] = createExportWrapper('Z3_fixedpoint_query', 3);
+var _Z3_fixedpoint_query_relations = Module['_Z3_fixedpoint_query_relations'] = createExportWrapper('Z3_fixedpoint_query_relations', 4);
+var _Z3_fixedpoint_query_from_lvl = Module['_Z3_fixedpoint_query_from_lvl'] = createExportWrapper('Z3_fixedpoint_query_from_lvl', 4);
+var _Z3_polynomial_subresultants = Module['_Z3_polynomial_subresultants'] = createExportWrapper('Z3_polynomial_subresultants', 4);
+var _Z3_stats_to_string = Module['_Z3_stats_to_string'] = createExportWrapper('Z3_stats_to_string', 2);
+var _Z3_stats_inc_ref = Module['_Z3_stats_inc_ref'] = createExportWrapper('Z3_stats_inc_ref', 2);
+var _Z3_stats_dec_ref = Module['_Z3_stats_dec_ref'] = createExportWrapper('Z3_stats_dec_ref', 2);
+var _Z3_stats_size = Module['_Z3_stats_size'] = createExportWrapper('Z3_stats_size', 2);
+var _Z3_stats_get_key = Module['_Z3_stats_get_key'] = createExportWrapper('Z3_stats_get_key', 3);
+var _Z3_stats_is_uint = Module['_Z3_stats_is_uint'] = createExportWrapper('Z3_stats_is_uint', 3);
+var _Z3_stats_is_double = Module['_Z3_stats_is_double'] = createExportWrapper('Z3_stats_is_double', 3);
+var _Z3_stats_get_uint_value = Module['_Z3_stats_get_uint_value'] = createExportWrapper('Z3_stats_get_uint_value', 3);
+var _Z3_stats_get_double_value = Module['_Z3_stats_get_double_value'] = createExportWrapper('Z3_stats_get_double_value', 3);
+var _Z3_get_estimated_alloc_size = Module['_Z3_get_estimated_alloc_size'] = createExportWrapper('Z3_get_estimated_alloc_size', 0);
+var _Z3_mk_simple_solver = Module['_Z3_mk_simple_solver'] = createExportWrapper('Z3_mk_simple_solver', 1);
+var _Z3_mk_solver = Module['_Z3_mk_solver'] = createExportWrapper('Z3_mk_solver', 1);
+var _Z3_mk_solver_for_logic = Module['_Z3_mk_solver_for_logic'] = createExportWrapper('Z3_mk_solver_for_logic', 2);
+var _Z3_mk_solver_from_tactic = Module['_Z3_mk_solver_from_tactic'] = createExportWrapper('Z3_mk_solver_from_tactic', 2);
+var _Z3_solver_add_simplifier = Module['_Z3_solver_add_simplifier'] = createExportWrapper('Z3_solver_add_simplifier', 3);
+var _Z3_solver_translate = Module['_Z3_solver_translate'] = createExportWrapper('Z3_solver_translate', 3);
+var _Z3_solver_import_model_converter = Module['_Z3_solver_import_model_converter'] = createExportWrapper('Z3_solver_import_model_converter', 3);
+var _Z3_solver_from_string = Module['_Z3_solver_from_string'] = createExportWrapper('Z3_solver_from_string', 3);
+var _Z3_solver_from_file = Module['_Z3_solver_from_file'] = createExportWrapper('Z3_solver_from_file', 3);
+var _Z3_solver_get_help = Module['_Z3_solver_get_help'] = createExportWrapper('Z3_solver_get_help', 2);
+var _Z3_solver_get_param_descrs = Module['_Z3_solver_get_param_descrs'] = createExportWrapper('Z3_solver_get_param_descrs', 2);
+var _Z3_solver_set_params = Module['_Z3_solver_set_params'] = createExportWrapper('Z3_solver_set_params', 3);
+var _Z3_solver_inc_ref = Module['_Z3_solver_inc_ref'] = createExportWrapper('Z3_solver_inc_ref', 2);
+var _Z3_solver_dec_ref = Module['_Z3_solver_dec_ref'] = createExportWrapper('Z3_solver_dec_ref', 2);
+var _Z3_solver_push = Module['_Z3_solver_push'] = createExportWrapper('Z3_solver_push', 2);
+var _Z3_solver_interrupt = Module['_Z3_solver_interrupt'] = createExportWrapper('Z3_solver_interrupt', 2);
+var _Z3_solver_pop = Module['_Z3_solver_pop'] = createExportWrapper('Z3_solver_pop', 3);
+var _Z3_solver_reset = Module['_Z3_solver_reset'] = createExportWrapper('Z3_solver_reset', 2);
+var _Z3_solver_get_num_scopes = Module['_Z3_solver_get_num_scopes'] = createExportWrapper('Z3_solver_get_num_scopes', 2);
+var _Z3_solver_assert = Module['_Z3_solver_assert'] = createExportWrapper('Z3_solver_assert', 3);
+var _Z3_solver_assert_and_track = Module['_Z3_solver_assert_and_track'] = createExportWrapper('Z3_solver_assert_and_track', 4);
+var _Z3_solver_get_assertions = Module['_Z3_solver_get_assertions'] = createExportWrapper('Z3_solver_get_assertions', 2);
+var _Z3_solver_get_units = Module['_Z3_solver_get_units'] = createExportWrapper('Z3_solver_get_units', 2);
+var _Z3_solver_get_non_units = Module['_Z3_solver_get_non_units'] = createExportWrapper('Z3_solver_get_non_units', 2);
+var _Z3_solver_get_levels = Module['_Z3_solver_get_levels'] = createExportWrapper('Z3_solver_get_levels', 5);
+var _Z3_solver_get_trail = Module['_Z3_solver_get_trail'] = createExportWrapper('Z3_solver_get_trail', 2);
+var _pthread_self = () => (_pthread_self = wasmExports['pthread_self'])();
+var _Z3_ast_vector_size = Module['_Z3_ast_vector_size'] = createExportWrapper('Z3_ast_vector_size', 2);
+var _Z3_ast_vector_get = Module['_Z3_ast_vector_get'] = createExportWrapper('Z3_ast_vector_get', 3);
+var _Z3_solver_get_model = Module['_Z3_solver_get_model'] = createExportWrapper('Z3_solver_get_model', 2);
+var _Z3_solver_get_proof = Module['_Z3_solver_get_proof'] = createExportWrapper('Z3_solver_get_proof', 2);
+var _Z3_solver_get_unsat_core = Module['_Z3_solver_get_unsat_core'] = createExportWrapper('Z3_solver_get_unsat_core', 2);
+var _Z3_solver_get_reason_unknown = Module['_Z3_solver_get_reason_unknown'] = createExportWrapper('Z3_solver_get_reason_unknown', 2);
+var _Z3_solver_get_statistics = Module['_Z3_solver_get_statistics'] = createExportWrapper('Z3_solver_get_statistics', 2);
+var _Z3_solver_to_string = Module['_Z3_solver_to_string'] = createExportWrapper('Z3_solver_to_string', 2);
+var _Z3_solver_to_dimacs_string = Module['_Z3_solver_to_dimacs_string'] = createExportWrapper('Z3_solver_to_dimacs_string', 3);
+var _Z3_get_implied_equalities = Module['_Z3_get_implied_equalities'] = createExportWrapper('Z3_get_implied_equalities', 5);
+var _Z3_solver_congruence_root = Module['_Z3_solver_congruence_root'] = createExportWrapper('Z3_solver_congruence_root', 3);
+var _Z3_solver_congruence_next = Module['_Z3_solver_congruence_next'] = createExportWrapper('Z3_solver_congruence_next', 3);
+var _Z3_solver_congruence_explain = Module['_Z3_solver_congruence_explain'] = createExportWrapper('Z3_solver_congruence_explain', 4);
+var _Z3_solver_solve_for = Module['_Z3_solver_solve_for'] = createExportWrapper('Z3_solver_solve_for', 5);
+var _Z3_solver_register_on_clause = Module['_Z3_solver_register_on_clause'] = createExportWrapper('Z3_solver_register_on_clause', 4);
+var _Z3_solver_propagate_init = Module['_Z3_solver_propagate_init'] = createExportWrapper('Z3_solver_propagate_init', 6);
+var _Z3_solver_propagate_fixed = Module['_Z3_solver_propagate_fixed'] = createExportWrapper('Z3_solver_propagate_fixed', 3);
+var _Z3_solver_propagate_final = Module['_Z3_solver_propagate_final'] = createExportWrapper('Z3_solver_propagate_final', 3);
+var _Z3_solver_propagate_eq = Module['_Z3_solver_propagate_eq'] = createExportWrapper('Z3_solver_propagate_eq', 3);
+var _Z3_solver_propagate_diseq = Module['_Z3_solver_propagate_diseq'] = createExportWrapper('Z3_solver_propagate_diseq', 3);
+var _Z3_solver_propagate_register = Module['_Z3_solver_propagate_register'] = createExportWrapper('Z3_solver_propagate_register', 3);
+var _Z3_solver_propagate_register_cb = Module['_Z3_solver_propagate_register_cb'] = createExportWrapper('Z3_solver_propagate_register_cb', 3);
+var _Z3_solver_propagate_consequence = Module['_Z3_solver_propagate_consequence'] = createExportWrapper('Z3_solver_propagate_consequence', 8);
+var _Z3_solver_propagate_created = Module['_Z3_solver_propagate_created'] = createExportWrapper('Z3_solver_propagate_created', 3);
+var _Z3_solver_propagate_decide = Module['_Z3_solver_propagate_decide'] = createExportWrapper('Z3_solver_propagate_decide', 3);
+var _Z3_solver_propagate_on_binding = Module['_Z3_solver_propagate_on_binding'] = createExportWrapper('Z3_solver_propagate_on_binding', 3);
+var _Z3_solver_next_split = Module['_Z3_solver_next_split'] = createExportWrapper('Z3_solver_next_split', 5);
+var _Z3_solver_propagate_declare = Module['_Z3_solver_propagate_declare'] = createExportWrapper('Z3_solver_propagate_declare', 5);
+var _Z3_solver_set_initial_value = Module['_Z3_solver_set_initial_value'] = createExportWrapper('Z3_solver_set_initial_value', 4);
+var _Z3_mk_goal = Module['_Z3_mk_goal'] = createExportWrapper('Z3_mk_goal', 4);
+var _Z3_goal_inc_ref = Module['_Z3_goal_inc_ref'] = createExportWrapper('Z3_goal_inc_ref', 2);
+var _Z3_goal_dec_ref = Module['_Z3_goal_dec_ref'] = createExportWrapper('Z3_goal_dec_ref', 2);
+var _Z3_goal_precision = Module['_Z3_goal_precision'] = createExportWrapper('Z3_goal_precision', 2);
+var _Z3_goal_assert = Module['_Z3_goal_assert'] = createExportWrapper('Z3_goal_assert', 3);
+var _Z3_goal_inconsistent = Module['_Z3_goal_inconsistent'] = createExportWrapper('Z3_goal_inconsistent', 2);
+var _Z3_goal_depth = Module['_Z3_goal_depth'] = createExportWrapper('Z3_goal_depth', 2);
+var _Z3_goal_reset = Module['_Z3_goal_reset'] = createExportWrapper('Z3_goal_reset', 2);
+var _Z3_goal_size = Module['_Z3_goal_size'] = createExportWrapper('Z3_goal_size', 2);
+var _Z3_goal_formula = Module['_Z3_goal_formula'] = createExportWrapper('Z3_goal_formula', 3);
+var _Z3_goal_num_exprs = Module['_Z3_goal_num_exprs'] = createExportWrapper('Z3_goal_num_exprs', 2);
+var _Z3_goal_is_decided_sat = Module['_Z3_goal_is_decided_sat'] = createExportWrapper('Z3_goal_is_decided_sat', 2);
+var _Z3_goal_is_decided_unsat = Module['_Z3_goal_is_decided_unsat'] = createExportWrapper('Z3_goal_is_decided_unsat', 2);
+var _Z3_goal_convert_model = Module['_Z3_goal_convert_model'] = createExportWrapper('Z3_goal_convert_model', 3);
+var _Z3_goal_translate = Module['_Z3_goal_translate'] = createExportWrapper('Z3_goal_translate', 3);
+var _Z3_goal_to_string = Module['_Z3_goal_to_string'] = createExportWrapper('Z3_goal_to_string', 2);
+var _Z3_goal_to_dimacs_string = Module['_Z3_goal_to_dimacs_string'] = createExportWrapper('Z3_goal_to_dimacs_string', 3);
+var _Z3_mk_context = Module['_Z3_mk_context'] = createExportWrapper('Z3_mk_context', 1);
+var _Z3_mk_context_rc = Module['_Z3_mk_context_rc'] = createExportWrapper('Z3_mk_context_rc', 1);
+var _Z3_del_context = Module['_Z3_del_context'] = createExportWrapper('Z3_del_context', 1);
+var _Z3_interrupt = Module['_Z3_interrupt'] = createExportWrapper('Z3_interrupt', 1);
+var _Z3_enable_concurrent_dec_ref = Module['_Z3_enable_concurrent_dec_ref'] = createExportWrapper('Z3_enable_concurrent_dec_ref', 1);
+var _Z3_toggle_warning_messages = Module['_Z3_toggle_warning_messages'] = createExportWrapper('Z3_toggle_warning_messages', 1);
+var _Z3_inc_ref = Module['_Z3_inc_ref'] = createExportWrapper('Z3_inc_ref', 2);
+var _Z3_dec_ref = Module['_Z3_dec_ref'] = createExportWrapper('Z3_dec_ref', 2);
+var _Z3_get_version = Module['_Z3_get_version'] = createExportWrapper('Z3_get_version', 4);
+var _Z3_get_full_version = Module['_Z3_get_full_version'] = createExportWrapper('Z3_get_full_version', 0);
+var _Z3_enable_trace = Module['_Z3_enable_trace'] = createExportWrapper('Z3_enable_trace', 1);
+var _Z3_disable_trace = Module['_Z3_disable_trace'] = createExportWrapper('Z3_disable_trace', 1);
+var _Z3_reset_memory = Module['_Z3_reset_memory'] = createExportWrapper('Z3_reset_memory', 0);
+var _Z3_finalize_memory = Module['_Z3_finalize_memory'] = createExportWrapper('Z3_finalize_memory', 0);
+var _Z3_get_error_code = Module['_Z3_get_error_code'] = createExportWrapper('Z3_get_error_code', 1);
+var _Z3_set_error = Module['_Z3_set_error'] = createExportWrapper('Z3_set_error', 2);
+var _Z3_set_ast_print_mode = Module['_Z3_set_ast_print_mode'] = createExportWrapper('Z3_set_ast_print_mode', 2);
+var _Z3_get_relation_arity = Module['_Z3_get_relation_arity'] = createExportWrapper('Z3_get_relation_arity', 2);
+var _Z3_get_relation_column = Module['_Z3_get_relation_column'] = createExportWrapper('Z3_get_relation_column', 3);
+var _Z3_mk_finite_domain_sort = Module['_Z3_mk_finite_domain_sort'] = createExportWrapper('Z3_mk_finite_domain_sort', 3);
+var _Z3_get_finite_domain_sort_size = Module['_Z3_get_finite_domain_sort_size'] = createExportWrapper('Z3_get_finite_domain_sort_size', 3);
+var _Z3_mk_fixedpoint = Module['_Z3_mk_fixedpoint'] = createExportWrapper('Z3_mk_fixedpoint', 1);
+var _Z3_fixedpoint_inc_ref = Module['_Z3_fixedpoint_inc_ref'] = createExportWrapper('Z3_fixedpoint_inc_ref', 2);
+var _Z3_fixedpoint_dec_ref = Module['_Z3_fixedpoint_dec_ref'] = createExportWrapper('Z3_fixedpoint_dec_ref', 2);
+var _Z3_fixedpoint_assert = Module['_Z3_fixedpoint_assert'] = createExportWrapper('Z3_fixedpoint_assert', 3);
+var _Z3_fixedpoint_add_rule = Module['_Z3_fixedpoint_add_rule'] = createExportWrapper('Z3_fixedpoint_add_rule', 4);
+var _Z3_fixedpoint_add_fact = Module['_Z3_fixedpoint_add_fact'] = createExportWrapper('Z3_fixedpoint_add_fact', 5);
+var _Z3_get_sort_kind = Module['_Z3_get_sort_kind'] = createExportWrapper('Z3_get_sort_kind', 2);
+var _Z3_fixedpoint_get_answer = Module['_Z3_fixedpoint_get_answer'] = createExportWrapper('Z3_fixedpoint_get_answer', 2);
+var _Z3_fixedpoint_get_reason_unknown = Module['_Z3_fixedpoint_get_reason_unknown'] = createExportWrapper('Z3_fixedpoint_get_reason_unknown', 2);
+var _Z3_fixedpoint_to_string = Module['_Z3_fixedpoint_to_string'] = createExportWrapper('Z3_fixedpoint_to_string', 4);
+var _Z3_fixedpoint_from_string = Module['_Z3_fixedpoint_from_string'] = createExportWrapper('Z3_fixedpoint_from_string', 3);
+var _Z3_fixedpoint_from_file = Module['_Z3_fixedpoint_from_file'] = createExportWrapper('Z3_fixedpoint_from_file', 3);
+var _Z3_fixedpoint_get_statistics = Module['_Z3_fixedpoint_get_statistics'] = createExportWrapper('Z3_fixedpoint_get_statistics', 2);
+var _Z3_fixedpoint_register_relation = Module['_Z3_fixedpoint_register_relation'] = createExportWrapper('Z3_fixedpoint_register_relation', 3);
+var _Z3_fixedpoint_set_predicate_representation = Module['_Z3_fixedpoint_set_predicate_representation'] = createExportWrapper('Z3_fixedpoint_set_predicate_representation', 5);
+var _Z3_fixedpoint_get_rules = Module['_Z3_fixedpoint_get_rules'] = createExportWrapper('Z3_fixedpoint_get_rules', 2);
+var _Z3_fixedpoint_get_assertions = Module['_Z3_fixedpoint_get_assertions'] = createExportWrapper('Z3_fixedpoint_get_assertions', 2);
+var _Z3_fixedpoint_update_rule = Module['_Z3_fixedpoint_update_rule'] = createExportWrapper('Z3_fixedpoint_update_rule', 4);
+var _Z3_fixedpoint_get_num_levels = Module['_Z3_fixedpoint_get_num_levels'] = createExportWrapper('Z3_fixedpoint_get_num_levels', 3);
+var _Z3_fixedpoint_get_cover_delta = Module['_Z3_fixedpoint_get_cover_delta'] = createExportWrapper('Z3_fixedpoint_get_cover_delta', 4);
+var _Z3_fixedpoint_add_cover = Module['_Z3_fixedpoint_add_cover'] = createExportWrapper('Z3_fixedpoint_add_cover', 5);
+var _Z3_fixedpoint_get_help = Module['_Z3_fixedpoint_get_help'] = createExportWrapper('Z3_fixedpoint_get_help', 2);
+var _Z3_fixedpoint_get_param_descrs = Module['_Z3_fixedpoint_get_param_descrs'] = createExportWrapper('Z3_fixedpoint_get_param_descrs', 2);
+var _Z3_fixedpoint_set_params = Module['_Z3_fixedpoint_set_params'] = createExportWrapper('Z3_fixedpoint_set_params', 3);
+var _Z3_fixedpoint_get_ground_sat_answer = Module['_Z3_fixedpoint_get_ground_sat_answer'] = createExportWrapper('Z3_fixedpoint_get_ground_sat_answer', 2);
+var _Z3_fixedpoint_get_rules_along_trace = Module['_Z3_fixedpoint_get_rules_along_trace'] = createExportWrapper('Z3_fixedpoint_get_rules_along_trace', 2);
+var _Z3_fixedpoint_get_rule_names_along_trace = Module['_Z3_fixedpoint_get_rule_names_along_trace'] = createExportWrapper('Z3_fixedpoint_get_rule_names_along_trace', 2);
+var _Z3_fixedpoint_add_invariant = Module['_Z3_fixedpoint_add_invariant'] = createExportWrapper('Z3_fixedpoint_add_invariant', 4);
+var _Z3_fixedpoint_get_reachable = Module['_Z3_fixedpoint_get_reachable'] = createExportWrapper('Z3_fixedpoint_get_reachable', 3);
+var _Z3_global_param_set = Module['_Z3_global_param_set'] = createExportWrapper('Z3_global_param_set', 2);
+var _Z3_global_param_reset_all = Module['_Z3_global_param_reset_all'] = createExportWrapper('Z3_global_param_reset_all', 0);
+var _Z3_global_param_get = Module['_Z3_global_param_get'] = createExportWrapper('Z3_global_param_get', 2);
+var _Z3_get_global_param_descrs = Module['_Z3_get_global_param_descrs'] = createExportWrapper('Z3_get_global_param_descrs', 1);
+var _Z3_mk_config = Module['_Z3_mk_config'] = createExportWrapper('Z3_mk_config', 0);
+var _Z3_del_config = Module['_Z3_del_config'] = createExportWrapper('Z3_del_config', 1);
+var _Z3_set_param_value = Module['_Z3_set_param_value'] = createExportWrapper('Z3_set_param_value', 3);
+var _Z3_update_param_value = Module['_Z3_update_param_value'] = createExportWrapper('Z3_update_param_value', 3);
+var _Z3_mk_seq_sort = Module['_Z3_mk_seq_sort'] = createExportWrapper('Z3_mk_seq_sort', 2);
+var _Z3_mk_re_sort = Module['_Z3_mk_re_sort'] = createExportWrapper('Z3_mk_re_sort', 2);
+var _Z3_mk_string = Module['_Z3_mk_string'] = createExportWrapper('Z3_mk_string', 2);
+var _Z3_mk_lstring = Module['_Z3_mk_lstring'] = createExportWrapper('Z3_mk_lstring', 3);
+var _Z3_mk_u32string = Module['_Z3_mk_u32string'] = createExportWrapper('Z3_mk_u32string', 3);
+var _Z3_mk_char = Module['_Z3_mk_char'] = createExportWrapper('Z3_mk_char', 2);
+var _Z3_mk_string_sort = Module['_Z3_mk_string_sort'] = createExportWrapper('Z3_mk_string_sort', 1);
+var _Z3_mk_char_sort = Module['_Z3_mk_char_sort'] = createExportWrapper('Z3_mk_char_sort', 1);
+var _Z3_is_seq_sort = Module['_Z3_is_seq_sort'] = createExportWrapper('Z3_is_seq_sort', 2);
+var _Z3_is_re_sort = Module['_Z3_is_re_sort'] = createExportWrapper('Z3_is_re_sort', 2);
+var _Z3_get_seq_sort_basis = Module['_Z3_get_seq_sort_basis'] = createExportWrapper('Z3_get_seq_sort_basis', 2);
+var _Z3_get_re_sort_basis = Module['_Z3_get_re_sort_basis'] = createExportWrapper('Z3_get_re_sort_basis', 2);
+var _Z3_is_char_sort = Module['_Z3_is_char_sort'] = createExportWrapper('Z3_is_char_sort', 2);
+var _Z3_is_string_sort = Module['_Z3_is_string_sort'] = createExportWrapper('Z3_is_string_sort', 2);
+var _Z3_is_string = Module['_Z3_is_string'] = createExportWrapper('Z3_is_string', 2);
+var _Z3_get_string = Module['_Z3_get_string'] = createExportWrapper('Z3_get_string', 2);
+var _Z3_get_lstring = Module['_Z3_get_lstring'] = createExportWrapper('Z3_get_lstring', 3);
+var _Z3_get_string_length = Module['_Z3_get_string_length'] = createExportWrapper('Z3_get_string_length', 2);
+var _Z3_get_string_contents = Module['_Z3_get_string_contents'] = createExportWrapper('Z3_get_string_contents', 4);
+var _Z3_mk_seq_empty = Module['_Z3_mk_seq_empty'] = createExportWrapper('Z3_mk_seq_empty', 2);
+var _Z3_mk_seq_unit = Module['_Z3_mk_seq_unit'] = createExportWrapper('Z3_mk_seq_unit', 2);
+var _Z3_mk_seq_concat = Module['_Z3_mk_seq_concat'] = createExportWrapper('Z3_mk_seq_concat', 3);
+var _Z3_mk_seq_prefix = Module['_Z3_mk_seq_prefix'] = createExportWrapper('Z3_mk_seq_prefix', 3);
+var _Z3_mk_seq_suffix = Module['_Z3_mk_seq_suffix'] = createExportWrapper('Z3_mk_seq_suffix', 3);
+var _Z3_mk_seq_contains = Module['_Z3_mk_seq_contains'] = createExportWrapper('Z3_mk_seq_contains', 3);
+var _Z3_mk_str_lt = Module['_Z3_mk_str_lt'] = createExportWrapper('Z3_mk_str_lt', 3);
+var _Z3_mk_str_le = Module['_Z3_mk_str_le'] = createExportWrapper('Z3_mk_str_le', 3);
+var _Z3_mk_string_to_code = Module['_Z3_mk_string_to_code'] = createExportWrapper('Z3_mk_string_to_code', 2);
+var _Z3_mk_string_from_code = Module['_Z3_mk_string_from_code'] = createExportWrapper('Z3_mk_string_from_code', 2);
+var _Z3_mk_seq_extract = Module['_Z3_mk_seq_extract'] = createExportWrapper('Z3_mk_seq_extract', 4);
+var _Z3_mk_seq_replace = Module['_Z3_mk_seq_replace'] = createExportWrapper('Z3_mk_seq_replace', 4);
+var _Z3_mk_seq_at = Module['_Z3_mk_seq_at'] = createExportWrapper('Z3_mk_seq_at', 3);
+var _Z3_mk_seq_nth = Module['_Z3_mk_seq_nth'] = createExportWrapper('Z3_mk_seq_nth', 3);
+var _Z3_mk_seq_length = Module['_Z3_mk_seq_length'] = createExportWrapper('Z3_mk_seq_length', 2);
+var _Z3_mk_seq_index = Module['_Z3_mk_seq_index'] = createExportWrapper('Z3_mk_seq_index', 4);
+var _Z3_mk_seq_last_index = Module['_Z3_mk_seq_last_index'] = createExportWrapper('Z3_mk_seq_last_index', 3);
+var _Z3_mk_seq_to_re = Module['_Z3_mk_seq_to_re'] = createExportWrapper('Z3_mk_seq_to_re', 2);
+var _Z3_mk_seq_in_re = Module['_Z3_mk_seq_in_re'] = createExportWrapper('Z3_mk_seq_in_re', 3);
+var _Z3_mk_int_to_str = Module['_Z3_mk_int_to_str'] = createExportWrapper('Z3_mk_int_to_str', 2);
+var _Z3_mk_str_to_int = Module['_Z3_mk_str_to_int'] = createExportWrapper('Z3_mk_str_to_int', 2);
+var _Z3_mk_ubv_to_str = Module['_Z3_mk_ubv_to_str'] = createExportWrapper('Z3_mk_ubv_to_str', 2);
+var _Z3_mk_sbv_to_str = Module['_Z3_mk_sbv_to_str'] = createExportWrapper('Z3_mk_sbv_to_str', 2);
+var _Z3_mk_re_loop = Module['_Z3_mk_re_loop'] = createExportWrapper('Z3_mk_re_loop', 4);
+var _Z3_mk_re_power = Module['_Z3_mk_re_power'] = createExportWrapper('Z3_mk_re_power', 3);
+var _Z3_mk_re_plus = Module['_Z3_mk_re_plus'] = createExportWrapper('Z3_mk_re_plus', 2);
+var _Z3_mk_re_star = Module['_Z3_mk_re_star'] = createExportWrapper('Z3_mk_re_star', 2);
+var _Z3_mk_re_option = Module['_Z3_mk_re_option'] = createExportWrapper('Z3_mk_re_option', 2);
+var _Z3_mk_re_complement = Module['_Z3_mk_re_complement'] = createExportWrapper('Z3_mk_re_complement', 2);
+var _Z3_mk_re_diff = Module['_Z3_mk_re_diff'] = createExportWrapper('Z3_mk_re_diff', 3);
+var _Z3_mk_re_union = Module['_Z3_mk_re_union'] = createExportWrapper('Z3_mk_re_union', 3);
+var _Z3_mk_re_intersect = Module['_Z3_mk_re_intersect'] = createExportWrapper('Z3_mk_re_intersect', 3);
+var _Z3_mk_re_concat = Module['_Z3_mk_re_concat'] = createExportWrapper('Z3_mk_re_concat', 3);
+var _Z3_mk_re_range = Module['_Z3_mk_re_range'] = createExportWrapper('Z3_mk_re_range', 3);
+var _Z3_mk_re_allchar = Module['_Z3_mk_re_allchar'] = createExportWrapper('Z3_mk_re_allchar', 2);
+var _Z3_mk_re_empty = Module['_Z3_mk_re_empty'] = createExportWrapper('Z3_mk_re_empty', 2);
+var _Z3_mk_re_full = Module['_Z3_mk_re_full'] = createExportWrapper('Z3_mk_re_full', 2);
+var _Z3_mk_char_le = Module['_Z3_mk_char_le'] = createExportWrapper('Z3_mk_char_le', 3);
+var _Z3_mk_char_to_int = Module['_Z3_mk_char_to_int'] = createExportWrapper('Z3_mk_char_to_int', 2);
+var _Z3_mk_char_to_bv = Module['_Z3_mk_char_to_bv'] = createExportWrapper('Z3_mk_char_to_bv', 2);
+var _Z3_mk_char_from_bv = Module['_Z3_mk_char_from_bv'] = createExportWrapper('Z3_mk_char_from_bv', 2);
+var _Z3_mk_char_is_digit = Module['_Z3_mk_char_is_digit'] = createExportWrapper('Z3_mk_char_is_digit', 2);
+var _Z3_mk_seq_map = Module['_Z3_mk_seq_map'] = createExportWrapper('Z3_mk_seq_map', 3);
+var _Z3_mk_seq_mapi = Module['_Z3_mk_seq_mapi'] = createExportWrapper('Z3_mk_seq_mapi', 4);
+var _Z3_mk_seq_foldl = Module['_Z3_mk_seq_foldl'] = createExportWrapper('Z3_mk_seq_foldl', 4);
+var _Z3_mk_seq_foldli = Module['_Z3_mk_seq_foldli'] = createExportWrapper('Z3_mk_seq_foldli', 5);
+var _Z3_mk_quantifier = Module['_Z3_mk_quantifier'] = createExportWrapper('Z3_mk_quantifier', 9);
+var _Z3_mk_quantifier_ex = Module['_Z3_mk_quantifier_ex'] = createExportWrapper('Z3_mk_quantifier_ex', 13);
+var _Z3_mk_forall = Module['_Z3_mk_forall'] = createExportWrapper('Z3_mk_forall', 8);
+var _Z3_mk_exists = Module['_Z3_mk_exists'] = createExportWrapper('Z3_mk_exists', 8);
+var _Z3_mk_lambda = Module['_Z3_mk_lambda'] = createExportWrapper('Z3_mk_lambda', 5);
+var _Z3_mk_lambda_const = Module['_Z3_mk_lambda_const'] = createExportWrapper('Z3_mk_lambda_const', 4);
+var _Z3_mk_quantifier_const_ex = Module['_Z3_mk_quantifier_const_ex'] = createExportWrapper('Z3_mk_quantifier_const_ex', 12);
+var _Z3_mk_quantifier_const = Module['_Z3_mk_quantifier_const'] = createExportWrapper('Z3_mk_quantifier_const', 8);
+var _Z3_mk_forall_const = Module['_Z3_mk_forall_const'] = createExportWrapper('Z3_mk_forall_const', 7);
+var _Z3_mk_exists_const = Module['_Z3_mk_exists_const'] = createExportWrapper('Z3_mk_exists_const', 7);
+var _Z3_mk_pattern = Module['_Z3_mk_pattern'] = createExportWrapper('Z3_mk_pattern', 3);
+var _Z3_mk_bound = Module['_Z3_mk_bound'] = createExportWrapper('Z3_mk_bound', 3);
+var _Z3_is_quantifier_forall = Module['_Z3_is_quantifier_forall'] = createExportWrapper('Z3_is_quantifier_forall', 2);
+var _Z3_is_quantifier_exists = Module['_Z3_is_quantifier_exists'] = createExportWrapper('Z3_is_quantifier_exists', 2);
+var _Z3_is_lambda = Module['_Z3_is_lambda'] = createExportWrapper('Z3_is_lambda', 2);
+var _Z3_get_quantifier_weight = Module['_Z3_get_quantifier_weight'] = createExportWrapper('Z3_get_quantifier_weight', 2);
+var _Z3_get_quantifier_skolem_id = Module['_Z3_get_quantifier_skolem_id'] = createExportWrapper('Z3_get_quantifier_skolem_id', 2);
+var _Z3_get_quantifier_id = Module['_Z3_get_quantifier_id'] = createExportWrapper('Z3_get_quantifier_id', 2);
+var _Z3_get_quantifier_num_patterns = Module['_Z3_get_quantifier_num_patterns'] = createExportWrapper('Z3_get_quantifier_num_patterns', 2);
+var _Z3_get_quantifier_pattern_ast = Module['_Z3_get_quantifier_pattern_ast'] = createExportWrapper('Z3_get_quantifier_pattern_ast', 3);
+var _Z3_get_quantifier_num_no_patterns = Module['_Z3_get_quantifier_num_no_patterns'] = createExportWrapper('Z3_get_quantifier_num_no_patterns', 2);
+var _Z3_get_quantifier_no_pattern_ast = Module['_Z3_get_quantifier_no_pattern_ast'] = createExportWrapper('Z3_get_quantifier_no_pattern_ast', 3);
+var _Z3_get_quantifier_bound_name = Module['_Z3_get_quantifier_bound_name'] = createExportWrapper('Z3_get_quantifier_bound_name', 3);
+var _Z3_get_quantifier_bound_sort = Module['_Z3_get_quantifier_bound_sort'] = createExportWrapper('Z3_get_quantifier_bound_sort', 3);
+var _Z3_get_quantifier_body = Module['_Z3_get_quantifier_body'] = createExportWrapper('Z3_get_quantifier_body', 2);
+var _Z3_get_quantifier_num_bound = Module['_Z3_get_quantifier_num_bound'] = createExportWrapper('Z3_get_quantifier_num_bound', 2);
+var _Z3_get_pattern_num_terms = Module['_Z3_get_pattern_num_terms'] = createExportWrapper('Z3_get_pattern_num_terms', 2);
+var _Z3_get_pattern = Module['_Z3_get_pattern'] = createExportWrapper('Z3_get_pattern', 3);
+var _Z3_pattern_to_ast = Module['_Z3_pattern_to_ast'] = createExportWrapper('Z3_pattern_to_ast', 2);
+var _Z3_pattern_to_string = Module['_Z3_pattern_to_string'] = createExportWrapper('Z3_pattern_to_string', 2);
+var _Z3_qe_model_project = Module['_Z3_qe_model_project'] = createExportWrapper('Z3_qe_model_project', 5);
+var _Z3_qe_model_project_skolem = Module['_Z3_qe_model_project_skolem'] = createExportWrapper('Z3_qe_model_project_skolem', 6);
+var _Z3_qe_model_project_with_witness = Module['_Z3_qe_model_project_with_witness'] = createExportWrapper('Z3_qe_model_project_with_witness', 6);
+var _Z3_model_extrapolate = Module['_Z3_model_extrapolate'] = createExportWrapper('Z3_model_extrapolate', 3);
+var _Z3_qe_lite = Module['_Z3_qe_lite'] = createExportWrapper('Z3_qe_lite', 3);
+var _Z3_mk_tuple_sort = Module['_Z3_mk_tuple_sort'] = createExportWrapper('Z3_mk_tuple_sort', 7);
+var _Z3_mk_enumeration_sort = Module['_Z3_mk_enumeration_sort'] = createExportWrapper('Z3_mk_enumeration_sort', 6);
+var _Z3_mk_list_sort = Module['_Z3_mk_list_sort'] = createExportWrapper('Z3_mk_list_sort', 9);
+var _Z3_mk_constructor = Module['_Z3_mk_constructor'] = createExportWrapper('Z3_mk_constructor', 7);
+var _Z3_constructor_num_fields = Module['_Z3_constructor_num_fields'] = createExportWrapper('Z3_constructor_num_fields', 2);
+var _Z3_query_constructor = Module['_Z3_query_constructor'] = createExportWrapper('Z3_query_constructor', 6);
+var _Z3_del_constructor = Module['_Z3_del_constructor'] = createExportWrapper('Z3_del_constructor', 2);
+var _Z3_mk_datatype = Module['_Z3_mk_datatype'] = createExportWrapper('Z3_mk_datatype', 4);
+var _Z3_mk_constructor_list = Module['_Z3_mk_constructor_list'] = createExportWrapper('Z3_mk_constructor_list', 3);
+var _Z3_del_constructor_list = Module['_Z3_del_constructor_list'] = createExportWrapper('Z3_del_constructor_list', 2);
+var _Z3_mk_datatype_sort = Module['_Z3_mk_datatype_sort'] = createExportWrapper('Z3_mk_datatype_sort', 2);
+var _Z3_mk_datatypes = Module['_Z3_mk_datatypes'] = createExportWrapper('Z3_mk_datatypes', 5);
+var _Z3_is_recursive_datatype_sort = Module['_Z3_is_recursive_datatype_sort'] = createExportWrapper('Z3_is_recursive_datatype_sort', 2);
+var _Z3_get_datatype_sort_num_constructors = Module['_Z3_get_datatype_sort_num_constructors'] = createExportWrapper('Z3_get_datatype_sort_num_constructors', 2);
+var _Z3_get_datatype_sort_constructor = Module['_Z3_get_datatype_sort_constructor'] = createExportWrapper('Z3_get_datatype_sort_constructor', 3);
+var _Z3_get_datatype_sort_recognizer = Module['_Z3_get_datatype_sort_recognizer'] = createExportWrapper('Z3_get_datatype_sort_recognizer', 3);
+var _Z3_get_datatype_sort_constructor_accessor = Module['_Z3_get_datatype_sort_constructor_accessor'] = createExportWrapper('Z3_get_datatype_sort_constructor_accessor', 4);
+var _Z3_get_tuple_sort_mk_decl = Module['_Z3_get_tuple_sort_mk_decl'] = createExportWrapper('Z3_get_tuple_sort_mk_decl', 2);
+var _Z3_get_tuple_sort_num_fields = Module['_Z3_get_tuple_sort_num_fields'] = createExportWrapper('Z3_get_tuple_sort_num_fields', 2);
+var _Z3_get_tuple_sort_field_decl = Module['_Z3_get_tuple_sort_field_decl'] = createExportWrapper('Z3_get_tuple_sort_field_decl', 3);
+var _Z3_datatype_update_field = Module['_Z3_datatype_update_field'] = createExportWrapper('Z3_datatype_update_field', 4);
+var _Z3_mk_optimize = Module['_Z3_mk_optimize'] = createExportWrapper('Z3_mk_optimize', 1);
+var _Z3_optimize_inc_ref = Module['_Z3_optimize_inc_ref'] = createExportWrapper('Z3_optimize_inc_ref', 2);
+var _Z3_optimize_dec_ref = Module['_Z3_optimize_dec_ref'] = createExportWrapper('Z3_optimize_dec_ref', 2);
+var _Z3_optimize_assert = Module['_Z3_optimize_assert'] = createExportWrapper('Z3_optimize_assert', 3);
+var _Z3_optimize_assert_and_track = Module['_Z3_optimize_assert_and_track'] = createExportWrapper('Z3_optimize_assert_and_track', 4);
+var _Z3_optimize_assert_soft = Module['_Z3_optimize_assert_soft'] = createExportWrapper('Z3_optimize_assert_soft', 5);
+var _Z3_optimize_maximize = Module['_Z3_optimize_maximize'] = createExportWrapper('Z3_optimize_maximize', 3);
+var _Z3_optimize_minimize = Module['_Z3_optimize_minimize'] = createExportWrapper('Z3_optimize_minimize', 3);
+var _Z3_optimize_push = Module['_Z3_optimize_push'] = createExportWrapper('Z3_optimize_push', 2);
+var _Z3_optimize_pop = Module['_Z3_optimize_pop'] = createExportWrapper('Z3_optimize_pop', 2);
+var _Z3_optimize_get_unsat_core = Module['_Z3_optimize_get_unsat_core'] = createExportWrapper('Z3_optimize_get_unsat_core', 2);
+var _Z3_optimize_get_reason_unknown = Module['_Z3_optimize_get_reason_unknown'] = createExportWrapper('Z3_optimize_get_reason_unknown', 2);
+var _Z3_optimize_get_model = Module['_Z3_optimize_get_model'] = createExportWrapper('Z3_optimize_get_model', 2);
+var _Z3_optimize_set_params = Module['_Z3_optimize_set_params'] = createExportWrapper('Z3_optimize_set_params', 3);
+var _Z3_optimize_get_param_descrs = Module['_Z3_optimize_get_param_descrs'] = createExportWrapper('Z3_optimize_get_param_descrs', 2);
+var _Z3_optimize_get_lower = Module['_Z3_optimize_get_lower'] = createExportWrapper('Z3_optimize_get_lower', 3);
+var _Z3_optimize_get_upper = Module['_Z3_optimize_get_upper'] = createExportWrapper('Z3_optimize_get_upper', 3);
+var _Z3_optimize_get_lower_as_vector = Module['_Z3_optimize_get_lower_as_vector'] = createExportWrapper('Z3_optimize_get_lower_as_vector', 3);
+var _Z3_optimize_get_upper_as_vector = Module['_Z3_optimize_get_upper_as_vector'] = createExportWrapper('Z3_optimize_get_upper_as_vector', 3);
+var _Z3_optimize_to_string = Module['_Z3_optimize_to_string'] = createExportWrapper('Z3_optimize_to_string', 2);
+var _Z3_optimize_get_help = Module['_Z3_optimize_get_help'] = createExportWrapper('Z3_optimize_get_help', 2);
+var _Z3_optimize_get_statistics = Module['_Z3_optimize_get_statistics'] = createExportWrapper('Z3_optimize_get_statistics', 2);
+var _Z3_optimize_from_string = Module['_Z3_optimize_from_string'] = createExportWrapper('Z3_optimize_from_string', 3);
+var _Z3_optimize_from_file = Module['_Z3_optimize_from_file'] = createExportWrapper('Z3_optimize_from_file', 3);
+var _Z3_optimize_get_assertions = Module['_Z3_optimize_get_assertions'] = createExportWrapper('Z3_optimize_get_assertions', 2);
+var _Z3_optimize_get_objectives = Module['_Z3_optimize_get_objectives'] = createExportWrapper('Z3_optimize_get_objectives', 2);
+var _Z3_optimize_set_initial_value = Module['_Z3_optimize_set_initial_value'] = createExportWrapper('Z3_optimize_set_initial_value', 4);
+var _Z3_mk_ast_vector = Module['_Z3_mk_ast_vector'] = createExportWrapper('Z3_mk_ast_vector', 1);
+var _Z3_ast_vector_inc_ref = Module['_Z3_ast_vector_inc_ref'] = createExportWrapper('Z3_ast_vector_inc_ref', 2);
+var _Z3_ast_vector_dec_ref = Module['_Z3_ast_vector_dec_ref'] = createExportWrapper('Z3_ast_vector_dec_ref', 2);
+var _Z3_ast_vector_set = Module['_Z3_ast_vector_set'] = createExportWrapper('Z3_ast_vector_set', 4);
+var _Z3_ast_vector_resize = Module['_Z3_ast_vector_resize'] = createExportWrapper('Z3_ast_vector_resize', 3);
+var _Z3_ast_vector_push = Module['_Z3_ast_vector_push'] = createExportWrapper('Z3_ast_vector_push', 3);
+var _Z3_ast_vector_translate = Module['_Z3_ast_vector_translate'] = createExportWrapper('Z3_ast_vector_translate', 3);
+var _Z3_ast_vector_to_string = Module['_Z3_ast_vector_to_string'] = createExportWrapper('Z3_ast_vector_to_string', 2);
+var _Z3_open_log = Module['_Z3_open_log'] = createExportWrapper('Z3_open_log', 1);
+var _Z3_append_log = Module['_Z3_append_log'] = createExportWrapper('Z3_append_log', 1);
+var _Z3_close_log = Module['_Z3_close_log'] = createExportWrapper('Z3_close_log', 0);
+var _Z3_mk_params = Module['_Z3_mk_params'] = createExportWrapper('Z3_mk_params', 1);
+var _Z3_params_inc_ref = Module['_Z3_params_inc_ref'] = createExportWrapper('Z3_params_inc_ref', 2);
+var _Z3_params_dec_ref = Module['_Z3_params_dec_ref'] = createExportWrapper('Z3_params_dec_ref', 2);
+var _Z3_params_set_bool = Module['_Z3_params_set_bool'] = createExportWrapper('Z3_params_set_bool', 4);
+var _Z3_params_set_uint = Module['_Z3_params_set_uint'] = createExportWrapper('Z3_params_set_uint', 4);
+var _Z3_params_set_double = Module['_Z3_params_set_double'] = createExportWrapper('Z3_params_set_double', 4);
+var _Z3_params_set_symbol = Module['_Z3_params_set_symbol'] = createExportWrapper('Z3_params_set_symbol', 4);
+var _Z3_params_to_string = Module['_Z3_params_to_string'] = createExportWrapper('Z3_params_to_string', 2);
+var _Z3_params_validate = Module['_Z3_params_validate'] = createExportWrapper('Z3_params_validate', 3);
+var _Z3_param_descrs_inc_ref = Module['_Z3_param_descrs_inc_ref'] = createExportWrapper('Z3_param_descrs_inc_ref', 2);
+var _Z3_param_descrs_dec_ref = Module['_Z3_param_descrs_dec_ref'] = createExportWrapper('Z3_param_descrs_dec_ref', 2);
+var _Z3_param_descrs_get_kind = Module['_Z3_param_descrs_get_kind'] = createExportWrapper('Z3_param_descrs_get_kind', 3);
+var _Z3_param_descrs_size = Module['_Z3_param_descrs_size'] = createExportWrapper('Z3_param_descrs_size', 2);
+var _Z3_param_descrs_get_name = Module['_Z3_param_descrs_get_name'] = createExportWrapper('Z3_param_descrs_get_name', 3);
+var _Z3_param_descrs_get_documentation = Module['_Z3_param_descrs_get_documentation'] = createExportWrapper('Z3_param_descrs_get_documentation', 3);
+var _Z3_param_descrs_to_string = Module['_Z3_param_descrs_to_string'] = createExportWrapper('Z3_param_descrs_to_string', 2);
+var _Z3_algebraic_is_value = Module['_Z3_algebraic_is_value'] = createExportWrapper('Z3_algebraic_is_value', 2);
+var _Z3_algebraic_is_pos = Module['_Z3_algebraic_is_pos'] = createExportWrapper('Z3_algebraic_is_pos', 2);
+var _Z3_algebraic_sign = Module['_Z3_algebraic_sign'] = createExportWrapper('Z3_algebraic_sign', 2);
+var _Z3_algebraic_is_neg = Module['_Z3_algebraic_is_neg'] = createExportWrapper('Z3_algebraic_is_neg', 2);
+var _Z3_algebraic_is_zero = Module['_Z3_algebraic_is_zero'] = createExportWrapper('Z3_algebraic_is_zero', 2);
+var _Z3_algebraic_add = Module['_Z3_algebraic_add'] = createExportWrapper('Z3_algebraic_add', 3);
+var _Z3_algebraic_sub = Module['_Z3_algebraic_sub'] = createExportWrapper('Z3_algebraic_sub', 3);
+var _Z3_algebraic_mul = Module['_Z3_algebraic_mul'] = createExportWrapper('Z3_algebraic_mul', 3);
+var _Z3_algebraic_div = Module['_Z3_algebraic_div'] = createExportWrapper('Z3_algebraic_div', 3);
+var _Z3_algebraic_root = Module['_Z3_algebraic_root'] = createExportWrapper('Z3_algebraic_root', 3);
+var _Z3_algebraic_power = Module['_Z3_algebraic_power'] = createExportWrapper('Z3_algebraic_power', 3);
+var _Z3_algebraic_lt = Module['_Z3_algebraic_lt'] = createExportWrapper('Z3_algebraic_lt', 3);
+var _Z3_algebraic_gt = Module['_Z3_algebraic_gt'] = createExportWrapper('Z3_algebraic_gt', 3);
+var _Z3_algebraic_le = Module['_Z3_algebraic_le'] = createExportWrapper('Z3_algebraic_le', 3);
+var _Z3_algebraic_ge = Module['_Z3_algebraic_ge'] = createExportWrapper('Z3_algebraic_ge', 3);
+var _Z3_algebraic_eq = Module['_Z3_algebraic_eq'] = createExportWrapper('Z3_algebraic_eq', 3);
+var _Z3_algebraic_neq = Module['_Z3_algebraic_neq'] = createExportWrapper('Z3_algebraic_neq', 3);
+var _Z3_algebraic_get_poly = Module['_Z3_algebraic_get_poly'] = createExportWrapper('Z3_algebraic_get_poly', 2);
+var _Z3_algebraic_get_i = Module['_Z3_algebraic_get_i'] = createExportWrapper('Z3_algebraic_get_i', 2);
+var _Z3_mk_linear_order = Module['_Z3_mk_linear_order'] = createExportWrapper('Z3_mk_linear_order', 3);
+var _Z3_mk_partial_order = Module['_Z3_mk_partial_order'] = createExportWrapper('Z3_mk_partial_order', 3);
+var _Z3_mk_piecewise_linear_order = Module['_Z3_mk_piecewise_linear_order'] = createExportWrapper('Z3_mk_piecewise_linear_order', 3);
+var _Z3_mk_tree_order = Module['_Z3_mk_tree_order'] = createExportWrapper('Z3_mk_tree_order', 3);
+var _Z3_mk_transitive_closure = Module['_Z3_mk_transitive_closure'] = createExportWrapper('Z3_mk_transitive_closure', 2);
+var _Z3_mk_int_sort = Module['_Z3_mk_int_sort'] = createExportWrapper('Z3_mk_int_sort', 1);
+var _Z3_mk_real_sort = Module['_Z3_mk_real_sort'] = createExportWrapper('Z3_mk_real_sort', 1);
+var _Z3_mk_real_int64 = Module['_Z3_mk_real_int64'] = createExportWrapper('Z3_mk_real_int64', 3);
+var _Z3_mk_real = Module['_Z3_mk_real'] = createExportWrapper('Z3_mk_real', 3);
+var _Z3_mk_add = Module['_Z3_mk_add'] = createExportWrapper('Z3_mk_add', 3);
+var _Z3_mk_mul = Module['_Z3_mk_mul'] = createExportWrapper('Z3_mk_mul', 3);
+var _Z3_mk_power = Module['_Z3_mk_power'] = createExportWrapper('Z3_mk_power', 3);
+var _Z3_mk_mod = Module['_Z3_mk_mod'] = createExportWrapper('Z3_mk_mod', 3);
+var _Z3_mk_rem = Module['_Z3_mk_rem'] = createExportWrapper('Z3_mk_rem', 3);
+var _Z3_mk_div = Module['_Z3_mk_div'] = createExportWrapper('Z3_mk_div', 3);
+var _Z3_mk_lt = Module['_Z3_mk_lt'] = createExportWrapper('Z3_mk_lt', 3);
+var _Z3_mk_gt = Module['_Z3_mk_gt'] = createExportWrapper('Z3_mk_gt', 3);
+var _Z3_mk_le = Module['_Z3_mk_le'] = createExportWrapper('Z3_mk_le', 3);
+var _Z3_mk_ge = Module['_Z3_mk_ge'] = createExportWrapper('Z3_mk_ge', 3);
+var _Z3_mk_divides = Module['_Z3_mk_divides'] = createExportWrapper('Z3_mk_divides', 3);
+var _Z3_mk_abs = Module['_Z3_mk_abs'] = createExportWrapper('Z3_mk_abs', 2);
+var _Z3_mk_int2real = Module['_Z3_mk_int2real'] = createExportWrapper('Z3_mk_int2real', 2);
+var _Z3_mk_real2int = Module['_Z3_mk_real2int'] = createExportWrapper('Z3_mk_real2int', 2);
+var _Z3_mk_is_int = Module['_Z3_mk_is_int'] = createExportWrapper('Z3_mk_is_int', 2);
+var _Z3_mk_sub = Module['_Z3_mk_sub'] = createExportWrapper('Z3_mk_sub', 3);
+var _Z3_mk_unary_minus = Module['_Z3_mk_unary_minus'] = createExportWrapper('Z3_mk_unary_minus', 2);
+var _Z3_is_algebraic_number = Module['_Z3_is_algebraic_number'] = createExportWrapper('Z3_is_algebraic_number', 2);
+var _Z3_get_algebraic_number_lower = Module['_Z3_get_algebraic_number_lower'] = createExportWrapper('Z3_get_algebraic_number_lower', 3);
+var _Z3_get_algebraic_number_upper = Module['_Z3_get_algebraic_number_upper'] = createExportWrapper('Z3_get_algebraic_number_upper', 3);
+var _Z3_get_numerator = Module['_Z3_get_numerator'] = createExportWrapper('Z3_get_numerator', 2);
+var _Z3_get_denominator = Module['_Z3_get_denominator'] = createExportWrapper('Z3_get_denominator', 2);
+var _Z3_mk_array_sort = Module['_Z3_mk_array_sort'] = createExportWrapper('Z3_mk_array_sort', 3);
+var _Z3_mk_array_sort_n = Module['_Z3_mk_array_sort_n'] = createExportWrapper('Z3_mk_array_sort_n', 4);
+var _Z3_mk_select = Module['_Z3_mk_select'] = createExportWrapper('Z3_mk_select', 3);
+var _Z3_mk_select_n = Module['_Z3_mk_select_n'] = createExportWrapper('Z3_mk_select_n', 4);
+var _Z3_mk_store = Module['_Z3_mk_store'] = createExportWrapper('Z3_mk_store', 4);
+var _Z3_mk_store_n = Module['_Z3_mk_store_n'] = createExportWrapper('Z3_mk_store_n', 5);
+var _Z3_mk_map = Module['_Z3_mk_map'] = createExportWrapper('Z3_mk_map', 4);
+var _Z3_mk_const_array = Module['_Z3_mk_const_array'] = createExportWrapper('Z3_mk_const_array', 3);
+var _Z3_mk_array_default = Module['_Z3_mk_array_default'] = createExportWrapper('Z3_mk_array_default', 2);
+var _Z3_mk_set_sort = Module['_Z3_mk_set_sort'] = createExportWrapper('Z3_mk_set_sort', 2);
+var _Z3_mk_empty_set = Module['_Z3_mk_empty_set'] = createExportWrapper('Z3_mk_empty_set', 2);
+var _Z3_mk_full_set = Module['_Z3_mk_full_set'] = createExportWrapper('Z3_mk_full_set', 2);
+var _Z3_mk_set_union = Module['_Z3_mk_set_union'] = createExportWrapper('Z3_mk_set_union', 3);
+var _Z3_mk_set_intersect = Module['_Z3_mk_set_intersect'] = createExportWrapper('Z3_mk_set_intersect', 3);
+var _Z3_mk_set_difference = Module['_Z3_mk_set_difference'] = createExportWrapper('Z3_mk_set_difference', 3);
+var _Z3_mk_set_complement = Module['_Z3_mk_set_complement'] = createExportWrapper('Z3_mk_set_complement', 2);
+var _Z3_mk_set_subset = Module['_Z3_mk_set_subset'] = createExportWrapper('Z3_mk_set_subset', 3);
+var _Z3_mk_array_ext = Module['_Z3_mk_array_ext'] = createExportWrapper('Z3_mk_array_ext', 3);
+var _Z3_mk_set_has_size = Module['_Z3_mk_set_has_size'] = createExportWrapper('Z3_mk_set_has_size', 3);
+var _Z3_mk_as_array = Module['_Z3_mk_as_array'] = createExportWrapper('Z3_mk_as_array', 2);
+var _Z3_mk_set_member = Module['_Z3_mk_set_member'] = createExportWrapper('Z3_mk_set_member', 3);
+var _Z3_mk_set_add = Module['_Z3_mk_set_add'] = createExportWrapper('Z3_mk_set_add', 3);
+var _Z3_mk_set_del = Module['_Z3_mk_set_del'] = createExportWrapper('Z3_mk_set_del', 3);
+var _Z3_get_array_arity = Module['_Z3_get_array_arity'] = createExportWrapper('Z3_get_array_arity', 2);
+var _Z3_get_array_sort_domain = Module['_Z3_get_array_sort_domain'] = createExportWrapper('Z3_get_array_sort_domain', 2);
+var _Z3_get_array_sort_domain_n = Module['_Z3_get_array_sort_domain_n'] = createExportWrapper('Z3_get_array_sort_domain_n', 3);
+var _Z3_get_array_sort_range = Module['_Z3_get_array_sort_range'] = createExportWrapper('Z3_get_array_sort_range', 2);
+var _Z3_mk_int_symbol = Module['_Z3_mk_int_symbol'] = createExportWrapper('Z3_mk_int_symbol', 2);
+var _Z3_mk_string_symbol = Module['_Z3_mk_string_symbol'] = createExportWrapper('Z3_mk_string_symbol', 2);
+var _Z3_is_eq_sort = Module['_Z3_is_eq_sort'] = createExportWrapper('Z3_is_eq_sort', 3);
+var _Z3_mk_uninterpreted_sort = Module['_Z3_mk_uninterpreted_sort'] = createExportWrapper('Z3_mk_uninterpreted_sort', 2);
+var _Z3_mk_type_variable = Module['_Z3_mk_type_variable'] = createExportWrapper('Z3_mk_type_variable', 2);
+var _Z3_is_eq_ast = Module['_Z3_is_eq_ast'] = createExportWrapper('Z3_is_eq_ast', 3);
+var _Z3_is_eq_func_decl = Module['_Z3_is_eq_func_decl'] = createExportWrapper('Z3_is_eq_func_decl', 3);
+var _Z3_mk_func_decl = Module['_Z3_mk_func_decl'] = createExportWrapper('Z3_mk_func_decl', 5);
+var _Z3_mk_rec_func_decl = Module['_Z3_mk_rec_func_decl'] = createExportWrapper('Z3_mk_rec_func_decl', 5);
+var _Z3_add_rec_def = Module['_Z3_add_rec_def'] = createExportWrapper('Z3_add_rec_def', 5);
+var _Z3_mk_app = Module['_Z3_mk_app'] = createExportWrapper('Z3_mk_app', 4);
+var _Z3_mk_const = Module['_Z3_mk_const'] = createExportWrapper('Z3_mk_const', 3);
+var _Z3_mk_fresh_func_decl = Module['_Z3_mk_fresh_func_decl'] = createExportWrapper('Z3_mk_fresh_func_decl', 5);
+var _Z3_mk_fresh_const = Module['_Z3_mk_fresh_const'] = createExportWrapper('Z3_mk_fresh_const', 3);
+var _Z3_mk_true = Module['_Z3_mk_true'] = createExportWrapper('Z3_mk_true', 1);
+var _Z3_mk_false = Module['_Z3_mk_false'] = createExportWrapper('Z3_mk_false', 1);
+var _Z3_mk_not = Module['_Z3_mk_not'] = createExportWrapper('Z3_mk_not', 2);
+var _Z3_mk_eq = Module['_Z3_mk_eq'] = createExportWrapper('Z3_mk_eq', 3);
+var _Z3_mk_distinct = Module['_Z3_mk_distinct'] = createExportWrapper('Z3_mk_distinct', 3);
+var _Z3_mk_iff = Module['_Z3_mk_iff'] = createExportWrapper('Z3_mk_iff', 3);
+var _Z3_mk_implies = Module['_Z3_mk_implies'] = createExportWrapper('Z3_mk_implies', 3);
+var _Z3_mk_xor = Module['_Z3_mk_xor'] = createExportWrapper('Z3_mk_xor', 3);
+var _Z3_mk_and = Module['_Z3_mk_and'] = createExportWrapper('Z3_mk_and', 3);
+var _Z3_mk_or = Module['_Z3_mk_or'] = createExportWrapper('Z3_mk_or', 3);
+var _Z3_mk_ite = Module['_Z3_mk_ite'] = createExportWrapper('Z3_mk_ite', 4);
+var _Z3_mk_bool_sort = Module['_Z3_mk_bool_sort'] = createExportWrapper('Z3_mk_bool_sort', 1);
+var _Z3_app_to_ast = Module['_Z3_app_to_ast'] = createExportWrapper('Z3_app_to_ast', 2);
+var _Z3_sort_to_ast = Module['_Z3_sort_to_ast'] = createExportWrapper('Z3_sort_to_ast', 2);
+var _Z3_func_decl_to_ast = Module['_Z3_func_decl_to_ast'] = createExportWrapper('Z3_func_decl_to_ast', 2);
+var _Z3_get_ast_id = Module['_Z3_get_ast_id'] = createExportWrapper('Z3_get_ast_id', 2);
+var _Z3_get_func_decl_id = Module['_Z3_get_func_decl_id'] = createExportWrapper('Z3_get_func_decl_id', 2);
+var _Z3_get_sort_id = Module['_Z3_get_sort_id'] = createExportWrapper('Z3_get_sort_id', 2);
+var _Z3_is_well_sorted = Module['_Z3_is_well_sorted'] = createExportWrapper('Z3_is_well_sorted', 2);
+var _Z3_get_symbol_kind = Module['_Z3_get_symbol_kind'] = createExportWrapper('Z3_get_symbol_kind', 2);
+var _Z3_get_symbol_int = Module['_Z3_get_symbol_int'] = createExportWrapper('Z3_get_symbol_int', 2);
+var _Z3_get_symbol_string = Module['_Z3_get_symbol_string'] = createExportWrapper('Z3_get_symbol_string', 2);
+var _Z3_get_ast_kind = Module['_Z3_get_ast_kind'] = createExportWrapper('Z3_get_ast_kind', 2);
+var _Z3_get_ast_hash = Module['_Z3_get_ast_hash'] = createExportWrapper('Z3_get_ast_hash', 2);
+var _Z3_is_app = Module['_Z3_is_app'] = createExportWrapper('Z3_is_app', 2);
+var _Z3_to_app = Module['_Z3_to_app'] = createExportWrapper('Z3_to_app', 2);
+var _Z3_is_ground = Module['_Z3_is_ground'] = createExportWrapper('Z3_is_ground', 2);
+var _Z3_get_depth = Module['_Z3_get_depth'] = createExportWrapper('Z3_get_depth', 2);
+var _Z3_to_func_decl = Module['_Z3_to_func_decl'] = createExportWrapper('Z3_to_func_decl', 2);
+var _Z3_get_app_decl = Module['_Z3_get_app_decl'] = createExportWrapper('Z3_get_app_decl', 2);
+var _Z3_get_app_num_args = Module['_Z3_get_app_num_args'] = createExportWrapper('Z3_get_app_num_args', 2);
+var _Z3_get_app_arg = Module['_Z3_get_app_arg'] = createExportWrapper('Z3_get_app_arg', 3);
+var _Z3_get_decl_name = Module['_Z3_get_decl_name'] = createExportWrapper('Z3_get_decl_name', 2);
+var _Z3_get_decl_num_parameters = Module['_Z3_get_decl_num_parameters'] = createExportWrapper('Z3_get_decl_num_parameters', 2);
+var _Z3_get_decl_parameter_kind = Module['_Z3_get_decl_parameter_kind'] = createExportWrapper('Z3_get_decl_parameter_kind', 3);
+var _Z3_get_decl_int_parameter = Module['_Z3_get_decl_int_parameter'] = createExportWrapper('Z3_get_decl_int_parameter', 3);
+var _Z3_get_decl_double_parameter = Module['_Z3_get_decl_double_parameter'] = createExportWrapper('Z3_get_decl_double_parameter', 3);
+var _Z3_get_decl_symbol_parameter = Module['_Z3_get_decl_symbol_parameter'] = createExportWrapper('Z3_get_decl_symbol_parameter', 3);
+var _Z3_get_decl_sort_parameter = Module['_Z3_get_decl_sort_parameter'] = createExportWrapper('Z3_get_decl_sort_parameter', 3);
+var _Z3_get_decl_ast_parameter = Module['_Z3_get_decl_ast_parameter'] = createExportWrapper('Z3_get_decl_ast_parameter', 3);
+var _Z3_get_decl_func_decl_parameter = Module['_Z3_get_decl_func_decl_parameter'] = createExportWrapper('Z3_get_decl_func_decl_parameter', 3);
+var _Z3_get_decl_rational_parameter = Module['_Z3_get_decl_rational_parameter'] = createExportWrapper('Z3_get_decl_rational_parameter', 3);
+var _Z3_get_sort_name = Module['_Z3_get_sort_name'] = createExportWrapper('Z3_get_sort_name', 2);
+var _Z3_get_sort = Module['_Z3_get_sort'] = createExportWrapper('Z3_get_sort', 2);
+var _Z3_get_arity = Module['_Z3_get_arity'] = createExportWrapper('Z3_get_arity', 2);
+var _Z3_get_domain_size = Module['_Z3_get_domain_size'] = createExportWrapper('Z3_get_domain_size', 2);
+var _Z3_get_domain = Module['_Z3_get_domain'] = createExportWrapper('Z3_get_domain', 3);
+var _Z3_get_range = Module['_Z3_get_range'] = createExportWrapper('Z3_get_range', 2);
+var _Z3_get_bool_value = Module['_Z3_get_bool_value'] = createExportWrapper('Z3_get_bool_value', 2);
+var _Z3_simplify_get_help = Module['_Z3_simplify_get_help'] = createExportWrapper('Z3_simplify_get_help', 1);
+var _Z3_simplify_get_param_descrs = Module['_Z3_simplify_get_param_descrs'] = createExportWrapper('Z3_simplify_get_param_descrs', 1);
+var _Z3_update_term = Module['_Z3_update_term'] = createExportWrapper('Z3_update_term', 4);
+var _Z3_substitute = Module['_Z3_substitute'] = createExportWrapper('Z3_substitute', 5);
+var _Z3_substitute_funs = Module['_Z3_substitute_funs'] = createExportWrapper('Z3_substitute_funs', 5);
+var _Z3_substitute_vars = Module['_Z3_substitute_vars'] = createExportWrapper('Z3_substitute_vars', 4);
+var _Z3_ast_to_string = Module['_Z3_ast_to_string'] = createExportWrapper('Z3_ast_to_string', 2);
+var _Z3_sort_to_string = Module['_Z3_sort_to_string'] = createExportWrapper('Z3_sort_to_string', 2);
+var _Z3_func_decl_to_string = Module['_Z3_func_decl_to_string'] = createExportWrapper('Z3_func_decl_to_string', 2);
+var _Z3_benchmark_to_smtlib_string = Module['_Z3_benchmark_to_smtlib_string'] = createExportWrapper('Z3_benchmark_to_smtlib_string', 8);
+var _Z3_get_decl_kind = Module['_Z3_get_decl_kind'] = createExportWrapper('Z3_get_decl_kind', 2);
+var _Z3_get_index_value = Module['_Z3_get_index_value'] = createExportWrapper('Z3_get_index_value', 2);
+var _Z3_translate = Module['_Z3_translate'] = createExportWrapper('Z3_translate', 3);
+var _Z3_mk_atmost = Module['_Z3_mk_atmost'] = createExportWrapper('Z3_mk_atmost', 4);
+var _Z3_mk_atleast = Module['_Z3_mk_atleast'] = createExportWrapper('Z3_mk_atleast', 4);
+var _Z3_mk_pble = Module['_Z3_mk_pble'] = createExportWrapper('Z3_mk_pble', 5);
+var _Z3_mk_pbge = Module['_Z3_mk_pbge'] = createExportWrapper('Z3_mk_pbge', 5);
+var _Z3_mk_pbeq = Module['_Z3_mk_pbeq'] = createExportWrapper('Z3_mk_pbeq', 5);
+var _Z3_mk_numeral = Module['_Z3_mk_numeral'] = createExportWrapper('Z3_mk_numeral', 3);
+var _Z3_mk_int = Module['_Z3_mk_int'] = createExportWrapper('Z3_mk_int', 3);
+var _Z3_mk_unsigned_int = Module['_Z3_mk_unsigned_int'] = createExportWrapper('Z3_mk_unsigned_int', 3);
+var _Z3_mk_int64 = Module['_Z3_mk_int64'] = createExportWrapper('Z3_mk_int64', 3);
+var _Z3_mk_unsigned_int64 = Module['_Z3_mk_unsigned_int64'] = createExportWrapper('Z3_mk_unsigned_int64', 3);
+var _Z3_is_numeral_ast = Module['_Z3_is_numeral_ast'] = createExportWrapper('Z3_is_numeral_ast', 2);
+var _Z3_get_numeral_binary_string = Module['_Z3_get_numeral_binary_string'] = createExportWrapper('Z3_get_numeral_binary_string', 2);
+var _Z3_get_numeral_string = Module['_Z3_get_numeral_string'] = createExportWrapper('Z3_get_numeral_string', 2);
+var _Z3_get_numeral_double = Module['_Z3_get_numeral_double'] = createExportWrapper('Z3_get_numeral_double', 2);
+var _Z3_get_numeral_decimal_string = Module['_Z3_get_numeral_decimal_string'] = createExportWrapper('Z3_get_numeral_decimal_string', 3);
+var _Z3_get_numeral_small = Module['_Z3_get_numeral_small'] = createExportWrapper('Z3_get_numeral_small', 4);
+var _Z3_get_numeral_int = Module['_Z3_get_numeral_int'] = createExportWrapper('Z3_get_numeral_int', 3);
+var _Z3_get_numeral_int64 = Module['_Z3_get_numeral_int64'] = createExportWrapper('Z3_get_numeral_int64', 3);
+var _Z3_get_numeral_uint = Module['_Z3_get_numeral_uint'] = createExportWrapper('Z3_get_numeral_uint', 3);
+var _Z3_get_numeral_uint64 = Module['_Z3_get_numeral_uint64'] = createExportWrapper('Z3_get_numeral_uint64', 3);
+var _Z3_get_numeral_rational_int64 = Module['_Z3_get_numeral_rational_int64'] = createExportWrapper('Z3_get_numeral_rational_int64', 4);
+var _Z3_mk_bv_numeral = Module['_Z3_mk_bv_numeral'] = createExportWrapper('Z3_mk_bv_numeral', 3);
+var _Z3_mk_parser_context = Module['_Z3_mk_parser_context'] = createExportWrapper('Z3_mk_parser_context', 1);
+var _Z3_parser_context_inc_ref = Module['_Z3_parser_context_inc_ref'] = createExportWrapper('Z3_parser_context_inc_ref', 2);
+var _Z3_parser_context_dec_ref = Module['_Z3_parser_context_dec_ref'] = createExportWrapper('Z3_parser_context_dec_ref', 2);
+var _Z3_parser_context_add_sort = Module['_Z3_parser_context_add_sort'] = createExportWrapper('Z3_parser_context_add_sort', 3);
+var _Z3_parser_context_add_decl = Module['_Z3_parser_context_add_decl'] = createExportWrapper('Z3_parser_context_add_decl', 3);
+var _Z3_parser_context_from_string = Module['_Z3_parser_context_from_string'] = createExportWrapper('Z3_parser_context_from_string', 3);
+var _Z3_parse_smtlib2_string = Module['_Z3_parse_smtlib2_string'] = createExportWrapper('Z3_parse_smtlib2_string', 8);
+var _Z3_parse_smtlib2_file = Module['_Z3_parse_smtlib2_file'] = createExportWrapper('Z3_parse_smtlib2_file', 8);
+var _Z3_mk_tactic = Module['_Z3_mk_tactic'] = createExportWrapper('Z3_mk_tactic', 2);
+var _Z3_tactic_inc_ref = Module['_Z3_tactic_inc_ref'] = createExportWrapper('Z3_tactic_inc_ref', 2);
+var _Z3_tactic_dec_ref = Module['_Z3_tactic_dec_ref'] = createExportWrapper('Z3_tactic_dec_ref', 2);
+var _Z3_mk_probe = Module['_Z3_mk_probe'] = createExportWrapper('Z3_mk_probe', 2);
+var _Z3_probe_inc_ref = Module['_Z3_probe_inc_ref'] = createExportWrapper('Z3_probe_inc_ref', 2);
+var _Z3_probe_dec_ref = Module['_Z3_probe_dec_ref'] = createExportWrapper('Z3_probe_dec_ref', 2);
+var _Z3_tactic_and_then = Module['_Z3_tactic_and_then'] = createExportWrapper('Z3_tactic_and_then', 3);
+var _Z3_tactic_or_else = Module['_Z3_tactic_or_else'] = createExportWrapper('Z3_tactic_or_else', 3);
+var _Z3_tactic_par_or = Module['_Z3_tactic_par_or'] = createExportWrapper('Z3_tactic_par_or', 3);
+var _Z3_tactic_par_and_then = Module['_Z3_tactic_par_and_then'] = createExportWrapper('Z3_tactic_par_and_then', 3);
+var _Z3_tactic_try_for = Module['_Z3_tactic_try_for'] = createExportWrapper('Z3_tactic_try_for', 3);
+var _Z3_tactic_when = Module['_Z3_tactic_when'] = createExportWrapper('Z3_tactic_when', 3);
+var _Z3_tactic_cond = Module['_Z3_tactic_cond'] = createExportWrapper('Z3_tactic_cond', 4);
+var _Z3_tactic_repeat = Module['_Z3_tactic_repeat'] = createExportWrapper('Z3_tactic_repeat', 3);
+var _Z3_tactic_skip = Module['_Z3_tactic_skip'] = createExportWrapper('Z3_tactic_skip', 1);
+var _Z3_tactic_fail = Module['_Z3_tactic_fail'] = createExportWrapper('Z3_tactic_fail', 1);
+var _Z3_tactic_fail_if = Module['_Z3_tactic_fail_if'] = createExportWrapper('Z3_tactic_fail_if', 2);
+var _Z3_tactic_fail_if_not_decided = Module['_Z3_tactic_fail_if_not_decided'] = createExportWrapper('Z3_tactic_fail_if_not_decided', 1);
+var _Z3_tactic_using_params = Module['_Z3_tactic_using_params'] = createExportWrapper('Z3_tactic_using_params', 3);
+var _Z3_probe_const = Module['_Z3_probe_const'] = createExportWrapper('Z3_probe_const', 2);
+var _Z3_probe_lt = Module['_Z3_probe_lt'] = createExportWrapper('Z3_probe_lt', 3);
+var _Z3_probe_gt = Module['_Z3_probe_gt'] = createExportWrapper('Z3_probe_gt', 3);
+var _Z3_probe_le = Module['_Z3_probe_le'] = createExportWrapper('Z3_probe_le', 3);
+var _Z3_probe_ge = Module['_Z3_probe_ge'] = createExportWrapper('Z3_probe_ge', 3);
+var _Z3_probe_eq = Module['_Z3_probe_eq'] = createExportWrapper('Z3_probe_eq', 3);
+var _Z3_probe_and = Module['_Z3_probe_and'] = createExportWrapper('Z3_probe_and', 3);
+var _Z3_probe_or = Module['_Z3_probe_or'] = createExportWrapper('Z3_probe_or', 3);
+var _Z3_probe_not = Module['_Z3_probe_not'] = createExportWrapper('Z3_probe_not', 2);
+var _Z3_get_num_tactics = Module['_Z3_get_num_tactics'] = createExportWrapper('Z3_get_num_tactics', 1);
+var _Z3_get_tactic_name = Module['_Z3_get_tactic_name'] = createExportWrapper('Z3_get_tactic_name', 2);
+var _Z3_get_num_probes = Module['_Z3_get_num_probes'] = createExportWrapper('Z3_get_num_probes', 1);
+var _Z3_get_probe_name = Module['_Z3_get_probe_name'] = createExportWrapper('Z3_get_probe_name', 2);
+var _Z3_tactic_get_help = Module['_Z3_tactic_get_help'] = createExportWrapper('Z3_tactic_get_help', 2);
+var _Z3_tactic_get_param_descrs = Module['_Z3_tactic_get_param_descrs'] = createExportWrapper('Z3_tactic_get_param_descrs', 2);
+var _Z3_tactic_get_descr = Module['_Z3_tactic_get_descr'] = createExportWrapper('Z3_tactic_get_descr', 2);
+var _Z3_probe_get_descr = Module['_Z3_probe_get_descr'] = createExportWrapper('Z3_probe_get_descr', 2);
+var _Z3_probe_apply = Module['_Z3_probe_apply'] = createExportWrapper('Z3_probe_apply', 3);
+var _Z3_apply_result_inc_ref = Module['_Z3_apply_result_inc_ref'] = createExportWrapper('Z3_apply_result_inc_ref', 2);
+var _Z3_apply_result_dec_ref = Module['_Z3_apply_result_dec_ref'] = createExportWrapper('Z3_apply_result_dec_ref', 2);
+var _Z3_apply_result_to_string = Module['_Z3_apply_result_to_string'] = createExportWrapper('Z3_apply_result_to_string', 2);
+var _Z3_apply_result_get_num_subgoals = Module['_Z3_apply_result_get_num_subgoals'] = createExportWrapper('Z3_apply_result_get_num_subgoals', 2);
+var _Z3_apply_result_get_subgoal = Module['_Z3_apply_result_get_subgoal'] = createExportWrapper('Z3_apply_result_get_subgoal', 3);
+var _Z3_mk_simplifier = Module['_Z3_mk_simplifier'] = createExportWrapper('Z3_mk_simplifier', 2);
+var _Z3_simplifier_inc_ref = Module['_Z3_simplifier_inc_ref'] = createExportWrapper('Z3_simplifier_inc_ref', 2);
+var _Z3_simplifier_dec_ref = Module['_Z3_simplifier_dec_ref'] = createExportWrapper('Z3_simplifier_dec_ref', 2);
+var _Z3_get_num_simplifiers = Module['_Z3_get_num_simplifiers'] = createExportWrapper('Z3_get_num_simplifiers', 1);
+var _Z3_get_simplifier_name = Module['_Z3_get_simplifier_name'] = createExportWrapper('Z3_get_simplifier_name', 2);
+var _Z3_simplifier_and_then = Module['_Z3_simplifier_and_then'] = createExportWrapper('Z3_simplifier_and_then', 3);
+var _Z3_simplifier_using_params = Module['_Z3_simplifier_using_params'] = createExportWrapper('Z3_simplifier_using_params', 3);
+var _Z3_simplifier_get_help = Module['_Z3_simplifier_get_help'] = createExportWrapper('Z3_simplifier_get_help', 2);
+var _Z3_simplifier_get_param_descrs = Module['_Z3_simplifier_get_param_descrs'] = createExportWrapper('Z3_simplifier_get_param_descrs', 2);
+var _Z3_simplifier_get_descr = Module['_Z3_simplifier_get_descr'] = createExportWrapper('Z3_simplifier_get_descr', 2);
+var _Z3_mk_model = Module['_Z3_mk_model'] = createExportWrapper('Z3_mk_model', 1);
+var _Z3_model_inc_ref = Module['_Z3_model_inc_ref'] = createExportWrapper('Z3_model_inc_ref', 2);
+var _Z3_model_dec_ref = Module['_Z3_model_dec_ref'] = createExportWrapper('Z3_model_dec_ref', 2);
+var _Z3_model_get_const_interp = Module['_Z3_model_get_const_interp'] = createExportWrapper('Z3_model_get_const_interp', 3);
+var _Z3_model_has_interp = Module['_Z3_model_has_interp'] = createExportWrapper('Z3_model_has_interp', 3);
+var _Z3_model_get_func_interp = Module['_Z3_model_get_func_interp'] = createExportWrapper('Z3_model_get_func_interp', 3);
+var _Z3_model_get_num_consts = Module['_Z3_model_get_num_consts'] = createExportWrapper('Z3_model_get_num_consts', 2);
+var _Z3_model_get_const_decl = Module['_Z3_model_get_const_decl'] = createExportWrapper('Z3_model_get_const_decl', 3);
+var _Z3_model_get_num_funcs = Module['_Z3_model_get_num_funcs'] = createExportWrapper('Z3_model_get_num_funcs', 2);
+var _Z3_model_get_func_decl = Module['_Z3_model_get_func_decl'] = createExportWrapper('Z3_model_get_func_decl', 3);
+var _Z3_model_eval = Module['_Z3_model_eval'] = createExportWrapper('Z3_model_eval', 5);
+var _Z3_model_get_num_sorts = Module['_Z3_model_get_num_sorts'] = createExportWrapper('Z3_model_get_num_sorts', 2);
+var _Z3_model_get_sort = Module['_Z3_model_get_sort'] = createExportWrapper('Z3_model_get_sort', 3);
+var _Z3_model_get_sort_universe = Module['_Z3_model_get_sort_universe'] = createExportWrapper('Z3_model_get_sort_universe', 3);
+var _Z3_model_translate = Module['_Z3_model_translate'] = createExportWrapper('Z3_model_translate', 3);
+var _Z3_is_as_array = Module['_Z3_is_as_array'] = createExportWrapper('Z3_is_as_array', 2);
+var _Z3_get_as_array_func_decl = Module['_Z3_get_as_array_func_decl'] = createExportWrapper('Z3_get_as_array_func_decl', 2);
+var _Z3_add_func_interp = Module['_Z3_add_func_interp'] = createExportWrapper('Z3_add_func_interp', 4);
+var _Z3_add_const_interp = Module['_Z3_add_const_interp'] = createExportWrapper('Z3_add_const_interp', 4);
+var _Z3_func_interp_inc_ref = Module['_Z3_func_interp_inc_ref'] = createExportWrapper('Z3_func_interp_inc_ref', 2);
+var _Z3_func_interp_dec_ref = Module['_Z3_func_interp_dec_ref'] = createExportWrapper('Z3_func_interp_dec_ref', 2);
+var _Z3_func_interp_get_num_entries = Module['_Z3_func_interp_get_num_entries'] = createExportWrapper('Z3_func_interp_get_num_entries', 2);
+var _Z3_func_interp_get_entry = Module['_Z3_func_interp_get_entry'] = createExportWrapper('Z3_func_interp_get_entry', 3);
+var _Z3_func_interp_get_else = Module['_Z3_func_interp_get_else'] = createExportWrapper('Z3_func_interp_get_else', 2);
+var _Z3_func_interp_set_else = Module['_Z3_func_interp_set_else'] = createExportWrapper('Z3_func_interp_set_else', 3);
+var _Z3_func_interp_get_arity = Module['_Z3_func_interp_get_arity'] = createExportWrapper('Z3_func_interp_get_arity', 2);
+var _Z3_func_interp_add_entry = Module['_Z3_func_interp_add_entry'] = createExportWrapper('Z3_func_interp_add_entry', 4);
+var _Z3_func_entry_inc_ref = Module['_Z3_func_entry_inc_ref'] = createExportWrapper('Z3_func_entry_inc_ref', 2);
+var _Z3_func_entry_dec_ref = Module['_Z3_func_entry_dec_ref'] = createExportWrapper('Z3_func_entry_dec_ref', 2);
+var _Z3_func_entry_get_value = Module['_Z3_func_entry_get_value'] = createExportWrapper('Z3_func_entry_get_value', 2);
+var _Z3_func_entry_get_num_args = Module['_Z3_func_entry_get_num_args'] = createExportWrapper('Z3_func_entry_get_num_args', 2);
+var _Z3_func_entry_get_arg = Module['_Z3_func_entry_get_arg'] = createExportWrapper('Z3_func_entry_get_arg', 3);
+var _Z3_model_to_string = Module['_Z3_model_to_string'] = createExportWrapper('Z3_model_to_string', 2);
+var _Z3_rcf_del = Module['_Z3_rcf_del'] = createExportWrapper('Z3_rcf_del', 2);
+var _Z3_rcf_mk_rational = Module['_Z3_rcf_mk_rational'] = createExportWrapper('Z3_rcf_mk_rational', 2);
+var _Z3_rcf_mk_small_int = Module['_Z3_rcf_mk_small_int'] = createExportWrapper('Z3_rcf_mk_small_int', 2);
+var _Z3_rcf_mk_pi = Module['_Z3_rcf_mk_pi'] = createExportWrapper('Z3_rcf_mk_pi', 1);
+var _Z3_rcf_mk_e = Module['_Z3_rcf_mk_e'] = createExportWrapper('Z3_rcf_mk_e', 1);
+var _Z3_rcf_mk_infinitesimal = Module['_Z3_rcf_mk_infinitesimal'] = createExportWrapper('Z3_rcf_mk_infinitesimal', 1);
+var _Z3_rcf_mk_roots = Module['_Z3_rcf_mk_roots'] = createExportWrapper('Z3_rcf_mk_roots', 4);
+var _Z3_rcf_add = Module['_Z3_rcf_add'] = createExportWrapper('Z3_rcf_add', 3);
+var _Z3_rcf_sub = Module['_Z3_rcf_sub'] = createExportWrapper('Z3_rcf_sub', 3);
+var _Z3_rcf_mul = Module['_Z3_rcf_mul'] = createExportWrapper('Z3_rcf_mul', 3);
+var _Z3_rcf_div = Module['_Z3_rcf_div'] = createExportWrapper('Z3_rcf_div', 3);
+var _Z3_rcf_neg = Module['_Z3_rcf_neg'] = createExportWrapper('Z3_rcf_neg', 2);
+var _Z3_rcf_inv = Module['_Z3_rcf_inv'] = createExportWrapper('Z3_rcf_inv', 2);
+var _Z3_rcf_power = Module['_Z3_rcf_power'] = createExportWrapper('Z3_rcf_power', 3);
+var _Z3_rcf_lt = Module['_Z3_rcf_lt'] = createExportWrapper('Z3_rcf_lt', 3);
+var _Z3_rcf_gt = Module['_Z3_rcf_gt'] = createExportWrapper('Z3_rcf_gt', 3);
+var _Z3_rcf_le = Module['_Z3_rcf_le'] = createExportWrapper('Z3_rcf_le', 3);
+var _Z3_rcf_ge = Module['_Z3_rcf_ge'] = createExportWrapper('Z3_rcf_ge', 3);
+var _Z3_rcf_eq = Module['_Z3_rcf_eq'] = createExportWrapper('Z3_rcf_eq', 3);
+var _Z3_rcf_neq = Module['_Z3_rcf_neq'] = createExportWrapper('Z3_rcf_neq', 3);
+var _Z3_rcf_num_to_string = Module['_Z3_rcf_num_to_string'] = createExportWrapper('Z3_rcf_num_to_string', 4);
+var _Z3_rcf_num_to_decimal_string = Module['_Z3_rcf_num_to_decimal_string'] = createExportWrapper('Z3_rcf_num_to_decimal_string', 3);
+var _Z3_rcf_get_numerator_denominator = Module['_Z3_rcf_get_numerator_denominator'] = createExportWrapper('Z3_rcf_get_numerator_denominator', 4);
+var _Z3_rcf_is_rational = Module['_Z3_rcf_is_rational'] = createExportWrapper('Z3_rcf_is_rational', 2);
+var _Z3_rcf_is_algebraic = Module['_Z3_rcf_is_algebraic'] = createExportWrapper('Z3_rcf_is_algebraic', 2);
+var _Z3_rcf_is_infinitesimal = Module['_Z3_rcf_is_infinitesimal'] = createExportWrapper('Z3_rcf_is_infinitesimal', 2);
+var _Z3_rcf_is_transcendental = Module['_Z3_rcf_is_transcendental'] = createExportWrapper('Z3_rcf_is_transcendental', 2);
+var _Z3_rcf_extension_index = Module['_Z3_rcf_extension_index'] = createExportWrapper('Z3_rcf_extension_index', 2);
+var _Z3_rcf_transcendental_name = Module['_Z3_rcf_transcendental_name'] = createExportWrapper('Z3_rcf_transcendental_name', 2);
+var _Z3_rcf_infinitesimal_name = Module['_Z3_rcf_infinitesimal_name'] = createExportWrapper('Z3_rcf_infinitesimal_name', 2);
+var _Z3_rcf_num_coefficients = Module['_Z3_rcf_num_coefficients'] = createExportWrapper('Z3_rcf_num_coefficients', 2);
+var _Z3_rcf_coefficient = Module['_Z3_rcf_coefficient'] = createExportWrapper('Z3_rcf_coefficient', 3);
+var _Z3_rcf_interval = Module['_Z3_rcf_interval'] = createExportWrapper('Z3_rcf_interval', 8);
+var _Z3_rcf_num_sign_conditions = Module['_Z3_rcf_num_sign_conditions'] = createExportWrapper('Z3_rcf_num_sign_conditions', 2);
+var _Z3_rcf_sign_condition_sign = Module['_Z3_rcf_sign_condition_sign'] = createExportWrapper('Z3_rcf_sign_condition_sign', 3);
+var _Z3_rcf_num_sign_condition_coefficients = Module['_Z3_rcf_num_sign_condition_coefficients'] = createExportWrapper('Z3_rcf_num_sign_condition_coefficients', 3);
+var _Z3_rcf_sign_condition_coefficient = Module['_Z3_rcf_sign_condition_coefficient'] = createExportWrapper('Z3_rcf_sign_condition_coefficient', 4);
+var _Z3_mk_bv_sort = Module['_Z3_mk_bv_sort'] = createExportWrapper('Z3_mk_bv_sort', 2);
+var _Z3_mk_bvnot = Module['_Z3_mk_bvnot'] = createExportWrapper('Z3_mk_bvnot', 2);
+var _Z3_mk_bvredand = Module['_Z3_mk_bvredand'] = createExportWrapper('Z3_mk_bvredand', 2);
+var _Z3_mk_bvredor = Module['_Z3_mk_bvredor'] = createExportWrapper('Z3_mk_bvredor', 2);
+var _Z3_mk_bvand = Module['_Z3_mk_bvand'] = createExportWrapper('Z3_mk_bvand', 3);
+var _Z3_mk_bvor = Module['_Z3_mk_bvor'] = createExportWrapper('Z3_mk_bvor', 3);
+var _Z3_mk_bvxor = Module['_Z3_mk_bvxor'] = createExportWrapper('Z3_mk_bvxor', 3);
+var _Z3_mk_bvnand = Module['_Z3_mk_bvnand'] = createExportWrapper('Z3_mk_bvnand', 3);
+var _Z3_mk_bvnor = Module['_Z3_mk_bvnor'] = createExportWrapper('Z3_mk_bvnor', 3);
+var _Z3_mk_bvxnor = Module['_Z3_mk_bvxnor'] = createExportWrapper('Z3_mk_bvxnor', 3);
+var _Z3_mk_bvadd = Module['_Z3_mk_bvadd'] = createExportWrapper('Z3_mk_bvadd', 3);
+var _Z3_mk_bvmul = Module['_Z3_mk_bvmul'] = createExportWrapper('Z3_mk_bvmul', 3);
+var _Z3_mk_bvudiv = Module['_Z3_mk_bvudiv'] = createExportWrapper('Z3_mk_bvudiv', 3);
+var _Z3_mk_bvsdiv = Module['_Z3_mk_bvsdiv'] = createExportWrapper('Z3_mk_bvsdiv', 3);
+var _Z3_mk_bvurem = Module['_Z3_mk_bvurem'] = createExportWrapper('Z3_mk_bvurem', 3);
+var _Z3_mk_bvsrem = Module['_Z3_mk_bvsrem'] = createExportWrapper('Z3_mk_bvsrem', 3);
+var _Z3_mk_bvsmod = Module['_Z3_mk_bvsmod'] = createExportWrapper('Z3_mk_bvsmod', 3);
+var _Z3_mk_bvule = Module['_Z3_mk_bvule'] = createExportWrapper('Z3_mk_bvule', 3);
+var _Z3_mk_bvsle = Module['_Z3_mk_bvsle'] = createExportWrapper('Z3_mk_bvsle', 3);
+var _Z3_mk_bvuge = Module['_Z3_mk_bvuge'] = createExportWrapper('Z3_mk_bvuge', 3);
+var _Z3_mk_bvsge = Module['_Z3_mk_bvsge'] = createExportWrapper('Z3_mk_bvsge', 3);
+var _Z3_mk_bvult = Module['_Z3_mk_bvult'] = createExportWrapper('Z3_mk_bvult', 3);
+var _Z3_mk_bvslt = Module['_Z3_mk_bvslt'] = createExportWrapper('Z3_mk_bvslt', 3);
+var _Z3_mk_bvugt = Module['_Z3_mk_bvugt'] = createExportWrapper('Z3_mk_bvugt', 3);
+var _Z3_mk_bvsgt = Module['_Z3_mk_bvsgt'] = createExportWrapper('Z3_mk_bvsgt', 3);
+var _Z3_mk_concat = Module['_Z3_mk_concat'] = createExportWrapper('Z3_mk_concat', 3);
+var _Z3_mk_bvshl = Module['_Z3_mk_bvshl'] = createExportWrapper('Z3_mk_bvshl', 3);
+var _Z3_mk_bvlshr = Module['_Z3_mk_bvlshr'] = createExportWrapper('Z3_mk_bvlshr', 3);
+var _Z3_mk_bvashr = Module['_Z3_mk_bvashr'] = createExportWrapper('Z3_mk_bvashr', 3);
+var _Z3_mk_ext_rotate_left = Module['_Z3_mk_ext_rotate_left'] = createExportWrapper('Z3_mk_ext_rotate_left', 3);
+var _Z3_mk_ext_rotate_right = Module['_Z3_mk_ext_rotate_right'] = createExportWrapper('Z3_mk_ext_rotate_right', 3);
+var _Z3_mk_extract = Module['_Z3_mk_extract'] = createExportWrapper('Z3_mk_extract', 4);
+var _Z3_mk_sign_ext = Module['_Z3_mk_sign_ext'] = createExportWrapper('Z3_mk_sign_ext', 3);
+var _Z3_mk_zero_ext = Module['_Z3_mk_zero_ext'] = createExportWrapper('Z3_mk_zero_ext', 3);
+var _Z3_mk_repeat = Module['_Z3_mk_repeat'] = createExportWrapper('Z3_mk_repeat', 3);
+var _Z3_mk_bit2bool = Module['_Z3_mk_bit2bool'] = createExportWrapper('Z3_mk_bit2bool', 3);
+var _Z3_mk_rotate_left = Module['_Z3_mk_rotate_left'] = createExportWrapper('Z3_mk_rotate_left', 3);
+var _Z3_mk_rotate_right = Module['_Z3_mk_rotate_right'] = createExportWrapper('Z3_mk_rotate_right', 3);
+var _Z3_mk_int2bv = Module['_Z3_mk_int2bv'] = createExportWrapper('Z3_mk_int2bv', 3);
+var _Z3_mk_bv2int = Module['_Z3_mk_bv2int'] = createExportWrapper('Z3_mk_bv2int', 3);
+var _Z3_get_bv_sort_size = Module['_Z3_get_bv_sort_size'] = createExportWrapper('Z3_get_bv_sort_size', 2);
+var _Z3_mk_bvadd_no_overflow = Module['_Z3_mk_bvadd_no_overflow'] = createExportWrapper('Z3_mk_bvadd_no_overflow', 4);
+var _Z3_mk_bvadd_no_underflow = Module['_Z3_mk_bvadd_no_underflow'] = createExportWrapper('Z3_mk_bvadd_no_underflow', 3);
+var _Z3_mk_bvsub_no_overflow = Module['_Z3_mk_bvsub_no_overflow'] = createExportWrapper('Z3_mk_bvsub_no_overflow', 3);
+var _Z3_mk_bvneg = Module['_Z3_mk_bvneg'] = createExportWrapper('Z3_mk_bvneg', 2);
+var _Z3_mk_bvsub_no_underflow = Module['_Z3_mk_bvsub_no_underflow'] = createExportWrapper('Z3_mk_bvsub_no_underflow', 4);
+var _Z3_mk_bvmul_no_overflow = Module['_Z3_mk_bvmul_no_overflow'] = createExportWrapper('Z3_mk_bvmul_no_overflow', 4);
+var _Z3_mk_bvmul_no_underflow = Module['_Z3_mk_bvmul_no_underflow'] = createExportWrapper('Z3_mk_bvmul_no_underflow', 3);
+var _Z3_mk_bvneg_no_overflow = Module['_Z3_mk_bvneg_no_overflow'] = createExportWrapper('Z3_mk_bvneg_no_overflow', 2);
+var _Z3_mk_bvsdiv_no_overflow = Module['_Z3_mk_bvsdiv_no_overflow'] = createExportWrapper('Z3_mk_bvsdiv_no_overflow', 3);
+var _Z3_mk_bvsub = Module['_Z3_mk_bvsub'] = createExportWrapper('Z3_mk_bvsub', 3);
+var _Z3_mk_fpa_rounding_mode_sort = Module['_Z3_mk_fpa_rounding_mode_sort'] = createExportWrapper('Z3_mk_fpa_rounding_mode_sort', 1);
+var _Z3_mk_fpa_round_nearest_ties_to_even = Module['_Z3_mk_fpa_round_nearest_ties_to_even'] = createExportWrapper('Z3_mk_fpa_round_nearest_ties_to_even', 1);
+var _Z3_mk_fpa_rne = Module['_Z3_mk_fpa_rne'] = createExportWrapper('Z3_mk_fpa_rne', 1);
+var _Z3_mk_fpa_round_nearest_ties_to_away = Module['_Z3_mk_fpa_round_nearest_ties_to_away'] = createExportWrapper('Z3_mk_fpa_round_nearest_ties_to_away', 1);
+var _Z3_mk_fpa_rna = Module['_Z3_mk_fpa_rna'] = createExportWrapper('Z3_mk_fpa_rna', 1);
+var _Z3_mk_fpa_round_toward_positive = Module['_Z3_mk_fpa_round_toward_positive'] = createExportWrapper('Z3_mk_fpa_round_toward_positive', 1);
+var _Z3_mk_fpa_rtp = Module['_Z3_mk_fpa_rtp'] = createExportWrapper('Z3_mk_fpa_rtp', 1);
+var _Z3_mk_fpa_round_toward_negative = Module['_Z3_mk_fpa_round_toward_negative'] = createExportWrapper('Z3_mk_fpa_round_toward_negative', 1);
+var _Z3_mk_fpa_rtn = Module['_Z3_mk_fpa_rtn'] = createExportWrapper('Z3_mk_fpa_rtn', 1);
+var _Z3_mk_fpa_round_toward_zero = Module['_Z3_mk_fpa_round_toward_zero'] = createExportWrapper('Z3_mk_fpa_round_toward_zero', 1);
+var _Z3_mk_fpa_rtz = Module['_Z3_mk_fpa_rtz'] = createExportWrapper('Z3_mk_fpa_rtz', 1);
+var _Z3_mk_fpa_sort = Module['_Z3_mk_fpa_sort'] = createExportWrapper('Z3_mk_fpa_sort', 3);
+var _Z3_mk_fpa_sort_half = Module['_Z3_mk_fpa_sort_half'] = createExportWrapper('Z3_mk_fpa_sort_half', 1);
+var _Z3_mk_fpa_sort_16 = Module['_Z3_mk_fpa_sort_16'] = createExportWrapper('Z3_mk_fpa_sort_16', 1);
+var _Z3_mk_fpa_sort_single = Module['_Z3_mk_fpa_sort_single'] = createExportWrapper('Z3_mk_fpa_sort_single', 1);
+var _Z3_mk_fpa_sort_32 = Module['_Z3_mk_fpa_sort_32'] = createExportWrapper('Z3_mk_fpa_sort_32', 1);
+var _Z3_mk_fpa_sort_double = Module['_Z3_mk_fpa_sort_double'] = createExportWrapper('Z3_mk_fpa_sort_double', 1);
+var _Z3_mk_fpa_sort_64 = Module['_Z3_mk_fpa_sort_64'] = createExportWrapper('Z3_mk_fpa_sort_64', 1);
+var _Z3_mk_fpa_sort_quadruple = Module['_Z3_mk_fpa_sort_quadruple'] = createExportWrapper('Z3_mk_fpa_sort_quadruple', 1);
+var _Z3_mk_fpa_sort_128 = Module['_Z3_mk_fpa_sort_128'] = createExportWrapper('Z3_mk_fpa_sort_128', 1);
+var _Z3_mk_fpa_nan = Module['_Z3_mk_fpa_nan'] = createExportWrapper('Z3_mk_fpa_nan', 2);
+var _Z3_mk_fpa_inf = Module['_Z3_mk_fpa_inf'] = createExportWrapper('Z3_mk_fpa_inf', 3);
+var _Z3_mk_fpa_zero = Module['_Z3_mk_fpa_zero'] = createExportWrapper('Z3_mk_fpa_zero', 3);
+var _Z3_mk_fpa_fp = Module['_Z3_mk_fpa_fp'] = createExportWrapper('Z3_mk_fpa_fp', 4);
+var _Z3_mk_fpa_numeral_float = Module['_Z3_mk_fpa_numeral_float'] = createExportWrapper('Z3_mk_fpa_numeral_float', 3);
+var _Z3_mk_fpa_numeral_double = Module['_Z3_mk_fpa_numeral_double'] = createExportWrapper('Z3_mk_fpa_numeral_double', 3);
+var _Z3_mk_fpa_numeral_int = Module['_Z3_mk_fpa_numeral_int'] = createExportWrapper('Z3_mk_fpa_numeral_int', 3);
+var _Z3_mk_fpa_numeral_int_uint = Module['_Z3_mk_fpa_numeral_int_uint'] = createExportWrapper('Z3_mk_fpa_numeral_int_uint', 5);
+var _Z3_mk_fpa_numeral_int64_uint64 = Module['_Z3_mk_fpa_numeral_int64_uint64'] = createExportWrapper('Z3_mk_fpa_numeral_int64_uint64', 5);
+var _Z3_mk_fpa_abs = Module['_Z3_mk_fpa_abs'] = createExportWrapper('Z3_mk_fpa_abs', 2);
+var _Z3_mk_fpa_neg = Module['_Z3_mk_fpa_neg'] = createExportWrapper('Z3_mk_fpa_neg', 2);
+var _Z3_mk_fpa_add = Module['_Z3_mk_fpa_add'] = createExportWrapper('Z3_mk_fpa_add', 4);
+var _Z3_mk_fpa_sub = Module['_Z3_mk_fpa_sub'] = createExportWrapper('Z3_mk_fpa_sub', 4);
+var _Z3_mk_fpa_mul = Module['_Z3_mk_fpa_mul'] = createExportWrapper('Z3_mk_fpa_mul', 4);
+var _Z3_mk_fpa_div = Module['_Z3_mk_fpa_div'] = createExportWrapper('Z3_mk_fpa_div', 4);
+var _Z3_mk_fpa_fma = Module['_Z3_mk_fpa_fma'] = createExportWrapper('Z3_mk_fpa_fma', 5);
+var _Z3_mk_fpa_sqrt = Module['_Z3_mk_fpa_sqrt'] = createExportWrapper('Z3_mk_fpa_sqrt', 3);
+var _Z3_mk_fpa_rem = Module['_Z3_mk_fpa_rem'] = createExportWrapper('Z3_mk_fpa_rem', 3);
+var _Z3_mk_fpa_round_to_integral = Module['_Z3_mk_fpa_round_to_integral'] = createExportWrapper('Z3_mk_fpa_round_to_integral', 3);
+var _Z3_mk_fpa_min = Module['_Z3_mk_fpa_min'] = createExportWrapper('Z3_mk_fpa_min', 3);
+var _Z3_mk_fpa_max = Module['_Z3_mk_fpa_max'] = createExportWrapper('Z3_mk_fpa_max', 3);
+var _Z3_mk_fpa_leq = Module['_Z3_mk_fpa_leq'] = createExportWrapper('Z3_mk_fpa_leq', 3);
+var _Z3_mk_fpa_lt = Module['_Z3_mk_fpa_lt'] = createExportWrapper('Z3_mk_fpa_lt', 3);
+var _Z3_mk_fpa_geq = Module['_Z3_mk_fpa_geq'] = createExportWrapper('Z3_mk_fpa_geq', 3);
+var _Z3_mk_fpa_gt = Module['_Z3_mk_fpa_gt'] = createExportWrapper('Z3_mk_fpa_gt', 3);
+var _Z3_mk_fpa_eq = Module['_Z3_mk_fpa_eq'] = createExportWrapper('Z3_mk_fpa_eq', 3);
+var _Z3_mk_fpa_is_normal = Module['_Z3_mk_fpa_is_normal'] = createExportWrapper('Z3_mk_fpa_is_normal', 2);
+var _Z3_mk_fpa_is_subnormal = Module['_Z3_mk_fpa_is_subnormal'] = createExportWrapper('Z3_mk_fpa_is_subnormal', 2);
+var _Z3_mk_fpa_is_zero = Module['_Z3_mk_fpa_is_zero'] = createExportWrapper('Z3_mk_fpa_is_zero', 2);
+var _Z3_mk_fpa_is_infinite = Module['_Z3_mk_fpa_is_infinite'] = createExportWrapper('Z3_mk_fpa_is_infinite', 2);
+var _Z3_mk_fpa_is_nan = Module['_Z3_mk_fpa_is_nan'] = createExportWrapper('Z3_mk_fpa_is_nan', 2);
+var _Z3_mk_fpa_is_negative = Module['_Z3_mk_fpa_is_negative'] = createExportWrapper('Z3_mk_fpa_is_negative', 2);
+var _Z3_mk_fpa_is_positive = Module['_Z3_mk_fpa_is_positive'] = createExportWrapper('Z3_mk_fpa_is_positive', 2);
+var _Z3_mk_fpa_to_fp_bv = Module['_Z3_mk_fpa_to_fp_bv'] = createExportWrapper('Z3_mk_fpa_to_fp_bv', 3);
+var _Z3_mk_fpa_to_fp_float = Module['_Z3_mk_fpa_to_fp_float'] = createExportWrapper('Z3_mk_fpa_to_fp_float', 4);
+var _Z3_mk_fpa_to_fp_real = Module['_Z3_mk_fpa_to_fp_real'] = createExportWrapper('Z3_mk_fpa_to_fp_real', 4);
+var _Z3_mk_fpa_to_fp_signed = Module['_Z3_mk_fpa_to_fp_signed'] = createExportWrapper('Z3_mk_fpa_to_fp_signed', 4);
+var _Z3_mk_fpa_to_fp_unsigned = Module['_Z3_mk_fpa_to_fp_unsigned'] = createExportWrapper('Z3_mk_fpa_to_fp_unsigned', 4);
+var _Z3_mk_fpa_to_ubv = Module['_Z3_mk_fpa_to_ubv'] = createExportWrapper('Z3_mk_fpa_to_ubv', 4);
+var _Z3_mk_fpa_to_sbv = Module['_Z3_mk_fpa_to_sbv'] = createExportWrapper('Z3_mk_fpa_to_sbv', 4);
+var _Z3_mk_fpa_to_real = Module['_Z3_mk_fpa_to_real'] = createExportWrapper('Z3_mk_fpa_to_real', 2);
+var _Z3_fpa_get_ebits = Module['_Z3_fpa_get_ebits'] = createExportWrapper('Z3_fpa_get_ebits', 2);
+var _Z3_fpa_get_sbits = Module['_Z3_fpa_get_sbits'] = createExportWrapper('Z3_fpa_get_sbits', 2);
+var _Z3_fpa_get_numeral_sign = Module['_Z3_fpa_get_numeral_sign'] = createExportWrapper('Z3_fpa_get_numeral_sign', 3);
+var _Z3_fpa_get_numeral_sign_bv = Module['_Z3_fpa_get_numeral_sign_bv'] = createExportWrapper('Z3_fpa_get_numeral_sign_bv', 2);
+var _Z3_fpa_get_numeral_significand_bv = Module['_Z3_fpa_get_numeral_significand_bv'] = createExportWrapper('Z3_fpa_get_numeral_significand_bv', 2);
+var _Z3_fpa_get_numeral_significand_string = Module['_Z3_fpa_get_numeral_significand_string'] = createExportWrapper('Z3_fpa_get_numeral_significand_string', 2);
+var _Z3_fpa_get_numeral_significand_uint64 = Module['_Z3_fpa_get_numeral_significand_uint64'] = createExportWrapper('Z3_fpa_get_numeral_significand_uint64', 3);
+var _Z3_fpa_get_numeral_exponent_string = Module['_Z3_fpa_get_numeral_exponent_string'] = createExportWrapper('Z3_fpa_get_numeral_exponent_string', 3);
+var _Z3_fpa_get_numeral_exponent_int64 = Module['_Z3_fpa_get_numeral_exponent_int64'] = createExportWrapper('Z3_fpa_get_numeral_exponent_int64', 4);
+var _Z3_fpa_get_numeral_exponent_bv = Module['_Z3_fpa_get_numeral_exponent_bv'] = createExportWrapper('Z3_fpa_get_numeral_exponent_bv', 3);
+var _Z3_mk_fpa_to_ieee_bv = Module['_Z3_mk_fpa_to_ieee_bv'] = createExportWrapper('Z3_mk_fpa_to_ieee_bv', 2);
+var _Z3_mk_fpa_to_fp_int_real = Module['_Z3_mk_fpa_to_fp_int_real'] = createExportWrapper('Z3_mk_fpa_to_fp_int_real', 5);
+var _Z3_fpa_is_numeral_nan = Module['_Z3_fpa_is_numeral_nan'] = createExportWrapper('Z3_fpa_is_numeral_nan', 2);
+var _Z3_fpa_is_numeral_inf = Module['_Z3_fpa_is_numeral_inf'] = createExportWrapper('Z3_fpa_is_numeral_inf', 2);
+var _Z3_fpa_is_numeral_zero = Module['_Z3_fpa_is_numeral_zero'] = createExportWrapper('Z3_fpa_is_numeral_zero', 2);
+var _Z3_fpa_is_numeral_normal = Module['_Z3_fpa_is_numeral_normal'] = createExportWrapper('Z3_fpa_is_numeral_normal', 2);
+var _Z3_fpa_is_numeral_subnormal = Module['_Z3_fpa_is_numeral_subnormal'] = createExportWrapper('Z3_fpa_is_numeral_subnormal', 2);
+var _Z3_fpa_is_numeral_positive = Module['_Z3_fpa_is_numeral_positive'] = createExportWrapper('Z3_fpa_is_numeral_positive', 2);
+var _Z3_fpa_is_numeral_negative = Module['_Z3_fpa_is_numeral_negative'] = createExportWrapper('Z3_fpa_is_numeral_negative', 2);
+var _Z3_mk_ast_map = Module['_Z3_mk_ast_map'] = createExportWrapper('Z3_mk_ast_map', 1);
+var _Z3_ast_map_inc_ref = Module['_Z3_ast_map_inc_ref'] = createExportWrapper('Z3_ast_map_inc_ref', 2);
+var _Z3_ast_map_dec_ref = Module['_Z3_ast_map_dec_ref'] = createExportWrapper('Z3_ast_map_dec_ref', 2);
+var _Z3_ast_map_contains = Module['_Z3_ast_map_contains'] = createExportWrapper('Z3_ast_map_contains', 3);
+var _Z3_ast_map_find = Module['_Z3_ast_map_find'] = createExportWrapper('Z3_ast_map_find', 3);
+var _Z3_ast_map_insert = Module['_Z3_ast_map_insert'] = createExportWrapper('Z3_ast_map_insert', 4);
+var _Z3_ast_map_reset = Module['_Z3_ast_map_reset'] = createExportWrapper('Z3_ast_map_reset', 2);
+var _Z3_ast_map_erase = Module['_Z3_ast_map_erase'] = createExportWrapper('Z3_ast_map_erase', 3);
+var _Z3_ast_map_size = Module['_Z3_ast_map_size'] = createExportWrapper('Z3_ast_map_size', 2);
+var _Z3_ast_map_keys = Module['_Z3_ast_map_keys'] = createExportWrapper('Z3_ast_map_keys', 2);
+var _Z3_ast_map_to_string = Module['_Z3_ast_map_to_string'] = createExportWrapper('Z3_ast_map_to_string', 2);
+var _fflush = createExportWrapper('fflush', 1);
+var _free = Module['_free'] = createExportWrapper('free', 1);
+var _malloc = Module['_malloc'] = createExportWrapper('malloc', 1);
+var __emscripten_tls_init = createExportWrapper('_emscripten_tls_init', 0);
+var __emscripten_thread_init = createExportWrapper('_emscripten_thread_init', 6);
+var __emscripten_thread_crashed = createExportWrapper('_emscripten_thread_crashed', 0);
+var _emscripten_main_thread_process_queued_calls = createExportWrapper('emscripten_main_thread_process_queued_calls', 0);
+var _emscripten_main_runtime_thread_id = createExportWrapper('emscripten_main_runtime_thread_id', 0);
+var _emscripten_stack_get_base = () => (_emscripten_stack_get_base = wasmExports['emscripten_stack_get_base'])();
+var _emscripten_stack_get_end = () => (_emscripten_stack_get_end = wasmExports['emscripten_stack_get_end'])();
+var __emscripten_run_on_main_thread_js = createExportWrapper('_emscripten_run_on_main_thread_js', 5);
+var __emscripten_thread_free_data = createExportWrapper('_emscripten_thread_free_data', 1);
+var __emscripten_thread_exit = createExportWrapper('_emscripten_thread_exit', 1);
+var _strerror = createExportWrapper('strerror', 1);
+var __emscripten_check_mailbox = createExportWrapper('_emscripten_check_mailbox', 0);
+var _setThrew = createExportWrapper('setThrew', 2);
+var __emscripten_tempret_set = createExportWrapper('_emscripten_tempret_set', 1);
+var _emscripten_stack_init = () => (_emscripten_stack_init = wasmExports['emscripten_stack_init'])();
+var _emscripten_stack_set_limits = (a0, a1) => (_emscripten_stack_set_limits = wasmExports['emscripten_stack_set_limits'])(a0, a1);
+var _emscripten_stack_get_free = () => (_emscripten_stack_get_free = wasmExports['emscripten_stack_get_free'])();
+var __emscripten_stack_restore = (a0) => (__emscripten_stack_restore = wasmExports['_emscripten_stack_restore'])(a0);
+var __emscripten_stack_alloc = (a0) => (__emscripten_stack_alloc = wasmExports['_emscripten_stack_alloc'])(a0);
+var _emscripten_stack_get_current = () => (_emscripten_stack_get_current = wasmExports['emscripten_stack_get_current'])();
+var ___cxa_decrement_exception_refcount = createExportWrapper('__cxa_decrement_exception_refcount', 1);
+var ___cxa_increment_exception_refcount = createExportWrapper('__cxa_increment_exception_refcount', 1);
+var ___get_exception_message = createExportWrapper('__get_exception_message', 3);
+var ___cxa_can_catch = createExportWrapper('__cxa_can_catch', 3);
+var ___cxa_get_exception_ptr = createExportWrapper('__cxa_get_exception_ptr', 1);
+
 function invoke_iii(index,a1,a2) {
   var sp = stackSave();
   try {
@@ -8002,10 +6819,10 @@ function invoke_v(index) {
   }
 }
 
-function invoke_viij(index,a1,a2,a3) {
+function invoke_viiiii(index,a1,a2,a3,a4,a5) {
   var sp = stackSave();
   try {
-    getWasmTableEntry(index)(a1,a2,a3);
+    getWasmTableEntry(index)(a1,a2,a3,a4,a5);
   } catch(e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -8013,10 +6830,10 @@ function invoke_viij(index,a1,a2,a3) {
   }
 }
 
-function invoke_iiij(index,a1,a2,a3) {
+function invoke_iiiiiiii(index,a1,a2,a3,a4,a5,a6,a7) {
   var sp = stackSave();
   try {
-    return getWasmTableEntry(index)(a1,a2,a3);
+    return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7);
   } catch(e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -8035,10 +6852,10 @@ function invoke_viiii(index,a1,a2,a3,a4) {
   }
 }
 
-function invoke_viiiii(index,a1,a2,a3,a4,a5) {
+function invoke_viiiiii(index,a1,a2,a3,a4,a5,a6) {
   var sp = stackSave();
   try {
-    getWasmTableEntry(index)(a1,a2,a3,a4,a5);
+    getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6);
   } catch(e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -8068,21 +6885,10 @@ function invoke_viid(index,a1,a2,a3) {
   }
 }
 
-function invoke_vid(index,a1,a2) {
+function invoke_viiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8) {
   var sp = stackSave();
   try {
-    getWasmTableEntry(index)(a1,a2);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_id(index,a1) {
-  var sp = stackSave();
-  try {
-    return getWasmTableEntry(index)(a1);
+    getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8);
   } catch(e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -8101,22 +6907,32 @@ function invoke_dii(index,a1,a2) {
   }
 }
 
-function invoke_j(index) {
+function invoke_viiiid(index,a1,a2,a3,a4,a5) {
   var sp = stackSave();
   try {
-    return getWasmTableEntry(index)();
+    getWasmTableEntry(index)(a1,a2,a3,a4,a5);
   } catch(e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
     _setThrew(1, 0);
-    return 0n;
   }
 }
 
-function invoke_iid(index,a1,a2) {
+function invoke_viij(index,a1,a2,a3) {
   var sp = stackSave();
   try {
-    return getWasmTableEntry(index)(a1,a2);
+    getWasmTableEntry(index)(a1,a2,a3);
+  } catch(e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiij(index,a1,a2,a3) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3);
   } catch(e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -8135,54 +6951,10 @@ function invoke_viiiiiii(index,a1,a2,a3,a4,a5,a6,a7) {
   }
 }
 
-function invoke_viiiiii(index,a1,a2,a3,a4,a5,a6) {
-  var sp = stackSave();
-  try {
-    getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiiiiiii(index,a1,a2,a3,a4,a5,a6,a7) {
-  var sp = stackSave();
-  try {
-    return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
 function invoke_iiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8) {
   var sp = stackSave();
   try {
     return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8) {
-  var sp = stackSave();
-  try {
-    getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8);
-  } catch(e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_viiiid(index,a1,a2,a3,a4,a5) {
-  var sp = stackSave();
-  try {
-    getWasmTableEntry(index)(a1,a2,a3,a4,a5);
   } catch(e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -8213,10 +6985,44 @@ function invoke_jii(index,a1,a2) {
   }
 }
 
-function invoke_diid(index,a1,a2,a3) {
+function invoke_vid(index,a1,a2) {
   var sp = stackSave();
   try {
-    return getWasmTableEntry(index)(a1,a2,a3);
+    getWasmTableEntry(index)(a1,a2);
+  } catch(e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_id(index,a1) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1);
+  } catch(e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_j(index) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)();
+  } catch(e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+    return 0n;
+  }
+}
+
+function invoke_iid(index,a1,a2) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2);
   } catch(e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -8228,6 +7034,17 @@ function invoke_iiiiiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13)
   var sp = stackSave();
   try {
     return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13);
+  } catch(e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_diid(index,a1,a2,a3) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1,a2,a3);
   } catch(e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -8369,10 +7186,10 @@ function invoke_di(index,a1) {
   }
 }
 
-function invoke_iiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10) {
+function invoke_iiiif(index,a1,a2,a3,a4) {
   var sp = stackSave();
   try {
-    return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10);
+    return getWasmTableEntry(index)(a1,a2,a3,a4);
   } catch(e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -8380,10 +7197,10 @@ function invoke_iiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10) {
   }
 }
 
-function invoke_fiiii(index,a1,a2,a3,a4) {
+function invoke_iiiiiiiiiii(index,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10) {
   var sp = stackSave();
   try {
-    return getWasmTableEntry(index)(a1,a2,a3,a4);
+    return getWasmTableEntry(index)(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10);
   } catch(e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -8627,7 +7444,324 @@ function invoke_viiid(index,a1,a2,a3,a4) {
 // include: postamble.js
 // === Auto-generated postamble setup entry stuff ===
 
+Module['ccall'] = ccall;
+Module['UTF8ToString'] = UTF8ToString;
+Module['intArrayFromString'] = intArrayFromString;
+Module['FS'] = FS;
+Module['PThread'] = PThread;
+var missingLibrarySymbols = [
+  'writeI53ToI64',
+  'writeI53ToI64Clamped',
+  'writeI53ToI64Signaling',
+  'writeI53ToU64Clamped',
+  'writeI53ToU64Signaling',
+  'readI53FromI64',
+  'readI53FromU64',
+  'convertI32PairToI53',
+  'convertI32PairToI53Checked',
+  'convertU32PairToI53',
+  'getTempRet0',
+  'growMemory',
+  'inetPton4',
+  'inetNtop4',
+  'inetPton6',
+  'inetNtop6',
+  'readSockaddr',
+  'writeSockaddr',
+  'emscriptenLog',
+  'jstoi_q',
+  'listenOnce',
+  'autoResumeAudioContext',
+  'getDynCaller',
+  'dynCall',
+  'runtimeKeepalivePop',
+  'asmjsMangle',
+  'HandleAllocator',
+  'getNativeTypeSize',
+  'STACK_SIZE',
+  'STACK_ALIGN',
+  'POINTER_SIZE',
+  'ASSERTIONS',
+  'cwrap',
+  'uleb128Encode',
+  'sigToWasmTypes',
+  'generateFuncType',
+  'convertJsFunctionToWasm',
+  'getEmptyTableSlot',
+  'updateTableMap',
+  'getFunctionAddress',
+  'addFunction',
+  'removeFunction',
+  'reallyNegative',
+  'unSign',
+  'strLen',
+  'reSign',
+  'formatString',
+  'intArrayToString',
+  'AsciiToString',
+  'UTF16ToString',
+  'stringToUTF16',
+  'lengthBytesUTF16',
+  'UTF32ToString',
+  'stringToUTF32',
+  'lengthBytesUTF32',
+  'stringToNewUTF8',
+  'registerKeyEventCallback',
+  'maybeCStringToJsString',
+  'findEventTarget',
+  'getBoundingClientRect',
+  'fillMouseEventData',
+  'registerMouseEventCallback',
+  'registerWheelEventCallback',
+  'registerUiEventCallback',
+  'registerFocusEventCallback',
+  'fillDeviceOrientationEventData',
+  'registerDeviceOrientationEventCallback',
+  'fillDeviceMotionEventData',
+  'registerDeviceMotionEventCallback',
+  'screenOrientation',
+  'fillOrientationChangeEventData',
+  'registerOrientationChangeEventCallback',
+  'fillFullscreenChangeEventData',
+  'registerFullscreenChangeEventCallback',
+  'JSEvents_requestFullscreen',
+  'JSEvents_resizeCanvasForFullscreen',
+  'registerRestoreOldStyle',
+  'hideEverythingExceptGivenElement',
+  'restoreHiddenElements',
+  'setLetterbox',
+  'softFullscreenResizeWebGLRenderTarget',
+  'doRequestFullscreen',
+  'fillPointerlockChangeEventData',
+  'registerPointerlockChangeEventCallback',
+  'registerPointerlockErrorEventCallback',
+  'requestPointerLock',
+  'fillVisibilityChangeEventData',
+  'registerVisibilityChangeEventCallback',
+  'registerTouchEventCallback',
+  'fillGamepadEventData',
+  'registerGamepadEventCallback',
+  'registerBeforeUnloadEventCallback',
+  'fillBatteryEventData',
+  'battery',
+  'registerBatteryEventCallback',
+  'setCanvasElementSizeCallingThread',
+  'setCanvasElementSizeMainThread',
+  'setCanvasElementSize',
+  'getCanvasSizeCallingThread',
+  'getCanvasSizeMainThread',
+  'getCanvasElementSize',
+  'jsStackTrace',
+  'getCallstack',
+  'convertPCtoSourceLocation',
+  'checkWasiClock',
+  'wasiRightsToMuslOFlags',
+  'wasiOFlagsToMuslOFlags',
+  'safeSetTimeout',
+  'setImmediateWrapped',
+  'safeRequestAnimationFrame',
+  'clearImmediateWrapped',
+  'polyfillSetImmediate',
+  'registerPostMainLoop',
+  'registerPreMainLoop',
+  'getPromise',
+  'makePromise',
+  'idsToPromises',
+  'makePromiseCallback',
+  'Browser_asyncPrepareDataCounter',
+  'isLeapYear',
+  'ydayFromDate',
+  'arraySum',
+  'addDays',
+  'getSocketFromFD',
+  'getSocketAddress',
+  'FS_unlink',
+  'FS_mkdirTree',
+  '_setNetworkCallback',
+  'heapObjectForWebGLType',
+  'toTypedArrayIndex',
+  'webgl_enable_ANGLE_instanced_arrays',
+  'webgl_enable_OES_vertex_array_object',
+  'webgl_enable_WEBGL_draw_buffers',
+  'webgl_enable_WEBGL_multi_draw',
+  'webgl_enable_EXT_polygon_offset_clamp',
+  'webgl_enable_EXT_clip_control',
+  'webgl_enable_WEBGL_polygon_mode',
+  'emscriptenWebGLGet',
+  'computeUnpackAlignedImageSize',
+  'colorChannelsInGlTextureFormat',
+  'emscriptenWebGLGetTexPixelData',
+  'emscriptenWebGLGetUniform',
+  'webglGetUniformLocation',
+  'webglPrepareUniformLocationsBeforeFirstUse',
+  'webglGetLeftBracePos',
+  'emscriptenWebGLGetVertexAttrib',
+  '__glGetActiveAttribOrUniform',
+  'writeGLArray',
+  'emscripten_webgl_destroy_context_before_on_calling_thread',
+  'registerWebGlEventCallback',
+  'runAndAbortIfError',
+  'ALLOC_NORMAL',
+  'ALLOC_STACK',
+  'allocate',
+  'writeStringToMemory',
+  'writeAsciiToMemory',
+  'setErrNo',
+  'demangle',
+  'stackTrace',
+];
+missingLibrarySymbols.forEach(missingLibrarySymbol)
+
+var unexportedSymbols = [
+  'run',
+  'addOnPreRun',
+  'addOnInit',
+  'addOnPreMain',
+  'addOnExit',
+  'addOnPostRun',
+  'addRunDependency',
+  'removeRunDependency',
+  'out',
+  'err',
+  'callMain',
+  'abort',
+  'wasmMemory',
+  'wasmExports',
+  'writeStackCookie',
+  'checkStackCookie',
+  'INT53_MAX',
+  'INT53_MIN',
+  'bigintToI53Checked',
+  'stackSave',
+  'stackRestore',
+  'stackAlloc',
+  'setTempRet0',
+  'ptrToString',
+  'zeroMemory',
+  'exitJS',
+  'getHeapMax',
+  'abortOnCannotGrowMemory',
+  'ENV',
+  'ERRNO_CODES',
+  'strError',
+  'DNS',
+  'Protocols',
+  'Sockets',
+  'timers',
+  'warnOnce',
+  'readEmAsmArgsArray',
+  'readEmAsmArgs',
+  'runEmAsmFunction',
+  'runMainThreadEmAsm',
+  'jstoi_s',
+  'getExecutableName',
+  'handleException',
+  'keepRuntimeAlive',
+  'runtimeKeepalivePush',
+  'callUserCallback',
+  'maybeExit',
+  'asyncLoad',
+  'alignMemory',
+  'mmapAlloc',
+  'wasmTable',
+  'noExitRuntime',
+  'getCFunc',
+  'freeTableIndexes',
+  'functionsInTableMap',
+  'setValue',
+  'getValue',
+  'PATH',
+  'PATH_FS',
+  'UTF8Decoder',
+  'UTF8ArrayToString',
+  'stringToUTF8Array',
+  'stringToUTF8',
+  'lengthBytesUTF8',
+  'stringToAscii',
+  'UTF16Decoder',
+  'stringToUTF8OnStack',
+  'writeArrayToMemory',
+  'JSEvents',
+  'specialHTMLTargets',
+  'findCanvasEventTarget',
+  'currentFullscreenStrategy',
+  'restoreOldWindowedStyle',
+  'UNWIND_CACHE',
+  'ExitStatus',
+  'getEnvStrings',
+  'doReadv',
+  'doWritev',
+  'initRandomFill',
+  'randomFill',
+  'promiseMap',
+  'uncaughtExceptionCount',
+  'exceptionLast',
+  'exceptionCaught',
+  'ExceptionInfo',
+  'findMatchingCatch',
+  'getExceptionMessageCommon',
+  'incrementExceptionRefcount',
+  'decrementExceptionRefcount',
+  'getExceptionMessage',
+  'Browser',
+  'getPreloadedImageData__data',
+  'wget',
+  'MONTH_DAYS_REGULAR',
+  'MONTH_DAYS_LEAP',
+  'MONTH_DAYS_REGULAR_CUMULATIVE',
+  'MONTH_DAYS_LEAP_CUMULATIVE',
+  'SYSCALLS',
+  'preloadPlugins',
+  'FS_createPreloadedFile',
+  'FS_modeStringToFlags',
+  'FS_getMode',
+  'FS_stdin_getChar_buffer',
+  'FS_stdin_getChar',
+  'FS_createPath',
+  'FS_createDevice',
+  'FS_readFile',
+  'FS_createDataFile',
+  'FS_createLazyFile',
+  'MEMFS',
+  'TTY',
+  'PIPEFS',
+  'SOCKFS',
+  'tempFixedLengthArray',
+  'miniTempWebGLFloatBuffers',
+  'miniTempWebGLIntBuffers',
+  'GL',
+  'AL',
+  'GLUT',
+  'EGL',
+  'GLEW',
+  'IDBStore',
+  'SDL',
+  'SDL_gfx',
+  'allocateUTF8',
+  'allocateUTF8OnStack',
+  'print',
+  'printErr',
+  'terminateWorker',
+  'cleanupThread',
+  'registerTLSInit',
+  'spawnThread',
+  'exitOnMainThread',
+  'proxyToMainThread',
+  'proxiedJSCallArgs',
+  'invokeEntryPoint',
+  'checkMailbox',
+];
+unexportedSymbols.forEach(unexportedRuntimeSymbol);
+
+
+
 var calledRun;
+
+dependenciesFulfilled = function runCaller() {
+  // If run has never been called, and we should call run (INVOKE_RUN is true, and Module.noInitialRun is not false)
+  if (!calledRun) run();
+  if (!calledRun) dependenciesFulfilled = runCaller; // try this again later, after new deps are fulfilled
+};
 
 function stackCheckInit() {
   // This is normally called automatically during __wasm_call_ctors but need to
@@ -8643,13 +7777,16 @@ function stackCheckInit() {
 function run() {
 
   if (runDependencies > 0) {
-    dependenciesFulfilled = run;
     return;
   }
 
-  if ((ENVIRONMENT_IS_PTHREAD)) {
-    readyPromiseResolve?.(Module);
+  if (ENVIRONMENT_IS_PTHREAD) {
+    // The promise resolve function typically gets called as part of the execution
+    // of `doRun` below. The workers/pthreads don't execute `doRun` so the
+    // creation promise can be resolved, marking the pthread-Module as initialized.
+    readyPromiseResolve(Module);
     initRuntime();
+    startWorker(Module);
     return;
   }
 
@@ -8659,14 +7796,13 @@ function run() {
 
   // a preRun added a dependency, run will be called later
   if (runDependencies > 0) {
-    dependenciesFulfilled = run;
     return;
   }
 
   function doRun() {
     // run may have just been called through dependencies being fulfilled just in this very frame,
     // or while the async setStatus time below was happening
-    assert(!calledRun);
+    if (calledRun) return;
     calledRun = true;
     Module['calledRun'] = true;
 
@@ -8674,9 +7810,8 @@ function run() {
 
     initRuntime();
 
-    readyPromiseResolve?.(Module);
+    readyPromiseResolve(Module);
     Module['onRuntimeInitialized']?.();
-    consumedModuleProp('onRuntimeInitialized');
 
     assert(!Module['_main'], 'compiled without a main, but one is present. if you added it from JS, use Module["onRuntimeInitialized"]');
 
@@ -8735,19 +7870,14 @@ function checkUnflushedContent() {
   }
 }
 
-var wasmExports;
-
-if ((!(ENVIRONMENT_IS_PTHREAD))) {
-// Call createWasm on startup if we are the main thread.
-// Worker threads call this once they receive the module via postMessage
-
-// In modularize mode the generated code is within a factory function so we
-// can use await here (since it's not top-level-await).
-wasmExports = await (createWasm());
+if (Module['preInit']) {
+  if (typeof Module['preInit'] == 'function') Module['preInit'] = [Module['preInit']];
+  while (Module['preInit'].length > 0) {
+    Module['preInit'].pop()();
+  }
+}
 
 run();
-
-}
 
 // end include: postamble.js
 
@@ -8758,15 +7888,7 @@ run();
 // We assign to the `moduleRtn` global here and configure closure to see
 // this as and extern so it won't get minified.
 
-if (runtimeInitialized)  {
-  moduleRtn = Module;
-} else {
-  // Set up the promise that indicates the Module is initialized
-  moduleRtn = new Promise((resolve, reject) => {
-    readyPromiseResolve = resolve;
-    readyPromiseReject = reject;
-  });
-}
+moduleRtn = readyPromise;
 
 // Assertion for attempting to access module properties on the incoming
 // moduleArg.  In the past we used this object as the prototype of the module
@@ -8787,27 +7909,17 @@ for (const prop of Object.keys(Module)) {
 
 
 
-    return moduleRtn;
-  };
+  return moduleRtn;
+}
+);
 })();
-
-// Export using a UMD style export, or ES6 exports if selected
-if (typeof exports === 'object' && typeof module === 'object') {
+if (typeof exports === 'object' && typeof module === 'object')
   module.exports = initZ3;
-  // This default export looks redundant, but it allows TS to import this
-  // commonjs style module.
-  module.exports.default = initZ3;
-} else if (typeof define === 'function' && define['amd'])
+else if (typeof define === 'function' && define['amd'])
   define([], () => initZ3);
-
-// Create code for detecting if we are running in a pthread.
-// Normally this detection is done when the module is itself run but
-// when running in MODULARIZE mode we need use this to know if we should
-// run the module constructor on startup (true only for pthreads).
 var isPthread = globalThis.self?.name?.startsWith('em-pthread');
-// In order to support both web and node we also need to detect node here.
-var isNode = typeof process == 'object' && process.versions?.node && process.type != 'renderer';
+var isNode = typeof globalThis.process?.versions?.node == 'string';
 if (isNode) isPthread = require('worker_threads').workerData === 'em-pthread'
 
+// When running as a pthread, construct a new instance on startup
 isPthread && initZ3();
-
