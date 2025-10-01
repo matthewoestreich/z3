@@ -61,11 +61,6 @@ if (ENVIRONMENT_IS_NODE) {
 try {
   // Step 1: Fetch the main JavaScript file and the WebAssembly binary
   const [jsResponse, wasmResponse] = await Promise.all([ fetch("https://z3-tawny.vercel.app/emscripten-poc-built.js"), fetch("https://z3-tawny.vercel.app/emscripten-poc-built.wasm") ]);
-  console.log({
-    step: "1. fetch stuff",
-    jsResponse,
-    wasmResponse
-  });
   if (!jsResponse.ok || !wasmResponse.ok) {
     throw new Error("Failed to fetch Emscripten files.");
   }
@@ -85,16 +80,13 @@ try {
         prefix
       });
       if (path.endsWith(".wasm")) {
-        //const returning = "emscripten-poc-built.wasm";
-        const returning = "https://z3-tawny.vercel.app/emscripten-poc-built.wasm";
-        return returning;
+        return "https://z3-tawny.vercel.app/emscripten-poc-built.wasm";
       }
       return prefix + path;
     },
     mainScriptUrlOrBlob,
     print: text => {
-      const outputDiv = document.getElementById("output");
-      outputDiv.textContent += text + "\n";
+      console.log({output: text});
     },
     printErr: text => {
       console.error(text);
@@ -103,9 +95,10 @@ try {
       console.log("Emscripten runtime initialized.");
     }
   };
-  const script = document.createElement("script");
-  script.src = mainScriptUrlOrBlob;
-  document.body.appendChild(script);
+
+  //const script = document.createElement("script");
+  //script.src = mainScriptUrlOrBlob;
+  //document.body.appendChild(script);
   
   function callPOC() {
     try {
@@ -121,7 +114,8 @@ try {
       }
     } catch (e) {}
   }
-  if (typeof emscriptenPOC === "undefined") callPOC();
+  console.log({ENVIRONMENT_IS_WORKER});
+  callPOC();
 } catch (error) {
   console.error("An error occurred during Emscripten loading:", error);
   const outputDiv = document.getElementById("output");
