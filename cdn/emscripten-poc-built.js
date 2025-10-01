@@ -106,6 +106,7 @@ try {
   const script = document.createElement("script");
   script.src = mainScriptUrlOrBlob;
   document.body.appendChild(script);
+  
   function callPOC() {
     try {
       if (typeof emscriptenPOC === "undefined") {
@@ -120,7 +121,7 @@ try {
       }
     } catch (e) {}
   }
-  callPOC();
+  if (typeof emscriptenPOC === "undefined") callPOC();
 } catch (error) {
   console.error("An error occurred during Emscripten loading:", error);
   const outputDiv = document.getElementById("output");
