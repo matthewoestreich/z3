@@ -841,7 +841,8 @@ function createExportWrapper(name, nargs) {
 var wasmBinaryFile;
 
 function findWasmBinary() {
-    return locateFile('z3-built.wasm');
+    //return locateFile('z3-built.wasm');
+    return locateFile("https://z3-tawny.vercel.app/z3-built.wasm");
 }
 
 function getBinarySync(file) {
