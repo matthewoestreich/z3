@@ -58,21 +58,20 @@ try {
   const jsBlob = new Blob([jsText], { type: 'text/javascript' });
   mainScriptUrlOrBlob = URL.createObjectURL(jsBlob);
 
-  console.log({Module});
+  console.log({ Module });
 
+  Module.locateFile = (path, prefix) => {
+    console.log({ step: 'locateFile', path, prefix });
+    if (path.endsWith('.wasm')) {
+      return 'https://z3-tawny.vercel.app/z3-built.wasm';
+    }
+    return prefix + path;
+  };
 
-  Module = {
-    locateFile: (path, prefix) => {
-      console.log({ step: 'locateFile', path, prefix });
-      if (path.endsWith('.wasm')) {
-        return 'https://z3-tawny.vercel.app/z3-built.wasm';
-      }
-      return prefix + path;
-    },
-    mainScriptUrlOrBlob: mainScriptUrlOrBlob,
-    onRuntimeInitialized: () => {
-      console.log('js-randomness-predictor initialized.');
-    },
+  Module.mainScriptUrlOrBlob = mainScriptUrlOrBlob;
+  
+  Module.onRuntimeInitialized = () => {
+    console.log('js-randomness-predictor initialized.');
   };
 
   const script = document.createElement('script');
