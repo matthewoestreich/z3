@@ -842,8 +842,8 @@ var wasmBinaryFile;
 
 function findWasmBinary() {
   console.log("from z3-built on CDN", { inFn: "findWasmBinary" });
-    //return locateFile('z3-built.wasm');
-    return locateFile("https://z3-tawny.vercel.app/z3-built.wasm");
+    return locateFile('z3-built.wasm');
+    //return locateFile("https://z3-tawny.vercel.app/z3-built.wasm");
 }
 
 function getBinarySync(file) {
