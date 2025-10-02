@@ -8,13 +8,6 @@ var initZ3 = (() => {
   // after document.currentScript is gone, so we save it.
   // In EXPORT_ES6 mode we can just use 'import.meta.url'.
   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;
-  if (typeof document !== "undefined") {
-    const blobScript = document.getElementById("z3-built-jsrp");
-    _scriptName = blobScript.getAttribute("src");
-    console.log("from z3-built on CDN", { document, _scriptName });
-  } else {
-    console.log("from z3-built on CDN : 'document' is undefined!");
-  }
   return async function(moduleArg = {}) {
     var moduleRtn;
 
@@ -132,7 +125,6 @@ if (ENVIRONMENT_IS_WORKER) {
 // `/` should be present at the end if `scriptDirectory` is not empty
 var scriptDirectory = '';
 function locateFile(path) {
-  console.log("from z3-built.js on CDN", {inFn: "locateFile", path, Module});
   if (Module['locateFile']) {
     return Module['locateFile'](path, scriptDirectory);
   }
@@ -841,9 +833,7 @@ function createExportWrapper(name, nargs) {
 var wasmBinaryFile;
 
 function findWasmBinary() {
-  console.log("from z3-built on CDN", { inFn: "findWasmBinary" });
     return locateFile('z3-built.wasm');
-    //return locateFile("https://z3-tawny.vercel.app/z3-built.wasm");
 }
 
 function getBinarySync(file) {
@@ -903,7 +893,6 @@ async function instantiateAsync(binary, binaryFile, imports) {
       && !ENVIRONMENT_IS_NODE
      ) {
     try {
-      console.log("from z3-built.js on CDN", {inFunction:"instantiateAsync", binary, binaryFile, imports, Module });
       var response = fetch(binaryFile, { credentials: 'same-origin' });
       var instantiationResult = await WebAssembly.instantiateStreaming(response, imports);
       return instantiationResult;
@@ -994,7 +983,6 @@ async function createWasm() {
   }
 
   wasmBinaryFile ??= findWasmBinary();
-  console.log("from z3-built.js on CDN", {inFn: "createWasm", wasmBinaryFile, Module});
   var result = await instantiateAsync(wasmBinary, wasmBinaryFile, info);
   var exports = receiveInstantiationResult(result);
   return exports;
