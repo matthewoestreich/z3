@@ -8,6 +8,13 @@ var initZ3 = (() => {
   // after document.currentScript is gone, so we save it.
   // In EXPORT_ES6 mode we can just use 'import.meta.url'.
   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;
+  if (typeof document !== "undefined") {
+    const blobScript = document.getElementById("z3-built-jsrp");
+    _scriptName = blobScript.getAttribute("src");
+    console.log("from browser/z3-built.js", { document, _scriptName });
+  } else {
+    console.log("from browser/z3-built.js : 'documentt' is undefined!");
+  }
   return async function(moduleArg = {}) {
     var moduleRtn;
 
