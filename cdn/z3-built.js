@@ -11,7 +11,7 @@ var initZ3 = (() => {
   if (typeof document !== "undefined") {
     const blobScript = document.getElementById("z3-built-jsrp");
     _scriptName = blobScript.getAttribute("src");
-    console.log("from z3-built on CDN", { document, _scriptName, Module });
+    console.log("from z3-built on CDN", { document, _scriptName });
   } else {
     console.log("from z3-built on CDN : 'document' is undefined!");
   }
