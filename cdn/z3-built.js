@@ -900,6 +900,7 @@ async function instantiateAsync(binary, binaryFile, imports) {
       && !ENVIRONMENT_IS_NODE
      ) {
     try {
+      console.log("from z3-built.js on CDN", {inFunction:"instantiateAsync", binary, binaryFile, imports });
       var response = fetch(binaryFile, { credentials: 'same-origin' });
       var instantiationResult = await WebAssembly.instantiateStreaming(response, imports);
       return instantiationResult;
