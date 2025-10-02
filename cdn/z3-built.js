@@ -11,7 +11,7 @@ var initZ3 = (() => {
   if (typeof document !== "undefined") {
     const blobScript = document.getElementById("z3-built-jsrp");
     _scriptName = blobScript.getAttribute("src");
-    console.log("from z3-built on CDN", { document, _scriptName });
+    console.log("from z3-built on CDN", { document, _scriptName, Module });
   } else {
     console.log("from z3-built on CDN : 'document' is undefined!");
   }
@@ -132,6 +132,7 @@ if (ENVIRONMENT_IS_WORKER) {
 // `/` should be present at the end if `scriptDirectory` is not empty
 var scriptDirectory = '';
 function locateFile(path) {
+  console.log("from z3-built.js on CDN", {inFn: "locateFile", path, Module});
   if (Module['locateFile']) {
     return Module['locateFile'](path, scriptDirectory);
   }
@@ -900,7 +901,7 @@ async function instantiateAsync(binary, binaryFile, imports) {
       && !ENVIRONMENT_IS_NODE
      ) {
     try {
-      console.log("from z3-built.js on CDN", {inFunction:"instantiateAsync", binary, binaryFile, imports });
+      console.log("from z3-built.js on CDN", {inFunction:"instantiateAsync", binary, binaryFile, imports, Module });
       var response = fetch(binaryFile, { credentials: 'same-origin' });
       var instantiationResult = await WebAssembly.instantiateStreaming(response, imports);
       return instantiationResult;
@@ -991,7 +992,7 @@ async function createWasm() {
   }
 
   wasmBinaryFile ??= findWasmBinary();
-  console.log("from z3-built.js on CDN", {inFn: "createWasm", wasmBinaryFile});
+  console.log("from z3-built.js on CDN", {inFn: "createWasm", wasmBinaryFile, Module});
   var result = await instantiateAsync(wasmBinary, wasmBinaryFile, info);
   var exports = receiveInstantiationResult(result);
   return exports;
