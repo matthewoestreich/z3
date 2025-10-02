@@ -69,14 +69,16 @@ try {
   };
 
   Module.mainScriptUrlOrBlob = mainScriptUrlOrBlob;
-  
+
   Module.onRuntimeInitialized = () => {
     console.log('js-randomness-predictor initialized.');
   };
 
-  const script = document.createElement('script');
-  script.src = mainScriptUrlOrBlob;
-  document.body.appendChild(script);
+  if (typeof document !== "undefined") {
+    const script = document.createElement('script');
+    script.src = mainScriptUrlOrBlob;
+    document.body.appendChild(script);
+  }
 
   /*
   function initialize() {
