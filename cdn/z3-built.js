@@ -991,6 +991,7 @@ async function createWasm() {
   }
 
   wasmBinaryFile ??= findWasmBinary();
+  console.log("from z3-built.js on CDN", {inFn: "createWasm", wasmBinaryFile});
   var result = await instantiateAsync(wasmBinary, wasmBinaryFile, info);
   var exports = receiveInstantiationResult(result);
   return exports;
